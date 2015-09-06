@@ -28,7 +28,13 @@ namespace MosziNet.HomeAutomation
             // Setup the communication service providers
             CommunicationServiceProvider communicationServiceProvider = new CommunicationServiceProvider();
             communicationServiceProvider.RegisterCommunicationService(new XBeeCommunicationService(), ApplicationConfiguration.CommunicationServiceProvider_XBee);
-            communicationServiceProvider.RegisterCommunicationService(new MQTTCommunicationService(), ApplicationConfiguration.CommunicationServiceProvider_MQTT);
+            communicationServiceProvider.RegisterCommunicationService(
+                new MqttCommunicationService(new MosziNet.HomeAutomation.Configuration.MqttServerConfiguration(
+                    "192.168.1.213", 
+                    20, 
+                    "MosziNet_HomeAutomation_Gateway",
+                    "/MosziNet_HA/")), 
+                ApplicationConfiguration.CommunicationServiceProvider_MQTT);
 
             // Setup the message bus            
             IMessageBus messageBus = new MessageBus();

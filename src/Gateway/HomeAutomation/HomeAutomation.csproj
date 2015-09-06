@@ -37,11 +37,15 @@
   <ItemGroup>
     <Compile Include="ApplicationConfiguration.cs" />
     <Compile Include="ApplicationContext.cs" />
+    <Compile Include="BusinessLogic\Messages\DeviceCommandMessage.cs" />
+    <Compile Include="BusinessLogic\Messages\DeviceStatusMessage.cs" />
     <Compile Include="CommunicationService\CommunicationServiceProvider.cs" />
     <Compile Include="CommunicationService\ICommunicationService.cs" />
     <Compile Include="CommunicationService\ICommunicationServiceProvider.cs" />
-    <Compile Include="CommunicationService\Concrete\MQTTCommunicationService.cs" />
+    <Compile Include="CommunicationService\Concrete\MqttCommunicationService.cs" />
     <Compile Include="CommunicationService\Concrete\XBeeCommunicationService.cs" />
+    <Compile Include="CommunicationService\Concrete\IMqttServerConfiguration.cs" />
+    <Compile Include="Configuration\MqttServerConfiguration.cs" />
     <Compile Include="Device\DeviceCommand.cs" />
     <Compile Include="Device\DeviceRegistry.cs" />
     <Compile Include="Device\IDevice.cs" />
@@ -60,6 +64,10 @@
     <Compile Include="Service\ServiceRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="M2Mqtt.NetMf, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\M2Mqtt.4.2.0.1\lib\netmf43\M2Mqtt.NetMf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.SPOT.Hardware" />
     <Reference Include="Microsoft.SPOT.Hardware.PWM" />
     <Reference Include="Microsoft.SPOT.Hardware.SerialPort" />
@@ -82,5 +90,8 @@
       <Project>{6E5B65B7-874B-406B-B5B8-93B0702A06EA}</Project>
       <Name>HomeAutomation.XBee</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
