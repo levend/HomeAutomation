@@ -9,6 +9,9 @@ using SecretLabs.NETMF.Hardware.Netduino;
 using MosziNet.HomeAutomation.Device;
 using MosziNet.HomeAutomation;
 using MosziNet.HomeAutomation.CommunicationService;
+using System.IO.Ports;
+using MosziNet.HomeAutomation.XBee;
+using MosziNet.HomeAutomation.Sensor.Temperature;
 
 namespace MosziNet.HomeAutomation
 {
@@ -16,7 +19,24 @@ namespace MosziNet.HomeAutomation
     {
         public static void Main()
         {
-            InitializeApplication();
+            SerialPort p = new SerialPort(SerialPorts.COM1, 9600, Parity.None, 8, StopBits.One);
+            SerialPortWrapper wrapper = new SerialPortWrapper(p);
+            p.Open();
+
+            XBeeSerialPortReader xbeeReader = new XBeeSerialPortReader();
+            while(true)
+            {
+                XBeeFrame frame = xbeeReader.FrameFromSerialPort(wrapper);
+
+                if (frame != null)
+                {
+                    Debug.Print("From [" + frame.Address + "] Temperature " + MCP9700.TemperatureFromVoltage(frame.AnalogReadings[0]));
+                }
+
+                Thread.Sleep(10);
+            }
+
+            //InitializeApplication();
         }
 
         private static void InitializeApplication()

@@ -50,11 +50,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="MockSerialPort.cs" />
     <Compile Include="XBeeFrameDeserializationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HomeAutomation.XBee\HomeAutomation.XBee.csproj">
+    <ProjectReference Include="..\..\..\src\Gateway\HomeAutomation.XBee\HomeAutomation.XBee.csproj">
       <Project>{6e5b65b7-874b-406b-b5b8-93b0702a06ea}</Project>
       <Name>HomeAutomation.XBee</Name>
     </ProjectReference>

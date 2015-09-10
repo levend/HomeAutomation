@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="LM35Test.cs" />
+    <Compile Include="MCP9700Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

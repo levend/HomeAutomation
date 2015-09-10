@@ -1,5 +1,6 @@
 using System;
 using Microsoft.SPOT;
+using System.Text;
 
 namespace MosziNet.HomeAutomation.XBee
 {
@@ -16,10 +17,17 @@ namespace MosziNet.HomeAutomation.XBee
                 return null;
             }
 
+            // get the frame type from the frame. to be used later on
+            byte frameType = buffer[0];
+
             XBeeFrame frame = new XBeeFrame();
+
+            // read the 64 bit hw address
+            frame.Address = HexConverter.ToHexString(buffer, 1, 8);
 
             // now read the temperature sensor reading
             double analogReading = (buffer[16] * 256 + buffer[17]) * AnalogPinMaxVoltage / AnalogPinResolution;
+            
 
             double[] analogReadings = new double[1];
             analogReadings[0] = analogReading;

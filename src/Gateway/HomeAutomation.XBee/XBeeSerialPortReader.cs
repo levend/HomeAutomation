@@ -11,7 +11,7 @@ namespace MosziNet.HomeAutomation.XBee
 
         private static byte[] readBuffer = new byte[MaxFrameLength];
 
-        public XBeeFrame FrameFromSerialPort(SerialPort port)
+        public XBeeFrame FrameFromSerialPort(ISerialPort port)
         {
             XBeeFrame frame = null;
 
@@ -50,7 +50,7 @@ namespace MosziNet.HomeAutomation.XBee
             return frame;
         }
 
-        private void DiscardBytes(SerialPort port, int count)
+        private void DiscardBytes(ISerialPort port, int count)
         {
             for (int i = 0; i < count; i++)
             {
