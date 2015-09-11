@@ -32,6 +32,10 @@ namespace MosziNet.HomeAutomation.CommunicationService
             new Thread(MqttConnectionThread).Start();
         }
 
+        public void StartListeningForMessages()
+        {
+            throw new NotImplementedException();
+        }
 
         public void SendMessage(string destinationId, string message)
         {

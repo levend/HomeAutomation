@@ -19,24 +19,7 @@ namespace MosziNet.HomeAutomation
     {
         public static void Main()
         {
-            SerialPort p = new SerialPort(SerialPorts.COM1, 9600, Parity.None, 8, StopBits.One);
-            SerialPortWrapper wrapper = new SerialPortWrapper(p);
-            p.Open();
-
-            XBeeSerialPortReader xbeeReader = new XBeeSerialPortReader();
-            while(true)
-            {
-                XBeeFrame frame = xbeeReader.FrameFromSerialPort(wrapper);
-
-                if (frame != null)
-                {
-                    Debug.Print("From [" + frame.Address + "] Temperature " + MCP9700.TemperatureFromVoltage(frame.AnalogReadings[0]));
-                }
-
-                Thread.Sleep(10);
-            }
-
-            //InitializeApplication();
+            InitializeApplication();
         }
 
         private static void InitializeApplication()
@@ -47,20 +30,20 @@ namespace MosziNet.HomeAutomation
 
             // Setup the communication service providers
             CommunicationServiceProvider communicationServiceProvider = new CommunicationServiceProvider();
-            communicationServiceProvider.RegisterCommunicationService(new XBeeCommunicationService(), ApplicationConfiguration.CommunicationServiceProvider_XBee);
-            communicationServiceProvider.RegisterCommunicationService(
-                new MqttCommunicationService(new MosziNet.HomeAutomation.Configuration.MqttServerConfiguration(
-                    "192.168.1.213", 
-                    20, 
-                    "MosziNet_HomeAutomation_Gateway",
-                    "/MosziNet_HA/")), 
-                ApplicationConfiguration.CommunicationServiceProvider_MQTT);
+            communicationServiceProvider.RegisterCommunicationService(new XBeeCommunicationService(), ApplicationsConstants.CommunicationServiceProvider_XBee);
+            //communicationServiceProvider.RegisterCommunicationService(
+            //    new MqttCommunicationService(new MosziNet.HomeAutomation.Configuration.MqttServerConfiguration(
+            //        "192.168.1.213", 
+            //        20, 
+            //        "MosziNet_HomeAutomation_Gateway",
+            //        "/MosziNet_HA/")), 
+            //    ApplicationsConstants.CommunicationServiceProvider_MQTT);
 
             // Setup the message bus            
             IMessageBus messageBus = new MessageBus();
 
             MessageProcessorRegistry messageProcessorRegistry = new MessageProcessorRegistry();
-            messageProcessorRegistry.RegisterMessageProcessor(ApplicationConfiguration.MessageType_XBeeDeviceCommand, new XBeeDeviceCommandMessageProcessor());
+            messageProcessorRegistry.RegisterMessageProcessor(ApplicationsConstants.MessageType_XBeeDeviceCommand, new XBeeDeviceCommandMessageProcessor());
             IMessageBusRunner messageBusRunner = new ThreadedMessageBusRunner(messageBus, messageProcessorRegistry);
             messageBus.MessageBusRunner = messageBusRunner;            
 

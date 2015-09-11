@@ -12,5 +12,11 @@ namespace MosziNet.HomeAutomation.CommunicationService
         /// Sends a message through the specific communication channel.
         /// </summary>
         void SendMessage(string destinationId, string message);
+
+        /// <summary>
+        /// The communication service will start listening for messages.
+        /// </summary>
+        /// <returns></returns>
+        void StartListeningForMessages();
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.SPOT;
 using System.IO.Ports;
+using MosziNet.HomeAutomation.XBee.Frame;
 
 namespace MosziNet.HomeAutomation.XBee
 {
@@ -11,9 +12,9 @@ namespace MosziNet.HomeAutomation.XBee
 
         private static byte[] readBuffer = new byte[MaxFrameLength];
 
-        public XBeeFrame FrameFromSerialPort(ISerialPort port)
+        public IXBeeFrame FrameFromSerialPort(ISerialPort port)
         {
-            XBeeFrame frame = null;
+            IXBeeFrame frame = null;
 
             // the serial port needs to have at least 4 bytes: 1 frame start, 2 bytes for frame length, 1 byte for checksum
 

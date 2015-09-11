@@ -8,9 +8,11 @@ namespace MosziNet.HomeAutomation.XBee
     {
         private SerialPort serialPort;
 
-        public SerialPortWrapper(SerialPort port)
+        public SerialPortWrapper(string portName, int baudRate, Parity parity, int dataBits, System.IO.Ports.StopBits stopBits)
         {
-            serialPort = port;
+            serialPort = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
+            
+            serialPort.Open(); // Todo: when to close it ? Disposable.
         }
 
         public int BytesToRead

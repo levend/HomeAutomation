@@ -13,7 +13,7 @@ namespace MosziNet.HomeAutomation.Device
             DeviceCommand command = GetCommandFromMessage(message.MessageContent);
 
             ICommunicationServiceProvider provider = (ICommunicationServiceProvider)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(ICommunicationServiceProvider));
-            ICommunicationService xbeeCommunicationService = provider.GetService(ApplicationConfiguration.CommunicationServiceProvider_XBee);
+            ICommunicationService xbeeCommunicationService = provider.GetService(ApplicationsConstants.CommunicationServiceProvider_XBee);
 
             // TODO: understand how XBee handles messages, implement this properly
             xbeeCommunicationService.SendMessage(command.DeviceId, command.Command);

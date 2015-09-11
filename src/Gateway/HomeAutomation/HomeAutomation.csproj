@@ -35,7 +35,7 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
-    <Compile Include="ApplicationConfiguration.cs" />
+    <Compile Include="ApplicationsConstants.cs" />
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="BusinessLogic\Messages\DeviceCommandMessage.cs" />
     <Compile Include="BusinessLogic\Messages\DeviceStatusMessage.cs" />
