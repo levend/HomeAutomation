@@ -31,7 +31,10 @@ namespace MosziNet.HomeAutomation.XBee.Frame
                     break;
             }
 
-            ((BaseXBeeFrame)frame).FrameType = (FrameType)frameType;
+            if (frame != null)
+            {
+                ((BaseXBeeFrame)frame).FrameType = (FrameType)frameType;
+            }
 
             return frame;
         }
