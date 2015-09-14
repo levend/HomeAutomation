@@ -1,6 +1,6 @@
 using System;
 using Microsoft.SPOT;
-using MosziNet.HomeAutomation.CommunicationService;
+using MosziNet.HomeAutomation.Mqtt;
 
 namespace MosziNet.HomeAutomation.Configuration
 {

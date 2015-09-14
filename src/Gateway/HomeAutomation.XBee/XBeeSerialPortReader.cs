@@ -5,14 +5,14 @@ using MosziNet.HomeAutomation.XBee.Frame;
 
 namespace MosziNet.HomeAutomation.XBee
 {
-    public class XBeeSerialPortReader
+    public static class XBeeSerialPortReader
     {
         // we limit the max frame length to 200 bytes - anything above this size will be discarded
         private const byte MaxFrameLength = 200;
 
         private static byte[] readBuffer = new byte[MaxFrameLength];
 
-        public IXBeeFrame FrameFromSerialPort(ISerialPort port)
+        public static IXBeeFrame FrameFromSerialPort(ISerialPort port)
         {
             IXBeeFrame frame = null;
 
@@ -51,7 +51,7 @@ namespace MosziNet.HomeAutomation.XBee
             return frame;
         }
 
-        private void DiscardBytes(ISerialPort port, int count)
+        private static void DiscardBytes(ISerialPort port, int count)
         {
             for (int i = 0; i < count; i++)
             {

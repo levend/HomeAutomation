@@ -2,7 +2,7 @@ using System;
 using Microsoft.SPOT;
 using System.Text;
 
-namespace MosziNet.HomeAutomation.XBee
+namespace MosziNet.HomeAutomation.Converter
 {
     /// <summary>
     /// Converts between hex strings and byte arrays.

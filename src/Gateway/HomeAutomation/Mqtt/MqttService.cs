@@ -5,9 +5,9 @@ using System.Threading;
 using uPLibrary.Networking.M2Mqtt.Messages;
 using System.Text;
 
-namespace MosziNet.HomeAutomation.CommunicationService
+namespace MosziNet.HomeAutomation.Mqtt
 {
-    public class MqttCommunicationService : ICommunicationService
+    public class MqttService
     {
         private const int MinimumKeepAliveInterval = 15;
 
@@ -18,7 +18,7 @@ namespace MosziNet.HomeAutomation.CommunicationService
         public IMqttServerConfiguration configuration { get; private set; }
         private bool shouldMqttConnectionBeAlive;
 
-        public MqttCommunicationService(IMqttServerConfiguration configuration)
+        public MqttService(IMqttServerConfiguration configuration)
         {
             if (configuration.ServerHostName == null || configuration.ServerHostName.Length == 0)
                 throw new ArgumentOutOfRangeException("configuration", "ServerHostName should not be empty.");

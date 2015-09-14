@@ -37,31 +37,33 @@
   <ItemGroup>
     <Compile Include="ApplicationsConstants.cs" />
     <Compile Include="ApplicationContext.cs" />
+    <Compile Include="BusinessLogic\Gateway.cs" />
     <Compile Include="BusinessLogic\Messages\DeviceCommandMessage.cs" />
     <Compile Include="BusinessLogic\Messages\DeviceStatusMessage.cs" />
-    <Compile Include="CommunicationService\CommunicationServiceProvider.cs" />
-    <Compile Include="CommunicationService\ICommunicationService.cs" />
-    <Compile Include="CommunicationService\ICommunicationServiceProvider.cs" />
-    <Compile Include="CommunicationService\Concrete\MqttCommunicationService.cs" />
-    <Compile Include="CommunicationService\Concrete\XBeeCommunicationService.cs" />
-    <Compile Include="CommunicationService\Concrete\IMqttServerConfiguration.cs" />
+    <Compile Include="Device\Base\IXBeeDevice.cs" />
+    <Compile Include="Device\Concrete\TemperatureSensor.cs" />
+    <Compile Include="Device\DeviceUtil.cs" />
+    <Compile Include="Device\Base\DeviceBase.cs" />
+    <Compile Include="Device\DeviceType.cs" />
+    <Compile Include="Mock\MockDeviceTypeRegistry.cs" />
+    <Compile Include="Mqtt\MqttService.cs" />
+    <Compile Include="Mqtt\IMqttServerConfiguration.cs" />
     <Compile Include="Configuration\MqttServerConfiguration.cs" />
-    <Compile Include="Device\DeviceCommand.cs" />
-    <Compile Include="Device\DeviceRegistry.cs" />
-    <Compile Include="Device\IDevice.cs" />
-    <Compile Include="Device\IDeviceRegistry.cs" />
+    <Compile Include="Device\DeviceTypeRegistry.cs" />
+    <Compile Include="Device\Base\IDevice.cs" />
+    <Compile Include="Device\Base\IDeviceTypeRegistry.cs" />
     <Compile Include="Message\Message.cs" />
     <Compile Include="Message\IMessageBus.cs" />
     <Compile Include="Message\IMessageBusRunner.cs" />
     <Compile Include="Message\IMessageProcessor.cs" />
     <Compile Include="Message\MessageBus.cs" />
-    <Compile Include="Device\XBeeDeviceCommandMessageProcessor.cs" />
     <Compile Include="Message\MessageProcessorRegistry.cs" />
     <Compile Include="Message\StandardMessageBusRunner.cs" />
     <Compile Include="Message\ThreadedMessageBusRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Service\ServiceRegistry.cs" />
+    <Compile Include="Converter\HexConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="M2Mqtt.NetMf, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -78,9 +80,7 @@
     <Reference Include="System" />
     <Reference Include="GoBus" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Device\Concrete\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\HomeAutomation.Sensor\HomeAutomation.Sensor.csproj">
       <Project>{EEBB6889-FA80-4283-AF35-0A7270A8F024}</Project>

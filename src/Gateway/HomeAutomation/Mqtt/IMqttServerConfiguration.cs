@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MosziNet.HomeAutomation.CommunicationService
+namespace MosziNet.HomeAutomation.Mqtt
 {
     public interface IMqttServerConfiguration
     {

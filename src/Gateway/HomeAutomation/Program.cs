@@ -8,10 +8,11 @@ using SecretLabs.NETMF.Hardware;
 using SecretLabs.NETMF.Hardware.Netduino;
 using MosziNet.HomeAutomation.Device;
 using MosziNet.HomeAutomation;
-using MosziNet.HomeAutomation.CommunicationService;
 using System.IO.Ports;
 using MosziNet.HomeAutomation.XBee;
 using MosziNet.HomeAutomation.Sensor.Temperature;
+using MosziNet.HomeAutomation.Mock;
+using MosziNet.HomeAutomation.BusinessLogic;
 
 namespace MosziNet.HomeAutomation
 {
@@ -26,11 +27,10 @@ namespace MosziNet.HomeAutomation
         {
             // Setup the device registry
             // TODO: either provide the means to register devices through MQTT, or just register them statically ? Do we really need this in a gateway (which should just pass over the messages) ?
-            DeviceRegistry deviceRegistry = new DeviceRegistry();
+            //DeviceRegistry deviceRegistry = new DeviceRegistry();
 
-            // Setup the communication service providers
-            CommunicationServiceProvider communicationServiceProvider = new CommunicationServiceProvider();
-            communicationServiceProvider.RegisterCommunicationService(new XBeeCommunicationService(), ApplicationsConstants.CommunicationServiceProvider_XBee);
+            IDeviceTypeRegistry deviceRegistry = new MockDeviceTypeRegistry();
+
             //communicationServiceProvider.RegisterCommunicationService(
             //    new MqttCommunicationService(new MosziNet.HomeAutomation.Configuration.MqttServerConfiguration(
             //        "192.168.1.213", 
@@ -43,14 +43,13 @@ namespace MosziNet.HomeAutomation
             IMessageBus messageBus = new MessageBus();
 
             MessageProcessorRegistry messageProcessorRegistry = new MessageProcessorRegistry();
-            messageProcessorRegistry.RegisterMessageProcessor(ApplicationsConstants.MessageType_XBeeDeviceCommand, new XBeeDeviceCommandMessageProcessor());
             IMessageBusRunner messageBusRunner = new ThreadedMessageBusRunner(messageBus, messageProcessorRegistry);
             messageBus.MessageBusRunner = messageBusRunner;            
 
             // now register all services
             ApplicationContext.ServiceRegistry.RegisterService(typeof(IMessageBus), messageBus);
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(IDeviceRegistry), deviceRegistry);
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(ICommunicationServiceProvider), communicationServiceProvider);
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(IDeviceTypeRegistry), deviceRegistry);
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(Gateway), new Gateway());
         }
     }
 }

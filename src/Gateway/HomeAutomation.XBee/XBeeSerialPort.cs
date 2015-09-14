@@ -4,15 +4,15 @@ using System.IO.Ports;
 
 namespace MosziNet.HomeAutomation.XBee
 {
-    public class SerialPortWrapper : ISerialPort
+    public class XBeeSerialPort : ISerialPort, IDisposable
     {
         private SerialPort serialPort;
 
-        public SerialPortWrapper(string portName, int baudRate, Parity parity, int dataBits, System.IO.Ports.StopBits stopBits)
+        public XBeeSerialPort(string portName, int baudRate, Parity parity, int dataBits, System.IO.Ports.StopBits stopBits)
         {
             serialPort = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
             
-            serialPort.Open(); // Todo: when to close it ? Disposable.
+            serialPort.Open();
         }
 
         public int BytesToRead
@@ -31,6 +31,12 @@ namespace MosziNet.HomeAutomation.XBee
         public void Read(byte[] readBuffer, int p, int frameLength)
         {
             serialPort.Read(readBuffer, p, frameLength);
+        }
+
+        public void Dispose()
+        {
+            serialPort.Close();
+            serialPort.Dispose();
         }
     }
 }
