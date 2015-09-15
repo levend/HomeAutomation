@@ -5,7 +5,7 @@ namespace MosziNet.HomeAutomation.XBee.Frame.Serialization
 {
     public abstract class BaseFrameSerializer : IXbeeFrameSerializer
     {
-        public virtual void Deserialize(IXBeeFrame frame, byte[] buffer)
+        public virtual void Deserialize(IXBeeFrame frame, byte[] buffer, int length)
         {
             // read the 64 bit hw address
             byte[] address = new byte[8];
@@ -21,7 +21,7 @@ namespace MosziNet.HomeAutomation.XBee.Frame.Serialization
             IXBeeFrame frame = (IXBeeFrame)FrameFactory.CreateFrameWithType(frameType);
             IXbeeFrameSerializer serializer = (IXbeeFrameSerializer)FrameFactory.CreateFrameSerializerWithType(frameType);
 
-            serializer.Deserialize(frame, buffer);
+            serializer.Deserialize(frame, buffer, frameLength);
 
             return frame;
         }
@@ -29,6 +29,11 @@ namespace MosziNet.HomeAutomation.XBee.Frame.Serialization
         public virtual int Serialize(IXBeeFrame frame, byte[] resultArray, int offset)
         {
             int index = 0;
+
+            // write out the first 3 mandatory bytes
+            resultArray[index++] = XBeeConstants.FrameStart;
+            resultArray[index++] = 0; // MSB frame length
+            resultArray[index++] = 0; // LSB frame length - to be filled at the end !
 
             // add the frame type
             resultArray[index++] = (byte)this.FrameType;
@@ -46,6 +51,14 @@ namespace MosziNet.HomeAutomation.XBee.Frame.Serialization
             resultArray[index++] = 0xFF;
             resultArray[index++] = 0xFE;
 
+            // ask the frame to serialize it's content
+            index = SerializeFrameContent(frame, resultArray, index);
+
+            // finally update the frame length
+            resultArray[FrameIndex.LengthLSB] = (byte)(index - 3);
+
+            resultArray[index++] = CalculateChecksum(resultArray, index);
+
             return index;
         }
 
@@ -54,11 +67,13 @@ namespace MosziNet.HomeAutomation.XBee.Frame.Serialization
         /// </summary>
         public abstract FrameType FrameType { get; }
 
+        public abstract int SerializeFrameContent(IXBeeFrame frame, byte[] resultArray, int offset);
+
         protected byte CalculateChecksum(byte[] resultArray, int index)
         {
             int checksum = 0;
    
-            for(int i = FrameIndex.Address; i < index; i++)
+            for(int i = FrameIndex.FrameType; i < index; i++)
             {
                 checksum += resultArray[i];
             }

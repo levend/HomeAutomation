@@ -52,6 +52,9 @@ namespace MosziNet.HomeAutomation.XBee.Frame
                 case FrameType.RemoteATCommand:
                     frameSerializer = new RemoteATCommandSerializer();
                     break;
+                case FrameType.RemoteCommandResponse:
+                    frameSerializer = new RemoteATCommandResponseSerializer();
+                    break;
             }
 
             return frameSerializer;

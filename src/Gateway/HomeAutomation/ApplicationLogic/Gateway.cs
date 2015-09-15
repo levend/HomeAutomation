@@ -3,7 +3,7 @@ using Microsoft.SPOT;
 using MosziNet.HomeAutomation.XBee;
 using MosziNet.HomeAutomation.Mqtt;
 using MosziNet.HomeAutomation.Device;
-using MosziNet.HomeAutomation.Converter;
+using MosziNet.HomeAutomation.Util;
 
 namespace MosziNet.HomeAutomation.BusinessLogic
 {

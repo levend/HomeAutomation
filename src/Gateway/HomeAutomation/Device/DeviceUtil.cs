@@ -2,8 +2,8 @@ using System;
 using Microsoft.SPOT;
 using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.Device.Concrete;
-using MosziNet.HomeAutomation.Converter;
 using MosziNet.HomeAutomation.BusinessLogic.Messages;
+using MosziNet.HomeAutomation.Util;
 
 namespace MosziNet.HomeAutomation.Device
 {

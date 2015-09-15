@@ -13,9 +13,9 @@ namespace MosziNet.HomeAutomation.XBee.Frame.Serialization
             return base.Serialize(frame, resultArray, offset);
         }
 
-        public override void Deserialize(IXBeeFrame frame, byte[] buffer)
+        public override void Deserialize(IXBeeFrame frame, byte[] buffer, int length)
         {
-            base.Deserialize(frame, buffer);
+            base.Deserialize(frame, buffer, length);
 
             IODataSampleFrame typedFrame = (IODataSampleFrame)frame;
 
@@ -31,6 +31,11 @@ namespace MosziNet.HomeAutomation.XBee.Frame.Serialization
         public override FrameType FrameType
         {
             get { return Frame.FrameType.IODataSample; }
+        }
+
+        public override int SerializeFrameContent(IXBeeFrame frame, byte[] resultArray, int offset)
+        {
+            throw new NotImplementedException();
         }
     }
 }

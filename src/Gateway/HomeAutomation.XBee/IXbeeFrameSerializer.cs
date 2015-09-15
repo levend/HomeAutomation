@@ -13,7 +13,8 @@ namespace MosziNet.HomeAutomation.XBee
         /// </summary>
         /// <param name="buffer"></param>
         /// <param name="frame"></param>
-        void Deserialize(IXBeeFrame frame, byte[] buffer);
+        /// <param name="length"></param>
+        void Deserialize(IXBeeFrame frame, byte[] buffer, int length);
 
         /// <summary>
         /// Serializes the frame into the resultArray buffer starting with the offset position. Return the index of the next available position where writing can continue.

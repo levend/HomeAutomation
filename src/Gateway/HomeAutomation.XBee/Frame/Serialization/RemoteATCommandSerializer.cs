@@ -10,25 +10,23 @@ namespace MosziNet.HomeAutomation.XBee.Frame.Serialization
     /// </summary>
     public class RemoteATCommandSerializer : BaseFrameSerializer
     {
-        public void Deserialize(IXBeeFrame frame, byte[] buffer)
+        public override void Deserialize(IXBeeFrame frame, byte[] buffer, int length)
         {
             
         }
 
-        public int Serialize(RemoteATCommandFrame frame, byte[] resultArray, int offset)
+        public override int SerializeFrameContent(IXBeeFrame frame, byte[] resultArray, int offset)
         {
-            int index = base.Serialize(frame, resultArray, offset);
+            RemoteATCommandFrame atFrame = (RemoteATCommandFrame)frame;
 
             // add the remote command options
-            resultArray[index++] = 0x00;
+            resultArray[offset++] = 0x00;
 
             // add the remote command itself
-            resultArray[index++] = frame.ATCommand[0];
-            resultArray[index++] = frame.ATCommand[1];
+            resultArray[offset++] = atFrame.ATCommand[0];
+            resultArray[offset++] = atFrame.ATCommand[1];
 
-            resultArray[index++] = CalculateChecksum(resultArray, index);
-
-            return index;
+            return offset;
         }
 
         public override FrameType FrameType

@@ -1,7 +1,6 @@
 using System;
 using Microsoft.SPOT;
 using System.Collections;
-using MosziNet.HomeAutomation.Converter;
 
 namespace MosziNet.HomeAutomation.Device
 {
@@ -19,7 +18,6 @@ namespace MosziNet.HomeAutomation.Device
 
         public Type GetDeviceTypeById(string deviceId)
         {
-
             return deviceRegistry.Contains(deviceId) ? (Type)deviceRegistry[deviceId] : null;
         }
     }
