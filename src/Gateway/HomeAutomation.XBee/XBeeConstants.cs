@@ -9,5 +9,8 @@ namespace MosziNet.HomeAutomation.XBee
     public static class XBeeConstants
     {
         public static readonly byte FrameStart = 0x7e;
+
+        // we limit the max frame length to 200 bytes - anything above this size will be discarded.
+        public static readonly byte MaxFrameLength = 200;
     }
 }

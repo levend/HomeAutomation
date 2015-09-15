@@ -8,10 +8,7 @@ namespace MosziNet.HomeAutomation.XBee
 {
     public static class XBeeSerialPortReader
     {
-        // we limit the max frame length to 200 bytes - anything above this size will be discarded.
-        private const byte MaxFrameLength = 200;
-
-        private static byte[] readBuffer = new byte[MaxFrameLength];
+        private static byte[] readBuffer = new byte[XBeeConstants.MaxFrameLength];
 
         public static IXBeeFrame FrameFromSerialPort(ISerialPort port)
         {
@@ -35,7 +32,7 @@ namespace MosziNet.HomeAutomation.XBee
                     // +1 comes from the fact that the frame ends with a checksum byte
                     int frameLength = readBuffer[FrameIndex.LengthMSB] * 256 + readBuffer[FrameIndex.LengthLSB] + 1;
 
-                    if (frameLength <= MaxFrameLength - 4)
+                    if (frameLength <= XBeeConstants.MaxFrameLength - 4)
                     {
                         // check if there is enough to read for the framelength
                         if (port.BytesToRead >= frameLength)

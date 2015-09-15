@@ -33,6 +33,11 @@ namespace MosziNet.HomeAutomation.XBee
             serialPort.Read(readBuffer, destinationOffset, frameLength);
         }
 
+        public void Write(byte[] buffer, int offset, int count)
+        {
+            serialPort.Write(buffer, offset, count);
+        }
+
         public void Dispose()
         {
             serialPort.Close();

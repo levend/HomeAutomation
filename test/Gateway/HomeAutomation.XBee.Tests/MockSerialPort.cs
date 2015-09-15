@@ -38,5 +38,10 @@ namespace HomeAutomation.XBee.Tests
                 readBuffer[destinationOffset + i] = values[index++];
             }
         }
+
+        public void Write(byte[] buffer, int offset, int count)
+        {
+
+        }
     }
 }

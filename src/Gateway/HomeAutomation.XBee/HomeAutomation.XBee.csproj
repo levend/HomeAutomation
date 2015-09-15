@@ -42,6 +42,7 @@
     <Compile Include="ISerialPort.cs" />
     <Compile Include="IXbeeFrameSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XBeeSerialPortWriter.cs" />
     <Compile Include="XBeeService.cs" />
     <Compile Include="XBeeSerialPort.cs" />
     <Compile Include="XBeeConstants.cs" />

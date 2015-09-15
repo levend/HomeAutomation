@@ -35,17 +35,17 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
+    <Compile Include="ApplicationLogic\MessageProcessor\XBeeCommandMessageProcessor.cs" />
     <Compile Include="ApplicationsConstants.cs" />
     <Compile Include="ApplicationContext.cs" />
-    <Compile Include="BusinessLogic\Gateway.cs" />
-    <Compile Include="BusinessLogic\Messages\DeviceCommandMessage.cs" />
-    <Compile Include="BusinessLogic\Messages\DeviceStatusMessage.cs" />
+    <Compile Include="ApplicationLogic\Gateway.cs" />
+    <Compile Include="ApplicationLogic\Messages\DeviceCommandMessage.cs" />
+    <Compile Include="ApplicationLogic\Messages\DeviceStatusMessage.cs" />
     <Compile Include="Device\Base\IXBeeDevice.cs" />
     <Compile Include="Device\Concrete\TemperatureSensor.cs" />
     <Compile Include="Device\DeviceUtil.cs" />
     <Compile Include="Device\Base\DeviceBase.cs" />
     <Compile Include="Device\DeviceType.cs" />
-    <Compile Include="Mock\MockDeviceTypeRegistry.cs" />
     <Compile Include="Mqtt\MqttService.cs" />
     <Compile Include="Mqtt\IMqttServerConfiguration.cs" />
     <Compile Include="Configuration\MqttServerConfiguration.cs" />

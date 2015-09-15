@@ -3,6 +3,7 @@ using Microsoft.SPOT;
 using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.Device.Concrete;
 using MosziNet.HomeAutomation.Converter;
+using MosziNet.HomeAutomation.BusinessLogic.Messages;
 
 namespace MosziNet.HomeAutomation.Device
 {
@@ -10,7 +11,14 @@ namespace MosziNet.HomeAutomation.Device
     {
         public void AskForDeviceType(byte[] address)
         {
-            // todo: build correct frame, put message to the message bus
+            // build the frame to ask the device type id
+            RemoteATCommandFrame frame = new RemoteATCommandFrame();
+            frame.Address = address;
+            frame.ATCommand = RemoteATCommandFrame.ATCommands.DD;
+
+            // post this message to the device
+            IMessageBus messageBus = (IMessageBus) ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IMessageBus));
+            messageBus.PostMessage(new DeviceCommandMessage(frame));
         }
 
         /// <summary>

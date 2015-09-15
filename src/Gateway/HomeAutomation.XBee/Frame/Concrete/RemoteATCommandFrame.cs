@@ -8,6 +8,16 @@ namespace MosziNet.HomeAutomation.XBee.Frame
     /// </summary>
     public class RemoteATCommandFrame : BaseXBeeFrame
     {
+        public class ATCommands
+        {
+            public static readonly byte[] DD = { 0x44, 0x44 };
+        }
+
+        public RemoteATCommandFrame()
+        {
+            this.FrameType = Frame.FrameType.RemoteATCommand;
+        }
+
         /// <summary>
         /// This must be an exactly 2 character command.
         /// </summary>

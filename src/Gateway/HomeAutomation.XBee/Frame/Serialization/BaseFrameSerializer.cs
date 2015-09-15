@@ -53,5 +53,17 @@ namespace MosziNet.HomeAutomation.XBee.Frame.Serialization
         /// Will be implemented by subclasses
         /// </summary>
         public abstract FrameType FrameType { get; }
+
+        protected byte CalculateChecksum(byte[] resultArray, int index)
+        {
+            int checksum = 0;
+   
+            for(int i = FrameIndex.Address; i < index; i++)
+            {
+                checksum += resultArray[i];
+            }
+
+            return (byte)(0xFF - (checksum & 0xFF));
+        }
     }
 }

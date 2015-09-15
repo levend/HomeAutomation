@@ -15,9 +15,9 @@ namespace MosziNet.HomeAutomation.BusinessLogic
         public Gateway()
         {
             deviceRegistry = (IDeviceTypeRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IDeviceTypeRegistry));
+            xbeeService = (XBeeService)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(XBeeService));
 
-            // start the xbee service, and subscribe to the messages coming from that network.
-            xbeeService = new XBeeService();
+            // subscribe to the messages coming from that network.
             xbeeService.MessageReceived += xbeeService_MessageReceived;
         }
 

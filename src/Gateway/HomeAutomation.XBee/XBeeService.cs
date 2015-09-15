@@ -40,6 +40,18 @@ namespace MosziNet.HomeAutomation.XBee
             }
         }
 
+        /// <summary>
+        /// Sends the frame to the XBee network.
+        /// </summary>
+        /// <param name="frame"></param>
+        public void SendFrame(IXBeeFrame frame)
+        {
+            lock(pendingMessages.SyncRoot)
+            {
+                pendingMessages.Add(frame);
+            }
+        }
+
         public void StartListeningForMessages()
         {
             new Thread(XBeeMessageListenerThread).Start();
@@ -78,7 +90,9 @@ namespace MosziNet.HomeAutomation.XBee
             // and now send out these messages
             for(int i = 0; i < localList.Count; i++)
             {
-                // todo
+                IXBeeFrame frame = (IXBeeFrame)localList[i];
+
+                XBeeSerialPortWriter.WriteFrameToSerialPort(frame, port);
             }
         }
 
@@ -89,8 +103,6 @@ namespace MosziNet.HomeAutomation.XBee
 
             if (frame != null)
             {
-                Debug.Print("Message received from: " + frame.Address);
-
                 MessageReceivedDelegate e = this.MessageReceived;
                 if (e != null)
                 {

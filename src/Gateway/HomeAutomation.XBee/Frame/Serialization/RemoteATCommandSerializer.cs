@@ -26,6 +26,8 @@ namespace MosziNet.HomeAutomation.XBee.Frame.Serialization
             resultArray[index++] = frame.ATCommand[0];
             resultArray[index++] = frame.ATCommand[1];
 
+            resultArray[index++] = CalculateChecksum(resultArray, index);
+
             return index;
         }
 

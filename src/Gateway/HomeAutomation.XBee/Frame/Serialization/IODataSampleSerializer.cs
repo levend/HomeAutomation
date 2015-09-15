@@ -26,7 +26,6 @@ namespace MosziNet.HomeAutomation.XBee.Frame.Serialization
             analogReadings[0] = analogReading;
 
             typedFrame.AnalogReadings = analogReadings;
-
         }
 
         public override FrameType FrameType

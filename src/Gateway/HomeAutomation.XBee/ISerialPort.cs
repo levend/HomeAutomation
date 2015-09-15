@@ -10,5 +10,7 @@ namespace MosziNet.HomeAutomation.XBee
         int ReadByte();
 
         void Read(byte[] readBuffer, int p, int frameLength);
+
+        void Write(byte[] buffer, int offset, int count);
     }
 }
