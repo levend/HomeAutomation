@@ -10,7 +10,7 @@ namespace HomeAutomation.XBee.Tests
     public class MockSerialPort : ISerialPort
     {
         private byte[] values;
-        int index;
+        private int index;
 
         public MockSerialPort(byte[] valuesToRead)
         {
@@ -30,14 +30,13 @@ namespace HomeAutomation.XBee.Tests
             return values[index++];
         }
 
-        public void Read(byte[] readBuffer, int offset, int frameLength)
+        public void Read(byte[] readBuffer, int destinationOffset, int frameLength)
         {
-            for(int i = index + offset; i < values.Length; i++)
-            {
-                readBuffer[i - (index + offset)] = values[i];
-            }
 
-            index += offset + frameLength;
+            for(int i = 0; i < frameLength; i++)
+            {
+                readBuffer[destinationOffset + i] = values[index++];
+            }
         }
     }
 }

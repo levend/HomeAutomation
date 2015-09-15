@@ -8,25 +8,9 @@ namespace MosziNet.HomeAutomation.XBee.Frame
     /// </summary>
     public class IODataSampleFrame : BaseXBeeFrame
     {
-        private static readonly double AnalogPinMaxVoltage = 1200.0; // in millivolts
-        private static readonly double AnalogPinResolution = 1024;
-
         /// <summary>
         /// Data samples read by the xbee.
         /// </summary>
         public double[] AnalogReadings { get; set; }
-
-        public override void Deserialize(byte[] buffer)
-        {
-            base.Deserialize(buffer);
-
-            // now read the temperature sensor reading
-            double analogReading = (buffer[16] * 256 + buffer[17]) * AnalogPinMaxVoltage / AnalogPinResolution;
-
-            double[] analogReadings = new double[1];
-            analogReadings[0] = analogReading;
-
-            this.AnalogReadings = analogReadings;
-        }
     }
 }

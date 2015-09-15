@@ -1,5 +1,6 @@
 using System;
 using Microsoft.SPOT;
+using MosziNet.HomeAutomation.XBee.Frame.Serialization;
 
 namespace MosziNet.HomeAutomation.XBee.Frame
 {
@@ -37,6 +38,23 @@ namespace MosziNet.HomeAutomation.XBee.Frame
             }
 
             return frame;
+        }
+
+        public static IXbeeFrameSerializer CreateFrameSerializerWithType(FrameType frameType)
+        {
+            IXbeeFrameSerializer frameSerializer = null;
+
+            switch (frameType)
+            {
+                case FrameType.IODataSample:
+                    frameSerializer = new IODataSampleSerializer();
+                    break;
+                case FrameType.RemoteATCommand:
+                    frameSerializer = new RemoteATCommandSerializer();
+                    break;
+            }
+
+            return frameSerializer;
         }
     }
 }

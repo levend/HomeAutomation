@@ -28,9 +28,9 @@ namespace MosziNet.HomeAutomation.XBee
             return serialPort.ReadByte();
         }
 
-        public void Read(byte[] readBuffer, int p, int frameLength)
+        public void Read(byte[] readBuffer, int destinationOffset, int frameLength)
         {
-            serialPort.Read(readBuffer, p, frameLength);
+            serialPort.Read(readBuffer, destinationOffset, frameLength);
         }
 
         public void Dispose()

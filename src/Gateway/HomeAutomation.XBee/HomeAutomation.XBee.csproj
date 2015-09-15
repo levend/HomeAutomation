@@ -30,19 +30,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Frame\FrameFactory.cs" />
+    <Compile Include="Frame\FrameIndex.cs" />
     <Compile Include="Frame\FrameType.cs" />
     <Compile Include="Frame\Concrete\IODataSampleFrame.cs" />
     <Compile Include="Frame\IXBeeFrame.cs" />
     <Compile Include="Frame\Concrete\RemoteATCommandFrame.cs" />
     <Compile Include="Frame\Concrete\RemoteCommandResponse.cs" />
+    <Compile Include="Frame\Serialization\BaseFrameSerializer.cs" />
+    <Compile Include="Frame\Serialization\IODataSampleSerializer.cs" />
+    <Compile Include="Frame\Serialization\RemoteATCommandSerializer.cs" />
     <Compile Include="ISerialPort.cs" />
-    <Compile Include="IXbeeFrameSerializable.cs" />
+    <Compile Include="IXbeeFrameSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XBeeService.cs" />
     <Compile Include="XBeeSerialPort.cs" />
     <Compile Include="XBeeConstants.cs" />
     <Compile Include="Frame\BaseXBeeFrame.cs" />
-    <Compile Include="XBeeFrameSerialization.cs" />
     <Compile Include="XBeeSerialPortReader.cs" />
   </ItemGroup>
   <ItemGroup>

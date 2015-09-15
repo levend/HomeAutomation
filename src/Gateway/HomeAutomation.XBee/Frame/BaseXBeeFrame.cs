@@ -7,7 +7,7 @@ namespace MosziNet.HomeAutomation.XBee.Frame
     /// <summary>
     /// Represents a frame received from XBee.
     /// </summary>
-    public abstract class BaseXBeeFrame : IXBeeFrame, IXbeeFrameSerializable
+    public abstract class BaseXBeeFrame : IXBeeFrame
     {
         private FrameType frameType;
 
@@ -25,22 +25,5 @@ namespace MosziNet.HomeAutomation.XBee.Frame
         }
 
         public byte[] Address { get; set; }
-
-        #region / IXbeeFrameSerializable interface implementation /
-
-        public virtual void Deserialize(byte[] buffer)
-        {
-            // read the 64 bit hw address
-            byte[] address = new byte[8];
-            Array.Copy(buffer, 1, address, 0, 8);
-            this.Address = address;
-        }
-
-        public virtual byte[] Serialize()
-        {
-            return new byte[0];
-        }
-
-        #endregion / IXbeeFrameSerializable interface implementation /
     }
 }
