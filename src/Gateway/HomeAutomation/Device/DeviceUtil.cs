@@ -10,12 +10,15 @@ namespace MosziNet.HomeAutomation.Device
 {
     public class DeviceUtil
     {
-        public void AskForDeviceType(byte[] address)
+        public void AskForDeviceType(IXBeeFrame remoteFrame)
         {
             // build the frame to ask the device type id
             RemoteATCommand frame = new RemoteATCommand();
-            frame.Address = address;
+            frame.Address = remoteFrame.Address;
+            frame.NetworkAddress = remoteFrame.NetworkAddress;
+
             frame.ATCommand = ATCommands.DD;
+            frame.FrameId = 01;
 
             // post this message to the device
             IMessageBus messageBus = (IMessageBus) ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IMessageBus));

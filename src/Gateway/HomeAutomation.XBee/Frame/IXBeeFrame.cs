@@ -8,5 +8,7 @@ namespace MosziNet.HomeAutomation.XBee.Frame
         byte FrameType { get; }
 
         byte[] Address { get; set; }
+
+        byte[] NetworkAddress { get; set; }
     }
 }

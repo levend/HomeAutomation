@@ -13,7 +13,12 @@ namespace MosziNet.HomeAutomation.Device
 
         public void RegisterDevice(Type device, string deviceId)
         {
-            deviceRegistry.Add(device, deviceId);
+            if (deviceRegistry.Contains(deviceId))
+            {
+                Debug.Print("Replacing device type for id: " + deviceId);
+            }
+
+            deviceRegistry[deviceId] = device;
         }
 
         public Type GetDeviceTypeById(string deviceId)

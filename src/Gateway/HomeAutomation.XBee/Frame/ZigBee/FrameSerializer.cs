@@ -95,6 +95,12 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
                 index += onePropertyDescriptor.ByteCount;
             }
 
+            // calculate the length of the payload, and update the frame with the information
+            int payloadLength = index - 3;
+            buffer[FrameIndex.LengthMSB] = (byte)(payloadLength / 256);
+            buffer[FrameIndex.LengthLSB] = (byte)(payloadLength % 256);
+
+            // calculate the checksum of the payload
             buffer[index] = FrameUtil.CalculateChecksum(buffer);
         }
 

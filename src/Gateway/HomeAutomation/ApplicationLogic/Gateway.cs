@@ -48,7 +48,7 @@ namespace MosziNet.HomeAutomation.BusinessLogic
                     Debug.Print("Received a frame from an unknown device with address: " + HexConverter.ToHexString(frame.Address));
 
                     // Ask for the type of the device type.
-                    new DeviceUtil().AskForDeviceType(frame.Address);
+                    new DeviceUtil().AskForDeviceType(frame);
                 }
                 else
                 {
