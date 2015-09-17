@@ -20,7 +20,10 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
             IXBeeFrame newFrame = null;
 
             // get the frame's type and it's descriptor.
-            string frameName = ((FrameType)buffer[FrameIndex.FrameType]).ToString();
+            string frameName = FrameType.GetTypeName(buffer[FrameIndex.FrameType]);
+            if (!IsKnonwnFrame(frameName))
+                return newFrame;
+            
             int length = buffer[FrameIndex.LengthMSB] * 256 + buffer[FrameIndex.LengthLSB];
 
             PropertyDescriptor[] frameDescriptor = APIv1Descriptor.GetFrameDescriptor(frameName);
@@ -52,6 +55,11 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
             return newFrame;
         }
 
+        private static bool IsKnonwnFrame(string frameName)
+        {
+            return frameName != null && frameName.Length > 0;
+        }
+
         /// <summary>
         /// Serializes the frame to the provided buffer.
         /// </summary>
@@ -59,7 +67,7 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
         /// <param name="buffer"></param>
         public static void Serialize(IXBeeFrame frame, byte[] buffer)
         {
-            string frameName = frame.FrameType.ToString();
+            string frameName = FrameType.GetTypeName(frame.FrameType);
 
             PropertyDescriptor[] frameDescriptor = APIv1Descriptor.GetFrameDescriptor(frameName);
             Type frameType = frame.GetType();
@@ -87,7 +95,7 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
                 index += onePropertyDescriptor.ByteCount;
             }
 
-            buffer[index] = CalculateChecksum(buffer, index);
+            buffer[index] = FrameUtil.CalculateChecksum(buffer);
         }
 
         #region / Deserialization related methods /
@@ -116,7 +124,11 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
             // if the request was to consume all bytes, then we will do it excluding the trailing checksum
             if (onePropertyDescriptor.ByteCount == 0)
             {
-                // todo
+                int checksumIndex = FrameUtil.CalculateChecksumIndex(buffer);
+                int lengthToCopy = checksumIndex - index;
+
+                returnValue = new byte[lengthToCopy];
+                Array.Copy(buffer, index, returnValue, 0, lengthToCopy);
             }
             else
             {
@@ -148,19 +160,6 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
                     break;
             }
         }
-
-        private static byte CalculateChecksum(byte[] resultArray, int index)
-        {
-            int checksum = 0;
-
-            for (int i = FrameIndex.FrameType; i < index; i++)
-            {
-                checksum += resultArray[i];
-            }
-
-            return (byte)(0xFF - (checksum & 0xFF));
-        }
-
 
         #endregion
     }

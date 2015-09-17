@@ -67,25 +67,26 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
                         new PropertyDescriptor(1, "FrameId", PropertyType.Byte),
                         new PropertyDescriptor(8, "Address", PropertyType.ByteArray),
                         new PropertyDescriptor(2, "NetworkAddress", PropertyType.ByteArray),
+                        //
                         new PropertyDescriptor(2, "ATCommand", PropertyType.ByteArray),
                         new PropertyDescriptor(1, "Status", PropertyType.Byte),
                         new PropertyDescriptor(4, "Parameters", PropertyType.ByteArray)
                 });
 
-                descriptors.Add("IODatasample",
+                descriptors.Add("IODataSample",
                     new PropertyDescriptor[] {
                         new PropertyDescriptor(1, "FrameStart", PropertyType.Ignored),
                         new PropertyDescriptor(2, "Length", PropertyType.Integer),
                         new PropertyDescriptor(1, "FrameType", PropertyType.Byte),
                         new PropertyDescriptor(8, "Address", PropertyType.ByteArray),
                         new PropertyDescriptor(2, "NetworkAddress", PropertyType.ByteArray),
-
+                        //
                         new PropertyDescriptor(1, "ReceiveOptions", PropertyType.Byte),
                         new PropertyDescriptor(1, "SampleCount", PropertyType.Byte),
                         new PropertyDescriptor(2, "DigitalMask", PropertyType.Integer),
                         new PropertyDescriptor(1, "AnalogMask", PropertyType.Byte),
-
-                        new PropertyDescriptor(0, "Samples", PropertyType.Byte)
+                        //
+                        new PropertyDescriptor(0, "Samples", PropertyType.ByteArray)
                 });            
             }
 

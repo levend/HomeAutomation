@@ -5,7 +5,7 @@ namespace MosziNet.HomeAutomation.XBee.Frame
 {
     public interface IXBeeFrame
     {
-        FrameType FrameType { get; }
+        byte FrameType { get; }
 
         byte[] Address { get; set; }
     }

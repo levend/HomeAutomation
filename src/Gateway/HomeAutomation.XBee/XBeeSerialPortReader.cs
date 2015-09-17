@@ -2,6 +2,7 @@ using System;
 using Microsoft.SPOT;
 using System.IO.Ports;
 using MosziNet.HomeAutomation.XBee.Frame;
+using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 
 namespace MosziNet.HomeAutomation.XBee
 {
@@ -40,8 +41,8 @@ namespace MosziNet.HomeAutomation.XBee
                             port.Read(readBuffer, FrameIndex.FrameType, frameLength); 
 
                             // now create an XBee frame based on the buffer
-                            // todo
-                            //frame = BaseFrameSerializer.Deserialize(readBuffer, frameLength + 3);
+                            
+                            frame = FrameSerializer.Deserialize(readBuffer);
                         }
                     }
                     else

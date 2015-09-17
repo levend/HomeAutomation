@@ -29,8 +29,6 @@ namespace MosziNet.HomeAutomation.Device
         /// <returns></returns>
         public IDevice CreateDeviceByDeviceTypeInFrame(IXBeeFrame frame)
         {
-            return null;
-
             // TODO: check the DD type in the frame, crate the correct device type
             IDevice device = new TemperatureSensor();
 

@@ -8,11 +8,6 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
     /// </summary>
     public class IODataSample : BaseXBeeFrame
     {
-        /// <summary>
-        /// Data samples read by the xbee.
-        /// </summary>
-        public double[] AnalogReadings { get; set; }
-
         public byte ReceiveOptions { get; set; }
 
         public byte SampleCount { get; set; }

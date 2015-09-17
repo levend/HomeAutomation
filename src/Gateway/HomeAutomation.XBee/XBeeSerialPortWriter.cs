@@ -2,6 +2,7 @@ using System;
 using Microsoft.SPOT;
 using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.Util;
+using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 
 namespace MosziNet.HomeAutomation.XBee
 {
@@ -11,16 +12,13 @@ namespace MosziNet.HomeAutomation.XBee
 
         public static void WriteFrameToSerialPort(IXBeeFrame frame, ISerialPort port)
         {
-            return;
-            // todo
+            FrameSerializer.Serialize(frame, writeBuffer);
 
-            //IXbeeFrameSerializer serializer = FrameFactory.CreateFrameSerializerWithType(frame.FrameType);
+            int byteCount = FrameUtil.FrameTotalLength(writeBuffer);
 
-            //int byteCount = serializer.Serialize(frame, writeBuffer, 0);
+            port.Write(writeBuffer, 0, byteCount);
 
-            //port.Write(writeBuffer, 0, byteCount);
-
-            //Debug.Print("Written to port: " + HexConverter.ToSpacedHexString(writeBuffer, 0, byteCount));
+            Debug.Print("Written to port: " + HexConverter.ToSpacedHexString(writeBuffer, 0, byteCount));
         }
     }
 }

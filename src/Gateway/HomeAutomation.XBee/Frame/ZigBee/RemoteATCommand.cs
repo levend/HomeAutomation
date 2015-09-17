@@ -13,9 +13,12 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
             this.FrameType = Frame.FrameType.RemoteATCommand;
         }
 
-        /// <summary>
-        /// This must be an exactly 2 character command.
-        /// </summary>
+        public byte FrameId { get; set; }
+
+        public byte CommandOptions { get; set; }
+
         public byte[] ATCommand { get; set; }
+
+        public byte[] Parameters { get; set; }
     }
 }

@@ -29,6 +29,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="FrameUtil.cs" />
     <Compile Include="Frame\FrameIndex.cs" />
     <Compile Include="Frame\FrameType.cs" />
     <Compile Include="Frame\IXBeeFrame.cs" />
