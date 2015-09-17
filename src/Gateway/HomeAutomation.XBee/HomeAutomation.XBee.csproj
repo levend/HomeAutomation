@@ -29,17 +29,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Frame\FrameFactory.cs" />
     <Compile Include="Frame\FrameIndex.cs" />
     <Compile Include="Frame\FrameType.cs" />
-    <Compile Include="Frame\Concrete\IODataSampleFrame.cs" />
     <Compile Include="Frame\IXBeeFrame.cs" />
-    <Compile Include="Frame\Concrete\RemoteATCommandFrame.cs" />
-    <Compile Include="Frame\Concrete\RemoteCommandResponse.cs" />
-    <Compile Include="Frame\Serialization\BaseFrameSerializer.cs" />
-    <Compile Include="Frame\Serialization\IODataSampleSerializer.cs" />
-    <Compile Include="Frame\Serialization\RemoteATCommandResponseSerializer.cs" />
-    <Compile Include="Frame\Serialization\RemoteATCommandSerializer.cs" />
+    <Compile Include="Frame\ZigBee\APIv1Descriptor.cs" />
+    <Compile Include="Frame\ZigBee\ATCommands.cs" />
+    <Compile Include="Frame\ZigBee\FrameSerializer.cs" />
+    <Compile Include="Frame\ZigBee\IODataSample.cs" />
+    <Compile Include="Frame\ZigBee\RemoteATCommand.cs" />
+    <Compile Include="Frame\ZigBee\RemoteCommandResponse.cs" />
     <Compile Include="ISerialPort.cs" />
     <Compile Include="IXbeeFrameSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

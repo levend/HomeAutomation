@@ -4,6 +4,7 @@ using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.Device.Concrete;
 using MosziNet.HomeAutomation.BusinessLogic.Messages;
 using MosziNet.HomeAutomation.Util;
+using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 
 namespace MosziNet.HomeAutomation.Device
 {
@@ -12,9 +13,9 @@ namespace MosziNet.HomeAutomation.Device
         public void AskForDeviceType(byte[] address)
         {
             // build the frame to ask the device type id
-            RemoteATCommandFrame frame = new RemoteATCommandFrame();
+            RemoteATCommand frame = new RemoteATCommand();
             frame.Address = address;
-            frame.ATCommand = RemoteATCommandFrame.ATCommands.DD;
+            frame.ATCommand = ATCommands.DD;
 
             // post this message to the device
             IMessageBus messageBus = (IMessageBus) ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IMessageBus));
@@ -28,6 +29,8 @@ namespace MosziNet.HomeAutomation.Device
         /// <returns></returns>
         public IDevice CreateDeviceByDeviceTypeInFrame(IXBeeFrame frame)
         {
+            return null;
+
             // TODO: check the DD type in the frame, crate the correct device type
             IDevice device = new TemperatureSensor();
 

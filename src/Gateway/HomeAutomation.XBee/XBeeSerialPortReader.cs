@@ -2,7 +2,6 @@ using System;
 using Microsoft.SPOT;
 using System.IO.Ports;
 using MosziNet.HomeAutomation.XBee.Frame;
-using MosziNet.HomeAutomation.XBee.Frame.Serialization;
 
 namespace MosziNet.HomeAutomation.XBee
 {
@@ -30,17 +29,19 @@ namespace MosziNet.HomeAutomation.XBee
 
                     // now read the length of the frame
                     // +1 comes from the fact that the frame ends with a checksum byte
-                    int frameLength = readBuffer[FrameIndex.LengthMSB] * 256 + readBuffer[FrameIndex.LengthLSB] + 1;
+                    int frameLength = readBuffer[FrameIndex.LengthMSB] * 256 + readBuffer[FrameIndex.LengthLSB] + 1; // NOTE +1 for checksum
 
                     if (frameLength <= XBeeConstants.MaxFrameLength - 4)
                     {
                         // check if there is enough to read for the framelength
                         if (port.BytesToRead >= frameLength)
                         {
-                            port.Read(readBuffer, FrameIndex.FrameType, frameLength); // first 3 bytes skipped (frame start, +2 bytes frame length)
+                            // we begin reading with the frame type offset, frameLength count of bytes (including checksum)
+                            port.Read(readBuffer, FrameIndex.FrameType, frameLength); 
 
                             // now create an XBee frame based on the buffer
-                            frame = BaseFrameSerializer.Deserialize(readBuffer, frameLength);
+                            // todo
+                            //frame = BaseFrameSerializer.Deserialize(readBuffer, frameLength + 3);
                         }
                     }
                     else

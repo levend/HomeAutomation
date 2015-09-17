@@ -30,7 +30,7 @@ namespace MosziNet.HomeAutomation.XBee
 
         public void SendCommand(byte[] address, string command)
         {
-            IXBeeFrame frame = FrameFactory.CreateFrameWithType(FrameType.RemoteATCommand);
+            IXBeeFrame frame = null; // todo FrameFactory.CreateFrameWithType(FrameType.RemoteATCommand);
 
             // todo: build the frame based on the parameters
 

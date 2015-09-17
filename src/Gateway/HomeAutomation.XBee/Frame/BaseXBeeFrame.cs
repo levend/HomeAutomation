@@ -9,21 +9,12 @@ namespace MosziNet.HomeAutomation.XBee.Frame
     /// </summary>
     public abstract class BaseXBeeFrame : IXBeeFrame
     {
-        private FrameType frameType;
+        public Int32 Length { get; set; }
 
-        public FrameType FrameType
-        {
-            get
-            {
-                return frameType;
-            }
-
-            internal set
-            {
-                frameType = value;
-            }
-        }
+        public FrameType FrameType { get; set; }
 
         public byte[] Address { get; set; }
+
+        public byte[] NetworkAddress { get; set; }
     }
 }

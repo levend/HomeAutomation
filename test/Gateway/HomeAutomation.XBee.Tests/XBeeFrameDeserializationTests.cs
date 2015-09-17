@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MosziNet.HomeAutomation.XBee;
 using MosziNet.HomeAutomation.XBee.Frame;
+using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 
 namespace HomeAutomation.XBee.Tests
 {
@@ -15,7 +16,7 @@ namespace HomeAutomation.XBee.Tests
 
             MockSerialPort msp = new MockSerialPort(buffer);
 
-            IODataSampleFrame f = (IODataSampleFrame) XBeeSerialPortReader.FrameFromSerialPort(msp);
+            IODataSample f = (IODataSample)XBeeSerialPortReader.FrameFromSerialPort(msp);
             Assert.IsTrue(f.AnalogReadings[0] >  726 && f.AnalogReadings[0] < 727);
         }
 
@@ -26,7 +27,7 @@ namespace HomeAutomation.XBee.Tests
 
             MockSerialPort msp = new MockSerialPort(buffer);
 
-            IODataSampleFrame f = (IODataSampleFrame)XBeeSerialPortReader.FrameFromSerialPort(msp);
+            IODataSample f = (IODataSample)XBeeSerialPortReader.FrameFromSerialPort(msp);
 
             byte[] expectedAddress = new byte[] { 0x00, 0x13, 0xA2, 0x00, 0x40, 0xE4, 0x38, 0xE3 };
             for (int i = 0; i < f.Address.Length; i++ )

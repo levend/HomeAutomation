@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="MockSerialPort.cs" />
+    <Compile Include="ZigBeeFrameSerializationTests.cs" />
     <Compile Include="XBeeFrameDeserializationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

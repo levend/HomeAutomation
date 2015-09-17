@@ -11,13 +11,16 @@ namespace MosziNet.HomeAutomation.XBee
 
         public static void WriteFrameToSerialPort(IXBeeFrame frame, ISerialPort port)
         {
-            IXbeeFrameSerializer serializer = FrameFactory.CreateFrameSerializerWithType(frame.FrameType);
+            return;
+            // todo
 
-            int byteCount = serializer.Serialize(frame, writeBuffer, 0);
+            //IXbeeFrameSerializer serializer = FrameFactory.CreateFrameSerializerWithType(frame.FrameType);
 
-            port.Write(writeBuffer, 0, byteCount);
+            //int byteCount = serializer.Serialize(frame, writeBuffer, 0);
 
-            Debug.Print("Written to port: " + HexConverter.ToSpacedHexString(writeBuffer, 0, byteCount));
+            //port.Write(writeBuffer, 0, byteCount);
+
+            //Debug.Print("Written to port: " + HexConverter.ToSpacedHexString(writeBuffer, 0, byteCount));
         }
     }
 }

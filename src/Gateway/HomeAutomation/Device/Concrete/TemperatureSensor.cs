@@ -2,6 +2,7 @@ using System;
 using Microsoft.SPOT;
 using MosziNet.HomeAutomation.Device.Base;
 using MosziNet.HomeAutomation.XBee.Frame;
+using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 
 namespace MosziNet.HomeAutomation.Device.Concrete
 {
@@ -11,7 +12,7 @@ namespace MosziNet.HomeAutomation.Device.Concrete
 
         public void ProcessFrame(XBee.Frame.IXBeeFrame frame)
         {
-            IODataSampleFrame dataSample = frame as IODataSampleFrame;
+            IODataSample dataSample = frame as IODataSample;
             if (dataSample != null)
             {
                 Temperature = HomeAutomation.Sensor.Temperature.MCP9700.TemperatureFromVoltage(dataSample.AnalogReadings[0]);
