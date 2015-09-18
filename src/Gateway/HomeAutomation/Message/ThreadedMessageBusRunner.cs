@@ -57,7 +57,7 @@ namespace MosziNet.HomeAutomation
                     }
                     else
                     {
-                        Debug.Print("Dropping message of type: " + message.MessageType);
+                        Debug.Print("Dropping message of type: " + message.GetType().FullName);
                     }
                 }
 

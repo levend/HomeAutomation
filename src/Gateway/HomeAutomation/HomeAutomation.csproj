@@ -35,12 +35,16 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
-    <Compile Include="ApplicationLogic\MessageProcessor\XBeeCommandMessageProcessor.cs" />
+    <Compile Include="ApplicationLogic\MessageProcessor\DeviceNotificationMessageProcessor.cs" />
+    <Compile Include="ApplicationLogic\MessageProcessor\XBeeDeviceCommandMessageProcessor.cs" />
+    <Compile Include="ApplicationLogic\MessageProcessor\XBeeFrameProcessor\IODataSampleFrameProcessor.cs" />
+    <Compile Include="ApplicationLogic\MessageProcessor\XBeeFrameProcessor\IXBeeFrameProcessor.cs" />
+    <Compile Include="ApplicationLogic\MessageProcessor\XBeeFrameProcessor\RemoteCommandResponseProcessor.cs" />
     <Compile Include="ApplicationsConstants.cs" />
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="ApplicationLogic\Gateway.cs" />
     <Compile Include="ApplicationLogic\Messages\DeviceCommandMessage.cs" />
-    <Compile Include="ApplicationLogic\Messages\DeviceStatusMessage.cs" />
+    <Compile Include="ApplicationLogic\Messages\DeviceNotificationMessage.cs" />
     <Compile Include="Device\Base\IXBeeDevice.cs" />
     <Compile Include="Device\Concrete\TemperatureSensor.cs" />
     <Compile Include="Device\DeviceUtil.cs" />

@@ -68,5 +68,10 @@ namespace MosziNet.HomeAutomation.XBee
             return (byte)(0xFF - (checksum & 0xFF));
         }
 
+        public static bool IsSameATCommand(byte[] atCommand1, byte[] atCommand2)
+        {
+            return (atCommand1[0] == atCommand2[0]) && (atCommand1[1] == atCommand2[1]);
+        }
+
     }
 }

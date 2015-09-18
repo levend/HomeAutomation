@@ -1,11 +1,11 @@
 using System;
 using Microsoft.SPOT;
 using MosziNet.HomeAutomation.XBee;
-using MosziNet.HomeAutomation.BusinessLogic.Messages;
+using MosziNet.HomeAutomation.ApplicationLogic.Messages;
 
 namespace MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor
 {
-    public class XBeeCommandMessageProcessor : IMessageProcessor
+    public class XBeeDeviceCommandMessageProcessor : IMessageProcessor
     {
         public void ProcessMessage(Message message)
         {

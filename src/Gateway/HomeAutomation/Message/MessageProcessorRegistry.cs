@@ -8,11 +8,11 @@ namespace MosziNet.HomeAutomation
     {
         private Hashtable messageProcessors = new Hashtable();
 
-        public void RegisterMessageProcessor(string messageProcessorType, IMessageProcessor processor)
+        public void RegisterMessageProcessor(Type messageType, IMessageProcessor processor)
         {
             lock (messageProcessors)
             {
-                messageProcessors.Add(messageProcessorType, processor);
+                messageProcessors.Add(messageType, processor);
             }
         }
 
@@ -20,7 +20,7 @@ namespace MosziNet.HomeAutomation
         {
             lock(messageProcessors)
             {
-                return messageProcessors.Contains(message.MessageType) ? (IMessageProcessor)messageProcessors[message.MessageType] : null;
+                return messageProcessors.Contains(message.GetType()) ? (IMessageProcessor)messageProcessors[message.GetType()] : null;
             }
         }
     }

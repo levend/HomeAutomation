@@ -2,9 +2,9 @@ using System;
 using Microsoft.SPOT;
 using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.Device.Concrete;
-using MosziNet.HomeAutomation.BusinessLogic.Messages;
 using MosziNet.HomeAutomation.Util;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
+using MosziNet.HomeAutomation.ApplicationLogic.Messages;
 
 namespace MosziNet.HomeAutomation.Device
 {
@@ -32,10 +32,16 @@ namespace MosziNet.HomeAutomation.Device
         /// <returns></returns>
         public IDevice CreateDeviceByDeviceTypeInFrame(IXBeeFrame frame)
         {
-            // TODO: check the DD type in the frame, crate the correct device type
-            IDevice device = new TemperatureSensor();
+            RemoteCommandResponse responseFrame = (RemoteCommandResponse)frame;
+            int deviceIdentification = responseFrame.Parameters[2] * 256 + responseFrame.Parameters[3];
+            IDevice device = null;
 
-            device.DeviceID = HexConverter.ToHexString(frame.Address);
+            if (deviceIdentification == 0x9988)
+            {
+                device = new TemperatureSensor();
+
+                device.DeviceID = HexConverter.ToHexString(frame.Address);
+            }
 
             return device;
         }

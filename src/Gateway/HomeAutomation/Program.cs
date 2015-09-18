@@ -13,6 +13,7 @@ using MosziNet.HomeAutomation.XBee;
 using MosziNet.HomeAutomation.Sensor.Temperature;
 using MosziNet.HomeAutomation.BusinessLogic;
 using MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor;
+using MosziNet.HomeAutomation.ApplicationLogic.Messages;
 
 namespace MosziNet.HomeAutomation
 {
@@ -41,7 +42,8 @@ namespace MosziNet.HomeAutomation
             IMessageBus messageBus = new MessageBus();
 
             MessageProcessorRegistry messageProcessorRegistry = new MessageProcessorRegistry();
-            messageProcessorRegistry.RegisterMessageProcessor(ApplicationsConstants.MessageType_XBeeDeviceCommand, new XBeeCommandMessageProcessor());
+            messageProcessorRegistry.RegisterMessageProcessor(typeof(DeviceCommandMessage), new XBeeDeviceCommandMessageProcessor());
+            messageProcessorRegistry.RegisterMessageProcessor(typeof(DeviceNotificationMessage), new DeviceNotificationMessageProcessor());
 
             IMessageBusRunner messageBusRunner = new ThreadedMessageBusRunner(messageBus, messageProcessorRegistry);
             messageBus.MessageBusRunner = messageBusRunner;            
