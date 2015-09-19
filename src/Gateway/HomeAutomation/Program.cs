@@ -49,10 +49,14 @@ namespace MosziNet.HomeAutomation
             messageBus.MessageBusRunner = messageBusRunner;            
 
             // now register all services
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(XBeeService), new XBeeService());
+            XBeeService xbeeService = new XBeeService();
+
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(XBeeService), xbeeService);
             ApplicationContext.ServiceRegistry.RegisterService(typeof(IMessageBus), messageBus);
             ApplicationContext.ServiceRegistry.RegisterService(typeof(IDeviceTypeRegistry), deviceRegistry);
             ApplicationContext.ServiceRegistry.RegisterService(typeof(Gateway), new Gateway());
+
+            xbeeService.StartListeningForMessages();
         }
     }
 }

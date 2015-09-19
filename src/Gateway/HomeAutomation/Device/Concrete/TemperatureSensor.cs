@@ -6,14 +6,14 @@ using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 
 namespace MosziNet.HomeAutomation.Device.Concrete
 {
-    public class TemperatureSensor : DeviceBase, IXBeeDevice
+    public class TemperatureSensor : DeviceBase
     {
         private static readonly double AnalogPinMaxVoltage = 1200.0; // in millivolts
         private static readonly double AnalogPinResolution = 1024;
 
         public double Temperature { get; private set; }
 
-        public void ProcessFrame(XBee.Frame.IXBeeFrame frame)
+        public override void ProcessFrame(XBee.Frame.IXBeeFrame frame)
         {
             IODataSample dataSample = frame as IODataSample;
             if (dataSample != null)

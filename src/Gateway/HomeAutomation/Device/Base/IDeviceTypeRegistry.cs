@@ -4,8 +4,8 @@ namespace MosziNet.HomeAutomation.Device
 {
     public interface IDeviceTypeRegistry
     {
-        Type GetDeviceTypeById(string deviceId);
+        Type GetDeviceTypeById(byte[] deviceId);
 
-        void RegisterDevice(Type deviceType, string deviceId);
+        void RegisterDevice(Type deviceType, byte[] deviceId);
     }
 }

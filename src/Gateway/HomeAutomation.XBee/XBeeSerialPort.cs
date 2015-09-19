@@ -1,6 +1,7 @@
 using System;
 using Microsoft.SPOT;
 using System.IO.Ports;
+using System.Threading;
 
 namespace MosziNet.HomeAutomation.XBee
 {
@@ -11,7 +12,7 @@ namespace MosziNet.HomeAutomation.XBee
         public XBeeSerialPort(string portName, int baudRate, Parity parity, int dataBits, System.IO.Ports.StopBits stopBits)
         {
             serialPort = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
-            
+
             serialPort.Open();
         }
 
@@ -25,11 +26,15 @@ namespace MosziNet.HomeAutomation.XBee
 
         public int ReadByte()
         {
+            WaitForBytesCountToBeAvailable(1);
+
             return serialPort.ReadByte();
         }
 
         public void Read(byte[] readBuffer, int destinationOffset, int frameLength)
         {
+            WaitForBytesCountToBeAvailable(frameLength);
+
             serialPort.Read(readBuffer, destinationOffset, frameLength);
         }
 
@@ -43,5 +48,16 @@ namespace MosziNet.HomeAutomation.XBee
             serialPort.Close();
             serialPort.Dispose();
         }
+
+
+        private void WaitForBytesCountToBeAvailable(int count)
+        {
+            // wait until we can actually read that many bytes.
+            while (count > serialPort.BytesToRead)
+            {
+                Thread.Sleep(10);
+            }
+        }
+
     }
 }

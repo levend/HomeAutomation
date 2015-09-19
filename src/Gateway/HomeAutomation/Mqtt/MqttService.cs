@@ -46,10 +46,7 @@ namespace MosziNet.HomeAutomation.Mqtt
         {
             if (message == null || message.Length == 0)
                 return;
-
-
         }
-
 
         /// <summary>
         /// Makes sure that the Mqtt server is always connected.

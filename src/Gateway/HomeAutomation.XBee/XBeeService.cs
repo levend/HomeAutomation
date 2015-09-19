@@ -24,20 +24,6 @@ namespace MosziNet.HomeAutomation.XBee
         public XBeeService()
         {
             pendingMessages = new ArrayList();
-
-            StartListeningForMessages();
-        }
-
-        public void SendCommand(byte[] address, string command)
-        {
-            IXBeeFrame frame = null; // todo FrameFactory.CreateFrameWithType(FrameType.RemoteATCommand);
-
-            // todo: build the frame based on the parameters
-
-            lock(pendingMessages.SyncRoot)
-            {
-                pendingMessages.Add(frame);
-            }
         }
 
         /// <summary>
@@ -46,7 +32,7 @@ namespace MosziNet.HomeAutomation.XBee
         /// <param name="frame"></param>
         public void SendFrame(IXBeeFrame frame)
         {
-            lock(pendingMessages.SyncRoot)
+            lock (pendingMessages.SyncRoot)
             {
                 pendingMessages.Add(frame);
             }
@@ -77,31 +63,39 @@ namespace MosziNet.HomeAutomation.XBee
 
         private void SendAnyPendingXBeeMessages(XBeeSerialPort port)
         {
-            // first make a copy of the messages that have to be sent.
             ArrayList localList = null;
-            lock(pendingMessages.SyncRoot)
+
+            lock (pendingMessages.SyncRoot)
             {
-                localList = (ArrayList)pendingMessages.Clone();
-                
-                while (pendingMessages.Count > 0)
-                    pendingMessages.RemoveAt(0);
+                if (pendingMessages.Count > 0)
+                {
+                    // first make a copy of the messages that have to be sent.
+                    
+                    localList = (ArrayList)pendingMessages.Clone();
+
+                    while (pendingMessages.Count > 0)
+                        pendingMessages.RemoveAt(0);
+                }
             }
 
-            // and now send out these messages
-            for(int i = 0; i < localList.Count; i++)
+            if (localList != null)
             {
-                IXBeeFrame frame = (IXBeeFrame)localList[i];
+                // and now send out these messages
+                for (int i = 0; i < localList.Count; i++)
+                {
+                    IXBeeFrame frame = (IXBeeFrame)localList[i];
 
-                XBeeSerialPortWriter.WriteFrameToSerialPort(frame, port);
-            }
+                    XBeeSerialPortWriter.WriteFrameToSerialPort(frame, port);
+                }
+            }  
         }
 
         private void CheckForXBeeMessages(XBeeSerialPort port)
         {
             // first try to read something
-            IXBeeFrame frame = XBeeSerialPortReader.FrameFromSerialPort(port);
+            IXBeeFrame frame = null;
 
-            if (frame != null)
+            while ((frame = XBeeSerialPortReader.FrameFromSerialPort(port)) != null)
             {
                 MessageReceivedDelegate e = this.MessageReceived;
                 if (e != null)

@@ -3,6 +3,7 @@ using Microsoft.SPOT;
 using System.IO.Ports;
 using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
+using System.Threading;
 
 namespace MosziNet.HomeAutomation.XBee
 {
@@ -14,9 +15,8 @@ namespace MosziNet.HomeAutomation.XBee
         {
             IXBeeFrame frame = null;
 
-            // the serial port needs to have at least 4 bytes: 1 frame start, 2 bytes for frame length, 1 byte for checksum
-
-            if (port.BytesToRead >= 4)
+            // the serial port needs to have at least 3 bytes: 1 frame start, 2 bytes for frame length
+            if (port.BytesToRead >= 3) 
             {
                 // read the possible frame start into the buffer
                 readBuffer[FrameIndex.Start] = (byte)port.ReadByte();
@@ -34,18 +34,12 @@ namespace MosziNet.HomeAutomation.XBee
 
                     if (frameLength <= XBeeConstants.MaxFrameLength - 4)
                     {
-                        // check if there is enough to read for the framelength
-                        if (port.BytesToRead >= frameLength)
-                        {
-                            // we begin reading with the frame type offset, frameLength count of bytes (including checksum)
-                            port.Read(readBuffer, FrameIndex.FrameType, frameLength); 
+                        // we begin reading with the frame type offset, frameLength count of bytes (including checksum)
+                        port.Read(readBuffer, FrameIndex.FrameType, frameLength); 
 
-                            // now create an XBee frame based on the buffer
+                        // now create an XBee frame based on the buffer
                             
-                            frame = FrameSerializer.Deserialize(readBuffer);
-
-                            Debug.Print("Frame received: " + MosziNet.HomeAutomation.Util.HexConverter.ToSpacedHexString(readBuffer, 0, frameLength + 3));
-                        }
+                        frame = FrameSerializer.Deserialize(readBuffer);
                     }
                     else
                     {

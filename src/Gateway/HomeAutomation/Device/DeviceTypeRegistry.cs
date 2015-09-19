@@ -1,18 +1,21 @@
 using System;
 using Microsoft.SPOT;
 using System.Collections;
+using MosziNet.HomeAutomation.Util;
 
 namespace MosziNet.HomeAutomation.Device
 {
     /// <summary>
     /// Keeps an up to date registry of the devices in the system.
     /// </summary>
-    public class DeviceTypeRegistry : MosziNet.HomeAutomation.Device.IDeviceTypeRegistry
+    public class DeviceTypeRegistry : IDeviceTypeRegistry
     {
         private Hashtable deviceRegistry = new Hashtable();
 
-        public void RegisterDevice(Type device, string deviceId)
+        public void RegisterDevice(Type device, byte[] deviceByteId)
         {
+            string deviceId = HexConverter.ToHexString(deviceByteId);
+
             if (deviceRegistry.Contains(deviceId))
             {
                 Debug.Print("Replacing device type for id: " + deviceId);
@@ -21,8 +24,10 @@ namespace MosziNet.HomeAutomation.Device
             deviceRegistry[deviceId] = device;
         }
 
-        public Type GetDeviceTypeById(string deviceId)
+        public Type GetDeviceTypeById(byte[] deviceByteId)
         {
+            string deviceId = HexConverter.ToHexString(deviceByteId);
+
             return deviceRegistry.Contains(deviceId) ? (Type)deviceRegistry[deviceId] : null;
         }
     }

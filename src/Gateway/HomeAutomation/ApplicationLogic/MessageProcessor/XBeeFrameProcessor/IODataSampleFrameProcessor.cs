@@ -9,14 +9,11 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor.XBeeFramePro
     {
         public void ProcessFrame(XBee.Frame.IXBeeFrame frame)
         {
-            string hexAddress = HexConverter.ToHexString(frame.Address);
             IDeviceTypeRegistry deviceTypeRegistry = (IDeviceTypeRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IDeviceTypeRegistry));
-            Type deviceType = deviceTypeRegistry.GetDeviceTypeById(hexAddress);
+            Type deviceType = deviceTypeRegistry.GetDeviceTypeById(frame.Address);
             
             if (deviceType == null)
             {
-                Debug.Print("Received a frame from an unknown device with address: " + hexAddress);
-
                 // Ask for the type of the device type.
                 new DeviceUtil().AskForDeviceType(frame);
             }
@@ -26,7 +23,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor.XBeeFramePro
                 System.Reflection.ConstructorInfo constructor = deviceType.GetConstructor(new Type[] { });
                 if (constructor != null)
                 {
-                    IXBeeDevice device = constructor.Invoke(new object[] { }) as IXBeeDevice;
+                    IDevice device = constructor.Invoke(new object[] { }) as IDevice;
                     if (device != null)
                     {
                         device.ProcessFrame(frame);

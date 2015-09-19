@@ -5,6 +5,8 @@ namespace MosziNet.HomeAutomation.Device.Base
 {
     public abstract class DeviceBase : IDevice
     {
-        public string DeviceID { get; set; }
+        public byte[] DeviceID { get; set; }
+
+        public abstract void ProcessFrame(XBee.Frame.IXBeeFrame frame);
     }
 }

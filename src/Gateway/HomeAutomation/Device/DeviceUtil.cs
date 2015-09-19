@@ -10,15 +10,23 @@ namespace MosziNet.HomeAutomation.Device
 {
     public class DeviceUtil
     {
+        static byte frameId;
+
         public void AskForDeviceType(IXBeeFrame remoteFrame)
         {
+            frameId++;
+            if (frameId == 0)
+                frameId++;
+
+            Debug.Print("Received a frame from an unknown device, so we are asking type ID from this device. Address: " + HexConverter.ToHexString(remoteFrame.Address));
+
             // build the frame to ask the device type id
             RemoteATCommand frame = new RemoteATCommand();
             frame.Address = remoteFrame.Address;
             frame.NetworkAddress = remoteFrame.NetworkAddress;
 
             frame.ATCommand = ATCommands.DD;
-            frame.FrameId = 01;
+            frame.FrameId = frameId;
 
             // post this message to the device
             IMessageBus messageBus = (IMessageBus) ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IMessageBus));
@@ -40,7 +48,18 @@ namespace MosziNet.HomeAutomation.Device
             {
                 device = new TemperatureSensor();
 
-                device.DeviceID = HexConverter.ToHexString(frame.Address);
+                device.DeviceID = frame.Address;
+            }
+
+            if (deviceIdentification == 0x9987)
+            {
+                device = new HeartBeatDevice();
+                device.DeviceID = frame.Address;
+            }
+
+            if (device == null)
+            {
+                Debug.Print("Device with type ID " + HexConverter.ToHexString(responseFrame.Address) + " is not known.");
             }
 
             return device;

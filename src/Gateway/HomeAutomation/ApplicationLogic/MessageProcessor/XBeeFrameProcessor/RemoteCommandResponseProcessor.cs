@@ -3,6 +3,7 @@ using Microsoft.SPOT;
 using MosziNet.HomeAutomation.Device;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 using MosziNet.HomeAutomation.XBee;
+using MosziNet.HomeAutomation.Device.Concrete;
 
 namespace MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor.XBeeFrameProcessor
 {
@@ -15,16 +16,19 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor.XBeeFramePro
             // check if this is a DD command response - used for identifying devices by their type
             if (FrameUtil.IsSameATCommand(responseFrame.ATCommand, ATCommands.DD))
             {
+                IDeviceTypeRegistry deviceTypeRegistry = (IDeviceTypeRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IDeviceTypeRegistry));
+
                 // the device answered for our identification request, so create the device and register it
-                IXBeeDevice device = new DeviceUtil().CreateDeviceByDeviceTypeInFrame(frame) as IXBeeDevice;
+                IDevice device = new DeviceUtil().CreateDeviceByDeviceTypeInFrame(frame) as IDevice;
                 if (device != null)
                 {
-                    IDeviceTypeRegistry deviceTypeRegistry = (IDeviceTypeRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IDeviceTypeRegistry));
                     deviceTypeRegistry.RegisterDevice(device.GetType(), device.DeviceID);
                 }
                 else
                 {
-                    Debug.Print("Device created based on the DD response is not valid.");
+                    Debug.Print("Device created based on the DD response is not valid, storing it as an 'Unknown' device.");
+
+                    deviceTypeRegistry.RegisterDevice(typeof(UnknownDevice), frame.Address);
                 }
 
             }

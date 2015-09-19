@@ -13,7 +13,6 @@ namespace MosziNet.HomeAutomation.BusinessLogic
         XBeeService xbeeService;
         IMessageBus messageBus;
 
-
         public Gateway()
         {
             xbeeService = (XBeeService)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(XBeeService));
@@ -25,15 +24,8 @@ namespace MosziNet.HomeAutomation.BusinessLogic
 
         void xbeeService_MessageReceived(XBee.Frame.IXBeeFrame frame)
         {
-            IXBeeDevice device;
-
             // put the frame on the message bus for later processing.
             messageBus.PostMessage(new DeviceNotificationMessage(frame));
-
-
-            if (frame.FrameType != XBee.Frame.FrameType.RemoteCommandResponse)
-            {
-            }
         }
     }
 }
