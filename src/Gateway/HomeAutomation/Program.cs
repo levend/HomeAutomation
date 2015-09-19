@@ -14,6 +14,7 @@ using MosziNet.HomeAutomation.Sensor.Temperature;
 using MosziNet.HomeAutomation.BusinessLogic;
 using MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor;
 using MosziNet.HomeAutomation.ApplicationLogic.Messages;
+using MosziNet.HomeAutomation.Mqtt;
 
 namespace MosziNet.HomeAutomation
 {
@@ -26,17 +27,17 @@ namespace MosziNet.HomeAutomation
 
         private static void InitializeApplication()
         {
+            MosziNet.HomeAutomation.Util.HttpDateTimeExtraction.FromGmtOffset(2).InitializeSystemClock();
+
             // Setup the device registry
             // TODO: either provide the means to register devices through MQTT, or just register them statically ? Do we really need this in a gateway (which should just pass over the messages) ?
             DeviceTypeRegistry deviceRegistry = new DeviceTypeRegistry();
 
-            //communicationServiceProvider.RegisterCommunicationService(
-            //    new MqttCommunicationService(new MosziNet.HomeAutomation.Configuration.MqttServerConfiguration(
-            //        "192.168.1.213", 
-            //        20, 
-            //        "MosziNet_HomeAutomation_Gateway",
-            //        "/MosziNet_HA/")), 
-            //    ApplicationsConstants.CommunicationServiceProvider_MQTT);
+            MqttService mqttService = new MqttService(new MosziNet.HomeAutomation.Configuration.MqttServerConfiguration(
+                "192.168.1.213",
+                20,
+                "MosziNet_HomeAutomation_Gateway_v1.1",
+                "/MosziNet_HA/"));
 
             // Setup the message bus
             IMessageBus messageBus = new MessageBus();
@@ -55,6 +56,7 @@ namespace MosziNet.HomeAutomation
             ApplicationContext.ServiceRegistry.RegisterService(typeof(IMessageBus), messageBus);
             ApplicationContext.ServiceRegistry.RegisterService(typeof(IDeviceTypeRegistry), deviceRegistry);
             ApplicationContext.ServiceRegistry.RegisterService(typeof(Gateway), new Gateway());
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(MqttService), mqttService);
 
             xbeeService.StartListeningForMessages();
         }

@@ -4,6 +4,7 @@ using uPLibrary.Networking.M2Mqtt;
 using System.Threading;
 using uPLibrary.Networking.M2Mqtt.Messages;
 using System.Text;
+using System.Net;
 
 namespace MosziNet.HomeAutomation.Mqtt
 {
@@ -13,7 +14,6 @@ namespace MosziNet.HomeAutomation.Mqtt
 
         // the connection and it's lock object
         private MqttClient mqttClient;
-        private object mqttClientLockObject = new Object();
 
         public IMqttServerConfiguration configuration { get; private set; }
         private bool shouldMqttConnectionBeAlive;
@@ -32,20 +32,12 @@ namespace MosziNet.HomeAutomation.Mqtt
             new Thread(MqttConnectionThread).Start();
         }
 
-        public void StartListeningForMessages()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SendMessage(string destinationId, string message)
-        {
-            
-        }
-
         private void MQTTMessageReceived(string topicId, string message)
         {
             if (message == null || message.Length == 0)
                 return;
+
+            Debug.Print("[" + topicId + "] " + message);
         }
 
         /// <summary>
@@ -55,10 +47,10 @@ namespace MosziNet.HomeAutomation.Mqtt
         {
             while (shouldMqttConnectionBeAlive)
             {
-                lock(mqttClientLockObject)
-                {
-                    EnsureMqttServerIsConnected();
-                }
+                // first wait for an IP address to be available.
+                while (IPAddress.GetDefaultLocalAddress() == IPAddress.Any) ;
+
+                EnsureMqttServerIsConnected();
 
                 Thread.Sleep(configuration.KeepAliveCheckPeriodInSeconds * 1000);
             }
@@ -66,26 +58,23 @@ namespace MosziNet.HomeAutomation.Mqtt
 
         private void EnsureMqttServerIsConnected()
         {
-            lock (mqttClientLockObject)
+            if (mqttClient == null || !mqttClient.IsConnected)
             {
-                if (mqttClient == null || !mqttClient.IsConnected)
+                try
                 {
-                    try
-                    {
-                        mqttClient = new MqttClient(configuration.ServerHostName);
+                    mqttClient = new MqttClient(configuration.ServerHostName);
 
-                        mqttClient.ConnectionClosed += mqttClient_ConnectionClosed;
-                        mqttClient.MqttMsgPublishReceived += mqttClient_MqttMsgPublishReceived;
+                    mqttClient.ConnectionClosed += mqttClient_ConnectionClosed;
+                    mqttClient.MqttMsgPublishReceived += mqttClient_MqttMsgPublishReceived;
 
-                        mqttClient.Connect(configuration.ClientName);
+                    mqttClient.Connect(configuration.ClientName);
 
-                        // subscribe to the topics on which we listen for messages
-                        mqttClient.Subscribe(new string[] { configuration.TopicRootName + "/Status" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
-                    }
-                    catch(Exception ex)
-                    {
-                        Debug.Print("Connection to MQTT server was not successful. Message: " + ex.Message);
-                    }
+                    // subscribe to the topics on which we listen for messages
+                    mqttClient.Subscribe(new string[] { configuration.TopicRootName + "/Status" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+                }
+                catch(Exception ex)
+                {
+                    Debug.Print("Connection to MQTT server was not successful. \n" + ex);
                 }
             }
         }
