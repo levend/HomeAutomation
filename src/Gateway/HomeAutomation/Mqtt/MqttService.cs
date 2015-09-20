@@ -18,18 +18,23 @@ namespace MosziNet.HomeAutomation.Mqtt
         public IMqttServerConfiguration configuration { get; private set; }
         private bool shouldMqttConnectionBeAlive;
 
-        public MqttService(IMqttServerConfiguration configuration)
+        public MqttService(IMqttServerConfiguration config)
         {
-            if (configuration.ServerHostName == null || configuration.ServerHostName.Length == 0)
+            if (config.ServerHostName == null || config.ServerHostName.Length == 0)
                 throw new ArgumentOutOfRangeException("configuration", "ServerHostName should not be empty.");
 
-            if (configuration.KeepAliveCheckPeriodInSeconds < MinimumKeepAliveInterval)
+            if (config.KeepAliveCheckPeriodInSeconds < MinimumKeepAliveInterval)
                 throw new ArgumentOutOfRangeException("configuration", "Keep alive interval should be at least 15 seconds.");
 
-            this.configuration = configuration;
+            this.configuration = config;
 
             shouldMqttConnectionBeAlive = true;
             new Thread(MqttConnectionThread).Start();
+        }
+
+        public void SendMessage(string topic, string message)
+        {
+            mqttClient.Publish(topic, Encoding.UTF8.GetBytes(message));
         }
 
         private void MQTTMessageReceived(string topicId, string message)
@@ -47,12 +52,7 @@ namespace MosziNet.HomeAutomation.Mqtt
         {
             while (shouldMqttConnectionBeAlive)
             {
-                // first wait for an IP address to be available.
-                while (IPAddress.GetDefaultLocalAddress() == IPAddress.Any) ;
-
                 EnsureMqttServerIsConnected();
-
-                Thread.Sleep(configuration.KeepAliveCheckPeriodInSeconds * 1000);
             }
         }
 
@@ -67,10 +67,10 @@ namespace MosziNet.HomeAutomation.Mqtt
                     mqttClient.ConnectionClosed += mqttClient_ConnectionClosed;
                     mqttClient.MqttMsgPublishReceived += mqttClient_MqttMsgPublishReceived;
 
-                    mqttClient.Connect(configuration.ClientName);
-
                     // subscribe to the topics on which we listen for messages
-                    mqttClient.Subscribe(new string[] { configuration.TopicRootName + "/Status" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+                    mqttClient.Subscribe(new string[] { configuration.TopicRootName + "/Command" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+
+                    mqttClient.Connect(configuration.ClientName);
                 }
                 catch(Exception ex)
                 {
@@ -82,7 +82,7 @@ namespace MosziNet.HomeAutomation.Mqtt
         void mqttClient_MqttMsgPublishReceived(object sender, uPLibrary.Networking.M2Mqtt.Messages.MqttMsgPublishEventArgs e)
         {
             String message = new String(Encoding.UTF8.GetChars(e.Message));
-
+            
             MQTTMessageReceived(e.Topic, message);
         }
 

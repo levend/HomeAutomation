@@ -15,6 +15,9 @@ using MosziNet.HomeAutomation.BusinessLogic;
 using MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor;
 using MosziNet.HomeAutomation.ApplicationLogic.Messages;
 using MosziNet.HomeAutomation.Mqtt;
+using MosziNet.HomeAutomation.Logging.Writer;
+using MosziNet.HomeAutomation.Logging.Formatter;
+using MosziNet.HomeAutomation.Logging;
 
 namespace MosziNet.HomeAutomation
 {
@@ -37,7 +40,10 @@ namespace MosziNet.HomeAutomation
                 "192.168.1.213",
                 20,
                 "MosziNet_HomeAutomation_Gateway_v1.1",
-                "/MosziNet_HA/"));
+                "/MosziNet_HA"));
+
+            // setup the logging framework
+            Log.AddLogWriter(new MqttLogWriter(mqttService, "/Moszinet_HA/Log", new StandardLogFormatter()));
 
             // Setup the message bus
             IMessageBus messageBus = new MessageBus();

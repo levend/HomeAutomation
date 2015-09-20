@@ -5,6 +5,7 @@ using MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor.XBeeFrameProcess
 using MosziNet.HomeAutomation.XBee.Frame;
 using System.Collections;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
+using MosziNet.HomeAutomation.Logging;
 
 namespace MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor
 {
@@ -32,7 +33,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor
                 }
                 else
                 {
-                    Debug.Print("Dropping frame with type " + frameType.Name + " as no suitable processor is found.");
+                    Log.Debug("Dropping frame with type " + frameType.Name + " as no suitable processor is found.");
                 }
             }
         }

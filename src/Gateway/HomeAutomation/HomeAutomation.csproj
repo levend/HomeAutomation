@@ -40,6 +40,7 @@
     <Compile Include="ApplicationLogic\MessageProcessor\XBeeFrameProcessor\IODataSampleFrameProcessor.cs" />
     <Compile Include="ApplicationLogic\MessageProcessor\XBeeFrameProcessor\IXBeeFrameProcessor.cs" />
     <Compile Include="ApplicationLogic\MessageProcessor\XBeeFrameProcessor\RemoteCommandResponseProcessor.cs" />
+    <Compile Include="ApplicationLogic\MqttDeviceTranslator\TemperatureDeviceTranslator.cs" />
     <Compile Include="ApplicationsConstants.cs" />
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="ApplicationLogic\Gateway.cs" />
@@ -51,6 +52,11 @@
     <Compile Include="Device\DeviceUtil.cs" />
     <Compile Include="Device\Base\DeviceBase.cs" />
     <Compile Include="Device\DeviceType.cs" />
+    <Compile Include="Logging\Formatter\StandardLogFormatter.cs" />
+    <Compile Include="Logging\ILogFormatter.cs" />
+    <Compile Include="Logging\ILogWriter.cs" />
+    <Compile Include="Logging\Log.cs" />
+    <Compile Include="Logging\Writer\MqttLogWriter.cs" />
     <Compile Include="Mqtt\MqttService.cs" />
     <Compile Include="Mqtt\IMqttServerConfiguration.cs" />
     <Compile Include="Configuration\MqttServerConfiguration.cs" />
@@ -71,8 +77,8 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="M2Mqtt.NetMf, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\M2Mqtt.4.2.0.1\lib\netmf43\M2Mqtt.NetMf.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\m2mqtt-master\bin\Debug\M2Mqtt.NetMf43\M2Mqtt.NetMf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SPOT.Hardware" />
     <Reference Include="Microsoft.SPOT.Hardware.PWM" />
@@ -99,8 +105,5 @@
       <Project>{6E5B65B7-874B-406B-B5B8-93B0702A06EA}</Project>
       <Name>HomeAutomation.XBee</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
 </Project>

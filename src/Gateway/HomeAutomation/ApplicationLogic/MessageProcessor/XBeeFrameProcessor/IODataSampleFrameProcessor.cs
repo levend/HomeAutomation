@@ -2,6 +2,10 @@ using System;
 using Microsoft.SPOT;
 using MosziNet.HomeAutomation.Device;
 using MosziNet.HomeAutomation.Util;
+using MosziNet.HomeAutomation.Logging;
+using MosziNet.HomeAutomation.Device.Concrete;
+using MosziNet.HomeAutomation.ApplicationLogic.MqttDeviceTranslator;
+using MosziNet.HomeAutomation.Mqtt;
 
 namespace MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor.XBeeFrameProcessor
 {
@@ -24,13 +28,22 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor.XBeeFramePro
                 if (constructor != null)
                 {
                     IDevice device = constructor.Invoke(new object[] { }) as IDevice;
+                    device.DeviceID = frame.Address;
+
                     if (device != null)
                     {
                         device.ProcessFrame(frame);
+
+                        // todo: generalize
+
+                        string message = new TemperatureDeviceTranslator().ToMqttMessage(((TemperatureSensor)device));
+                        MqttService mqttService = (MqttService)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(MqttService));
+
+                        mqttService.SendMessage("/MosziNet_HA/Status", message);
                     }
                     else
                     {
-                        Debug.Print("Device could not be created for type: " + deviceType.Name);
+                        Log.Debug("Device could not be created for type: " + deviceType.Name);
                     }
                 }
             }
