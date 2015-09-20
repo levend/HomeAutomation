@@ -55,7 +55,7 @@ namespace MosziNet.HomeAutomation
                 "/MosziNet_HA"));
 
             // Setup the logging framework
-            Log.AddLogWriter(new MqttLogWriter(mqttService, "/Log"), new StandardLogFormatter());
+            Log.AddLogWriter(new MqttLogWriter(mqttService, MqttTopic.LogTopic), new StandardLogFormatter());
             Log.AddLogWriter(new ConsoleLogWriter(), new StandardLogFormatter());
 
             // Setup the message bus
@@ -73,7 +73,7 @@ namespace MosziNet.HomeAutomation
             ApplicationContext.ServiceRegistry.RegisterService(typeof(XBeeService), xbeeService);
             ApplicationContext.ServiceRegistry.RegisterService(typeof(MqttService), mqttService);
 
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(Gateway), new Gateway());
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(Gateway), new Gateway(xbeeService, mqttService));
 
             // Start listening for messages
             xbeeService.StartListeningForMessages();

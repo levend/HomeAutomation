@@ -9,6 +9,8 @@ using MosziNet.HomeAutomation.Logging;
 
 namespace MosziNet.HomeAutomation.Mqtt
 {
+    public delegate void MessageReceivedDelegate(string topicName, string message);
+
     public class MqttService
     {
         private const int MinimumKeepAliveInterval = 15;
@@ -19,6 +21,8 @@ namespace MosziNet.HomeAutomation.Mqtt
         private IMqttServerConfiguration configuration { get; set; }
 
         private bool shouldMqttConnectionBeAlive;
+
+        public event MessageReceivedDelegate MessageReceived;
 
         public MqttService(IMqttServerConfiguration config)
         {
@@ -53,6 +57,11 @@ namespace MosziNet.HomeAutomation.Mqtt
             mqttClient.Publish(topic, Encoding.UTF8.GetBytes(message));
         }
 
+        public void SubscribeTopic(string topic)
+        {
+            mqttClient.Subscribe(new string[] { topic }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
+        }
+
         /// <summary>
         /// Returns the full topic name by concatenating the topic name suffix to the root topic name.
         /// </summary>
@@ -71,6 +80,12 @@ namespace MosziNet.HomeAutomation.Mqtt
         {
             if (message == null || message.Length == 0)
                 return;
+
+            MessageReceivedDelegate mrd = this.MessageReceived;
+            if (mrd != null)
+            {
+                mrd(topicId, message);
+            }
 
             Log.Information("[" + topicId + "] " + message);
         }
@@ -95,10 +110,7 @@ namespace MosziNet.HomeAutomation.Mqtt
                     mqttClient = new MqttClient(configuration.ServerHostName);
 
                     mqttClient.ConnectionClosed += mqttClient_ConnectionClosed;
-                    //mqttClient.MqttMsgPublishReceived += mqttClient_MqttMsgPublishReceived;
-
-                    //// subscribe to the topics on which we listen for messages
-                    //mqttClient.Subscribe(new string[] { configuration.TopicRootName + "/Command" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
+                    mqttClient.MqttMsgPublishReceived += mqttClient_MqttMsgPublishReceived;
 
                     mqttClient.Connect(configuration.ClientName);
                 }

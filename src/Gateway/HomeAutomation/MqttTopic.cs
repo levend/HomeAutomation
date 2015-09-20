@@ -1,9 +1,9 @@
 using System;
 using Microsoft.SPOT;
 
-namespace MosziNet.HomeAutomation.ApplicationLogic
+namespace MosziNet.HomeAutomation
 {
-    public class MqttConfiguration
+    public class MqttTopic
     {
         public static readonly string StatusTopic = "/Status";
 

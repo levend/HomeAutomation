@@ -79,7 +79,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
             messageBus.PostMessage(new PostToMqttMessage()
             {
                 Message = message,
-                TopicSuffix = MqttConfiguration.StatusTopic
+                TopicSuffix = MqttTopic.StatusTopic
             });
         }
 

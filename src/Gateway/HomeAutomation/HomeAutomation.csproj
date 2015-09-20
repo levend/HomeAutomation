@@ -40,7 +40,7 @@
     <Compile Include="ApplicationLogic\XBeeFrameProcessor\IXBeeFrameProcessor.cs" />
     <Compile Include="ApplicationLogic\XBeeFrameProcessor\RemoteCommandResponseProcessor.cs" />
     <Compile Include="ApplicationLogic\Messages\PostToMqttMessage.cs" />
-    <Compile Include="ApplicationLogic\MqttConfiguration.cs" />
+    <Compile Include="MqttTopic.cs" />
     <Compile Include="ApplicationLogic\MqttDeviceTranslator\Device2MqttTranslation.cs" />
     <Compile Include="ApplicationLogic\MqttDeviceTranslator\IDeviceTranslator.cs" />
     <Compile Include="ApplicationLogic\MqttDeviceTranslator\TemperatureDeviceTranslator.cs" />
