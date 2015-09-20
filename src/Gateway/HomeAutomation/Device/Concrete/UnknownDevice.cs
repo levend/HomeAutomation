@@ -1,6 +1,7 @@
 using System;
 using Microsoft.SPOT;
 using MosziNet.HomeAutomation.Device.Base;
+using MosziNet.HomeAutomation.Logging;
 
 namespace MosziNet.HomeAutomation.Device.Concrete
 {
@@ -8,7 +9,7 @@ namespace MosziNet.HomeAutomation.Device.Concrete
     {
         public override void ProcessFrame(XBee.Frame.IXBeeFrame frame)
         {
-            Debug.Print("An unknown device received a frame.");
+            Log.Debug("An unknown device received a frame.");
         }
     }
 }

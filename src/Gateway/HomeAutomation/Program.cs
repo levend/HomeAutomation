@@ -12,12 +12,12 @@ using System.IO.Ports;
 using MosziNet.HomeAutomation.XBee;
 using MosziNet.HomeAutomation.Sensor.Temperature;
 using MosziNet.HomeAutomation.BusinessLogic;
-using MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor;
 using MosziNet.HomeAutomation.ApplicationLogic.Messages;
 using MosziNet.HomeAutomation.Mqtt;
 using MosziNet.HomeAutomation.Logging.Writer;
 using MosziNet.HomeAutomation.Logging.Formatter;
 using MosziNet.HomeAutomation.Logging;
+using MosziNet.HomeAutomation.Messaging;
 
 namespace MosziNet.HomeAutomation
 {
@@ -43,15 +43,13 @@ namespace MosziNet.HomeAutomation
                 "/MosziNet_HA"));
 
             // setup the logging framework
-            Log.AddLogWriter(new MqttLogWriter(mqttService, "/Moszinet_HA/Log", new StandardLogFormatter()));
+            Log.AddLogWriter(new MqttLogWriter(mqttService, "/Moszinet_HA/Log"), new StandardLogFormatter());
+            Log.AddLogWriter(new ConsoleLogWriter(), new StandardLogFormatter());
 
             // Setup the message bus
             IMessageBus messageBus = new MessageBus();
 
             MessageProcessorRegistry messageProcessorRegistry = new MessageProcessorRegistry();
-            messageProcessorRegistry.RegisterMessageProcessor(typeof(DeviceCommandMessage), new XBeeDeviceCommandMessageProcessor());
-            messageProcessorRegistry.RegisterMessageProcessor(typeof(DeviceNotificationMessage), new DeviceNotificationMessageProcessor());
-
             IMessageBusRunner messageBusRunner = new ThreadedMessageBusRunner(messageBus, messageProcessorRegistry);
             messageBus.MessageBusRunner = messageBusRunner;            
 

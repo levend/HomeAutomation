@@ -5,6 +5,7 @@ using System.Threading;
 using uPLibrary.Networking.M2Mqtt.Messages;
 using System.Text;
 using System.Net;
+using MosziNet.HomeAutomation.Logging;
 
 namespace MosziNet.HomeAutomation.Mqtt
 {
@@ -15,7 +16,8 @@ namespace MosziNet.HomeAutomation.Mqtt
         // the connection and it's lock object
         private MqttClient mqttClient;
 
-        public IMqttServerConfiguration configuration { get; private set; }
+        private IMqttServerConfiguration configuration { get; set; }
+
         private bool shouldMqttConnectionBeAlive;
 
         public MqttService(IMqttServerConfiguration config)
@@ -25,6 +27,9 @@ namespace MosziNet.HomeAutomation.Mqtt
 
             if (config.KeepAliveCheckPeriodInSeconds < MinimumKeepAliveInterval)
                 throw new ArgumentOutOfRangeException("configuration", "Keep alive interval should be at least 15 seconds.");
+
+            if (config.TopicRootName[config.TopicRootName.Length - 1] == '/')
+                throw new ArgumentOutOfRangeException("configuration", "Topic name should not have a trailing / character.");
 
             this.configuration = config;
 
@@ -37,12 +42,20 @@ namespace MosziNet.HomeAutomation.Mqtt
             mqttClient.Publish(topic, Encoding.UTF8.GetBytes(message));
         }
 
+        public string GetFullTopicName(string topicNameSuffix)
+        {
+            if (topicNameSuffix[0] != '/')
+                throw new ArgumentOutOfRangeException("topicNameSuffix", "Topic name suffix should begin with a / character.");
+
+            return configuration.TopicRootName + topicNameSuffix;
+        }
+
         private void MQTTMessageReceived(string topicId, string message)
         {
             if (message == null || message.Length == 0)
                 return;
 
-            Debug.Print("[" + topicId + "] " + message);
+            Log.Debug("[" + topicId + "] " + message);
         }
 
         /// <summary>
@@ -65,16 +78,16 @@ namespace MosziNet.HomeAutomation.Mqtt
                     mqttClient = new MqttClient(configuration.ServerHostName);
 
                     mqttClient.ConnectionClosed += mqttClient_ConnectionClosed;
-                    mqttClient.MqttMsgPublishReceived += mqttClient_MqttMsgPublishReceived;
+                    //mqttClient.MqttMsgPublishReceived += mqttClient_MqttMsgPublishReceived;
 
-                    // subscribe to the topics on which we listen for messages
-                    mqttClient.Subscribe(new string[] { configuration.TopicRootName + "/Command" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+                    //// subscribe to the topics on which we listen for messages
+                    //mqttClient.Subscribe(new string[] { configuration.TopicRootName + "/Command" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
 
                     mqttClient.Connect(configuration.ClientName);
                 }
                 catch(Exception ex)
                 {
-                    Debug.Print("Connection to MQTT server was not successful. \n" + ex);
+                    Log.Debug("Connection to MQTT server was not successful. \n" + ex);
                 }
             }
         }

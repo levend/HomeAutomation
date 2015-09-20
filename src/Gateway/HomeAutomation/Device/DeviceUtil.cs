@@ -5,6 +5,8 @@ using MosziNet.HomeAutomation.Device.Concrete;
 using MosziNet.HomeAutomation.Util;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 using MosziNet.HomeAutomation.ApplicationLogic.Messages;
+using MosziNet.HomeAutomation.Messaging;
+using MosziNet.HomeAutomation.Logging;
 
 namespace MosziNet.HomeAutomation.Device
 {
@@ -18,7 +20,7 @@ namespace MosziNet.HomeAutomation.Device
             if (frameId == 0)
                 frameId++;
 
-            Debug.Print("Received a frame from an unknown device, so we are asking type ID from this device. Address: " + HexConverter.ToHexString(remoteFrame.Address));
+            Log.Debug("Received a frame from an unknown device, so we are asking type ID from this device. Address: " + HexConverter.ToHexString(remoteFrame.Address));
 
             // build the frame to ask the device type id
             RemoteATCommand frame = new RemoteATCommand();
@@ -59,7 +61,7 @@ namespace MosziNet.HomeAutomation.Device
 
             if (device == null)
             {
-                Debug.Print("Device with type ID " + HexConverter.ToHexString(responseFrame.Address) + " is not known.");
+                Log.Debug("Device with type ID " + HexConverter.ToHexString(responseFrame.Address) + " is not known.");
             }
 
             return device;

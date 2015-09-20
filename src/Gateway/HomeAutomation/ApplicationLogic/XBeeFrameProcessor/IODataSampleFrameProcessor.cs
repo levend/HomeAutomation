@@ -6,8 +6,10 @@ using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Device.Concrete;
 using MosziNet.HomeAutomation.ApplicationLogic.MqttDeviceTranslator;
 using MosziNet.HomeAutomation.Mqtt;
+using MosziNet.HomeAutomation.ApplicationLogic.Messages;
+using MosziNet.HomeAutomation.Messaging;
 
-namespace MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor.XBeeFrameProcessor
+namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
 {
     public class IODataSampleFrameProcessor : IXBeeFrameProcessor
     {
@@ -32,14 +34,10 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor.XBeeFramePro
 
                     if (device != null)
                     {
+                        // first process the frame by the device
                         device.ProcessFrame(frame);
 
-                        // todo: generalize
-
-                        string message = new TemperatureDeviceTranslator().ToMqttMessage(((TemperatureSensor)device));
-                        MqttService mqttService = (MqttService)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(MqttService));
-
-                        mqttService.SendMessage("/MosziNet_HA/Status", message);
+                        TranslateDeviceToMqttMessage(device);
                     }
                     else
                     {
@@ -47,7 +45,34 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor.XBeeFramePro
                     }
                 }
             }
+        }
 
+        private static void TranslateDeviceToMqttMessage(IDevice device)
+        {
+            IDeviceTranslator deviceTranslator = (IDeviceTranslator)Device2MqttTranslation.GetTranslator(device);
+            IMessageBus messageBus = (IMessageBus)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IMessageBus));
+
+            if (deviceTranslator != null)
+            {
+                PostDeviceMessageToBus(device, deviceTranslator, messageBus);
+            }
+            else
+            {
+                Log.Error("Device with address " + HexConverter.ToHexString(device.DeviceID) + " can not be translated.");
+            }
+        }
+
+        private static void PostDeviceMessageToBus(IDevice device, IDeviceTranslator deviceTranslator, IMessageBus messageBus)
+        {
+            // convert the device frame to an mqtt message
+            string message = deviceTranslator.GetDeviceMessage(device);
+
+            // now post the message to the message bus
+            messageBus.PostMessage(new PostToMqttMessage()
+            {
+                Message = message,
+                TopicSuffix = MqttConfiguration.StatusTopic
+            });
         }
     }
 }

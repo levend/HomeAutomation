@@ -3,6 +3,7 @@ using Microsoft.SPOT;
 using MosziNet.HomeAutomation.Device.Base;
 using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
+using MosziNet.HomeAutomation.Logging;
 
 namespace MosziNet.HomeAutomation.Device.Concrete
 {
@@ -25,16 +26,16 @@ namespace MosziNet.HomeAutomation.Device.Concrete
 
                     Temperature = HomeAutomation.Sensor.Temperature.MCP9700.TemperatureFromVoltage(analogReading);
 
-                    Debug.Print("[TemperatureSensor] Temperature: " + Temperature.ToString());
+                    Log.Debug("[TemperatureSensor] Temperature: " + Temperature.ToString());
                 }
                 else
                 {
-                    Debug.Print("[TemperatureSensor] Wrong number of samples received.");
+                    Log.Debug("[TemperatureSensor] Wrong number of samples received.");
                 }
             }
             else
             {
-                Debug.Print("[TemperatureSensor] Wrong frame type (or null) for temperature sensor device.");
+                Log.Debug("[TemperatureSensor] Wrong frame type (or null) for temperature sensor device.");
             }
         }
     }

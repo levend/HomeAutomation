@@ -1,8 +1,9 @@
 using System;
 using Microsoft.SPOT;
 using System.Collections;
+using MosziNet.HomeAutomation.Logging;
 
-namespace MosziNet.HomeAutomation
+namespace MosziNet.HomeAutomation.Messaging
 {
     public class StandardMessageBusRunner : IMessageBusRunner
     {
@@ -15,7 +16,7 @@ namespace MosziNet.HomeAutomation
             messageProcessorRegistry = processorRegistry;
         }
 
-        public bool ProcessMessage(Message message)
+        public bool ProcessMessage(IMessage message)
         {
             IMessageProcessor processor = messageProcessorRegistry.GetMessageProcessorByMessage(message);
 
@@ -26,7 +27,7 @@ namespace MosziNet.HomeAutomation
             }
             else
             {
-                Debug.Print("Dropping message of type: " + message.GetType().FullName);
+                Log.Debug("Dropping message of type: " + message.GetType().FullName);
             }
 
             return true;

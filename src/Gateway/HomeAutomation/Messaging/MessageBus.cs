@@ -3,12 +3,12 @@ using Microsoft.SPOT;
 using System.Collections;
 using System.Threading;
 
-namespace MosziNet.HomeAutomation
+namespace MosziNet.HomeAutomation.Messaging
 {
     /// <summary>
     /// Provides a FIFO queue for message processing.
     /// </summary>
-    public class MessageBus : MosziNet.HomeAutomation.IMessageBus
+    public class MessageBus : IMessageBus
     {
         private ArrayList messageList = new ArrayList();
 
@@ -18,7 +18,7 @@ namespace MosziNet.HomeAutomation
         /// Adds a message to the end of the message queue.
         /// </summary>
         /// <param name="message"></param>
-        public void PostMessage(Message message)
+        public void PostMessage(IMessage message)
         {
             IMessageBusRunner runner = this.MessageBusRunner;
             if (runner != null)
@@ -38,15 +38,15 @@ namespace MosziNet.HomeAutomation
         /// Returns the first message from the queue, or null if it's empty
         /// </summary>
         /// <returns></returns>
-        public Message DequeueMessage()
+        public IMessage DequeueMessage()
         {
-            Message firstMessage = null;
+            IMessage firstMessage = null;
 
             lock (messageList)
             {
                 if (messageList.Count > 0)
                 {
-                    firstMessage = (Message)messageList[0];
+                    firstMessage = (IMessage)messageList[0];
                     messageList.RemoveAt(0);
                 }
             }

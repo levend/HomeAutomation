@@ -1,0 +1,20 @@
+Coordinator Address: 	00 13 A2 00 40 E2 C5 A0
+Router1 Address: 		00 13 A2 00 40 D6 AB 41
+End Device1 Address: 	00 13 A2 00 40 E4 38 E3
+
+
+
+DD response:	 	7E 00 13   97   01 00 13 A2 00 40 E2 C5 A0 00 00 44 44 00 00 03 00 00 A0
+DD request: 		7E 00 0F   17   01 00 13 A2 00 40 E4 38 E3 00 00 00 44 44 6B
+Sample:			 	7E 00 12   92      00 13 A2 00 40 E4 38 E3 BE DC 41 01 00 00 01 02 93 07
+
+
+
+
+Frame received: 7E 00 12 92 00 13 A2 00 40 E4 38 E3 BE DC 41 01 00 00 01 02 92 08
+Received a frame from an unknown device with address: 0013A20040E438E3
+Written to port: 7E 00 0F 17 01 00 13 A2 00 40 E4 38 E3 BE DC 00 44 44 D1
+Frame received: 7E 00 13 97 01 00 13 A2 00 40 E4 38 E3 BE DC 44 44 00 00 03 99 88 2D
+Frame received: 7E 00 12 92 00 13 A2 00 40 E4 38 E3 BE DC 41 01 00 00 01 02 92 08
+[TemperatureSensor] Temperature: 27.109375
+

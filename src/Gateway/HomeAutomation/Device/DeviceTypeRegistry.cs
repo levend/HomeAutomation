@@ -2,6 +2,7 @@ using System;
 using Microsoft.SPOT;
 using System.Collections;
 using MosziNet.HomeAutomation.Util;
+using MosziNet.HomeAutomation.Logging;
 
 namespace MosziNet.HomeAutomation.Device
 {
@@ -18,7 +19,7 @@ namespace MosziNet.HomeAutomation.Device
 
             if (deviceRegistry.Contains(deviceId))
             {
-                Debug.Print("Replacing device type for id: " + deviceId);
+                Log.Debug("Replacing device type for id: " + deviceId);
             }
 
             deviceRegistry[deviceId] = device;

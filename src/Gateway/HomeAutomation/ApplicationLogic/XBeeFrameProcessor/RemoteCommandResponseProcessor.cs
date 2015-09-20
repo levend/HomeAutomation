@@ -4,8 +4,9 @@ using MosziNet.HomeAutomation.Device;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 using MosziNet.HomeAutomation.XBee;
 using MosziNet.HomeAutomation.Device.Concrete;
+using MosziNet.HomeAutomation.Logging;
 
-namespace MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor.XBeeFrameProcessor
+namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
 {
     class RemoteCommandResponseProcessor : IXBeeFrameProcessor
     {
@@ -26,7 +27,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.MessageProcessor.XBeeFramePro
                 }
                 else
                 {
-                    Debug.Print("Device created based on the DD response is not valid, storing it as an 'Unknown' device.");
+                    Log.Debug("Device created based on the DD response is not valid, storing it as an 'Unknown' device.");
 
                     deviceTypeRegistry.RegisterDevice(typeof(UnknownDevice), frame.Address);
                 }

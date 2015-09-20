@@ -4,6 +4,7 @@ using MosziNet.HomeAutomation.XBee;
 using MosziNet.HomeAutomation.Mqtt;
 using MosziNet.HomeAutomation.Device;
 using MosziNet.HomeAutomation.Util;
+using MosziNet.HomeAutomation.Messaging;
 using MosziNet.HomeAutomation.ApplicationLogic.Messages;
 
 namespace MosziNet.HomeAutomation.BusinessLogic
@@ -25,7 +26,7 @@ namespace MosziNet.HomeAutomation.BusinessLogic
         void xbeeService_MessageReceived(XBee.Frame.IXBeeFrame frame)
         {
             // put the frame on the message bus for later processing.
-            messageBus.PostMessage(new DeviceNotificationMessage(frame));
+            messageBus.PostMessage(new XBeeFrameReceivedMessage(frame));
         }
     }
 }

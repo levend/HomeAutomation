@@ -2,7 +2,7 @@ using System;
 using Microsoft.SPOT;
 using System.Collections;
 
-namespace MosziNet.HomeAutomation
+namespace MosziNet.HomeAutomation.Messaging
 {
     public class MessageProcessorRegistry
     {
@@ -16,7 +16,7 @@ namespace MosziNet.HomeAutomation
             }
         }
 
-        public IMessageProcessor GetMessageProcessorByMessage(Message message)
+        public IMessageProcessor GetMessageProcessorByMessage(IMessage message)
         {
             lock(messageProcessors)
             {

@@ -1,8 +1,9 @@
 using System;
 using Microsoft.SPOT;
 using System.Threading;
+using MosziNet.HomeAutomation.Logging;
 
-namespace MosziNet.HomeAutomation
+namespace MosziNet.HomeAutomation.Messaging
 {
     public class ThreadedMessageBusRunner : IMessageBusRunner
     {
@@ -18,7 +19,7 @@ namespace MosziNet.HomeAutomation
             StartProcessingMessages();
         }
 
-        public bool ProcessMessage(Message message)
+        public bool ProcessMessage(IMessage message)
         {
             // do nothing here as we are processing messages on a separate thread
             return false;
@@ -43,21 +44,29 @@ namespace MosziNet.HomeAutomation
         {
             while (shouldMessageBusRunnerContinue)
             {
-                Message message;
+                IMessage message;
 
                 // while there are messages that can be dequeued from the message bus, dequeue and process them.
                 while ((message = messageBus.DequeueMessage()) != null)
                 {
-                    IMessageProcessor processor = messageProcessorRegistry.GetMessageProcessorByMessage(message);
-
-                    if (processor != null)
+                    IProcessableMessage processableMessage = message as IProcessableMessage;
+                    if (processableMessage != null)
                     {
-                        // process the message
-                        processor.ProcessMessage(message);
+                        processableMessage.ProcessMessage();
                     }
                     else
                     {
-                        Debug.Print("Dropping message of type: " + message.GetType().FullName);
+                        IMessageProcessor processor = messageProcessorRegistry.GetMessageProcessorByMessage(message);
+
+                        if (processor != null)
+                        {
+                            // process the message
+                            processor.ProcessMessage(message);
+                        }
+                        else
+                        {
+                            Log.Debug("Dropping message of type: " + message.GetType().FullName);
+                        }
                     }
                 }
 

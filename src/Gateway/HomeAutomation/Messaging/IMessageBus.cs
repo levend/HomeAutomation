@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace MosziNet.HomeAutomation
+namespace MosziNet.HomeAutomation.Messaging
 {
     // Declare the delegate (if using non-generic pattern). 
-    public delegate void MessageArrivedDelegate(Message message);
+    public delegate void MessageArrivedDelegate(IMessage message);
 
     public interface IMessageBus
     {
         IMessageBusRunner MessageBusRunner { get; set; }
 
-        void PostMessage(Message message);
-        Message DequeueMessage();
+        void PostMessage(IMessage message);
+        IMessage DequeueMessage();
     }
 }

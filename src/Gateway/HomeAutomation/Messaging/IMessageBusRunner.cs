@@ -1,7 +1,7 @@
 using System;
 using Microsoft.SPOT;
 
-namespace MosziNet.HomeAutomation
+namespace MosziNet.HomeAutomation.Messaging
 {
     public interface IMessageBusRunner
     {
@@ -10,6 +10,6 @@ namespace MosziNet.HomeAutomation
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        bool ProcessMessage(Message message);
+        bool ProcessMessage(IMessage message);
     }
 }

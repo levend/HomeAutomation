@@ -5,22 +5,42 @@ using System.Collections;
 namespace MosziNet.HomeAutomation.Logging
 {
     /// <summary>
-    /// 
+    /// Provides logging functionality to the application.
     /// </summary>
     public static class Log
     {
+        private class LogWriterInfo
+        {
+            public ILogWriter logWriter;
+            public ILogFormatter logFormatter;
+        }
+
         private static ArrayList logWriters = new ArrayList();
 
-        public static void AddLogWriter(ILogWriter logWriter)
+        public static void AddLogWriter(ILogWriter logWriter, ILogFormatter logFormatter)
         {
-            logWriters.Add(logWriter);
+            logWriters.Add(new LogWriterInfo()
+            {
+                logWriter = logWriter,
+                logFormatter = logFormatter
+            });
         }
 
         public static void Debug(string message)
         {
-            foreach(ILogWriter writer in logWriters)
+            LogMessage(message, LogLevel.Debug);
+        }
+
+        public static void Error(string message)
+        {
+            LogMessage(message, LogLevel.Error);
+        }
+
+        public static void LogMessage(string message, LogLevel logLevel)
+        {
+            foreach (LogWriterInfo writerInfo in logWriters)
             {
-                writer.Log(message, LogLevel.Debug);
+                writerInfo.logWriter.Log(message, logLevel, writerInfo.logFormatter);
             }
         }
     }
