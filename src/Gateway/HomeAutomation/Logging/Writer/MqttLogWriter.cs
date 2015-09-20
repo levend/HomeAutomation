@@ -6,17 +6,20 @@ namespace MosziNet.HomeAutomation.Logging.Writer
     public class MqttLogWriter : ILogWriter
     {
         private Mqtt.MqttService mqttService;
-        private string logTopic;
+        private string subTopic;
 
-        public MqttLogWriter(Mqtt.MqttService mqttServiceInstance, string logTopicName)
+        public MqttLogWriter(Mqtt.MqttService mqttServiceInstance, string subTopicName)
         {
-            logTopic = logTopicName;
+            subTopic = subTopicName;
             mqttService = mqttServiceInstance;
         }
 
         public void Log(string message, LogLevel logLevel, ILogFormatter logFormatter)
         {
-            mqttService.SendMessage(logTopic, logFormatter.Format(message, logLevel));
+            if (logLevel != LogLevel.Information)
+            {
+                mqttService.SendMessage(mqttService.GetFullTopicName(subTopic), logFormatter.Format(message, logLevel));
+            }
         }
     }
 }

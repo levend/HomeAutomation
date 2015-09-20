@@ -32,16 +32,32 @@ namespace MosziNet.HomeAutomation.Mqtt
                 throw new ArgumentOutOfRangeException("configuration", "Topic name should not have a trailing / character.");
 
             this.configuration = config;
+        }
 
+        /// <summary>
+        /// Starts listening for MQTT messages.
+        /// </summary>
+        public void StartMqttClient()
+        {
             shouldMqttConnectionBeAlive = true;
             new Thread(MqttConnectionThread).Start();
         }
 
+        /// <summary>
+        /// Sends a message to the MQTT bus.
+        /// </summary>
+        /// <param name="topic"></param>
+        /// <param name="message"></param>
         public void SendMessage(string topic, string message)
         {
             mqttClient.Publish(topic, Encoding.UTF8.GetBytes(message));
         }
 
+        /// <summary>
+        /// Returns the full topic name by concatenating the topic name suffix to the root topic name.
+        /// </summary>
+        /// <param name="topicNameSuffix"></param>
+        /// <returns></returns>
         public string GetFullTopicName(string topicNameSuffix)
         {
             if (topicNameSuffix[0] != '/')
@@ -50,12 +66,13 @@ namespace MosziNet.HomeAutomation.Mqtt
             return configuration.TopicRootName + topicNameSuffix;
         }
 
+
         private void MQTTMessageReceived(string topicId, string message)
         {
             if (message == null || message.Length == 0)
                 return;
 
-            Log.Debug("[" + topicId + "] " + message);
+            Log.Information("[" + topicId + "] " + message);
         }
 
         /// <summary>

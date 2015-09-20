@@ -44,7 +44,6 @@
     <Compile Include="ApplicationLogic\MqttDeviceTranslator\Device2MqttTranslation.cs" />
     <Compile Include="ApplicationLogic\MqttDeviceTranslator\IDeviceTranslator.cs" />
     <Compile Include="ApplicationLogic\MqttDeviceTranslator\TemperatureDeviceTranslator.cs" />
-    <Compile Include="ApplicationsConstants.cs" />
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="ApplicationLogic\Gateway.cs" />
     <Compile Include="ApplicationLogic\Messages\DeviceCommandMessage.cs" />

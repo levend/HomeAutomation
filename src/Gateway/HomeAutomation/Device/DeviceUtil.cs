@@ -12,29 +12,6 @@ namespace MosziNet.HomeAutomation.Device
 {
     public class DeviceUtil
     {
-        static byte frameId;
-
-        public void AskForDeviceType(IXBeeFrame remoteFrame)
-        {
-            frameId++;
-            if (frameId == 0)
-                frameId++;
-
-            Log.Debug("Received a frame from an unknown device, so we are asking type ID from this device. Address: " + HexConverter.ToHexString(remoteFrame.Address));
-
-            // build the frame to ask the device type id
-            RemoteATCommand frame = new RemoteATCommand();
-            frame.Address = remoteFrame.Address;
-            frame.NetworkAddress = remoteFrame.NetworkAddress;
-
-            frame.ATCommand = ATCommands.DD;
-            frame.FrameId = frameId;
-
-            // post this message to the device
-            IMessageBus messageBus = (IMessageBus) ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IMessageBus));
-            messageBus.PostMessage(new DeviceCommandMessage(frame));
-        }
-
         /// <summary>
         /// Create a device by using type information from the frame. The frame should be a device
         /// </summary>

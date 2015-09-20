@@ -24,14 +24,8 @@ namespace MosziNet.HomeAutomation.Util
 
         public void InitializeSystemClock()
         {
-            WaitForDhcp();
             var dateTimeNow = GetGmtNowFromGateway();
             Utility.SetLocalTime(dateTimeNow.AddHours(_gmtOffset));
-        }
-
-        private void WaitForDhcp()
-        {
-            while (IPAddress.GetDefaultLocalAddress() == IPAddress.Any) ;
         }
 
         private DateTime GetGmtNowFromGateway()

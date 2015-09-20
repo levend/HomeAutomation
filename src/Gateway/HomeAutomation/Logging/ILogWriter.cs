@@ -6,7 +6,8 @@ namespace MosziNet.HomeAutomation.Logging
     public enum LogLevel
     {
         Debug,
-        Error
+        Error,
+        Information
     }
 
     public interface ILogWriter

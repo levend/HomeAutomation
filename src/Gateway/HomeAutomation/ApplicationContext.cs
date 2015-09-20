@@ -4,6 +4,9 @@ using MosziNet.HomeAutomation.Service;
 
 namespace MosziNet.HomeAutomation
 {
+    /// <summary>
+    /// ApplicationContext is the class where we can access globally needed objects.
+    /// </summary>
     public static class ApplicationContext
     {
         private static ServiceRegistry serviceRegistry;
@@ -13,6 +16,9 @@ namespace MosziNet.HomeAutomation
             serviceRegistry = new ServiceRegistry();
         }
 
+        /// <summary>
+        /// The service registry for the application.
+        /// </summary>
         public static ServiceRegistry ServiceRegistry
         {
             get

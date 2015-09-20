@@ -36,6 +36,11 @@ namespace MosziNet.HomeAutomation.Logging
             LogMessage(message, LogLevel.Error);
         }
 
+        public static void Information(string message)
+        {
+            LogMessage(message, LogLevel.Information);
+        }
+
         public static void LogMessage(string message, LogLevel logLevel)
         {
             foreach (LogWriterInfo writerInfo in logWriters)

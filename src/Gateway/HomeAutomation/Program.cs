@@ -25,44 +25,60 @@ namespace MosziNet.HomeAutomation
     {
         public static void Main()
         {
-            InitializeApplication();
+            WaitForNetworkAccess();
+            
+            InitializeSystemClock();
+
+            InitializeApplicationServices();
         }
 
-        private static void InitializeApplication()
+        private static void WaitForNetworkAccess()
         {
-            MosziNet.HomeAutomation.Util.HttpDateTimeExtraction.FromGmtOffset(2).InitializeSystemClock();
+            while (IPAddress.GetDefaultLocalAddress() == IPAddress.Any) ;
+        }
 
-            // Setup the device registry
-            // TODO: either provide the means to register devices through MQTT, or just register them statically ? Do we really need this in a gateway (which should just pass over the messages) ?
+        private static void InitializeSystemClock()
+        {
+            MosziNet.HomeAutomation.Util.HttpDateTimeExtraction.FromGmtOffset(2).InitializeSystemClock(); 
+        }
+
+        private static void InitializeApplicationServices()
+        {
+            // Setup the device type registry
             DeviceTypeRegistry deviceRegistry = new DeviceTypeRegistry();
 
+            // Set up the mqtt service
             MqttService mqttService = new MqttService(new MosziNet.HomeAutomation.Configuration.MqttServerConfiguration(
                 "192.168.1.213",
                 20,
                 "MosziNet_HomeAutomation_Gateway_v1.1",
                 "/MosziNet_HA"));
 
-            // setup the logging framework
-            Log.AddLogWriter(new MqttLogWriter(mqttService, "/Moszinet_HA/Log"), new StandardLogFormatter());
+            // Setup the logging framework
+            Log.AddLogWriter(new MqttLogWriter(mqttService, "/Log"), new StandardLogFormatter());
             Log.AddLogWriter(new ConsoleLogWriter(), new StandardLogFormatter());
 
             // Setup the message bus
             IMessageBus messageBus = new MessageBus();
-
-            MessageProcessorRegistry messageProcessorRegistry = new MessageProcessorRegistry();
-            IMessageBusRunner messageBusRunner = new ThreadedMessageBusRunner(messageBus, messageProcessorRegistry);
+            IMessageBusRunner messageBusRunner = new ThreadedMessageBusRunner(messageBus, new MessageProcessorRegistry());
             messageBus.MessageBusRunner = messageBusRunner;            
 
             // now register all services
             XBeeService xbeeService = new XBeeService();
 
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(XBeeService), xbeeService);
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(IMessageBus), messageBus);
+            // Register all services to the service registry
             ApplicationContext.ServiceRegistry.RegisterService(typeof(IDeviceTypeRegistry), deviceRegistry);
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(Gateway), new Gateway());
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(IMessageBus), messageBus);
+
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(XBeeService), xbeeService);
             ApplicationContext.ServiceRegistry.RegisterService(typeof(MqttService), mqttService);
 
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(Gateway), new Gateway());
+
+            // Start listening for messages
             xbeeService.StartListeningForMessages();
+            mqttService.StartMqttClient();
+            
         }
     }
 }
