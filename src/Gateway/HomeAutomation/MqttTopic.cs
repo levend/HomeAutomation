@@ -12,5 +12,9 @@ namespace MosziNet.HomeAutomation
         public static readonly string ErrorTopic = "/Error";
 
         public static readonly string CommandTopic = "/Command";
+
+        public static readonly string Heartbeat = "/Heartbeat";
+
+        public static readonly string Admin = "/Admin";
     }
 }

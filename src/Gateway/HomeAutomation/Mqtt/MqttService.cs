@@ -6,6 +6,7 @@ using uPLibrary.Networking.M2Mqtt.Messages;
 using System.Text;
 using System.Net;
 using MosziNet.HomeAutomation.Logging;
+using MosziNet.HomeAutomation.Util;
 
 namespace MosziNet.HomeAutomation.Mqtt
 {
@@ -36,12 +37,15 @@ namespace MosziNet.HomeAutomation.Mqtt
                 throw new ArgumentOutOfRangeException("configuration", "Topic name should not have a trailing / character.");
 
             this.configuration = config;
+
+            // start the MQTT client immediately.
+            EnsureMqttServerIsConnected();
         }
 
         /// <summary>
         /// Starts listening for MQTT messages.
         /// </summary>
-        public void StartMqttClient()
+        public void StartMqttClientWatchdog()
         {
             shouldMqttConnectionBeAlive = true;
             new Thread(MqttConnectionThread).Start();
@@ -116,7 +120,7 @@ namespace MosziNet.HomeAutomation.Mqtt
                 }
                 catch(Exception ex)
                 {
-                    Log.Debug("Connection to MQTT server was not successful. \n" + ex);
+                    Log.Debug("Connection to MQTT server was not successful. \n" + ExceptionFormatter.Format(ex));
                 }
             }
         }

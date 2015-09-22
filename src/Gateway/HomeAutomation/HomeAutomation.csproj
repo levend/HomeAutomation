@@ -40,6 +40,7 @@
     <Compile Include="ApplicationLogic\XBeeFrameProcessor\IXBeeFrameProcessor.cs" />
     <Compile Include="ApplicationLogic\XBeeFrameProcessor\RemoteCommandResponseProcessor.cs" />
     <Compile Include="ApplicationLogic\Messages\PostToMqttMessage.cs" />
+    <Compile Include="Logging\MqttLogWriter.cs" />
     <Compile Include="MqttTopic.cs" />
     <Compile Include="ApplicationLogic\MqttDeviceTranslator\Device2MqttTranslation.cs" />
     <Compile Include="ApplicationLogic\MqttDeviceTranslator\IDeviceTranslator.cs" />
@@ -54,12 +55,6 @@
     <Compile Include="Device\DeviceUtil.cs" />
     <Compile Include="Device\Base\DeviceBase.cs" />
     <Compile Include="Device\DeviceType.cs" />
-    <Compile Include="Logging\Formatter\StandardLogFormatter.cs" />
-    <Compile Include="Logging\ILogFormatter.cs" />
-    <Compile Include="Logging\ILogWriter.cs" />
-    <Compile Include="Logging\Log.cs" />
-    <Compile Include="Logging\Writer\ConsoleLogWriter.cs" />
-    <Compile Include="Logging\Writer\MqttLogWriter.cs" />
     <Compile Include="Messaging\IMessageProcessor.cs" />
     <Compile Include="Messaging\IProcessableMessage.cs" />
     <Compile Include="Mqtt\MqttService.cs" />
@@ -78,6 +73,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Service\ServiceRegistry.cs" />
+    <Compile Include="Watchdog\WatchdogService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="M2Mqtt.NetMf, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -97,6 +93,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\HomeAutomation.Logging\HomeAutomation.Logging.csproj">
+      <Project>{A5E7F5F4-BBA6-4214-8BB7-50F955C947D7}</Project>
+      <Name>HomeAutomation.Logging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HomeAutomation.Sensor\HomeAutomation.Sensor.csproj">
       <Project>{EEBB6889-FA80-4283-AF35-0A7270A8F024}</Project>
       <Name>HomeAutomation.Sensor</Name>

@@ -18,6 +18,7 @@ using MosziNet.HomeAutomation.Logging.Writer;
 using MosziNet.HomeAutomation.Logging.Formatter;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Messaging;
+using MosziNet.HomeAutomation.Watchdog;
 
 namespace MosziNet.HomeAutomation
 {
@@ -75,10 +76,11 @@ namespace MosziNet.HomeAutomation
 
             ApplicationContext.ServiceRegistry.RegisterService(typeof(Gateway), new Gateway(xbeeService, mqttService));
 
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(WatchdogService), new WatchdogService(messageBus, mqttService));
+
             // Start listening for messages
             xbeeService.StartListeningForMessages();
-            mqttService.StartMqttClient();
-            
+            mqttService.StartMqttClientWatchdog();
         }
     }
 }

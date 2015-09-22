@@ -2,6 +2,7 @@ using System;
 using Microsoft.SPOT;
 using System.Threading;
 using MosziNet.HomeAutomation.Logging;
+using MosziNet.HomeAutomation.Util;
 
 namespace MosziNet.HomeAutomation.Messaging
 {
@@ -44,34 +45,46 @@ namespace MosziNet.HomeAutomation.Messaging
         {
             while (shouldMessageBusRunnerContinue)
             {
-                IMessage message;
-
-                // while there are messages that can be dequeued from the message bus, dequeue and process them.
-                while ((message = messageBus.DequeueMessage()) != null)
+                try
                 {
-                    IProcessableMessage processableMessage = message as IProcessableMessage;
-                    if (processableMessage != null)
+                    ProcessMessagesFromQueue();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("[MessageProcessorLoop Exception] " + ExceptionFormatter.Format(ex));
+                }
+            }
+        }
+
+        private void ProcessMessagesFromQueue()
+        {
+            IMessage message;
+
+            // while there are messages that can be dequeued from the message bus, dequeue and process them.
+            while ((message = messageBus.DequeueMessage()) != null)
+            {
+                IProcessableMessage processableMessage = message as IProcessableMessage;
+                if (processableMessage != null)
+                {
+                    processableMessage.ProcessMessage();
+                }
+                else
+                {
+                    IMessageProcessor processor = messageProcessorRegistry.GetMessageProcessorByMessage(message);
+
+                    if (processor != null)
                     {
-                        processableMessage.ProcessMessage();
+                        // process the message
+                        processor.ProcessMessage(message);
                     }
                     else
                     {
-                        IMessageProcessor processor = messageProcessorRegistry.GetMessageProcessorByMessage(message);
-
-                        if (processor != null)
-                        {
-                            // process the message
-                            processor.ProcessMessage(message);
-                        }
-                        else
-                        {
-                            Log.Debug("Dropping message of type: " + message.GetType().FullName);
-                        }
+                        Log.Debug("Dropping message of type: " + message.GetType().FullName);
                     }
                 }
-
-                Thread.Sleep(100);
             }
+
+            Thread.Sleep(100);
         }
 
     }

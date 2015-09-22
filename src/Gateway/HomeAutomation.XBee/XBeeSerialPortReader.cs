@@ -4,6 +4,8 @@ using System.IO.Ports;
 using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 using System.Threading;
+using MosziNet.HomeAutomation.Logging;
+using MosziNet.HomeAutomation.Util;
 
 namespace MosziNet.HomeAutomation.XBee
 {
@@ -38,13 +40,16 @@ namespace MosziNet.HomeAutomation.XBee
                         port.Read(readBuffer, FrameIndex.FrameType, frameLength); 
 
                         // now create an XBee frame based on the buffer
-                            
                         frame = FrameSerializer.Deserialize(readBuffer);
+
+                        Log.Debug("[XBeeSerialPortReader] Frame received: " + HexConverter.ToSpacedHexString(readBuffer, 0, frameLength + 3));
                     }
                     else
                     {
                         // discard the frame it if it's too big.
                         DiscardBytes(port, frameLength);
+
+                        Log.Debug("[XBeeSerialPortReader] Discaring frame with length: " + frameLength);
                     }
                 }
             }

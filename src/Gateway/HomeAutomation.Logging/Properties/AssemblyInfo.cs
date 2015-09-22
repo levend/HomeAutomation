@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("HomeAutomation.Util")]
+[assembly: AssemblyTitle("HomeAutomation.Logging")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Szilveszter Molnar")]
-[assembly: AssemblyProduct("HomeAutomation.Util")]
+[assembly: AssemblyProduct("HomeAutomation.Logging")]
 [assembly: AssemblyCopyright("GNU General Public License v2")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

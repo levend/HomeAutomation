@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{80603AE8-B0E2-418B-BE70-ECA3289890D7}</ProjectGuid>
+    <ProjectGuid>{E1716A9B-A28F-4D3A-9BF1-349FCA9EE879}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HomeAutomation.XBee.Tests</RootNamespace>
-    <AssemblyName>HomeAutomation.XBee.Tests</AssemblyName>
+    <RootNamespace>HomeAutomation.Util.Tests</RootNamespace>
+    <AssemblyName>HomeAutomation.Util.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -50,14 +50,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MockSerialPort.cs" />
-    <Compile Include="ZigBeeFrameSerializationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ExceptionFormatterTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Gateway\HomeAutomation.XBee\HomeAutomation.XBee.csproj">
-      <Project>{6e5b65b7-874b-406b-b5b8-93b0702a06ea}</Project>
-      <Name>HomeAutomation.XBee</Name>
+    <ProjectReference Include="..\HomeAutomation.Util\HomeAutomation.Util.csproj">
+      <Project>{e83bebdc-09e3-4bf1-8b67-252d8883c082}</Project>
+      <Name>HomeAutomation.Util</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -6,6 +6,8 @@ using SecretLabs.NETMF.Hardware.Netduino;
 using System.Threading;
 using MosziNet.HomeAutomation.XBee.Frame;
 using System.Collections;
+using MosziNet.HomeAutomation.Logging;
+using MosziNet.HomeAutomation.Util;
 
 namespace MosziNet.HomeAutomation.XBee
 {
@@ -52,11 +54,18 @@ namespace MosziNet.HomeAutomation.XBee
                 // Todo: when to stop listening for messages
                 while (shouldListenForMessages)
                 {
-                    CheckForXBeeMessages(port);
+                    try
+                    {
+                        CheckForXBeeMessages(port);
 
-                    SendAnyPendingXBeeMessages(port);
+                        SendAnyPendingXBeeMessages(port);
 
-                    Thread.Sleep(100);
+                        Thread.Sleep(100);
+                    }
+                    catch(Exception ex)
+                    {
+                        Log.Error("[XBeeService Exception] " + ExceptionFormatter.Format(ex));
+                    }
                 }
             }
         }

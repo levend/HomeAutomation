@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("HomeAutomation.XBee.Tests")]
+[assembly: AssemblyTitle("HomeAutomation.Util.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Szilveszter Molnar")]
-[assembly: AssemblyProduct("HomeAutomation.XBee.Tests")]
-[assembly: AssemblyCopyright("GNU General Public License v2")]
+[assembly: AssemblyCompany("EPAM Systems")]
+[assembly: AssemblyProduct("HomeAutomation.Util.Tests")]
+[assembly: AssemblyCopyright("Copyright © EPAM Systems 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f3cd2e12-9e0e-4d85-b1b0-4644e9c23250")]
+[assembly: Guid("d75de92d-414e-410b-aae9-355fc7edee41")]
 
 // Version information for an assembly consists of the following four values:
 //
