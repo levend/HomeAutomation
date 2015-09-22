@@ -78,6 +78,8 @@ namespace MosziNet.HomeAutomation
 
             ApplicationContext.ServiceRegistry.RegisterService(typeof(WatchdogService), new WatchdogService(messageBus, mqttService));
 
+            Log.Debug("[MosziNet_HA] Starting up...");
+
             // Start listening for messages
             xbeeService.StartListeningForMessages();
             mqttService.StartMqttClientWatchdog();

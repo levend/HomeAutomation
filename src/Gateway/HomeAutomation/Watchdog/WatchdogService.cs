@@ -12,6 +12,7 @@ namespace MosziNet.HomeAutomation.Watchdog
     {
         private IMessageBus messageBus;
         private MqttService mqttService;
+        private byte counter = 0;
 
         private class HeartbeatCommand : IProcessableMessage
         {
@@ -41,7 +42,7 @@ namespace MosziNet.HomeAutomation.Watchdog
                     messageBus.PostMessage(new HeartbeatCommand()
                     {
                         MqttService = mqttService,
-                        Message = "[WatchdogService] I'm here."
+                        Message = "WatchdogService I'm here. My counter is " + counter++
                     });
 
                     Thread.Sleep(10 * 1000);
@@ -51,7 +52,7 @@ namespace MosziNet.HomeAutomation.Watchdog
                     messageBus.PostMessage(new HeartbeatCommand()
                     {
                         MqttService = mqttService,
-                        Message = "[WatchdogService Exception] " + ExceptionFormatter.Format(ex)
+                        Message = "WatchdogService Exception " + ExceptionFormatter.Format(ex)
                     });
                 }
             }

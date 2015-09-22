@@ -33,6 +33,7 @@
     <Compile Include="ILogFormatter.cs" />
     <Compile Include="ILogWriter.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="LogLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Writer\ConsoleLogWriter.cs" />
   </ItemGroup>
