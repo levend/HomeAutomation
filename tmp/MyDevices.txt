@@ -1,7 +1,7 @@
 Coordinator Address: 	00 13 A2 00 40 E2 C5 A0 (Coordinator @ Netduino)
 Router1 Address: 	00 13 A2 00 40 D6 AB 41 
 End Device1 Address: 	00 13 A2 00 40 E4 38 E3 (Mobile Temp Sensor)
-Router2 Address: 	00 13 A2 00 40 E4 36 74 (Relay + TempSensor)
+Router2 Address: 	00 13 A2 00 40 E4 36 74 TempSensor
 Router3 Address: 	00 13 A2 00 40 DC 8B 70 (Test on Mac)
 
 

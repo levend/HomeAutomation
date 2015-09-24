@@ -5,6 +5,8 @@ namespace MosziNet.HomeAutomation.Logging.Writer
 {
     public class MqttLogWriter : ILogWriter
     {
+        // TODO: log buffering for cases where mqtt connection is not available
+
         private Mqtt.MqttService mqttService;
         private string subTopic;
 

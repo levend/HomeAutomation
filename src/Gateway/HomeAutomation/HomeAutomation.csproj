@@ -62,7 +62,6 @@
     <Compile Include="Configuration\MqttServerConfiguration.cs" />
     <Compile Include="Device\DeviceTypeRegistry.cs" />
     <Compile Include="Device\Base\IDevice.cs" />
-    <Compile Include="Device\Base\IDeviceTypeRegistry.cs" />
     <Compile Include="Messaging\IMessage.cs" />
     <Compile Include="Messaging\IMessageBus.cs" />
     <Compile Include="Messaging\IMessageBusRunner.cs" />

@@ -17,7 +17,9 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
             // check if this is a DD command response - used for identifying devices by their type
             if (FrameUtil.IsSameATCommand(responseFrame.ATCommand, ATCommands.DD))
             {
-                IDeviceTypeRegistry deviceTypeRegistry = (IDeviceTypeRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IDeviceTypeRegistry));
+                DeviceTypeRegistry deviceTypeRegistry = (DeviceTypeRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(DeviceTypeRegistry));
+
+                int deviceIdentification = responseFrame.Parameters[2] * 256 + responseFrame.Parameters[3];
 
                 // the device answered for our identification request, so create the device and register it
                 IDevice device = new DeviceUtil().CreateDeviceByDeviceTypeInFrame(frame) as IDevice;
@@ -31,7 +33,6 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
 
                     deviceTypeRegistry.RegisterDevice(typeof(UnknownDevice), frame.Address);
                 }
-
             }
         }
     }

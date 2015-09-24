@@ -19,13 +19,15 @@ namespace MosziNet.HomeAutomation.Device
         /// <returns></returns>
         public IDevice CreateDeviceByDeviceTypeInFrame(IXBeeFrame frame)
         {
+            // TODO
+
             RemoteCommandResponse responseFrame = (RemoteCommandResponse)frame;
             int deviceIdentification = responseFrame.Parameters[2] * 256 + responseFrame.Parameters[3];
             IDevice device = null;
 
             if (deviceIdentification == 0x9988)
             {
-                device = new TemperatureSensor();
+                device = new TemperatureDeviceV1();
 
                 device.DeviceID = frame.Address;
             }

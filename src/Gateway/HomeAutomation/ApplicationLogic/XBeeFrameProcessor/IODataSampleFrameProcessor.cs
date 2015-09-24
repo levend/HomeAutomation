@@ -19,7 +19,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
 
         public void ProcessFrame(XBee.Frame.IXBeeFrame frame)
         {
-            IDeviceTypeRegistry deviceTypeRegistry = (IDeviceTypeRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IDeviceTypeRegistry));
+            DeviceTypeRegistry deviceTypeRegistry = (DeviceTypeRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(DeviceTypeRegistry));
             Type deviceType = deviceTypeRegistry.GetDeviceTypeById(frame.Address);
             
             if (deviceType != null)
@@ -28,7 +28,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
             }
             else
             {
-                AskForDeviceType(frame);
+                ProcessFrameForUnknownDevice(frame);
             }
         }
 
@@ -81,6 +81,12 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
                 Message = message,
                 TopicSuffix = MqttTopic.StatusTopic
             });
+        }
+
+
+        private void ProcessFrameForUnknownDevice(IXBeeFrame frame)
+        {
+            AskForDeviceType(frame);
         }
 
         private void AskForDeviceType(IXBeeFrame remoteFrame)

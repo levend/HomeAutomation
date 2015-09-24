@@ -9,7 +9,7 @@ namespace MosziNet.HomeAutomation.Device
     /// <summary>
     /// Keeps an up to date registry of the devices in the system.
     /// </summary>
-    public class DeviceTypeRegistry : IDeviceTypeRegistry
+    public class DeviceTypeRegistry
     {
         private Hashtable deviceRegistry = new Hashtable();
 
@@ -31,5 +31,7 @@ namespace MosziNet.HomeAutomation.Device
 
             return deviceRegistry.Contains(deviceId) ? (Type)deviceRegistry[deviceId] : null;
         }
+
+        
     }
 }

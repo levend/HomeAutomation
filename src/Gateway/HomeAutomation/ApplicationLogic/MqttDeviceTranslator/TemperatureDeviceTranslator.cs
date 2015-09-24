@@ -10,7 +10,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.MqttDeviceTranslator
     {
         public string GetDeviceMessage(IDevice device)
         {
-            TemperatureSensor temperatureDevice = (TemperatureSensor)device;
+            TemperatureDeviceV1 temperatureDevice = (TemperatureDeviceV1)device;
 
             return HexConverter.ToHexString(temperatureDevice.DeviceID) + "," + temperatureDevice.Temperature.ToString("N1");
         }

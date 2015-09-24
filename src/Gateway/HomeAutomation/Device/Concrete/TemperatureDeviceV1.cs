@@ -7,7 +7,10 @@ using MosziNet.HomeAutomation.Logging;
 
 namespace MosziNet.HomeAutomation.Device.Concrete
 {
-    public class TemperatureSensor : DeviceBase
+    /// <summary>
+    /// This temperature device uses an MCP9700 (or compatible) sensor to measure temperature.
+    /// </summary>
+    public class TemperatureDeviceV1 : DeviceBase
     {
         private static readonly double AnalogPinMaxVoltage = 1200.0; // in millivolts
         private static readonly double AnalogPinResolution = 1024;

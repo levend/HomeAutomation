@@ -19,6 +19,7 @@ using MosziNet.HomeAutomation.Logging.Formatter;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Messaging;
 using MosziNet.HomeAutomation.Watchdog;
+using MosziNet.HomeAutomation.Configuration;
 
 namespace MosziNet.HomeAutomation
 {
@@ -27,9 +28,9 @@ namespace MosziNet.HomeAutomation
         public static void Main()
         {
             WaitForNetworkAccess();
-            
             InitializeSystemClock();
 
+            InitializeApplicationConfiguration();
             InitializeApplicationServices();
         }
 
@@ -68,7 +69,7 @@ namespace MosziNet.HomeAutomation
             XBeeService xbeeService = new XBeeService();
 
             // Register all services to the service registry
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(IDeviceTypeRegistry), deviceRegistry);
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(DeviceTypeRegistry), deviceRegistry);
             ApplicationContext.ServiceRegistry.RegisterService(typeof(IMessageBus), messageBus);
 
             ApplicationContext.ServiceRegistry.RegisterService(typeof(XBeeService), xbeeService);
@@ -84,5 +85,12 @@ namespace MosziNet.HomeAutomation
             xbeeService.StartListeningForMessages();
             mqttService.StartMqttClientWatchdog();
         }
+
+        private static void InitializeApplicationConfiguration()
+        {
+            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9988, typeof(MosziNet.HomeAutomation.Device.Concrete.TemperatureDeviceV1));
+            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9987, typeof(MosziNet.HomeAutomation.Device.Concrete.TemperatureDeviceV1));
+        }
+
     }
 }

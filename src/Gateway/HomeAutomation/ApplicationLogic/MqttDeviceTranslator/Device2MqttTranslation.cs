@@ -13,7 +13,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic
 
         static Device2MqttTranslation()
         {
-            deviceTranslators.Add(typeof(TemperatureSensor), typeof(TemperatureDeviceTranslator));
+            deviceTranslators.Add(typeof(TemperatureDeviceV1), typeof(TemperatureDeviceTranslator));
             deviceTranslators.Add(typeof(HeartBeatDevice), typeof(HeartBeatDeviceTranslator));
         }
 
