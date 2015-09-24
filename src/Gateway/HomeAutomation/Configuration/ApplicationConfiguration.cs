@@ -39,7 +39,7 @@ namespace MosziNet.HomeAutomation.Configuration
         {
             Hashtable categoryKeyValuePairs = configurationItemListForCategory.Contains(category) ? (Hashtable)configurationItemListForCategory[category] : null;
             if (categoryKeyValuePairs == null)
-                throw new ArgumentOutOfRangeException();
+                return null;
 
             return (String)categoryKeyValuePairs[key];
         }
@@ -54,7 +54,7 @@ namespace MosziNet.HomeAutomation.Configuration
         {
             Hashtable categoryKeyValuePairs = configurationItemListForCategory.Contains(category) ? (Hashtable)configurationItemListForCategory[category] : null;
             if (categoryKeyValuePairs == null)
-                throw new ArgumentOutOfRangeException();
+                return null;
 
             return (Type)categoryKeyValuePairs[key];
         }

@@ -20,6 +20,8 @@ using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Messaging;
 using MosziNet.HomeAutomation.Watchdog;
 using MosziNet.HomeAutomation.Configuration;
+using MosziNet.HomeAutomation.Device.Concrete;
+using MosziNet.HomeAutomation.ApplicationLogic.MqttDeviceTranslator;
 
 namespace MosziNet.HomeAutomation
 {
@@ -86,10 +88,18 @@ namespace MosziNet.HomeAutomation
             mqttService.StartMqttClientWatchdog();
         }
 
+        /// <summary>
+        /// Configuration necessary for the application is built in this method. 
+        /// </summary>
         private static void InitializeApplicationConfiguration()
         {
-            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9988, typeof(MosziNet.HomeAutomation.Device.Concrete.TemperatureDeviceV1));
-            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9987, typeof(MosziNet.HomeAutomation.Device.Concrete.TemperatureDeviceV1));
+            // set up the device types. Key is DD value from XBee frame, value is the class type that handles frames
+            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9988, typeof(TemperatureDeviceV1));
+            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9987, typeof(HeartBeatDevice));
+
+            // register the types responsible of translating messages between devices and the MQTT network
+            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.Device2MQTMessageTTranslator, typeof(TemperatureDeviceV1), typeof(TemperatureDeviceTranslator));
+            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.Device2MQTMessageTTranslator, typeof(HeartBeatDevice), typeof(HeartBeatDeviceTranslator));
         }
 
     }

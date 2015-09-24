@@ -40,9 +40,10 @@
     <Compile Include="ApplicationLogic\XBeeFrameProcessor\IXBeeFrameProcessor.cs" />
     <Compile Include="ApplicationLogic\XBeeFrameProcessor\RemoteCommandResponseProcessor.cs" />
     <Compile Include="ApplicationLogic\Messages\PostToMqttMessage.cs" />
+    <Compile Include="Configuration\ApplicationConfiguration.cs" />
+    <Compile Include="Configuration\ApplicationConfigurationCategory.cs" />
     <Compile Include="Logging\MqttLogWriter.cs" />
     <Compile Include="MqttTopic.cs" />
-    <Compile Include="ApplicationLogic\MqttDeviceTranslator\Device2MqttTranslation.cs" />
     <Compile Include="ApplicationLogic\MqttDeviceTranslator\IDeviceTranslator.cs" />
     <Compile Include="ApplicationLogic\MqttDeviceTranslator\TemperatureDeviceTranslator.cs" />
     <Compile Include="ApplicationContext.cs" />
@@ -50,9 +51,8 @@
     <Compile Include="ApplicationLogic\Messages\DeviceCommandMessage.cs" />
     <Compile Include="ApplicationLogic\Messages\XBeeFrameReceivedMessage.cs" />
     <Compile Include="Device\Concrete\HeartBeatDevice.cs" />
-    <Compile Include="Device\Concrete\TemperatureSensor.cs" />
+    <Compile Include="Device\Concrete\TemperatureDeviceV1.cs" />
     <Compile Include="Device\Concrete\UnknownDevice.cs" />
-    <Compile Include="Device\DeviceUtil.cs" />
     <Compile Include="Device\Base\DeviceBase.cs" />
     <Compile Include="Device\DeviceType.cs" />
     <Compile Include="Messaging\IMessageProcessor.cs" />

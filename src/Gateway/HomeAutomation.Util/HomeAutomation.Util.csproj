@@ -29,6 +29,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Activator.cs" />
     <Compile Include="ExceptionFormatter.cs" />
     <Compile Include="HexConverter.cs" />
     <Compile Include="HttpDateTimeExtraction.cs" />

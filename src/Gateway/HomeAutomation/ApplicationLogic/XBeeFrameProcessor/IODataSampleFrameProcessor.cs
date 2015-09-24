@@ -10,6 +10,8 @@ using MosziNet.HomeAutomation.ApplicationLogic.Messages;
 using MosziNet.HomeAutomation.Messaging;
 using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
+using MosziNet.HomeAutomation.Configuration;
+using MosziNet.HomeAutomation.XBee;
 
 namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
 {
@@ -34,46 +36,43 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
 
         private void ProcessFrameByDevice(XBee.Frame.IXBeeFrame frame, Type deviceType)
         {
-            // create the right device
-            System.Reflection.ConstructorInfo constructor = deviceType.GetConstructor(new Type[] { });
-            if (constructor != null)
+            IDevice device = Activator.CreateInstance(deviceType) as IDevice;
+            if (device != null)
             {
-                IDevice device = constructor.Invoke(new object[] { }) as IDevice;
                 device.DeviceID = frame.Address;
 
-                if (device != null)
-                {
-                    // first process the frame by the device
-                    device.ProcessFrame(frame);
+                // first process the frame by the device
+                device.ProcessFrame(frame);
 
-                    TranslateDeviceToMqttMessage(device);
-                }
-                else
-                {
-                    Log.Debug("Device could not be created for type: " + deviceType.Name);
-                }
+                TranslateDeviceToMqttMessage(device);
+            }
+            else
+            {
+                Log.Debug("Device could not be created for type: " + deviceType.Name);
             }
         }
 
         private void TranslateDeviceToMqttMessage(IDevice device)
         {
-            IDeviceTranslator deviceTranslator = (IDeviceTranslator)Device2MqttTranslation.GetTranslator(device);
-            IMessageBus messageBus = (IMessageBus)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IMessageBus));
+            Type deviceTranslatorType = ApplicationConfiguration.GetTypeForKey(ApplicationConfigurationCategory.Device2MQTMessageTTranslator, device.GetType());
+            IDeviceTranslator deviceTranslator = Activator.CreateInstance(deviceTranslatorType) as IDeviceTranslator;
 
             if (deviceTranslator != null)
             {
-                PostDeviceMessageToBus(device, deviceTranslator, messageBus);
+                PostDeviceMessageToBus(device, deviceTranslator);
             }
             else
             {
-                Log.Error("Device with address " + HexConverter.ToHexString(device.DeviceID) + " can not be translated.");
+                Log.Error("Device2MQTT translator was not found for device with address " + HexConverter.ToHexString(device.DeviceID));
             }
         }
 
-        private void PostDeviceMessageToBus(IDevice device, IDeviceTranslator deviceTranslator, IMessageBus messageBus)
+        private void PostDeviceMessageToBus(IDevice device, IDeviceTranslator deviceTranslator)
         {
             // convert the device frame to an mqtt message
             string message = deviceTranslator.GetDeviceMessage(device);
+
+            IMessageBus messageBus = (IMessageBus)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IMessageBus));
 
             // now post the message to the message bus
             messageBus.PostMessage(new PostToMqttMessage()
@@ -83,7 +82,6 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
             });
         }
 
-
         private void ProcessFrameForUnknownDevice(IXBeeFrame frame)
         {
             AskForDeviceType(frame);
@@ -92,18 +90,12 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
         private void AskForDeviceType(IXBeeFrame remoteFrame)
         {
             frameId++;
-            if (frameId == 0)
-                frameId++;
+            if (frameId == 0) frameId++;
 
             Log.Debug("Received a frame from an unknown device, so we are asking type ID from this device. Address: " + HexConverter.ToHexString(remoteFrame.Address));
 
-            // build the frame to ask the device type id
-            RemoteATCommand frame = new RemoteATCommand();
-            frame.Address = remoteFrame.Address;
-            frame.NetworkAddress = remoteFrame.NetworkAddress;
-
-            frame.ATCommand = ATCommands.DD;
-            frame.FrameId = frameId;
+            // create the XBee frame to send
+            IXBeeFrame frame = new XBeeFrameBuilder().CreateRemoteATCommand(ATCommands.DD, frameId, remoteFrame.Address, remoteFrame.NetworkAddress);
 
             // post this message to the device
             IMessageBus messageBus = (IMessageBus)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IMessageBus));

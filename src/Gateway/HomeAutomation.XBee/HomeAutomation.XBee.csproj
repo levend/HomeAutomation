@@ -41,6 +41,7 @@
     <Compile Include="Frame\ZigBee\RemoteCommandResponse.cs" />
     <Compile Include="ISerialPort.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XBeeFrameBuilder.cs" />
     <Compile Include="XBeeSerialPortWriter.cs" />
     <Compile Include="XBeeService.cs" />
     <Compile Include="XBeeSerialPort.cs" />

@@ -5,10 +5,12 @@ using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 using MosziNet.HomeAutomation.XBee;
 using MosziNet.HomeAutomation.Device.Concrete;
 using MosziNet.HomeAutomation.Logging;
+using MosziNet.HomeAutomation.Configuration;
+using MosziNet.HomeAutomation.Util;
 
 namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
 {
-    class RemoteCommandResponseProcessor : IXBeeFrameProcessor
+    public class RemoteCommandResponseProcessor : IXBeeFrameProcessor
     {
         public void ProcessFrame(XBee.Frame.IXBeeFrame frame)
         {
@@ -19,17 +21,21 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
             {
                 DeviceTypeRegistry deviceTypeRegistry = (DeviceTypeRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(DeviceTypeRegistry));
 
+                // build the ID for the device type based on the frame info
                 int deviceIdentification = responseFrame.Parameters[2] * 256 + responseFrame.Parameters[3];
 
-                // the device answered for our identification request, so create the device and register it
-                IDevice device = new DeviceUtil().CreateDeviceByDeviceTypeInFrame(frame) as IDevice;
+                // get the type from the configuration based on this type id
+                Type deviceType = ApplicationConfiguration.GetTypeForKey(ApplicationConfigurationCategory.DeviceTypeID, deviceIdentification);
+
+                // create the device and register it, if possible
+                IDevice device = Activator.CreateInstance(deviceType) as IDevice;
                 if (device != null)
                 {
                     deviceTypeRegistry.RegisterDevice(device.GetType(), device.DeviceID);
                 }
                 else
                 {
-                    Log.Debug("Device created based on the DD response is not valid, storing it as an 'Unknown' device.");
+                    Log.Debug("The device type specified by the sensor with ID " + HexConverter.ToHexString(frame.Address) + " is not know. Type ID: " + HexConverter.ToSpacedHexString(responseFrame.Parameters));
 
                     deviceTypeRegistry.RegisterDevice(typeof(UnknownDevice), frame.Address);
                 }

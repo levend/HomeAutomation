@@ -38,6 +38,11 @@ namespace MosziNet.HomeAutomation.Util
             return new String(resultChars);
         }
 
+        public static string ToSpacedHexString(byte[] bytes)
+        {
+            return ToSpacedHexString(bytes, 0, bytes.Length);
+        }
+
         public static string ToSpacedHexString(byte[] bytes, int offset, int length)
         {
             char[] resultChars = new char[length * 3];
