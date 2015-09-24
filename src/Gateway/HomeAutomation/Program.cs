@@ -96,9 +96,11 @@ namespace MosziNet.HomeAutomation
             // set up the device types. Key is DD value from XBee frame, value is the class type that handles frames
             ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9988, typeof(TemperatureDeviceV1));
             ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9987, typeof(HeartBeatDevice));
+            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9986, typeof(TemperatureDeviceV2));
 
             // register the types responsible of translating messages between devices and the MQTT network
-            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.Device2MQTMessageTTranslator, typeof(TemperatureDeviceV1), typeof(TemperatureDeviceTranslator));
+            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.Device2MQTMessageTTranslator, typeof(TemperatureDeviceV1), typeof(TemperatureDevice1Translator));
+            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.Device2MQTMessageTTranslator, typeof(TemperatureDeviceV2), typeof(TemperatureDevice2Translator));
             ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.Device2MQTMessageTTranslator, typeof(HeartBeatDevice), typeof(HeartBeatDeviceTranslator));
         }
 

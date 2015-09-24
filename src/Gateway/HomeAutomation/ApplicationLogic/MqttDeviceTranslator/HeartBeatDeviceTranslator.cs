@@ -17,7 +17,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.MqttDeviceTranslator
 
         public void ProcessMessage(Device.IDevice device, string message)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

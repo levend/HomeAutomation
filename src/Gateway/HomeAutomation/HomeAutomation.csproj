@@ -36,16 +36,18 @@
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
     <Compile Include="ApplicationLogic\MqttDeviceTranslator\HeartBeatDeviceTranslator.cs" />
+    <Compile Include="ApplicationLogic\MqttDeviceTranslator\TemperatureDevice1Translator.cs" />
     <Compile Include="ApplicationLogic\XBeeFrameProcessor\IODataSampleFrameProcessor.cs" />
     <Compile Include="ApplicationLogic\XBeeFrameProcessor\IXBeeFrameProcessor.cs" />
     <Compile Include="ApplicationLogic\XBeeFrameProcessor\RemoteCommandResponseProcessor.cs" />
     <Compile Include="ApplicationLogic\Messages\PostToMqttMessage.cs" />
     <Compile Include="Configuration\ApplicationConfiguration.cs" />
     <Compile Include="Configuration\ApplicationConfigurationCategory.cs" />
+    <Compile Include="Device\Concrete\TemperatureDevice2.cs" />
     <Compile Include="Logging\MqttLogWriter.cs" />
     <Compile Include="MqttTopic.cs" />
     <Compile Include="ApplicationLogic\MqttDeviceTranslator\IDeviceTranslator.cs" />
-    <Compile Include="ApplicationLogic\MqttDeviceTranslator\TemperatureDeviceTranslator.cs" />
+    <Compile Include="ApplicationLogic\MqttDeviceTranslator\TemperatureDevice2Translator.cs" />
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="ApplicationLogic\Gateway.cs" />
     <Compile Include="ApplicationLogic\Messages\DeviceCommandMessage.cs" />

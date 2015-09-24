@@ -6,11 +6,11 @@ using MosziNet.HomeAutomation.Device;
 
 namespace MosziNet.HomeAutomation.ApplicationLogic.MqttDeviceTranslator
 {
-    public class TemperatureDeviceTranslator : IDeviceTranslator
+    public class TemperatureDevice2Translator : IDeviceTranslator
     {
         public string GetDeviceMessage(IDevice device)
         {
-            TemperatureDeviceV1 temperatureDevice = (TemperatureDeviceV1)device;
+            TemperatureDeviceV2 temperatureDevice = (TemperatureDeviceV2)device;
 
             return HexConverter.ToHexString(temperatureDevice.DeviceID) + "," + temperatureDevice.Temperature.ToString("N1");
         }
