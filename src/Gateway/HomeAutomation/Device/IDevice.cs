@@ -10,5 +10,7 @@ namespace MosziNet.HomeAutomation.Device
         byte[] DeviceID { get; set; }
 
         void ProcessFrame(IXBeeFrame frame);
+
+        DeviceState GetDeviceState();
     }
 }

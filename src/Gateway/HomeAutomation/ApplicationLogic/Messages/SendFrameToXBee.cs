@@ -6,11 +6,11 @@ using MosziNet.HomeAutomation.Messaging;
 
 namespace MosziNet.HomeAutomation.ApplicationLogic.Messages
 {
-    public class DeviceCommandMessage : IProcessableMessage
+    public class SendFrameToXBee : IProcessableMessage
     {
         IXBeeFrame commandFrame;
 
-        public DeviceCommandMessage(IXBeeFrame frame)
+        public SendFrameToXBee(IXBeeFrame frame)
         {
             commandFrame = frame;
         }

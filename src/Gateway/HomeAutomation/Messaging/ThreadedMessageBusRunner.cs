@@ -16,8 +16,6 @@ namespace MosziNet.HomeAutomation.Messaging
         {
             messageBus = bus;
             messageProcessorRegistry = processorRegistry;
-
-            StartProcessingMessages();
         }
 
         public bool ProcessMessage(IMessage message)
@@ -34,7 +32,7 @@ namespace MosziNet.HomeAutomation.Messaging
             shouldMessageBusRunnerContinue = false;
         }
 
-        private void StartProcessingMessages()
+        public void StartProcessingMessages()
         {
             shouldMessageBusRunnerContinue = true;
 

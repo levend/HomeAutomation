@@ -11,5 +11,14 @@ namespace MosziNet.HomeAutomation.Device.Concrete
         public override void ProcessFrame(XBee.Frame.IXBeeFrame frame)
         {
         }
+
+        public override DeviceState GetDeviceState()
+        {
+            return new DeviceState()
+            {
+                Device = this,
+                ComponentStateList = new ComponentState[] { }
+            };
+        }
     }
 }

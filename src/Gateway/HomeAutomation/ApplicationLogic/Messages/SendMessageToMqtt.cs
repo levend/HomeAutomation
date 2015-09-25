@@ -5,7 +5,7 @@ using MosziNet.HomeAutomation.Messaging;
 
 namespace MosziNet.HomeAutomation.ApplicationLogic.Messages
 {
-    public class PostToMqttMessage : IProcessableMessage
+    public class SendMessageToMqtt : IProcessableMessage
     {
         public string Message { get; set; }
 

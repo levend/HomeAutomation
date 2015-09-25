@@ -41,5 +41,18 @@ namespace MosziNet.HomeAutomation.Device.Concrete
                 Log.Debug("[TemperatureSensor] Wrong frame type (or null) for temperature sensor device.");
             }
         }
+
+        public override DeviceState GetDeviceState()
+        {
+            return new DeviceState()
+            {
+                Device = this,
+                ComponentStateList = new ComponentState[] 
+                {
+                    new ComponentState() { Name = "MCP9700", Value = Temperature.ToString("N1") }
+                }
+            };
+        }
+
     }
 }

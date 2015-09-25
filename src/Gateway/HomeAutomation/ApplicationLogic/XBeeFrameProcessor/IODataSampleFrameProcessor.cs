@@ -15,12 +15,17 @@ using MosziNet.HomeAutomation.XBee;
 
 namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
 {
+    /// <summary>
+    /// Processes the IO data samples coming from the XBee network.
+    /// </summary>
     public class IODataSampleFrameProcessor : IXBeeFrameProcessor
     {
         static byte frameId;
 
         public void ProcessFrame(XBee.Frame.IXBeeFrame frame)
         {
+            // get the device type from device registry. if it's not found
+            // then we will ask the device to identify itself.
             DeviceTypeRegistry deviceTypeRegistry = (DeviceTypeRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(DeviceTypeRegistry));
             Type deviceType = deviceTypeRegistry.GetDeviceTypeById(frame.Address);
             
@@ -44,7 +49,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
                 // first process the frame by the device
                 device.ProcessFrame(frame);
 
-                TranslateDeviceToMqttMessage(device);
+                PostDeviceStateToMessageBus(device);
             }
             else
             {
@@ -52,30 +57,15 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
             }
         }
 
-        private void TranslateDeviceToMqttMessage(IDevice device)
-        {
-            Type deviceTranslatorType = ApplicationConfiguration.GetTypeForKey(ApplicationConfigurationCategory.Device2MQTMessageTTranslator, device.GetType());
-            IDeviceTranslator deviceTranslator = Activator.CreateInstance(deviceTranslatorType) as IDeviceTranslator;
-
-            if (deviceTranslator != null)
-            {
-                PostDeviceMessageToBus(device, deviceTranslator);
-            }
-            else
-            {
-                Log.Error("Device2MQTT translator was not found for device with address " + HexConverter.ToHexString(device.DeviceID));
-            }
-        }
-
-        private void PostDeviceMessageToBus(IDevice device, IDeviceTranslator deviceTranslator)
+        private void PostDeviceStateToMessageBus(IDevice device)
         {
             // convert the device frame to an mqtt message
-            string message = deviceTranslator.GetDeviceMessage(device);
+            string message = DeviceState2MQTTTranslator.GetDeviceMessage(device);
 
             IMessageBus messageBus = (IMessageBus)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IMessageBus));
 
             // now post the message to the message bus
-            messageBus.PostMessage(new PostToMqttMessage()
+            messageBus.PostMessage(new SendMessageToMqtt()
             {
                 Message = message,
                 TopicSuffix = MqttTopic.StatusTopic
@@ -99,8 +89,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
 
             // post this message to the device
             IMessageBus messageBus = (IMessageBus)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IMessageBus));
-            messageBus.PostMessage(new DeviceCommandMessage(frame));
+            messageBus.PostMessage(new SendFrameToXBee(frame));
         }
-
     }
 }

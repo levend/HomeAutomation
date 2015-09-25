@@ -35,27 +35,28 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
-    <Compile Include="ApplicationLogic\MqttDeviceTranslator\HeartBeatDeviceTranslator.cs" />
-    <Compile Include="ApplicationLogic\MqttDeviceTranslator\TemperatureDevice1Translator.cs" />
+    <Compile Include="ApplicationLogic\Messages\MqttMessageReceived.cs" />
     <Compile Include="ApplicationLogic\XBeeFrameProcessor\IODataSampleFrameProcessor.cs" />
     <Compile Include="ApplicationLogic\XBeeFrameProcessor\IXBeeFrameProcessor.cs" />
     <Compile Include="ApplicationLogic\XBeeFrameProcessor\RemoteCommandResponseProcessor.cs" />
-    <Compile Include="ApplicationLogic\Messages\PostToMqttMessage.cs" />
+    <Compile Include="ApplicationLogic\Messages\SendMessageToMqtt.cs" />
     <Compile Include="Configuration\ApplicationConfiguration.cs" />
     <Compile Include="Configuration\ApplicationConfigurationCategory.cs" />
     <Compile Include="Device\Concrete\TemperatureDevice2.cs" />
+    <Compile Include="Device\DeviceState.cs" />
+    <Compile Include="Device\ComponentInfo.cs" />
+    <Compile Include="Device\ComponentState.cs" />
     <Compile Include="Logging\MqttLogWriter.cs" />
     <Compile Include="MqttTopic.cs" />
-    <Compile Include="ApplicationLogic\MqttDeviceTranslator\IDeviceTranslator.cs" />
-    <Compile Include="ApplicationLogic\MqttDeviceTranslator\TemperatureDevice2Translator.cs" />
+    <Compile Include="ApplicationLogic\MqttDeviceTranslator\DeviceState2MQTTTranslator.cs" />
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="ApplicationLogic\Gateway.cs" />
-    <Compile Include="ApplicationLogic\Messages\DeviceCommandMessage.cs" />
+    <Compile Include="ApplicationLogic\Messages\SendFrameToXBee.cs" />
     <Compile Include="ApplicationLogic\Messages\XBeeFrameReceivedMessage.cs" />
     <Compile Include="Device\Concrete\HeartBeatDevice.cs" />
     <Compile Include="Device\Concrete\TemperatureDeviceV1.cs" />
     <Compile Include="Device\Concrete\UnknownDevice.cs" />
-    <Compile Include="Device\Base\DeviceBase.cs" />
+    <Compile Include="Device\DeviceBase.cs" />
     <Compile Include="Device\DeviceType.cs" />
     <Compile Include="Messaging\IMessageProcessor.cs" />
     <Compile Include="Messaging\IProcessableMessage.cs" />
@@ -63,7 +64,7 @@
     <Compile Include="Mqtt\IMqttServerConfiguration.cs" />
     <Compile Include="Configuration\MqttServerConfiguration.cs" />
     <Compile Include="Device\DeviceTypeRegistry.cs" />
-    <Compile Include="Device\Base\IDevice.cs" />
+    <Compile Include="Device\IDevice.cs" />
     <Compile Include="Messaging\IMessage.cs" />
     <Compile Include="Messaging\IMessageBus.cs" />
     <Compile Include="Messaging\IMessageBusRunner.cs" />

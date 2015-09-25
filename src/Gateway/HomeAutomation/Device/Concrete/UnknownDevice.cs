@@ -11,5 +11,14 @@ namespace MosziNet.HomeAutomation.Device.Concrete
         {
             Log.Debug("An unknown device received a frame.");
         }
+
+        public override DeviceState GetDeviceState()
+        {
+            return new DeviceState()
+            {
+                Device = this,
+                ComponentStateList = new ComponentState[] { }
+            };
+        }
     }
 }

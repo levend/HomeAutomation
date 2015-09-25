@@ -64,7 +64,7 @@ namespace MosziNet.HomeAutomation
 
             // Setup the message bus
             IMessageBus messageBus = new MessageBus();
-            IMessageBusRunner messageBusRunner = new ThreadedMessageBusRunner(messageBus, new MessageProcessorRegistry());
+            ThreadedMessageBusRunner messageBusRunner = new ThreadedMessageBusRunner(messageBus, new MessageProcessorRegistry());
             messageBus.MessageBusRunner = messageBusRunner;            
 
             // now register all services
@@ -77,7 +77,7 @@ namespace MosziNet.HomeAutomation
             ApplicationContext.ServiceRegistry.RegisterService(typeof(XBeeService), xbeeService);
             ApplicationContext.ServiceRegistry.RegisterService(typeof(MqttService), mqttService);
 
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(Gateway), new Gateway(xbeeService, mqttService));
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(Gateway), new Gateway(xbeeService, mqttService, messageBus));
 
             ApplicationContext.ServiceRegistry.RegisterService(typeof(WatchdogService), new WatchdogService(messageBus, mqttService));
 
@@ -86,6 +86,9 @@ namespace MosziNet.HomeAutomation
             // Start listening for messages
             xbeeService.StartListeningForMessages();
             mqttService.StartMqttClientWatchdog();
+
+            // finally start the complete system by starting the message bus processing.
+            messageBusRunner.StartProcessingMessages();
         }
 
         /// <summary>
@@ -97,11 +100,6 @@ namespace MosziNet.HomeAutomation
             ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9988, typeof(TemperatureDeviceV1));
             ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9987, typeof(HeartBeatDevice));
             ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9986, typeof(TemperatureDeviceV2));
-
-            // register the types responsible of translating messages between devices and the MQTT network
-            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.Device2MQTMessageTTranslator, typeof(TemperatureDeviceV1), typeof(TemperatureDevice1Translator));
-            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.Device2MQTMessageTTranslator, typeof(TemperatureDeviceV2), typeof(TemperatureDevice2Translator));
-            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.Device2MQTMessageTTranslator, typeof(HeartBeatDevice), typeof(HeartBeatDeviceTranslator));
         }
 
     }

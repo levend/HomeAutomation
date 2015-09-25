@@ -15,12 +15,12 @@ namespace MosziNet.HomeAutomation.BusinessLogic
         IMessageBus messageBus;
         MqttService mqttService;
 
-        public Gateway(XBeeService xbeeService, MqttService mqttService)
+        public Gateway(XBeeService xbeeService, MqttService mqttService, IMessageBus messageBus)
         {
             this.xbeeService = xbeeService;
             this.mqttService = mqttService;
 
-            messageBus = (IMessageBus)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IMessageBus));
+            this.messageBus = messageBus;
 
             // subscribe to the messages coming from that network.
             xbeeService.MessageReceived += xbeeService_MessageReceived;
@@ -32,7 +32,8 @@ namespace MosziNet.HomeAutomation.BusinessLogic
 
         void mqttService_MessageReceived(string topicName, string message)
         {
-            // todo
+            // when we received a message from MQTT we will immediatelly put it on the bus for later processing
+            messageBus.PostMessage(new MqttMessageReceived(topicName, message));
         }
 
         void xbeeService_MessageReceived(XBee.Frame.IXBeeFrame frame)
