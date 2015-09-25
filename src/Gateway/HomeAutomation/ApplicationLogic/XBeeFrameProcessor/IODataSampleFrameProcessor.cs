@@ -4,7 +4,6 @@ using MosziNet.HomeAutomation.Device;
 using MosziNet.HomeAutomation.Util;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Device.Concrete;
-using MosziNet.HomeAutomation.ApplicationLogic.MqttDeviceTranslator;
 using MosziNet.HomeAutomation.Mqtt;
 using MosziNet.HomeAutomation.ApplicationLogic.Messages;
 using MosziNet.HomeAutomation.Messaging;
@@ -60,7 +59,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
         private void PostDeviceStateToMessageBus(IDevice device)
         {
             // convert the device frame to an mqtt message
-            string message = DeviceState2MQTTTranslator.GetDeviceMessage(device);
+            string message = device.GetDeviceState().ConvertToString();
 
             IMessageBus messageBus = (IMessageBus)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IMessageBus));
 

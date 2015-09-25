@@ -21,7 +21,6 @@ using MosziNet.HomeAutomation.Messaging;
 using MosziNet.HomeAutomation.Watchdog;
 using MosziNet.HomeAutomation.Configuration;
 using MosziNet.HomeAutomation.Device.Concrete;
-using MosziNet.HomeAutomation.ApplicationLogic.MqttDeviceTranslator;
 
 namespace MosziNet.HomeAutomation
 {

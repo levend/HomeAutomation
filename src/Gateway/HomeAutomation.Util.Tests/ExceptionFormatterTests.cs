@@ -8,7 +8,7 @@ namespace HomeAutomation.Util.Tests
     public class ExceptionFormatterTests
     {
         [TestMethod]
-        public void FormatTest()
+        public void TestFormatForEmptyException()
         {
             Exception ex = new Exception();
 
@@ -19,7 +19,7 @@ namespace HomeAutomation.Util.Tests
     
 
         [TestMethod]
-        public void FormatTest2()
+        public void TestFormatForExceptionWithMessage()
         {
             Exception ex = new Exception("moszi");
 
@@ -29,7 +29,7 @@ namespace HomeAutomation.Util.Tests
         }
 
         [TestMethod]
-        public void FormatTest3()
+        public void TestFormatForNullException()
         {
             Exception ex = null;
             
