@@ -7,7 +7,7 @@ namespace MosziNet.HomeAutomation.Logging.Writer
     {
         public void Log(string message, LogLevel logLevel, ILogFormatter logFormatter)
         {
-            Debug.Print(logFormatter.Format(message, logLevel));
+            Debug.Print(logFormatter.Format(message, logLevel, DateTime.Now));
         }
     }
 }

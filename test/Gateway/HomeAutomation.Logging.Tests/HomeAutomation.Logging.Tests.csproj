@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E1716A9B-A28F-4D3A-9BF1-349FCA9EE879}</ProjectGuid>
+    <ProjectGuid>{B9F1C9F6-3841-447F-8C9F-EBCC4A3B8E8B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HomeAutomation.Util.Tests</RootNamespace>
-    <AssemblyName>HomeAutomation.Util.Tests</AssemblyName>
+    <RootNamespace>HomeAutomation.Logging.Tests</RootNamespace>
+    <AssemblyName>HomeAutomation.Logging.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -50,15 +50,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="LogTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ExceptionFormatterTests.cs" />
-    <Compile Include="HexConverterTests.cs" />
-    <Compile Include="ActivatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HomeAutomation.Util\HomeAutomation.Util.csproj">
-      <Project>{e83bebdc-09e3-4bf1-8b67-252d8883c082}</Project>
-      <Name>HomeAutomation.Util</Name>
+    <ProjectReference Include="..\..\..\src\Gateway\HomeAutomation.Logging\HomeAutomation.Logging.csproj">
+      <Project>{a5e7f5f4-bba6-4214-8bb7-50f955c947d7}</Project>
+      <Name>HomeAutomation.Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -5,9 +5,9 @@ namespace MosziNet.HomeAutomation.Logging.Formatter
 {
     public class StandardLogFormatter : ILogFormatter
     {
-        public string Format(string message, LogLevel logLevel)
+        public string Format(string message, LogLevel logLevel, DateTime logTime)
         {
-            return "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "] " +  LogLevel2String(logLevel) + " - " + message;
+            return "[" + logTime.ToString("yyyy-MM-dd HH:mm:ss") + "] " + LogLevel2String(logLevel) + " - " + message;
         }
 
         private string LogLevel2String(LogLevel logLevel)

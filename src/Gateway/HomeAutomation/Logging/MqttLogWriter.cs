@@ -20,7 +20,7 @@ namespace MosziNet.HomeAutomation.Logging.Writer
         {
             if (logLevel != LogLevel.Information)
             {
-                mqttService.SendMessage(mqttService.GetFullTopicName(subTopic), logFormatter.Format(message, logLevel));
+                mqttService.SendMessage(mqttService.GetFullTopicName(subTopic), logFormatter.Format(message, logLevel, DateTime.Now));
             }
         }
     }
