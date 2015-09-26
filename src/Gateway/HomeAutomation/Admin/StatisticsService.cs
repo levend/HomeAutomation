@@ -8,11 +8,15 @@ namespace MosziNet.HomeAutomation.Admin
 {
     public class StatisticsService : IRunLoopParticipant
     {
+        private Statistics systemStatistics;
         private DateTime lastMeasureTime;
-        private int StatisticsIntervalInSeconds = 10;
+        private int StatisticsIntervalInSeconds = 5 * 60;
 
         public StatisticsService()
         {
+            systemStatistics = new Statistics();
+            systemStatistics.SystemStartTime = DateTime.Now;
+
             lastMeasureTime = DateTime.Now;
         }
 
@@ -31,25 +35,27 @@ namespace MosziNet.HomeAutomation.Admin
         {
             lastMeasureTime = DateTime.Now;
 
-            Log.Debug(new StringBuilder()
-                .Append("System uptime in days: " + Statistics.UptimeDays + "\n")
-                .Append("XBee messages received: " + Statistics.XBeeMessageReceiveCount + "\n")
-                .Append("XBee messages sent: " + Statistics.XBeeMessageSentCount + "\n")
-                .Append("XBee messages dropped: " + Statistics.XBeeMessageDropCount + "\n")
-                .Append("Free memory: " + Statistics.FreeMemory)
-                .ToString());
+            String statisticsMessage = new StringBuilder()
+                .Append("System uptime in days: " + systemStatistics.UptimeDays + "\n")
+                .Append("XBee messages received: " + systemStatistics.XBeeMessageReceiveCount + "\n")
+                .Append("XBee messages sent: " + systemStatistics.XBeeMessageSentCount + "\n")
+                .Append("XBee messages dropped: " + systemStatistics.XBeeMessageDropCount + "\n")
+                .Append("Free memory: " + systemStatistics.FreeMemory)
+                .ToString();
+
+            Log.Debug(statisticsMessage);
         }
 
         private void GatherStatistics()
         {
-            TimeSpan uptime = DateTime.Now.Subtract(Statistics.SystemStartTime);
-            Statistics.UptimeDays = uptime.Days;
+            TimeSpan uptime = DateTime.Now.Subtract(systemStatistics.SystemStartTime);
+            systemStatistics.UptimeDays = uptime.Days;
 
-            Statistics.XBeeMessageDropCount = XBeeStatistics.MessagesDiscarded;
-            Statistics.XBeeMessageReceiveCount = XBeeStatistics.MessagesReceived;
-            Statistics.XBeeMessageSentCount = XBeeStatistics.MessagesSent;
+            systemStatistics.XBeeMessageDropCount = XBeeStatistics.MessagesDiscarded;
+            systemStatistics.XBeeMessageReceiveCount = XBeeStatistics.MessagesReceived;
+            systemStatistics.XBeeMessageSentCount = XBeeStatistics.MessagesSent;
 
-            Statistics.FreeMemory = Microsoft.SPOT.Debug.GC(false);
+            systemStatistics.FreeMemory = Microsoft.SPOT.Debug.GC(false);
         }
     }
 }
