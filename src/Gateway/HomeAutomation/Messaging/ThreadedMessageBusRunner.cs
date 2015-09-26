@@ -6,9 +6,8 @@ using MosziNet.HomeAutomation.Util;
 
 namespace MosziNet.HomeAutomation.Messaging
 {
-    public class ThreadedMessageBusRunner : IMessageBusRunner
+    public class ThreadedMessageBusRunner : IMessageBusRunner, IRunLoopParticipant
     {
-        private bool shouldMessageBusRunnerContinue;
         private MessageProcessorRegistry messageProcessorRegistry;
         private IMessageBus messageBus;
 
@@ -22,36 +21,6 @@ namespace MosziNet.HomeAutomation.Messaging
         {
             // do nothing here as we are processing messages on a separate thread
             return false;
-        }
-
-        /// <summary>
-        /// Stops processing bus messages.
-        /// </summary>
-        public void StopProcessingMessages()
-        {
-            shouldMessageBusRunnerContinue = false;
-        }
-
-        public void StartProcessingMessages()
-        {
-            shouldMessageBusRunnerContinue = true;
-
-            new Thread(this.MessageProcessorLoop).Start();
-        }
-
-        private void MessageProcessorLoop()
-        {
-            while (shouldMessageBusRunnerContinue)
-            {
-                try
-                {
-                    ProcessMessagesFromQueue();
-                }
-                catch (Exception ex)
-                {
-                    Log.Error("[MessageProcessorLoop Exception] " + ExceptionFormatter.Format(ex));
-                }
-            }
         }
 
         private void ProcessMessagesFromQueue()
@@ -81,9 +50,11 @@ namespace MosziNet.HomeAutomation.Messaging
                     }
                 }
             }
-
-            Thread.Sleep(100);
         }
 
+        public void Execute()
+        {
+            ProcessMessagesFromQueue();
+        }
     }
 }

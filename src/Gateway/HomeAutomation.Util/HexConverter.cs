@@ -14,7 +14,6 @@ namespace MosziNet.HomeAutomation.Util
         private static readonly byte asciiCharacter0 = 48;
         private static readonly byte asciiCharacter9 = 57;
         private static readonly byte asciiCharacterA = 65;
-        private static readonly byte asciiCharacterF = 70;
 
         /// <summary>
         /// Converts the byte array to a simple non-spaced hex string.

@@ -30,7 +30,7 @@ namespace MosziNet.HomeAutomation.Watchdog
             this.messageBus = messageBus;
             this.mqttService = mqttService;
 
-            new Thread(WatchdogThread).Start();
+            //new Thread(WatchdogThread).Start();
         }
 
         private void WatchdogThread()

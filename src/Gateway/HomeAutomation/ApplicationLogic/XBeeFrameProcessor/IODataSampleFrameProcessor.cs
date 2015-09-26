@@ -19,18 +19,23 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
     /// </summary>
     public class IODataSampleFrameProcessor : IXBeeFrameProcessor
     {
+        DeviceRegistry deviceRegistry;
         static byte frameId;
 
         public void ProcessFrame(XBee.Frame.IXBeeFrame frame)
         {
+            if (this.deviceRegistry == null)
+            {
+                deviceRegistry = (DeviceRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(DeviceRegistry));
+            }
+
             // get the device type from device registry. if it's not found
             // then we will ask the device to identify itself.
-            DeviceTypeRegistry deviceTypeRegistry = (DeviceTypeRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(DeviceTypeRegistry));
-            Type deviceType = deviceTypeRegistry.GetDeviceTypeById(frame.Address);
-            
-            if (deviceType != null)
+            IDevice device = deviceRegistry.GetDeviceById(frame.Address);
+
+            if (device != null)
             {
-                ProcessFrameByDevice(frame, deviceType);
+                ProcessFrameByDevice(frame, device);
             }
             else
             {
@@ -38,22 +43,12 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
             }
         }
 
-        private void ProcessFrameByDevice(XBee.Frame.IXBeeFrame frame, Type deviceType)
+        private void ProcessFrameByDevice(XBee.Frame.IXBeeFrame frame, IDevice device)
         {
-            IDevice device = Activator.CreateInstance(deviceType) as IDevice;
-            if (device != null)
-            {
-                device.DeviceID = frame.Address;
+            // first process the frame by the device
+            device.ProcessFrame(frame);
 
-                // first process the frame by the device
-                device.ProcessFrame(frame);
-
-                PostDeviceStateToMessageBus(device);
-            }
-            else
-            {
-                Log.Debug("Device could not be created for type: " + deviceType.Name);
-            }
+            PostDeviceStateToMessageBus(device);
         }
 
         private void PostDeviceStateToMessageBus(IDevice device)
@@ -73,7 +68,13 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
 
         private void ProcessFrameForUnknownDevice(IXBeeFrame frame)
         {
-            AskForDeviceType(frame);
+            // check if this device is already staging
+            if (!deviceRegistry.IsStagingDevice(frame.Address))
+            {
+                deviceRegistry.RegisterStagingDevice(frame.Address);
+
+                AskForDeviceType(frame);
+            }
         }
 
         private void AskForDeviceType(IXBeeFrame remoteFrame)

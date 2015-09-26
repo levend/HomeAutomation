@@ -12,7 +12,7 @@ namespace MosziNet.HomeAutomation.Mqtt
 {
     public delegate void MessageReceivedDelegate(string topicName, string message);
 
-    public class MqttService
+    public class MqttService : IRunLoopParticipant
     {
         private const int MinimumKeepAliveInterval = 15;
 
@@ -20,8 +20,6 @@ namespace MosziNet.HomeAutomation.Mqtt
         private MqttClient mqttClient;
 
         private IMqttServerConfiguration configuration { get; set; }
-
-        private bool shouldMqttConnectionBeAlive;
 
         public event MessageReceivedDelegate MessageReceived;
 
@@ -40,15 +38,6 @@ namespace MosziNet.HomeAutomation.Mqtt
 
             // start the MQTT client immediately.
             EnsureMqttServerIsConnected();
-        }
-
-        /// <summary>
-        /// Starts listening for MQTT messages.
-        /// </summary>
-        public void StartMqttClientWatchdog()
-        {
-            shouldMqttConnectionBeAlive = true;
-            new Thread(MqttConnectionThread).Start();
         }
 
         /// <summary>
@@ -94,17 +83,6 @@ namespace MosziNet.HomeAutomation.Mqtt
             Log.Information("[" + topicId + "] " + message);
         }
 
-        /// <summary>
-        /// Makes sure that the Mqtt server is always connected.
-        /// </summary>
-        private void MqttConnectionThread()
-        {
-            while (shouldMqttConnectionBeAlive)
-            {
-                EnsureMqttServerIsConnected();
-            }
-        }
-
         private void EnsureMqttServerIsConnected()
         {
             if (mqttClient == null || !mqttClient.IsConnected)
@@ -135,6 +113,11 @@ namespace MosziNet.HomeAutomation.Mqtt
         void mqttClient_ConnectionClosed(object sender, EventArgs e)
         {
             // do nothing, the connection thread will make sure the connection is kept alive
+        }
+
+        public void Execute()
+        {
+            EnsureMqttServerIsConnected();
         }
     }
 }

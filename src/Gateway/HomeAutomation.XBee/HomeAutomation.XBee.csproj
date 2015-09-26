@@ -48,6 +48,7 @@
     <Compile Include="XBeeConstants.cs" />
     <Compile Include="Frame\BaseXBeeFrame.cs" />
     <Compile Include="XBeeSerialPortReader.cs" />
+    <Compile Include="XBeeStatistics.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SPOT.Hardware" />

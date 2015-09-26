@@ -49,14 +49,10 @@ namespace MosziNet.HomeAutomation.XBee
             serialPort.Dispose();
         }
 
-
         private void WaitForBytesCountToBeAvailable(int count)
         {
             // wait until we can actually read that many bytes.
-            while (count > serialPort.BytesToRead)
-            {
-                Thread.Sleep(10);
-            }
+            while (count > serialPort.BytesToRead) ;
         }
 
     }

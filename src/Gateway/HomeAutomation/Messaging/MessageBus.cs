@@ -26,10 +26,7 @@ namespace MosziNet.HomeAutomation.Messaging
                 // only queue the message if the runner processed it immediately 
                 if (!runner.ProcessMessage(message))
                 {
-                    lock (messageList)
-                    {
-                        messageList.Add(message);
-                    }
+                    messageList.Add(message);
                 }
             }
         }
@@ -42,13 +39,10 @@ namespace MosziNet.HomeAutomation.Messaging
         {
             IMessage firstMessage = null;
 
-            lock (messageList)
+            if (messageList.Count > 0)
             {
-                if (messageList.Count > 0)
-                {
-                    firstMessage = (IMessage)messageList[0];
-                    messageList.RemoveAt(0);
-                }
+                firstMessage = (IMessage)messageList[0];
+                messageList.RemoveAt(0);
             }
 
             return firstMessage;

@@ -16,6 +16,9 @@ namespace MosziNet.HomeAutomation.XBee
 
             int byteCount = FrameUtil.FrameTotalLength(writeBuffer);
 
+            // statistics counting
+            XBeeStatistics.MessagesSent++;
+
             port.Write(writeBuffer, 0, byteCount);
         }
     }

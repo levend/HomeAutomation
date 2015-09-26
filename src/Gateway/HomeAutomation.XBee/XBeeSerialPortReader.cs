@@ -17,8 +17,8 @@ namespace MosziNet.HomeAutomation.XBee
         {
             IXBeeFrame frame = null;
 
-            // the serial port needs to have at least 3 bytes: 1 frame start, 2 bytes for frame length
-            if (port.BytesToRead >= 3) 
+            // the serial port needs to have at least these many bytes: 1 frame start, 2 bytes for frame length, 1 frametype, 8 for address, 2 network address, 1 for checksum
+            if (port.BytesToRead >= 15) 
             {
                 // read the possible frame start into the buffer
                 readBuffer[FrameIndex.Start] = (byte)port.ReadByte();
@@ -42,12 +42,16 @@ namespace MosziNet.HomeAutomation.XBee
                         // now create an XBee frame based on the buffer
                         frame = FrameSerializer.Deserialize(readBuffer);
 
-                        Log.Debug("[XBeeSerialPortReader] Frame received: " + HexConverter.ToSpacedHexString(readBuffer, 0, frameLength + 3));
+                        // statistics counting
+                        XBeeStatistics.MessagesReceived++;
                     }
                     else
                     {
                         // discard the frame it if it's too big.
                         DiscardBytes(port, frameLength);
+                        
+                        // statistics counting
+                        XBeeStatistics.MessagesDiscarded++;
 
                         Log.Debug("[XBeeSerialPortReader] Discaring frame with length: " + frameLength);
                     }

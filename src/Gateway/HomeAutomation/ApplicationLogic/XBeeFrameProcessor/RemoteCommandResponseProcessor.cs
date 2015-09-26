@@ -19,25 +19,28 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
             // check if this is a DD command response - used for identifying devices by their type
             if (FrameUtil.IsSameATCommand(responseFrame.ATCommand, ATCommands.DD))
             {
-                DeviceTypeRegistry deviceTypeRegistry = (DeviceTypeRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(DeviceTypeRegistry));
+                DeviceRegistry deviceRegistry = (DeviceRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(DeviceRegistry));
 
-                // build the ID for the device type based on the frame info
-                int deviceIdentification = responseFrame.Parameters[2] * 256 + responseFrame.Parameters[3];
-
-                // get the type from the configuration based on this type id
-                Type deviceType = ApplicationConfiguration.GetTypeForKey(ApplicationConfigurationCategory.DeviceTypeID, deviceIdentification);
-
-                // create the device and register it, if possible
-                IDevice device = Activator.CreateInstance(deviceType) as IDevice;
-                if (device != null)
+                if (deviceRegistry.IsStagingDevice(frame.Address))
                 {
-                    deviceTypeRegistry.RegisterDevice(device.GetType(), device.DeviceID);
-                }
-                else
-                {
-                    Log.Debug("The device type specified by the sensor with ID " + HexConverter.ToHexString(frame.Address) + " is not know. Type ID: " + HexConverter.ToSpacedHexString(responseFrame.Parameters));
+                    // build the ID for the device type based on the frame info
+                    int deviceIdentification = responseFrame.Parameters[2] * 256 + responseFrame.Parameters[3];
 
-                    deviceTypeRegistry.RegisterDevice(typeof(UnknownDevice), frame.Address);
+                    // get the device from the configuration based on this type id
+                    Type deviceType = ApplicationConfiguration.GetTypeForKey(ApplicationConfigurationCategory.DeviceTypeID, deviceIdentification);
+                    IDevice device = Activator.CreateInstance(deviceType) as IDevice;
+
+                    if (device != null)
+                    {
+                        device.DeviceID = frame.Address;
+                        deviceRegistry.RegisterDevice(device, device.DeviceID);
+                    }
+                    else
+                    {
+                        Log.Debug("The device type specified by the sensor with ID " + HexConverter.ToHexString(frame.Address) + " is not know. Type ID: " + HexConverter.ToSpacedHexString(responseFrame.Parameters));
+
+                        deviceRegistry.RegisterDevice(new UnknownDevice(), frame.Address);
+                    }
                 }
             }
         }

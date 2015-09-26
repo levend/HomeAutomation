@@ -21,6 +21,9 @@ using MosziNet.HomeAutomation.Messaging;
 using MosziNet.HomeAutomation.Watchdog;
 using MosziNet.HomeAutomation.Configuration;
 using MosziNet.HomeAutomation.Device.Concrete;
+using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
+using MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor;
+using MosziNet.HomeAutomation.Admin;
 
 namespace MosziNet.HomeAutomation
 {
@@ -47,8 +50,10 @@ namespace MosziNet.HomeAutomation
 
         private static void InitializeApplicationServices()
         {
+            RunLoop mainRunLoop = new RunLoop();
+
             // Setup the device type registry
-            DeviceTypeRegistry deviceRegistry = new DeviceTypeRegistry();
+            DeviceRegistry deviceRegistry = new DeviceRegistry();
 
             // Set up the mqtt service
             MqttService mqttService = new MqttService(new MosziNet.HomeAutomation.Configuration.MqttServerConfiguration(
@@ -70,7 +75,7 @@ namespace MosziNet.HomeAutomation
             XBeeService xbeeService = new XBeeService();
 
             // Register all services to the service registry
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(DeviceTypeRegistry), deviceRegistry);
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(DeviceRegistry), deviceRegistry);
             ApplicationContext.ServiceRegistry.RegisterService(typeof(IMessageBus), messageBus);
 
             ApplicationContext.ServiceRegistry.RegisterService(typeof(XBeeService), xbeeService);
@@ -82,12 +87,13 @@ namespace MosziNet.HomeAutomation
 
             Log.Debug("[MosziNet_HA] Starting up...");
 
-            // Start listening for messages
-            xbeeService.StartListeningForMessages();
-            mqttService.StartMqttClientWatchdog();
+            // setup the run loop participants
+            mainRunLoop.AddRunLoopParticipant(messageBusRunner);
+            mainRunLoop.AddRunLoopParticipant(mqttService);
+            mainRunLoop.AddRunLoopParticipant(new XBeeServiceWrapper(xbeeService));
+            mainRunLoop.AddRunLoopParticipant(new StatisticsService());
 
-            // finally start the complete system by starting the message bus processing.
-            messageBusRunner.StartProcessingMessages();
+            mainRunLoop.Run();
         }
 
         /// <summary>
@@ -96,9 +102,13 @@ namespace MosziNet.HomeAutomation
         private static void InitializeApplicationConfiguration()
         {
             // set up the device types. Key is DD value from XBee frame, value is the class type that handles frames
-            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9988, typeof(TemperatureDeviceV1));
-            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9987, typeof(HeartBeatDevice));
-            ApplicationConfiguration.RegisterValueForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9986, typeof(TemperatureDeviceV2));
+            ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9988, typeof(TemperatureDeviceV1));
+            ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9987, typeof(HeartBeatDevice));
+            ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9986, typeof(TemperatureDeviceV2));
+
+            // register xbee frame processors
+            ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.XBeeFrameProcessor, typeof(RemoteCommandResponse), new RemoteCommandResponseProcessor());
+            ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.XBeeFrameProcessor, typeof(IODataSample), new IODataSampleFrameProcessor());
         }
 
     }

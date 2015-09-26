@@ -18,7 +18,7 @@ namespace MosziNet.HomeAutomation.XBee
     /// </summary>
     public class XBeeService
     {
-        private bool shouldListenForMessages;
+        private XBeeSerialPort port;
         private ArrayList pendingMessages;
 
         public event MessageReceivedDelegate MessageReceived;
@@ -26,6 +26,7 @@ namespace MosziNet.HomeAutomation.XBee
         public XBeeService()
         {
             pendingMessages = new ArrayList();
+            port = new XBeeSerialPort(SerialPorts.COM1, 2400, Parity.None, 8, StopBits.One);
         }
 
         /// <summary>
@@ -34,69 +35,36 @@ namespace MosziNet.HomeAutomation.XBee
         /// <param name="frame"></param>
         public void SendFrame(IXBeeFrame frame)
         {
-            lock (pendingMessages.SyncRoot)
+            pendingMessages.Add(frame);
+        }
+
+        /// <summary>
+        /// This method should be periodically invoked to receive and send messages.
+        /// </summary>
+        public void ProcessXBeeMessages()
+        {
+            try
             {
-                pendingMessages.Add(frame);
+                CheckForXBeeMessages(port);
+
+                SendAnyPendingXBeeMessages(port);
             }
-        }
-
-        public void StartListeningForMessages()
-        {
-            new Thread(XBeeMessageListenerThread).Start();
-        }
-
-        private void XBeeMessageListenerThread()
-        {
-            using (XBeeSerialPort port = new XBeeSerialPort(SerialPorts.COM1, 9600, Parity.None, 8, StopBits.One))
+            catch(Exception ex)
             {
-                shouldListenForMessages = true;
-
-                // Todo: when to stop listening for messages
-                while (shouldListenForMessages)
-                {
-                    try
-                    {
-                        CheckForXBeeMessages(port);
-
-                        SendAnyPendingXBeeMessages(port);
-
-                        Thread.Sleep(100);
-                    }
-                    catch(Exception ex)
-                    {
-                        Log.Error("[XBeeService Exception] " + ExceptionFormatter.Format(ex));
-                    }
-                }
+                Log.Error("[XBeeService Exception] " + ExceptionFormatter.Format(ex));
             }
         }
 
         private void SendAnyPendingXBeeMessages(XBeeSerialPort port)
         {
-            ArrayList localList = null;
 
-            lock (pendingMessages.SyncRoot)
+            while (pendingMessages.Count > 0)
             {
-                if (pendingMessages.Count > 0)
-                {
-                    // first make a copy of the messages that have to be sent.
-                    
-                    localList = (ArrayList)pendingMessages.Clone();
+                IXBeeFrame frame = (IXBeeFrame)pendingMessages[0];
+                pendingMessages.RemoveAt(0);
 
-                    while (pendingMessages.Count > 0)
-                        pendingMessages.RemoveAt(0);
-                }
+                XBeeSerialPortWriter.WriteFrameToSerialPort(frame, port);
             }
-
-            if (localList != null)
-            {
-                // and now send out these messages
-                for (int i = 0; i < localList.Count; i++)
-                {
-                    IXBeeFrame frame = (IXBeeFrame)localList[i];
-
-                    XBeeSerialPortWriter.WriteFrameToSerialPort(frame, port);
-                }
-            }  
         }
 
         private void CheckForXBeeMessages(XBeeSerialPort port)

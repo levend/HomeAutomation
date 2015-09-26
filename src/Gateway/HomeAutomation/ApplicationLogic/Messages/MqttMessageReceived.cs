@@ -44,9 +44,9 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.Messages
             if (topic == MqttTopic.CommandTopic)
             {
                 DeviceCommand command = DeviceCommand.CreateFromString(message);
-                DeviceTypeRegistry deviceRegistry = (DeviceTypeRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(DeviceTypeRegistry));
+                DeviceRegistry deviceRegistry = (DeviceRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(DeviceRegistry));
 
-                IDevice device = Activator.CreateInstance(deviceRegistry.GetDeviceTypeById(command.DeviceID)) as IDevice;
+                IDevice device = deviceRegistry.GetDeviceById(command.DeviceID) as IDevice;
                 if (device != null)
                 {
                     device.ExecuteCommand(command);

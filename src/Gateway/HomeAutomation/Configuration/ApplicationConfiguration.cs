@@ -17,7 +17,7 @@ namespace MosziNet.HomeAutomation.Configuration
         /// <param name="category"></param>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public static void RegisterValueForKey(string category, object key, object value)
+        public static void RegisterObjectForKey(string category, object key, object value)
         {
             Hashtable categoryKeyValuePairs = configurationItemListForCategory.Contains(category) ? (Hashtable)configurationItemListForCategory[category] : null;
             if (categoryKeyValuePairs == null)
@@ -35,7 +35,7 @@ namespace MosziNet.HomeAutomation.Configuration
         /// <param name="category"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static string GetValueForKey(string category, object key)
+        public static string GetStringForKey(string category, object key)
         {
             Hashtable categoryKeyValuePairs = configurationItemListForCategory.Contains(category) ? (Hashtable)configurationItemListForCategory[category] : null;
             if (categoryKeyValuePairs == null)
@@ -43,6 +43,22 @@ namespace MosziNet.HomeAutomation.Configuration
 
             return (String)categoryKeyValuePairs[key];
         }
+
+        /// <summary>
+        /// Returns a string value for the specified category and key.
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static object GetObjectForKey(string category, object key)
+        {
+            Hashtable categoryKeyValuePairs = configurationItemListForCategory.Contains(category) ? (Hashtable)configurationItemListForCategory[category] : null;
+            if (categoryKeyValuePairs == null)
+                return null;
+
+            return categoryKeyValuePairs[key];
+        }
+
 
         /// <summary>
         /// Returns the stored type for a configuration key.
