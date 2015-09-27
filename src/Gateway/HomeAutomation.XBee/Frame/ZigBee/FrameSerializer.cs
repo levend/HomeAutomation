@@ -80,6 +80,8 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
             for (int i = 0; i < frameDescriptor.Length; i++)
             {
                 PropertyDescriptor onePropertyDescriptor = frameDescriptor[i];
+                int writtenByteCount = onePropertyDescriptor.ByteCount;
+
                 if (onePropertyDescriptor.PropertyType != PropertyType.Ignored)
                 {
                     // get the setter method information
@@ -88,11 +90,11 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
                     object returnValue = getterMethod.Invoke(frame, new object[] { });
                     if (returnValue != null)
                     {
-                        SetPropertyValueToBuffer(buffer, index, returnValue, onePropertyDescriptor);
+                        writtenByteCount = SetPropertyValueToBuffer(buffer, index, returnValue, onePropertyDescriptor);
                     }
                 }
 
-                index += onePropertyDescriptor.ByteCount;
+                index += writtenByteCount;
             }
 
             // calculate the length of the payload, and update the frame with the information
@@ -150,8 +152,10 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
 
         #region / Serialization related methods /
 
-        private static void SetPropertyValueToBuffer(byte[] buffer, int index, object value, PropertyDescriptor onePropertyDescriptor)
+        private static int SetPropertyValueToBuffer(byte[] buffer, int index, object value, PropertyDescriptor onePropertyDescriptor)
         {
+            int writtenBytes = onePropertyDescriptor.ByteCount;
+
             switch (onePropertyDescriptor.PropertyType)
             {
                 case PropertyType.Byte:
@@ -162,9 +166,22 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
                     buffer[index + 1] = (byte)((int)value % 256);
                     break;
                 case PropertyType.ByteArray:
-                    Array.Copy((byte[])value, 0, buffer, index, onePropertyDescriptor.ByteCount);
+                    if (onePropertyDescriptor.ByteCount > 0)
+                    {
+                        Array.Copy((byte[])value, 0, buffer, index, onePropertyDescriptor.ByteCount);
+                    }
+                    else
+                    {
+                        byte[] localValue = (byte[])value;
+                        Array.Copy(localValue, 0, buffer, index, localValue.Length);
+
+                        writtenBytes = localValue.Length;
+                    }
+
                     break;
             }
+
+            return writtenBytes;
         }
 
         #endregion

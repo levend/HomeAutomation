@@ -52,7 +52,7 @@ namespace MosziNet.HomeAutomation.Mqtt
 
         public void SubscribeTopic(string topic)
         {
-            mqttClient.Subscribe(new string[] { topic }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
+            mqttClient.Subscribe(new string[] { GetFullTopicName(topic) }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
         }
 
         /// <summary>
@@ -68,11 +68,24 @@ namespace MosziNet.HomeAutomation.Mqtt
             return configuration.TopicRootName + topicNameSuffix;
         }
 
+        /// <summary>
+        /// Returns the subtopic name
+        /// </summary>
+        /// <param name="fullTopicName"></param>
+        /// <returns></returns>
+        public string GetTopicNameSuffix(string fullTopicName)
+        {
+            return fullTopicName.Substring(configuration.TopicRootName.Length);
+        }
+
 
         private void MQTTMessageReceived(string topicId, string message)
         {
             if (message == null || message.Length == 0)
                 return;
+
+            // strip down the topic root name
+            topicId = GetTopicNameSuffix(topicId);
 
             MessageReceivedDelegate mrd = this.MessageReceived;
             if (mrd != null)

@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeAutomation.Util.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeAutomation.Logging.Tests", "..\..\test\Gateway\HomeAutomation.Logging.Tests\HomeAutomation.Logging.Tests.csproj", "{B9F1C9F6-3841-447F-8C9F-EBCC4A3B8E8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeAutomation.Tests", "..\..\test\Gateway\HomeAutomation.Tests\HomeAutomation.Tests.csproj", "{7B3D0F40-AAD6-470A-BC9E-29FF0AEDA5AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,16 @@ Global
 		{B9F1C9F6-3841-447F-8C9F-EBCC4A3B8E8B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B9F1C9F6-3841-447F-8C9F-EBCC4A3B8E8B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B9F1C9F6-3841-447F-8C9F-EBCC4A3B8E8B}.Release|x86.ActiveCfg = Release|Any CPU
+		{7B3D0F40-AAD6-470A-BC9E-29FF0AEDA5AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B3D0F40-AAD6-470A-BC9E-29FF0AEDA5AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B3D0F40-AAD6-470A-BC9E-29FF0AEDA5AE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7B3D0F40-AAD6-470A-BC9E-29FF0AEDA5AE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7B3D0F40-AAD6-470A-BC9E-29FF0AEDA5AE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7B3D0F40-AAD6-470A-BC9E-29FF0AEDA5AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B3D0F40-AAD6-470A-BC9E-29FF0AEDA5AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B3D0F40-AAD6-470A-BC9E-29FF0AEDA5AE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7B3D0F40-AAD6-470A-BC9E-29FF0AEDA5AE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7B3D0F40-AAD6-470A-BC9E-29FF0AEDA5AE}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -143,5 +155,6 @@ Global
 		{80603AE8-B0E2-418B-BE70-ECA3289890D7} = {B0C16B12-3503-4A93-A800-98418D3FC783}
 		{E1716A9B-A28F-4D3A-9BF1-349FCA9EE879} = {B0C16B12-3503-4A93-A800-98418D3FC783}
 		{B9F1C9F6-3841-447F-8C9F-EBCC4A3B8E8B} = {B0C16B12-3503-4A93-A800-98418D3FC783}
+		{7B3D0F40-AAD6-470A-BC9E-29FF0AEDA5AE} = {B0C16B12-3503-4A93-A800-98418D3FC783}
 	EndGlobalSection
 EndGlobal

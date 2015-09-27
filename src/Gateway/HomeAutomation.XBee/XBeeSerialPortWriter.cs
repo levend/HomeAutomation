@@ -3,6 +3,7 @@ using Microsoft.SPOT;
 using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.Util;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
+using MosziNet.HomeAutomation.Logging;
 
 namespace MosziNet.HomeAutomation.XBee
 {
@@ -20,6 +21,8 @@ namespace MosziNet.HomeAutomation.XBee
             XBeeStatistics.MessagesSent++;
 
             port.Write(writeBuffer, 0, byteCount);
+
+            Log.Debug("[XBeeSerialPortWriter] Frame sent: " + HexConverter.ToSpacedHexString(writeBuffer, 0, byteCount));
         }
     }
 }
