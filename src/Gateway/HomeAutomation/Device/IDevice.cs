@@ -11,9 +11,14 @@ namespace MosziNet.HomeAutomation.Device
     public interface IDevice
     {
         /// <summary>
-        /// Defines the device's id.
+        /// Defines the device's id. (hardware address)
         /// </summary>
         byte[] DeviceID { get; set; }
+
+        /// <summary>
+        /// Defined the device's network address.
+        /// </summary>
+        byte[] NetworkAddress { get; set; }
 
         /// <summary>
         /// Processes the XBee frame.

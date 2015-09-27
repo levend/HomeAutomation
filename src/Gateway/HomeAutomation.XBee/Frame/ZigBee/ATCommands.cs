@@ -6,5 +6,9 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
     public class ATCommands
     {
         public static readonly byte[] DD = { 0x44, 0x44 };
+
+        public static readonly byte[] D1 = { 0x44, 0x31 };
+
+        public static readonly byte[] D2 = { 0x44, 0x32 };
     }
 }

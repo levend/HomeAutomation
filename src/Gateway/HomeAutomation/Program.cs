@@ -97,7 +97,7 @@ namespace MosziNet.HomeAutomation
         }
 
         /// <summary>
-        /// Configuration necessary for the application is built in this method. 
+        /// Configuration necessary for the application is built in this method.
         /// </summary>
         private static void InitializeApplicationConfiguration()
         {
@@ -105,6 +105,7 @@ namespace MosziNet.HomeAutomation
             ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9988, typeof(TemperatureDeviceV1));
             ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9987, typeof(HeartBeatDevice));
             ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9986, typeof(TemperatureDeviceV2));
+            ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9985, typeof(DoubleRelayLM35));
 
             // register xbee frame processors
             ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.XBeeFrameProcessor, typeof(RemoteCommandResponse), new RemoteCommandResponseProcessor());

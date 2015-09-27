@@ -8,6 +8,8 @@ namespace MosziNet.HomeAutomation.Device.Base
     {
         public byte[] DeviceID { get; set; }
 
+        public byte[] NetworkAddress { get; set; }
+
         public abstract void ProcessFrame(XBee.Frame.IXBeeFrame frame);
 
         public abstract DeviceState GetDeviceState();

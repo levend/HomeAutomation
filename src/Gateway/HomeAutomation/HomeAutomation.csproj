@@ -45,6 +45,7 @@
     <Compile Include="ApplicationLogic\Messages\SendMessageToMqtt.cs" />
     <Compile Include="Configuration\ApplicationConfiguration.cs" />
     <Compile Include="Configuration\ApplicationConfigurationCategory.cs" />
+    <Compile Include="Device\Concrete\DoubleRelayLM35.cs" />
     <Compile Include="Device\Concrete\TemperatureDevice2.cs" />
     <Compile Include="Device\DeviceCommand.cs" />
     <Compile Include="Device\DeviceState.cs" />

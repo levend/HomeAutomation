@@ -3,6 +3,8 @@ using Microsoft.SPOT;
 using System.Collections;
 using MosziNet.HomeAutomation.Util;
 using MosziNet.HomeAutomation.Logging;
+using MosziNet.HomeAutomation.Configuration;
+using MosziNet.HomeAutomation.Device.Concrete;
 
 namespace MosziNet.HomeAutomation.Device
 {
@@ -42,10 +44,6 @@ namespace MosziNet.HomeAutomation.Device
             string deviceId = HexConverter.ToHexString(deviceByteId);
 
             IDevice device = deviceRegistry.Contains(deviceId) ? (IDevice)deviceRegistry[deviceId] : null;
-            if (device != null)
-            {
-                device.DeviceID = deviceByteId;
-            }
 
             return device;
         }
@@ -62,6 +60,31 @@ namespace MosziNet.HomeAutomation.Device
             string deviceId = HexConverter.ToHexString(deviceByteId);
 
             return stagingDevices.Contains(deviceId);
-        }        
+        }
+
+        public void RegisterDeviceWithTypeID(int deviceIdentification, byte[] address, byte[] networkAddress)
+        {
+            if (IsStagingDevice(address))
+            {
+                // get the device from the configuration based on this type id
+                Type deviceType = ApplicationConfiguration.GetTypeForKey(ApplicationConfigurationCategory.DeviceTypeID, deviceIdentification);
+                IDevice device = Activator.CreateInstance(deviceType) as IDevice;
+
+                if (device != null)
+                {
+                    device.DeviceID = address;
+                    device.NetworkAddress = networkAddress;
+
+                    RegisterDevice(device, device.DeviceID);
+                }
+                else
+                {
+                    Log.Debug("The device type specified by the sensor with ID " + HexConverter.ToHexString(address) + " is not know.");
+
+                    RegisterDevice(new UnknownDevice(), address);
+                }
+            }
+
+        }
     }
 }

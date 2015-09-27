@@ -42,6 +42,9 @@ namespace MosziNet.HomeAutomation.XBee
                         // now create an XBee frame based on the buffer
                         frame = FrameSerializer.Deserialize(readBuffer);
 
+                        // Log the frame ...
+                        Log.Debug("[XBeeSerialPortReader] Frame received: " + HexConverter.ToSpacedHexString(readBuffer, 0, frameLength + 3));
+
                         // statistics counting
                         XBeeStatistics.MessagesReceived++;
                     }
