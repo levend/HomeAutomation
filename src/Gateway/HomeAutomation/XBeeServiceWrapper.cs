@@ -6,9 +6,9 @@ namespace MosziNet.HomeAutomation
 {
     public class XBeeServiceWrapper : IRunLoopParticipant
     {
-        private XBeeService xbeeService;
+        private IXBeeService xbeeService;
 
-        public XBeeServiceWrapper(XBeeService xbeeService)
+        public XBeeServiceWrapper(IXBeeService xbeeService)
         {
             this.xbeeService = xbeeService;
         }

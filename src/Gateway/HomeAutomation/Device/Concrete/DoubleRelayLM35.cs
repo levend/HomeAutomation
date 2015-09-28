@@ -40,28 +40,6 @@ namespace MosziNet.HomeAutomation.Device.Concrete
                     Log.Debug("[TemperatureSensor] Wrong number of samples received: " + HexConverter.ToSpacedHexString(dataSample.Samples));
                 }
             }
-
-            //RemoteCommandResponse rcr = frame as RemoteCommandResponse;
-            //if (rcr != null && needsACCommand)
-            //{
-            //    needsACCommand = false;
-
-            //    if (rcr.Status == 0)
-            //    {
-            //        // build the frame to send to the device
-            //        RemoteATCommand commandToSend = new XBeeFrameBuilder().CreateRemoteATCommand(
-            //            ATCommands.AC,
-            //            0, // do not expect a response back
-            //            this.DeviceID,
-            //            this.NetworkAddress,
-            //            new byte[] { });
-
-            //        // send the frame to the device
-            //        XBeeService xbeeService = (XBeeService)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(XBeeService));
-            //        xbeeService.SendFrame(commandToSend);
-
-            //    }
-            //}
         }
 
         public void SetRelayState(string relayIndexString, string stateString)
@@ -74,7 +52,7 @@ namespace MosziNet.HomeAutomation.Device.Concrete
             if (state > 1)
                 state = 1;
 
-            XBeeService xbeeService = (XBeeService)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(XBeeService));
+            IXBeeService xbeeService = (IXBeeService)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IXBeeService));
 
             // The relay is on the D1 and D2 pins, set the appropriate state for them
             xbeeService.SendFrame(new XBeeFrameBuilder().CreateRemoteATCommand(

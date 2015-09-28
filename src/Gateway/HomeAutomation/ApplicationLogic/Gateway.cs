@@ -11,11 +11,11 @@ namespace MosziNet.HomeAutomation.BusinessLogic
 {
     public class Gateway
     {
-        XBeeService xbeeService;
+        IXBeeService xbeeService;
         IMessageBus messageBus;
         MqttService mqttService;
 
-        public Gateway(XBeeService xbeeService, MqttService mqttService, IMessageBus messageBus)
+        public Gateway(IXBeeService xbeeService, MqttService mqttService, IMessageBus messageBus)
         {
             this.xbeeService = xbeeService;
             this.mqttService = mqttService;

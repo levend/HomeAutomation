@@ -67,7 +67,7 @@ namespace MosziNet.HomeAutomation.Device
             if (IsStagingDevice(address))
             {
                 // get the device from the configuration based on this type id
-                Type deviceType = ApplicationConfiguration.GetTypeForKey(ApplicationConfigurationCategory.DeviceTypeID, deviceIdentification);
+                Type deviceType = ApplicationContext.Configuration.GetTypeForKey(ApplicationConfigurationCategory.DeviceTypeID, deviceIdentification);
                 IDevice device = Activator.CreateInstance(deviceType) as IDevice;
 
                 if (device != null)

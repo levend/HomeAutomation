@@ -50,6 +50,8 @@ namespace MosziNet.HomeAutomation
 
         private static void InitializeApplicationServices()
         {
+            ApplicationContext.ServiceRegistry = new Service.ServiceRegistry();
+
             RunLoop mainRunLoop = new RunLoop();
 
             // Setup the device type registry
@@ -72,13 +74,13 @@ namespace MosziNet.HomeAutomation
             messageBus.MessageBusRunner = messageBusRunner;            
 
             // now register all services
-            XBeeService xbeeService = new XBeeService();
+            IXBeeService xbeeService = new XBeeService();
 
             // Register all services to the service registry
             ApplicationContext.ServiceRegistry.RegisterService(typeof(DeviceRegistry), deviceRegistry);
             ApplicationContext.ServiceRegistry.RegisterService(typeof(IMessageBus), messageBus);
 
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(XBeeService), xbeeService);
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(IXBeeService), xbeeService);
             ApplicationContext.ServiceRegistry.RegisterService(typeof(MqttService), mqttService);
 
             ApplicationContext.ServiceRegistry.RegisterService(typeof(Gateway), new Gateway(xbeeService, mqttService, messageBus));
@@ -101,15 +103,18 @@ namespace MosziNet.HomeAutomation
         /// </summary>
         private static void InitializeApplicationConfiguration()
         {
+            ApplicationConfiguration configuration = new ApplicationConfiguration();
+            ApplicationContext.Configuration = configuration;
+
             // set up the device types. Key is DD value from XBee frame, value is the class type that handles frames
-            ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9988, typeof(TemperatureDeviceV1));
-            ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9987, typeof(HeartBeatDevice));
-            ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9986, typeof(TemperatureDeviceV2));
-            ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9985, typeof(DoubleRelayLM35));
+            configuration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9988, typeof(TemperatureDeviceV1));
+            configuration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9987, typeof(HeartBeatDevice));
+            configuration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9986, typeof(TemperatureDeviceV2));
+            configuration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9985, typeof(DoubleRelayLM35));
 
             // register xbee frame processors
-            ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.XBeeFrameProcessor, typeof(RemoteCommandResponse), new RemoteCommandResponseProcessor());
-            ApplicationConfiguration.RegisterObjectForKey(ApplicationConfigurationCategory.XBeeFrameProcessor, typeof(IODataSample), new IODataSampleFrameProcessor());
+            configuration.RegisterObjectForKey(ApplicationConfigurationCategory.XBeeFrameProcessor, typeof(RemoteCommandResponse), new RemoteCommandResponseProcessor());
+            configuration.RegisterObjectForKey(ApplicationConfigurationCategory.XBeeFrameProcessor, typeof(IODataSample), new IODataSampleFrameProcessor());
         }
 
     }

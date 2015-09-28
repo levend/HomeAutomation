@@ -7,9 +7,9 @@ namespace MosziNet.HomeAutomation.Configuration
     /// <summary>
     /// Stores configuration items for the scope of the application.
     /// </summary>
-    public static class ApplicationConfiguration
+    public class ApplicationConfiguration
     {
-        private static Hashtable configurationItemListForCategory = new Hashtable();
+        private Hashtable configurationItemListForCategory = new Hashtable();
 
         /// <summary>
         /// Registers a new string value.
@@ -17,7 +17,7 @@ namespace MosziNet.HomeAutomation.Configuration
         /// <param name="category"></param>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public static void RegisterObjectForKey(string category, object key, object value)
+        public void RegisterObjectForKey(string category, object key, object value)
         {
             Hashtable categoryKeyValuePairs = configurationItemListForCategory.Contains(category) ? (Hashtable)configurationItemListForCategory[category] : null;
             if (categoryKeyValuePairs == null)
@@ -35,7 +35,7 @@ namespace MosziNet.HomeAutomation.Configuration
         /// <param name="category"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static string GetStringForKey(string category, object key)
+        public string GetStringForKey(string category, object key)
         {
             Hashtable categoryKeyValuePairs = configurationItemListForCategory.Contains(category) ? (Hashtable)configurationItemListForCategory[category] : null;
             if (categoryKeyValuePairs == null)
@@ -50,7 +50,7 @@ namespace MosziNet.HomeAutomation.Configuration
         /// <param name="category"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static object GetObjectForKey(string category, object key)
+        public object GetObjectForKey(string category, object key)
         {
             Hashtable categoryKeyValuePairs = configurationItemListForCategory.Contains(category) ? (Hashtable)configurationItemListForCategory[category] : null;
             if (categoryKeyValuePairs == null)
@@ -66,7 +66,7 @@ namespace MosziNet.HomeAutomation.Configuration
         /// <param name="category"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static Type GetTypeForKey(string category, object key)
+        public Type GetTypeForKey(string category, object key)
         {
             Hashtable categoryKeyValuePairs = configurationItemListForCategory.Contains(category) ? (Hashtable)configurationItemListForCategory[category] : null;
             if (categoryKeyValuePairs == null)

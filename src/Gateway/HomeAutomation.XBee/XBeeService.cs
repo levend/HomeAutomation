@@ -16,7 +16,7 @@ namespace MosziNet.HomeAutomation.XBee
     /// <summary>
     /// Provides the means to send and receive XBee frames on an XBee network.
     /// </summary>
-    public class XBeeService
+    public class XBeeService : IXBeeService
     {
         private XBeeSerialPort port;
         private ArrayList pendingMessages;

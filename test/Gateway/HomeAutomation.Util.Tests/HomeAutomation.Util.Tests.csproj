@@ -56,7 +56,7 @@
     <Compile Include="ActivatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HomeAutomation.Util\HomeAutomation.Util.csproj">
+    <ProjectReference Include="..\..\..\src\Gateway\HomeAutomation.Util\HomeAutomation.Util.csproj">
       <Project>{e83bebdc-09e3-4bf1-8b67-252d8883c082}</Project>
       <Name>HomeAutomation.Util</Name>
     </ProjectReference>

@@ -4,13 +4,14 @@ using MosziNet.HomeAutomation.Device.Base;
 using MosziNet.HomeAutomation;
 using MosziNet.HomeAutomation.Device;
 using MosziNet.HomeAutomation.ApplicationLogic.Messages;
+using MosziNet.HomeAutomation.XBee;
 
 namespace HomeAutomation.Tests
 {
     [TestClass]
     public class TestDeviceCommand
     {
-        public class MyTestDevice : DeviceBase
+        public class MockTestDevice : DeviceBase
         {
             public bool TestSuccess { get; set; }
 
@@ -30,12 +31,33 @@ namespace HomeAutomation.Tests
             }
         }
 
+        public class MockXBeeService : IXBeeService
+        {
+            public event MessageReceivedDelegate MessageReceived;
+
+            public void ProcessXBeeMessages()
+            {
+                
+            }
+
+            public void SendFrame(MosziNet.HomeAutomation.XBee.Frame.IXBeeFrame frame)
+            {
+                
+            }
+        }
+
+        [TestInitialize]
+        public void Setup()
+        {
+            ApplicationContext.ServiceRegistry = new MosziNet.HomeAutomation.Service.ServiceRegistry();
+        }
+
         [TestMethod]
         public void TestSimpleCommand()
         {
             byte[] deviceId = new byte[] { 0x01 };
 
-            MyTestDevice device = new MyTestDevice();
+            MockTestDevice device = new MockTestDevice();
             device.DeviceID = deviceId;
             device.NetworkAddress = new byte[] { 1 };
 
@@ -44,6 +66,7 @@ namespace HomeAutomation.Tests
             registry.RegisterDevice(device, deviceId);
 
             ApplicationContext.ServiceRegistry.RegisterService(typeof(DeviceRegistry), registry);
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(IXBeeService), new MockXBeeService());
 
             MqttMessageReceived message = new MqttMessageReceived("/Command", "01,DoMyMethod,YES");
             message.ProcessMessage();

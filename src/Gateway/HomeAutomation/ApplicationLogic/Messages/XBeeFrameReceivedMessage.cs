@@ -22,7 +22,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.Messages
         public void ProcessMessage()
         {
             Type frameType = Frame.GetType();
-            IXBeeFrameProcessor processor = ApplicationConfiguration.GetObjectForKey(ApplicationConfigurationCategory.XBeeFrameProcessor, frameType) as IXBeeFrameProcessor;
+            IXBeeFrameProcessor processor = ApplicationContext.Configuration.GetObjectForKey(ApplicationConfigurationCategory.XBeeFrameProcessor, frameType) as IXBeeFrameProcessor;
 
             if (processor != null)
             {

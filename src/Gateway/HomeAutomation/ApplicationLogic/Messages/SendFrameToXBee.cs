@@ -22,7 +22,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.Messages
 
         public void ProcessMessage()
         {
-            XBeeService xbeeService = (XBeeService)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(XBeeService));
+            IXBeeService xbeeService = (IXBeeService)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IXBeeService));
 
             xbeeService.SendFrame(commandFrame);
         }
