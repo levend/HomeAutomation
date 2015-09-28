@@ -16,5 +16,7 @@ namespace MosziNet.HomeAutomation
         public static readonly string Heartbeat = "/Heartbeat";
 
         public static readonly string Admin = "/Admin";
+
+        public static readonly string Statistics = "/Statistics";
     }
 }

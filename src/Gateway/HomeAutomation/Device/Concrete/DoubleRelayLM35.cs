@@ -17,8 +17,6 @@ namespace MosziNet.HomeAutomation.Device.Concrete
         public int Switch1State { get; private set; }
         public int Switch2State { get; private set; }
 
-        bool needsACCommand;
-
         public override void ProcessFrame(XBee.Frame.IXBeeFrame frame)
         {
             IODataSample dataSample = frame as IODataSample;
