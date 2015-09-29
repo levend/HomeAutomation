@@ -8,6 +8,8 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
     /// </summary>
     public class RemoteATCommand : BaseXBeeFrame
     {
+        public const byte OptionCommitChanges = 2;
+
         public RemoteATCommand()
         {
             this.FrameType = Frame.FrameType.RemoteATCommand;

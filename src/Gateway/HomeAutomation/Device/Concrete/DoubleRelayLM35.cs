@@ -60,15 +60,8 @@ namespace MosziNet.HomeAutomation.Device.Concrete
                 0, // expect a response back
                 this.DeviceID,
                 this.NetworkAddress,
-                new byte[] { ((byte)(state == 1 ? 4 : 5)) }));
-
-            // send an 'APPLY CHANGES' command immediately afterwards
-            xbeeService.SendFrame(new XBeeFrameBuilder().CreateRemoteATCommand(
-                ATCommands.AC,
-                0, // do not expect a response back
-                this.DeviceID,
-                this.NetworkAddress,
-                new byte[] { }));
+                new byte[] { ((byte)(state == 1 ? 4 : 5)) },
+                RemoteATCommand.OptionCommitChanges));
 
             Log.Debug("Setting relay " + relayIndexString + " to " + stateString);
         }
@@ -85,7 +78,6 @@ namespace MosziNet.HomeAutomation.Device.Concrete
                     new ComponentState() { Name = "Relay2", Value = Switch2State.ToString() }
                 }
             };
-
         }
     }
 }

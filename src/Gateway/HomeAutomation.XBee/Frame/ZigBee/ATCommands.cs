@@ -7,6 +7,8 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
     {
         public static readonly byte[] DD = { 0x44, 0x44 };
 
+        public static readonly byte[] D0 = { 0x44, 0x30 };
+
         public static readonly byte[] D1 = { 0x44, 0x31 };
 
         public static readonly byte[] D2 = { 0x44, 0x32 };

@@ -26,6 +26,7 @@ namespace MosziNet.HomeAutomation.XBee
 
             frame.ATCommand = atCommand;
             frame.FrameId = frameId;
+            frame.CommandOptions = RemoteATCommand.OptionCommitChanges;
 
             return frame;
         }
@@ -37,8 +38,9 @@ namespace MosziNet.HomeAutomation.XBee
         /// <param name="frameId"></param>
         /// <param name="address"></param>
         /// <param name="networkAddress"></param>
+        /// <param name="commandOptions"></param>
         /// <returns></returns>
-        public RemoteATCommand CreateRemoteATCommand(byte[] atCommand, byte frameId, byte[] address, byte[] networkAddress, byte[] parameters)
+        public RemoteATCommand CreateRemoteATCommand(byte[] atCommand, byte frameId, byte[] address, byte[] networkAddress, byte[] parameters, byte commandOptions)
         {
             // build the frame to ask the device type id
             RemoteATCommand frame = new RemoteATCommand();
@@ -47,6 +49,8 @@ namespace MosziNet.HomeAutomation.XBee
 
             frame.ATCommand = atCommand;
             frame.Parameters = parameters;
+            
+            frame.CommandOptions = commandOptions;
 
             frame.FrameId = frameId;
 
