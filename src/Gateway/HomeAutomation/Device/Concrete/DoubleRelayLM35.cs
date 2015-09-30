@@ -8,14 +8,17 @@ using MosziNet.HomeAutomation.Util;
 
 namespace MosziNet.HomeAutomation.Device.Concrete
 {
-    public class DoubleRelayLM35 : DeviceBase
+    public class DoubleRelayLM35 : RelayDeviceBase
     {
         private static readonly double AnalogPinMaxVoltage = 1200.0; // in millivolts
         private static readonly double AnalogPinResolution = 1024;
 
-        public double Temperature { get; private set; }
-        public int Switch1State { get; private set; }
-        public int Switch2State { get; private set; }
+        private double temperature;
+
+        /// <summary>
+        /// Override base constructor specifying the XBee pins where the relays are connected
+        /// </summary>
+        public DoubleRelayLM35() : base(ATCommands.D1, ATCommands.D2) { }
 
         public override void ProcessFrame(XBee.Frame.IXBeeFrame frame)
         {
@@ -24,59 +27,38 @@ namespace MosziNet.HomeAutomation.Device.Concrete
             {
                 if (dataSample.Samples.Length == 4)
                 {
-                    // now read the digital readings, and the temperature sensor reading
-                    byte digitalReadingMLB = dataSample.Samples[1];
+                    // first 2 bytes are going to the RelayDevice (digital samples)
 
-                    // build the switch states
-                    Switch1State = (digitalReadingMLB & 0x04) != 0 ? 0 : 1;
-                    Switch2State = (digitalReadingMLB & 0x02) != 0 ? 0 : 1;
-
+                    // next 2 bytes are the analog samples
                     double analogReading = (dataSample.Samples[2] * 256 + dataSample.Samples[3]) * AnalogPinMaxVoltage / AnalogPinResolution;
 
-                    Temperature = HomeAutomation.Sensor.Temperature.LM35.TemperatureFromVoltage(analogReading);
+                    // now calculate the temperature
+                    temperature = HomeAutomation.Sensor.Temperature.LM35.TemperatureFromVoltage(analogReading);
                 }
                 else
                 {
-                    Log.Debug("[TemperatureSensor] Wrong number of samples received: " + HexConverter.ToSpacedHexString(dataSample.Samples));
+                    Log.Debug("[DoubleRelayLM35] Wrong number of samples received: " + HexConverter.ToSpacedHexString(dataSample.Samples));
                 }
             }
         }
 
-        public void SetRelayState(string relayIndexString, string stateString)
-        {
-            byte relayIndex = Byte.Parse(relayIndexString);
-            if (relayIndex > 1)
-                relayIndex = 1;
-
-            byte state = Byte.Parse(stateString);
-            if (state > 1)
-                state = 1;
-
-            IXBeeService xbeeService = (IXBeeService)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IXBeeService));
-
-            // The relay is on the D1 and D2 pins, set the appropriate state for them
-            xbeeService.SendFrame(new XBeeFrameBuilder().CreateRemoteATCommand(
-                relayIndex == 0 ? ATCommands.D1 : ATCommands.D2,
-                0, // expect a response back
-                this.DeviceID,
-                this.NetworkAddress,
-                new byte[] { ((byte)(state == 1 ? 4 : 5)) },
-                RemoteATCommand.OptionCommitChanges));
-
-            Log.Debug("Setting relay " + relayIndexString + " to " + stateString);
-        }
-
         public override DeviceState GetDeviceState()
         {
+            DeviceState s = base.GetDeviceState();
+
+            // extend the component state list with 1 item, our temperature
+            ComponentState[] states = new ComponentState[s.ComponentStateList.Length + 1];
+            
+            states[0].Name = "LM35";
+            states[1].Value = temperature.ToString("N1");
+
+            // make sure we carry over the existing states
+            Array.Copy(s.ComponentStateList, 0, states, 1, s.ComponentStateList.Length);
+
             return new DeviceState()
             {
                 Device = this,
-                ComponentStateList = new ComponentState[] 
-                {
-                    new ComponentState() { Name = "LM35", Value = Temperature.ToString("N1") },
-                    new ComponentState() { Name = "Relay1", Value = Switch1State.ToString() },
-                    new ComponentState() { Name = "Relay2", Value = Switch2State.ToString() }
-                }
+                ComponentStateList = states
             };
         }
     }
