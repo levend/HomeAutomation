@@ -48,9 +48,12 @@ namespace MosziNet.HomeAutomation.Device.Concrete
 
             // extend the component state list with 1 item, our temperature
             ComponentState[] states = new ComponentState[s.ComponentStateList.Length + 1];
-            
-            states[0].Name = "LM35";
-            states[1].Value = temperature.ToString("N1");
+
+            states[0] = new ComponentState()
+            {
+                Name = "LM35",
+                Value = temperature.ToString("N1")
+            };
 
             // make sure we carry over the existing states
             Array.Copy(s.ComponentStateList, 0, states, 1, s.ComponentStateList.Length);

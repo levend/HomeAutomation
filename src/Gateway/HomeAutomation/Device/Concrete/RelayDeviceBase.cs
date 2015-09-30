@@ -68,8 +68,11 @@ namespace MosziNet.HomeAutomation.Device.Concrete
 
             for(int i = 0; i < switchStates.Length; i++)
             {
-                states[i].Name = "Relay" + i.ToString();
-                states[i].Value = switchStates[i].ToString();
+                states[i] = new ComponentState()
+                {
+                    Name = "Relay" + i.ToString(),
+                    Value = switchStates[i].ToString()
+                };
             }
 
             DeviceState state = new DeviceState()

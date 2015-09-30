@@ -111,6 +111,7 @@ namespace MosziNet.HomeAutomation
             configuration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9987, typeof(HeartBeatDevice));
             configuration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9986, typeof(TemperatureDeviceV2));
             configuration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9985, typeof(DoubleRelayLM35));
+            configuration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9984, typeof(DoubleRelay));
 
             // register xbee frame processors
             configuration.RegisterObjectForKey(ApplicationConfigurationCategory.XBeeFrameProcessor, typeof(RemoteCommandResponse), new RemoteCommandResponseProcessor());
