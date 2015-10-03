@@ -7,6 +7,7 @@ using System.Text;
 using System.Net;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Util;
+using System.Collections;
 
 namespace MosziNet.HomeAutomation.Mqtt
 {
@@ -15,6 +16,7 @@ namespace MosziNet.HomeAutomation.Mqtt
     public class MqttService : IRunLoopParticipant
     {
         private const int MinimumKeepAliveInterval = 15;
+        private ArrayList subscribedTopics = new ArrayList();
 
         // the connection and it's lock object
         private MqttClient mqttClient;
@@ -52,7 +54,13 @@ namespace MosziNet.HomeAutomation.Mqtt
 
         public void SubscribeTopic(string topic)
         {
-            mqttClient.Subscribe(new string[] { GetFullTopicName(topic) }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
+            string fullTopicName = GetFullTopicName(topic);
+            if (!subscribedTopics.Contains(fullTopicName))
+            {
+                subscribedTopics.Add(fullTopicName);
+            }
+
+            mqttClient.Subscribe(new string[] { fullTopicName }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
         }
 
         /// <summary>
@@ -108,6 +116,12 @@ namespace MosziNet.HomeAutomation.Mqtt
                     mqttClient.MqttMsgPublishReceived += mqttClient_MqttMsgPublishReceived;
 
                     mqttClient.Connect(configuration.ClientName);
+
+                    // ensure that we re-connect any subscribed topics
+                    for (int i = 0; i < subscribedTopics.Count; i++)
+                    {
+                        SubscribeTopic((string)subscribedTopics[i]);
+                    }
                 }
                 catch(Exception ex)
                 {
