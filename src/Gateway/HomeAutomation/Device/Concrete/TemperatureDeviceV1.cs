@@ -28,8 +28,6 @@ namespace MosziNet.HomeAutomation.Device.Concrete
                     double analogReading = (dataSample.Samples[0] * 256 + dataSample.Samples[1]) * AnalogPinMaxVoltage / AnalogPinResolution;
 
                     Temperature = HomeAutomation.Sensor.Temperature.MCP9700.TemperatureFromVoltage(analogReading);
-
-                    Log.Debug("[TemperatureSensor] Temperature: " + Temperature.ToString());
                 }
                 else
                 {

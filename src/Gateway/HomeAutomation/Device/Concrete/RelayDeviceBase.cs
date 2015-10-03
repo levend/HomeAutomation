@@ -94,8 +94,6 @@ namespace MosziNet.HomeAutomation.Device.Concrete
         public void SetRelayState(string relayIndexString, string stateString)
         {
             byte relayIndex = Byte.Parse(relayIndexString);
-            if (relayIndex > 1)
-                relayIndex = 1;
 
             if (relayIndex >= xbeeConfiguration.Count)
                 relayIndex = (byte)(xbeeConfiguration.Count - 1);
