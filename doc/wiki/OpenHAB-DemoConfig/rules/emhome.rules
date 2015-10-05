@@ -1,0 +1,41 @@
+import org.openhab.core.library.types.*
+import org.openhab.core.persistence.*
+import org.openhab.model.script.actions.*
+import java.util.Date
+import java.text.SimpleDateFormat
+
+
+rule "Update HeartBeat Timestamp for Temperature_Node_1"
+when
+	Item Temperature_Node_1 received update
+then
+	UpdateTimeStamp_Temperature_Node_1.postUpdate(new DateTimeType())
+end
+
+rule "Update sensor Timestamp for Server_Room_Temperature"
+when
+	Item Server_Room_Temperature received update
+then
+	UpdateTimeStamp_Server_Room_Temperature.postUpdate(new DateTimeType())
+end
+
+rule "Update HeartBeat Timestamp for Temperature_Node_Kitchen"
+when
+	Item Temperature_Node_Kitchen received update
+then
+	UpdateTimeStamp_Temperature_Node_Kitchen.postUpdate(new DateTimeType())
+end
+
+rule "Update HeartBeat Timestamp for Temperature_Node_Luca"
+when
+	Item Temperature_Node_Luca received update
+then
+	UpdateTimeStamp_Temperature_Node_Luca.postUpdate(new DateTimeType())
+end
+
+rule "Update HeartBeat Timestamp for Temperature_Node_Outdoor"
+when
+	Item Temperature_Node_Outdoor received update
+then
+	UpdateTimeStamp_Temperature_Node_Outdoor.postUpdate(new DateTimeType())
+end

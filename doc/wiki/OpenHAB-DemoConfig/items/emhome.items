@@ -1,0 +1,12 @@
+Number Server_Room_Temperature "Server Room Temperature [%.2f C]" <temperature> {mqtt="<[MosziNet_Home_Broker:/MosziNet_HA/Status:state:REGEX(0013A20040DC8B70,LM35,(.+),Relay0,.+)]"}
+Number Temperature_Node_1 "Living Room Temperature [%.2f C]" <temperature> {mqtt="<[MosziNet_Home_Broker:/MosziNet_HA/Status:state:REGEX(0013A20040E438E3,MCP9700,(.+))]"}
+Number Temperature_Node_Kitchen "Kitchen Temperature [%.2f C]" <temperature> {mqtt="<[MosziNet_Home_Broker:/MosziNet_HA/Status:state:REGEX(0013A20040E43674,MCP9700,(.+))]"}
+Number Temperature_Node_Luca "Luca Room Temperature [%.2f C]" <temperature> {mqtt="<[MosziNet_Home_Broker:/MosziNet_HA/Status:state:REGEX(0013A20040BF869A,LM35,(.+))]"}
+Number Temperature_Node_Outdoor "Outdoor Temperature [%.2f C]" <temperature> {mqtt="<[MosziNet_Home_Broker:/MosziNet_HA/Status:state:REGEX(0013A20040BEB4BC,MCP9700,(.+))]"}
+
+// Heartbeat items
+DateTime UpdateTimeStamp_Temperature_Node_1 "Living Room Temperature Heartbeat [%1$tY/%1$tm/%1$td %1$tH:%1$tM]"
+DateTime UpdateTimeStamp_Server_Room_Temperature "Server Room Temperature Heartbeat [%1$tY/%1$tm/%1$td %1$tH:%1$tM]"
+DateTime UpdateTimeStamp_Temperature_Node_Kitchen "Kitchen Temperature Heartbeat [%1$tY/%1$tm/%1$td %1$tH:%1$tM]"
+DateTime UpdateTimeStamp_Temperature_Node_Luca "Luca Room Temperature Heartbeat [%1$tY/%1$tm/%1$td %1$tH:%1$tM]"
+DateTime UpdateTimeStamp_Temperature_Node_Outdoor "Outdoor Temperature Heartbeat [%1$tY/%1$tm/%1$td %1$tH:%1$tM]"

@@ -1,0 +1,19 @@
+sitemap demo label="Home @ Moszi - Temperature"
+{
+	Frame label="Temperature"
+	{
+		Text item=Server_Room_Temperature
+		Text item=Temperature_Node_1
+		Text item=Temperature_Node_Kitchen
+		Text item=Temperature_Node_Luca
+		Text item=Temperature_Node_Outdoor
+	}	
+
+	Frame label="System Information" {
+		Text item=UpdateTimeStamp_Temperature_Node_1 icon="shield-1"
+		Text item=UpdateTimeStamp_Server_Room_Temperature icon="shield-1"
+		Text item=UpdateTimeStamp_Temperature_Node_Kitchen icon="shield-1"
+		Text item=UpdateTimeStamp_Temperature_Node_Luca icon="shield-1"
+		Text item=UpdateTimeStamp_Temperature_Node_Outdoor icon="shield-1"		
+	}
+}
