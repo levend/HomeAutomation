@@ -1,8 +1,8 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.XBee;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace HomeAutomation.XBee.Tests
 {

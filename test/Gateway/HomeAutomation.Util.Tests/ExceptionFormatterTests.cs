@@ -1,6 +1,6 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MosziNet.HomeAutomation.Util;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace HomeAutomation.Util.Tests
 {
