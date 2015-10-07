@@ -126,6 +126,9 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\..\src\Gateway\HomeAutomation.Gateway\HomeAutomation.Gateway.csproj">
       <Project>{e221d2fb-75e1-4bb5-ab34-db96435c7daa}</Project>
       <Name>HomeAutomation.Gateway</Name>
@@ -138,9 +141,6 @@
       <Project>{f7ec2235-e2d5-4d32-a8fd-f6664489f7a5}</Project>
       <Name>HomeAutomation.XBee</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

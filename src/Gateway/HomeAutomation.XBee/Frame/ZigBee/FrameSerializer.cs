@@ -8,7 +8,7 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
     /// </summary>
     public static class FrameSerializer
     {
-        private const string FrameNamespace = "MosziNet.HomeAutomation.XBee.Frame.ZigBee";
+        private const string FrameNamespace = "MosziNet.HomeAutomation.XBee.Frame.ZigBee.";
 
         /// <summary>
         /// Deserializes the buffer to the correct XBee frame.
@@ -28,7 +28,7 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
 
             PropertyDescriptor[] frameDescriptor = APIv1Descriptor.GetFrameDescriptor(frameName);
 
-            string typeFullName = FrameNamespace + "." + frameName;
+            string typeFullName = FrameNamespace + frameName;
             Type newFrameType = Type.GetType(typeFullName);
             newFrame = (IXBeeFrame)(newFrameType.GetConstructor(new Type[] { }).Invoke(new object[] { }));
 

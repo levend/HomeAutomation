@@ -15,12 +15,12 @@ namespace MosziNet.HomeAutomation.XBee
     /// </summary>
     public class XBeeService : IXBeeService
     {
-        private ISerialPort port;
+        private IXBeeSerialPort port;
         private ArrayList pendingMessages;
 
         public event MessageReceivedDelegate MessageReceived;
 
-        public XBeeService(ISerialPort serialPort)
+        public XBeeService(IXBeeSerialPort serialPort)
         {
             pendingMessages = new ArrayList();
 
@@ -53,7 +53,7 @@ namespace MosziNet.HomeAutomation.XBee
             }
         }
 
-        private void SendAnyPendingXBeeMessages(ISerialPort port)
+        private void SendAnyPendingXBeeMessages(IXBeeSerialPort port)
         {
 
             while (pendingMessages.Count > 0)
@@ -65,7 +65,7 @@ namespace MosziNet.HomeAutomation.XBee
             }
         }
 
-        private void CheckForXBeeMessages(ISerialPort port)
+        private void CheckForXBeeMessages(IXBeeSerialPort port)
         {
             // first try to read something
             IXBeeFrame frame = null;
@@ -75,7 +75,7 @@ namespace MosziNet.HomeAutomation.XBee
                 MessageReceivedDelegate e = this.MessageReceived;
                 if (e != null)
                 {
-                    e(frame);
+                    //e(frame);
                 }
             }
         }

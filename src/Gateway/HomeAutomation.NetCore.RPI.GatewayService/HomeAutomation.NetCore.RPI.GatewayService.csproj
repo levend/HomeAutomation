@@ -128,6 +128,14 @@
       <Project>{3151f343-fe1b-48ed-9536-7fdf08c6be58}</Project>
       <Name>HomeAutomation.NetCore.RPI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HomeAutomation.Sensor\HomeAutomation.Sensor.csproj">
+      <Project>{5a90067b-7923-4632-a871-a1f578d94c58}</Project>
+      <Name>HomeAutomation.Sensor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HomeAutomation.Util\HomeAutomation.Util.csproj">
+      <Project>{f8bafd53-064e-43b6-8671-a09af5f812c4}</Project>
+      <Name>HomeAutomation.Util</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HomeAutomation.XBee\HomeAutomation.XBee.csproj">
       <Project>{f7ec2235-e2d5-4d32-a8fd-f6664489f7a5}</Project>
       <Name>HomeAutomation.XBee</Name>

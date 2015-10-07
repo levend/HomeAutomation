@@ -7,41 +7,23 @@ using System.Threading.Tasks;
 
 namespace HomeAutomation.XBee.Tests
 {
-    public class MockSerialPort : ISerialPort
+    public class MockSerialPort : IXBeeSerialPort
     {
         private byte[] values;
-        private int index;
 
         public MockSerialPort(byte[] valuesToRead)
         {
             values = valuesToRead;
         }
 
-        public int BytesToRead
+        public byte[] GetNextAvailableFrame()
         {
-            get
-            {
-                return values.Length - index;
-            }
+            return values;
         }
 
-        public int ReadByte()
+        public void WriteFrame(byte[] frame)
         {
-            return values[index++];
-        }
-
-        public void Read(byte[] readBuffer, int destinationOffset, int frameLength)
-        {
-
-            for(int i = 0; i < frameLength; i++)
-            {
-                readBuffer[destinationOffset + i] = values[index++];
-            }
-        }
-
-        public void Write(byte[] buffer, int offset, int count)
-        {
-
+            
         }
     }
 }

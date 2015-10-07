@@ -17,7 +17,7 @@ namespace MosziNet.HomeAutomation
     public class Gateway
     {
         // TODO refactor these configuration items to a separate project (or at least break it into 2 parts: platform and functionality config)
-        public void Initialize(ISerialPort serialPort)
+        public void Initialize(IXBeeSerialPort serialPort)
         {
             InitializeApplicationConfiguration();
 

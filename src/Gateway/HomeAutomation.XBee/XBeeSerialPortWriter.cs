@@ -10,7 +10,7 @@ namespace MosziNet.HomeAutomation.XBee
     {
         private static byte[] writeBuffer = new byte[XBeeConstants.MaxFrameLength];
 
-        public static void WriteFrameToSerialPort(IXBeeFrame frame, ISerialPort port)
+        public static void WriteFrameToSerialPort(IXBeeFrame frame, IXBeeSerialPort port)
         {
             FrameSerializer.Serialize(frame, writeBuffer);
 
@@ -19,7 +19,8 @@ namespace MosziNet.HomeAutomation.XBee
             // statistics counting
             XBeeStatistics.MessagesSent++;
 
-            port.Write(writeBuffer, 0, byteCount);
+            // Migration
+            port.WriteFrame(writeBuffer);
 
             Log.Debug("[XBeeSerialPortWriter] Frame sent: " + HexConverter.ToSpacedHexString(writeBuffer, 0, byteCount));
         }
