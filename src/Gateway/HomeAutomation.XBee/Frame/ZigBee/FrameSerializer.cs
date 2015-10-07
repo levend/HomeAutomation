@@ -28,7 +28,8 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
 
             PropertyDescriptor[] frameDescriptor = APIv1Descriptor.GetFrameDescriptor(frameName);
 
-            Type newFrameType = Assembly.GetExecutingAssembly().GetType(FrameNamespace + "." + frameName);
+            // Migration
+            Type newFrameType = null; // Assembly.GetExecutingAssembly().GetType(FrameNamespace + "." + frameName);
             newFrame = (IXBeeFrame)(newFrameType.GetConstructor(new Type[] { }).Invoke(new object[] { }));
 
             MethodInfo setterMethod;

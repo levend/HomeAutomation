@@ -1,6 +1,4 @@
 using System;
-using Microsoft.SPOT;
-using System.IO.Ports;
 
 namespace MosziNet.HomeAutomation.XBee.Frame
 {

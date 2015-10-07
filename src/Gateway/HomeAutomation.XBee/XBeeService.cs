@@ -1,8 +1,5 @@
 using System;
-using Microsoft.SPOT;
 using MosziNet.HomeAutomation.XBee;
-using System.IO.Ports;
-using SecretLabs.NETMF.Hardware.Netduino;
 using System.Threading;
 using MosziNet.HomeAutomation.XBee.Frame;
 using System.Collections;
@@ -26,7 +23,9 @@ namespace MosziNet.HomeAutomation.XBee
         public XBeeService()
         {
             pendingMessages = new ArrayList();
-            port = new XBeeSerialPort(SerialPorts.COM1, 2400, Parity.None, 8, StopBits.One);
+
+            // Migration
+            port = null; // new XBeeSerialPort(SerialPorts.COM1, 2400, Parity.None, 8, StopBits.One);
         }
 
         /// <summary>

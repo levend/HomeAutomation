@@ -1,5 +1,4 @@
 using System;
-using Microsoft.SPOT;
 using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.Util;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
