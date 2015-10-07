@@ -75,7 +75,7 @@ namespace MosziNet.HomeAutomation.XBee
                 MessageReceivedDelegate e = this.MessageReceived;
                 if (e != null)
                 {
-                    //e(frame);
+                    e(frame);
                 }
             }
         }

@@ -150,7 +150,7 @@
     <Compile Include="MqttTopic.cs" />
     <Compile Include="Mqtt\IMqttServerConfiguration.cs" />
     <Compile Include="Mqtt\MqttService.cs" />
-    <Compile Include="Gateway.cs" />
+    <Compile Include="GatewayInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunLoop.cs" />
     <Compile Include="Service\ServiceRegistry.cs" />
@@ -178,6 +178,9 @@
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

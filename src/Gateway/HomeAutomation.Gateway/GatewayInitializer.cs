@@ -14,7 +14,7 @@ using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 
 namespace MosziNet.HomeAutomation
 {
-    public class Gateway
+    public class GatewayInitializer
     {
         // TODO refactor these configuration items to a separate project (or at least break it into 2 parts: platform and functionality config)
         public void Initialize(IXBeeSerialPort serialPort)
@@ -54,7 +54,7 @@ namespace MosziNet.HomeAutomation
             ApplicationContext.ServiceRegistry.RegisterService(typeof(IXBeeService), xbeeService);
             ApplicationContext.ServiceRegistry.RegisterService(typeof(MqttService), mqttService);
 
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(Gateway), new MqttXBeeTranslator(xbeeService, mqttService, messageBus));
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(MqttXBeeTranslator), new MqttXBeeTranslator(xbeeService, mqttService, messageBus));
 
             // Migration
             //ApplicationContext.ServiceRegistry.RegisterService(typeof(WatchdogService), new WatchdogService(messageBus, mqttService));

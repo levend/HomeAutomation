@@ -26,6 +26,8 @@ namespace MosziNet.HomeAutomation.NetCore.RPI
         SerialStopBitCount stopBitCount;
         ushort dataBits;
 
+        bool isPortReady;
+
         public XBeeSerialPort(uint baudRate, SerialParity parity, SerialStopBitCount stopBitCount, ushort dataBits)
         {
             this.baudRate = baudRate;
@@ -79,7 +81,7 @@ namespace MosziNet.HomeAutomation.NetCore.RPI
                     dataReader.InputStreamOptions = InputStreamOptions.ReadAhead;
                     dataReader.ByteOrder = ByteOrder.BigEndian;
 
-
+                    isPortReady = true;
                 }
             }
         }
@@ -90,6 +92,9 @@ namespace MosziNet.HomeAutomation.NetCore.RPI
 
         public byte[] GetNextAvailableFrame()
         {
+            if (!isPortReady)
+                return null;
+
             byte[] result = null;
 
             if (frameReader == null)
@@ -129,7 +134,7 @@ namespace MosziNet.HomeAutomation.NetCore.RPI
                 dataReader.ReadBytes(frameContent);
 
                 // now build the complete frame
-                byte[] completeFrame = new byte[frameLength + 3];
+                byte[] completeFrame = new byte[frameLength + 4];
 
                 // set the first well known bytes (frame start, 2 bytes frame length)
                 completeFrame[0] = 0x7e;
