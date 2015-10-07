@@ -1,9 +1,16 @@
+﻿using MosziNet.HomeAutomation.XBee;
 using System;
-using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MosziNet.HomeAutomation.XBee
+namespace MosziNet.HomeAutomation.NetCore.RPI
 {
-    public class XBeeSerialPort : ISerialPort, IDisposable
+    /// <summary>
+    /// Implements the <see cref="ISerialPort"/> needed for XBee serial communication.
+    /// </summary>
+    public class XBeeSerialPort : ISerialPort
     {
         public int BytesToRead
         {
@@ -11,11 +18,6 @@ namespace MosziNet.HomeAutomation.XBee
             {
                 throw new NotImplementedException();
             }
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
 
         public void Read(byte[] readBuffer, int p, int frameLength)
@@ -32,12 +34,5 @@ namespace MosziNet.HomeAutomation.XBee
         {
             throw new NotImplementedException();
         }
-
-        private void WaitForBytesCountToBeAvailable(int count)
-        {
-            // wait until we can actually read that many bytes.
-            //while (count > serialPort.BytesToRead) ;
-        }
-
     }
 }

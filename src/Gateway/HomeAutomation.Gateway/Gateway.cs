@@ -1,37 +1,26 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading;
-using MosziNet.HomeAutomation.Device;
-using MosziNet.HomeAutomation;
-using MosziNet.HomeAutomation.XBee;
-using MosziNet.HomeAutomation.Sensor.Temperature;
-using MosziNet.HomeAutomation.BusinessLogic;
-using MosziNet.HomeAutomation.ApplicationLogic.Messages;
-using MosziNet.HomeAutomation.Mqtt;
-using MosziNet.HomeAutomation.Logging.Writer;
-using MosziNet.HomeAutomation.Logging.Formatter;
-using MosziNet.HomeAutomation.Logging;
-using MosziNet.HomeAutomation.Messaging;
-using MosziNet.HomeAutomation.Watchdog;
-using MosziNet.HomeAutomation.Configuration;
-using MosziNet.HomeAutomation.Device.Concrete;
-using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
+﻿using MosziNet.HomeAutomation.Admin;
 using MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor;
-using MosziNet.HomeAutomation.Admin;
+using MosziNet.HomeAutomation.BusinessLogic;
+using MosziNet.HomeAutomation.Configuration;
+using MosziNet.HomeAutomation.Device;
+using MosziNet.HomeAutomation.Device.Concrete;
+using MosziNet.HomeAutomation.Logging;
+using MosziNet.HomeAutomation.Logging.Formatter;
+using MosziNet.HomeAutomation.Logging.Writer;
+using MosziNet.HomeAutomation.Messaging;
+using MosziNet.HomeAutomation.Mqtt;
+using MosziNet.HomeAutomation.XBee;
+using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 
 namespace MosziNet.HomeAutomation
 {
-    public class Program
+    public class Gateway
     {
-        public static void Main()
+        // TODO refactor these configuration items to a separate project (or at least break it into 2 parts: platform and functionality config)
+        public void Initialize(ISerialPort serialPort)
         {
             InitializeApplicationConfiguration();
-            InitializeApplicationServices();
-        }
 
-        private static void InitializeApplicationServices()
-        {
             ApplicationContext.ServiceRegistry = new Service.ServiceRegistry();
 
             RunLoop mainRunLoop = new RunLoop();
@@ -56,7 +45,7 @@ namespace MosziNet.HomeAutomation
             messageBus.MessageBusRunner = messageBusRunner;            
 
             // now register all services
-            IXBeeService xbeeService = new XBeeService();
+            IXBeeService xbeeService = new XBeeService(serialPort);
 
             // Register all services to the service registry
             ApplicationContext.ServiceRegistry.RegisterService(typeof(DeviceRegistry), deviceRegistry);
@@ -65,7 +54,7 @@ namespace MosziNet.HomeAutomation
             ApplicationContext.ServiceRegistry.RegisterService(typeof(IXBeeService), xbeeService);
             ApplicationContext.ServiceRegistry.RegisterService(typeof(MqttService), mqttService);
 
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(Gateway), new Gateway(xbeeService, mqttService, messageBus));
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(Gateway), new MqttXBeeTranslator(xbeeService, mqttService, messageBus));
 
             // Migration
             //ApplicationContext.ServiceRegistry.RegisterService(typeof(WatchdogService), new WatchdogService(messageBus, mqttService));

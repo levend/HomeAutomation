@@ -8,13 +8,13 @@ using MosziNet.HomeAutomation.ApplicationLogic.Messages;
 
 namespace MosziNet.HomeAutomation.BusinessLogic
 {
-    public class Gateway
+    public class MqttXBeeTranslator
     {
         IXBeeService xbeeService;
         IMessageBus messageBus;
         MqttService mqttService;
 
-        public Gateway(IXBeeService xbeeService, MqttService mqttService, IMessageBus messageBus)
+        public MqttXBeeTranslator(IXBeeService xbeeService, MqttService mqttService, IMessageBus messageBus)
         {
             this.xbeeService = xbeeService;
             this.mqttService = mqttService;
