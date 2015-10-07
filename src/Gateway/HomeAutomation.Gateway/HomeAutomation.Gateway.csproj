@@ -126,6 +126,7 @@
     <Compile Include="Device\ComponentState.cs" />
     <Compile Include="Device\Concrete\DoubleRelay.cs" />
     <Compile Include="Device\Concrete\DoubleRelayLM35.cs" />
+    <Compile Include="Device\Concrete\FakeTemperatureDevice.cs" />
     <Compile Include="Device\Concrete\HeartBeatDevice.cs" />
     <Compile Include="Device\Concrete\RelayDeviceBase.cs" />
     <Compile Include="Device\Concrete\TemperatureDevice2.cs" />

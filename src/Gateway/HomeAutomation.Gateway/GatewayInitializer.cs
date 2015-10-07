@@ -4,6 +4,7 @@ using MosziNet.HomeAutomation.BusinessLogic;
 using MosziNet.HomeAutomation.Configuration;
 using MosziNet.HomeAutomation.Device;
 using MosziNet.HomeAutomation.Device.Concrete;
+using MosziNet.HomeAutomation.Gateway.Device.Concrete;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Logging.Formatter;
 using MosziNet.HomeAutomation.Logging.Writer;
@@ -79,6 +80,7 @@ namespace MosziNet.HomeAutomation
             ApplicationContext.Configuration = configuration;
 
             // set up the device types. Key is DD value from XBee frame, value is the class type that handles frames
+            configuration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9999, typeof(FakeTemperatureDevice));
             configuration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9988, typeof(TemperatureDeviceV1));
             configuration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9987, typeof(HeartBeatDevice));
             configuration.RegisterObjectForKey(ApplicationConfigurationCategory.DeviceTypeID, 0x9986, typeof(TemperatureDeviceV2));

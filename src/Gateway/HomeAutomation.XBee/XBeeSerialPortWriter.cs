@@ -16,11 +16,14 @@ namespace MosziNet.HomeAutomation.XBee
 
             int byteCount = FrameUtil.FrameTotalLength(writeBuffer);
 
+            // copy just the bytes needed to be sent
+            byte[] bytesToWrite = new byte[byteCount];
+            Array.Copy(writeBuffer, bytesToWrite, byteCount);
+
             // statistics counting
             XBeeStatistics.MessagesSent++;
 
-            // Migration
-            port.WriteFrame(writeBuffer);
+            port.WriteFrame(bytesToWrite);
 
             Log.Debug("[XBeeSerialPortWriter] Frame sent: " + HexConverter.ToSpacedHexString(writeBuffer, 0, byteCount));
         }

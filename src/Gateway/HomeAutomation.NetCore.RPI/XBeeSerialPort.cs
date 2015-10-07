@@ -18,6 +18,8 @@ namespace MosziNet.HomeAutomation.NetCore.RPI
         DeviceWatcher serialPortWatcher;
         SerialDevice serialPort;
         DataReader dataReader;
+        DataWriter dataWriter;
+
 
         Task<byte[]> frameReader;
 
@@ -81,6 +83,9 @@ namespace MosziNet.HomeAutomation.NetCore.RPI
                     dataReader.InputStreamOptions = InputStreamOptions.ReadAhead;
                     dataReader.ByteOrder = ByteOrder.BigEndian;
 
+                    dataWriter = new DataWriter(serialPort.OutputStream);
+                    dataWriter.ByteOrder = ByteOrder.BigEndian;
+
                     isPortReady = true;
                 }
             }
@@ -113,7 +118,9 @@ namespace MosziNet.HomeAutomation.NetCore.RPI
 
         public void WriteFrame(byte[] frame)
         {
-            
+            // TODO: Maybe do an async implementation here
+            dataWriter.WriteBytes(frame);
+            dataWriter.StoreAsync().AsTask().Wait();
         }
 
         #endregion / IXBeeSerialPort interface implementation /
