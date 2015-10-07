@@ -1,5 +1,4 @@
 using System;
-using Microsoft.SPOT;
 using System.Text;
 
 namespace MosziNet.HomeAutomation.Util

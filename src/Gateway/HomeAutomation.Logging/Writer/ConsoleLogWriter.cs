@@ -1,5 +1,5 @@
 using System;
-using Microsoft.SPOT;
+using System.Diagnostics;
 
 namespace MosziNet.HomeAutomation.Logging.Writer
 {
@@ -7,7 +7,7 @@ namespace MosziNet.HomeAutomation.Logging.Writer
     {
         public void Log(string message, LogLevel logLevel, ILogFormatter logFormatter)
         {
-            Debug.Print(logFormatter.Format(message, logLevel, DateTime.Now));
+            Debug.WriteLine(logFormatter.Format(message, logLevel, DateTime.Now));
         }
     }
 }

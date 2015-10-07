@@ -1,5 +1,4 @@
 using System;
-using Microsoft.SPOT;
 
 namespace MosziNet.HomeAutomation.Sensor.Temperature
 {
