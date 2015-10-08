@@ -1,9 +1,8 @@
-using System;
-using MosziNet.HomeAutomation.Gateway.Messaging;
-using MosziNet.HomeAutomation.Gateway.Device;
+using HomeAutomation.Core;
 using MosziNet.HomeAutomation.Gateway.Admin;
-using MosziNet.HomeAutomation.Util;
+using MosziNet.HomeAutomation.Gateway.Messaging;
 using MosziNet.HomeAutomation.Logging;
+using MosziNet.HomeAutomation.Util;
 
 namespace MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages
 {
@@ -43,17 +42,9 @@ namespace MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages
             if (topic == MqttTopic.CommandTopic)
             {
                 DeviceCommand command = DeviceCommand.CreateFromString(message);
-                DeviceRegistry deviceRegistry = (DeviceRegistry)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(DeviceRegistry));
 
-                IDevice device = deviceRegistry.GetDeviceById(command.DeviceID) as IDevice;
-                if (device != null)
-                {
-                    device.ExecuteCommand(command);
-                }
-                else
-                {
-                    Log.Error($"A command was sent to an unknown device with ID {command.DeviceID.ToHexString()}");
-                }
+                IDeviceNetwork deviceNetwork = HomeAutomationSystem.DeviceNetworkRegistry.GetNetworkByName(command.DeviceNetworkName);
+                deviceNetwork?.SendCommand(command);
             }
         }
     }

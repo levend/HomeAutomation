@@ -1,5 +1,4 @@
 using System;
-using MosziNet.HomeAutomation.Gateway.Device;
 
 namespace MosziNet.HomeAutomation.Gateway.Admin
 {
