@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace MosziNet.HomeAutomation.Logging
 {
@@ -14,7 +15,7 @@ namespace MosziNet.HomeAutomation.Logging
             public ILogFormatter logFormatter;
         }
 
-        private static ArrayList logWriters = new ArrayList();
+        private static List<LogWriterInfo> logWriters = new List<LogWriterInfo>();
 
         public static void AddLogWriter(ILogWriter logWriter, ILogFormatter logFormatter)
         {

@@ -7,6 +7,7 @@ using System.Net;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Util;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace MosziNet.HomeAutomation.Mqtt
 {
@@ -15,7 +16,7 @@ namespace MosziNet.HomeAutomation.Mqtt
     public class MqttService : IRunLoopParticipant
     {
         private const int MinimumKeepAliveInterval = 15;
-        private ArrayList subscribedTopics = new ArrayList();
+        private List<string> subscribedTopics = new List<string>();
 
         // the connection and it's lock object
         private MqttClient mqttClient;
@@ -119,7 +120,7 @@ namespace MosziNet.HomeAutomation.Mqtt
                     // ensure that we re-connect any subscribed topics
                     for (int i = 0; i < subscribedTopics.Count; i++)
                     {
-                        SubscribeTopic((string)subscribedTopics[i]);
+                        SubscribeTopic(subscribedTopics[i]);
                     }
                 }
                 catch(Exception ex)
@@ -131,7 +132,7 @@ namespace MosziNet.HomeAutomation.Mqtt
 
         void mqttClient_MqttMsgPublishReceived(object sender, uPLibrary.Networking.M2Mqtt.Messages.MqttMsgPublishEventArgs e)
         {
-            String message = new String(Encoding.UTF8.GetChars(e.Message));
+            string message = new String(Encoding.UTF8.GetChars(e.Message));
             
             MQTTMessageReceived(e.Topic, message);
         }

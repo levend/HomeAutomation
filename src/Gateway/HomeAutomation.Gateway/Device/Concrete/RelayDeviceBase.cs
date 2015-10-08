@@ -5,6 +5,7 @@ using System.Collections;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Util;
 using MosziNet.HomeAutomation.Device.Base;
+using System.Collections.Generic;
 
 namespace MosziNet.HomeAutomation.Device.Concrete
 {
@@ -16,7 +17,7 @@ namespace MosziNet.HomeAutomation.Device.Concrete
         private const byte StateOFF = 0;
         private const byte StateON = 0;
 
-        private ArrayList xbeeConfiguration = new ArrayList();
+        private List<byte[]> xbeeConfiguration = new List<byte[]>();
         protected byte[] switchStates;
    
         public RelayDeviceBase(byte[] relay1XBeePin)

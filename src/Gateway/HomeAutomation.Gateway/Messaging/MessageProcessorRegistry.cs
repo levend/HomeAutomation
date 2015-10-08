@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace MosziNet.HomeAutomation.Messaging
 {
     public class MessageProcessorRegistry
     {
-        private Hashtable messageProcessors = new Hashtable();
+        private Dictionary<Type, IMessageProcessor> messageProcessors = new Dictionary<Type, IMessageProcessor>();
 
         public void RegisterMessageProcessor(Type messageType, IMessageProcessor processor)
         {
@@ -14,7 +15,7 @@ namespace MosziNet.HomeAutomation.Messaging
 
         public IMessageProcessor GetMessageProcessorByMessage(IMessage message)
         {
-            return messageProcessors.Contains(message.GetType()) ? (IMessageProcessor)messageProcessors[message.GetType()] : null;
+            return messageProcessors.ContainsKey(message.GetType()) ? messageProcessors[message.GetType()] : null;
         }
     }
 }

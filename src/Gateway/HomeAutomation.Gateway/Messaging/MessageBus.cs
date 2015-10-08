@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Threading;
+using System.Collections.Generic;
 
 namespace MosziNet.HomeAutomation.Messaging
 {
@@ -9,7 +7,7 @@ namespace MosziNet.HomeAutomation.Messaging
     /// </summary>
     public class MessageBus : IMessageBus
     {
-        private ArrayList messageList = new ArrayList();
+        private List<IMessage> messageList = new List<IMessage>();
 
         public IMessageBusRunner MessageBusRunner { get; set; }
 
@@ -40,7 +38,7 @@ namespace MosziNet.HomeAutomation.Messaging
 
             if (messageList.Count > 0)
             {
-                firstMessage = (IMessage)messageList[0];
+                firstMessage = messageList[0];
                 messageList.RemoveAt(0);
             }
 

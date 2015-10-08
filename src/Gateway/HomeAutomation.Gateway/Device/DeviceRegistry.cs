@@ -4,6 +4,7 @@ using MosziNet.HomeAutomation.Util;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Configuration;
 using MosziNet.HomeAutomation.Device.Concrete;
+using System.Collections.Generic;
 
 namespace MosziNet.HomeAutomation.Device
 {
@@ -12,8 +13,8 @@ namespace MosziNet.HomeAutomation.Device
     /// </summary>
     public class DeviceRegistry
     {
-        private Hashtable deviceRegistry = new Hashtable();
-        private ArrayList stagingDevices = new ArrayList();
+        private Dictionary<string, IDevice> deviceRegistry = new Dictionary<string, IDevice>();
+        private List<string> stagingDevices = new List<string>();
 
         /// <summary>
         /// Registers a device into the system.
@@ -24,7 +25,7 @@ namespace MosziNet.HomeAutomation.Device
         {
             string deviceId = deviceByteId.ToHexString();
 
-            if (deviceRegistry.Contains(deviceId))
+            if (deviceRegistry.ContainsKey(deviceId))
             {
                 Log.Debug("Replacing device for id: " + deviceId);
             }
@@ -42,7 +43,7 @@ namespace MosziNet.HomeAutomation.Device
         {
             string deviceId = deviceByteId.ToHexString();
 
-            IDevice device = deviceRegistry.Contains(deviceId) ? (IDevice)deviceRegistry[deviceId] : null;
+            IDevice device = deviceRegistry.ContainsKey(deviceId) ? (IDevice)deviceRegistry[deviceId] : null;
 
             return device;
         }
