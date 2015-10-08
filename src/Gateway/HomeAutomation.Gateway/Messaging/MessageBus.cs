@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace MosziNet.HomeAutomation.Messaging
+namespace MosziNet.HomeAutomation.Gateway.Messaging
 {
     /// <summary>
     /// Provides a FIFO queue for message processing.

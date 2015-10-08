@@ -1,6 +1,6 @@
 using System;
 
-namespace MosziNet.HomeAutomation.Device
+namespace MosziNet.HomeAutomation.Gateway.Device
 {
     /// <summary>
     /// Contains metadata information about the component.

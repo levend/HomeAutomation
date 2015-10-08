@@ -1,18 +1,17 @@
-﻿using MosziNet.HomeAutomation.Admin;
-using MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor;
-using MosziNet.HomeAutomation.BusinessLogic;
-using MosziNet.HomeAutomation.Configuration;
-using MosziNet.HomeAutomation.Device;
-using MosziNet.HomeAutomation.Device.Concrete;
+﻿using MosziNet.HomeAutomation.Gateway.Admin;
+using MosziNet.HomeAutomation.Gateway.ApplicationLogic.XBeeFrameProcessor;
+using MosziNet.HomeAutomation.Gateway.BusinessLogic;
+using MosziNet.HomeAutomation.Gateway.Configuration;
+using MosziNet.HomeAutomation.Gateway.Device;
 using MosziNet.HomeAutomation.Gateway.Device.Concrete;
-using MosziNet.HomeAutomation.Logging;
-using MosziNet.HomeAutomation.Logging.Formatter;
 using MosziNet.HomeAutomation.Logging.Writer;
-using MosziNet.HomeAutomation.Messaging;
-using MosziNet.HomeAutomation.Mqtt;
-using MosziNet.HomeAutomation.Service;
+using MosziNet.HomeAutomation.Gateway.Messaging;
+using MosziNet.HomeAutomation.Gateway.Mqtt;
+using MosziNet.HomeAutomation.Gateway.Service;
+using MosziNet.HomeAutomation.Logging.Formatter;
 using MosziNet.HomeAutomation.XBee;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
+using MosziNet.HomeAutomation.Logging;
 
 namespace MosziNet.HomeAutomation
 {
@@ -23,7 +22,7 @@ namespace MosziNet.HomeAutomation
         {
             InitializeApplicationConfiguration();
 
-            ApplicationContext.ServiceRegistry = new Service.ServiceRegistry();
+            ApplicationContext.ServiceRegistry = new ServiceRegistry();
 
             RunLoop mainRunLoop = new RunLoop();
 
@@ -31,7 +30,7 @@ namespace MosziNet.HomeAutomation
             DeviceRegistry deviceRegistry = new DeviceRegistry();
 
             // Set up the mqtt service
-            MqttService mqttService = new MqttService(new MosziNet.HomeAutomation.Configuration.MqttServerConfiguration(
+            MqttService mqttService = new MqttService(new MosziNet.HomeAutomation.Gateway.Configuration.MqttServerConfiguration(
                 "192.168.1.213",
                 20,
                 "MosziNet_HomeAutomation_Gateway_v1.1",

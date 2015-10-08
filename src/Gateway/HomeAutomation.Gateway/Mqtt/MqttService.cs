@@ -1,18 +1,13 @@
-using System;
-using uPLibrary.Networking.M2Mqtt;
-using System.Threading;
-using uPLibrary.Networking.M2Mqtt.Messages;
-using System.Text;
-using System.Net;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Util;
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Text;
+using uPLibrary.Networking.M2Mqtt;
+using uPLibrary.Networking.M2Mqtt.Messages;
 
-namespace MosziNet.HomeAutomation.Mqtt
+namespace MosziNet.HomeAutomation.Gateway.Mqtt
 {
-    public delegate void MessageReceivedDelegate(string topicName, string message);
-
     public class MqttService : IRunLoopParticipant
     {
         private const int MinimumKeepAliveInterval = 15;
@@ -23,7 +18,7 @@ namespace MosziNet.HomeAutomation.Mqtt
 
         private IMqttServerConfiguration configuration { get; set; }
 
-        public event MessageReceivedDelegate MessageReceived;
+        public event EventHandler<MqttMessage> MessageReceived;
 
         public MqttService(IMqttServerConfiguration config)
         {
@@ -95,11 +90,11 @@ namespace MosziNet.HomeAutomation.Mqtt
             // strip down the topic root name
             topicId = GetTopicNameSuffix(topicId);
 
-            MessageReceivedDelegate mrd = this.MessageReceived;
-            if (mrd != null)
+            this.MessageReceived?.Invoke(topicId, new MqttMessage()
             {
-                mrd(topicId, message);
-            }
+                TopicName = topicId,
+                Message = message
+            });
 
             Log.Information("[" + topicId + "] " + message);
         }

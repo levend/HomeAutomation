@@ -1,10 +1,10 @@
 using System;
-using MosziNet.HomeAutomation.Device.Base;
+using MosziNet.HomeAutomation.Gateway.Device.Base;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 using MosziNet.HomeAutomation.Util;
 using MosziNet.HomeAutomation.Logging;
 
-namespace MosziNet.HomeAutomation.Device.Concrete
+namespace MosziNet.HomeAutomation.Gateway.Device.Concrete
 {
     public class DoubleRelay : RelayDeviceBase
     {

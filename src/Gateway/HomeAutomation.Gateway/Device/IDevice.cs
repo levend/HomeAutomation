@@ -1,8 +1,8 @@
 using System;
-using MosziNet.HomeAutomation.Device.Base;
+using MosziNet.HomeAutomation.Gateway.Device.Base;
 using MosziNet.HomeAutomation.XBee.Frame;
 
-namespace MosziNet.HomeAutomation.Device
+namespace MosziNet.HomeAutomation.Gateway.Device
 {
     /// <summary>
     /// Base interface for all XBee based devices in the system.

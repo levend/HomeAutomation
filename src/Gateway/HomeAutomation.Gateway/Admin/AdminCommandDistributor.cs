@@ -1,6 +1,6 @@
 using System;
 
-namespace MosziNet.HomeAutomation.Admin
+namespace MosziNet.HomeAutomation.Gateway.Admin
 {
     /// <summary>
     /// Executes commands received directly for the Gateway device.

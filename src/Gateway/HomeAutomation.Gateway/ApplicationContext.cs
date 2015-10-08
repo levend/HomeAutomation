@@ -1,6 +1,6 @@
 using System;
-using MosziNet.HomeAutomation.Service;
-using MosziNet.HomeAutomation.Configuration;
+using MosziNet.HomeAutomation.Gateway.Service;
+using MosziNet.HomeAutomation.Gateway.Configuration;
 
 namespace MosziNet.HomeAutomation
 {

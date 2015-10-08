@@ -1,11 +1,11 @@
 using System;
-using MosziNet.HomeAutomation.Messaging;
-using MosziNet.HomeAutomation.Device;
-using MosziNet.HomeAutomation.Admin;
+using MosziNet.HomeAutomation.Gateway.Messaging;
+using MosziNet.HomeAutomation.Gateway.Device;
+using MosziNet.HomeAutomation.Gateway.Admin;
 using MosziNet.HomeAutomation.Util;
 using MosziNet.HomeAutomation.Logging;
 
-namespace MosziNet.HomeAutomation.ApplicationLogic.Messages
+namespace MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages
 {
     /// <summary>
     /// This message carries information about a command that is to be executed in the system.

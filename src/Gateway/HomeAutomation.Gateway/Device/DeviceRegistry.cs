@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using MosziNet.HomeAutomation.Util;
 using MosziNet.HomeAutomation.Logging;
-using MosziNet.HomeAutomation.Configuration;
-using MosziNet.HomeAutomation.Device.Concrete;
+using MosziNet.HomeAutomation.Gateway.Configuration;
+using MosziNet.HomeAutomation.Gateway.Device.Concrete;
 using System.Collections.Generic;
 
-namespace MosziNet.HomeAutomation.Device
+namespace MosziNet.HomeAutomation.Gateway.Device
 {
     /// <summary>
     /// Keeps an up to date registry of the devices in the system.

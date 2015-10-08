@@ -48,7 +48,7 @@ namespace HomeAutomation.XBee.Tests
             XBeeService xbeeService = new XBeeService(msp);
 
             IODataSample f = null;
-            xbeeService.MessageReceived += (frame) =>
+            xbeeService.MessageReceived += (sender, frame) =>
             {
                 f = frame as IODataSample;
             };
@@ -70,7 +70,7 @@ namespace HomeAutomation.XBee.Tests
             XBeeService xbeeService = new XBeeService(msp);
 
             IODataSample f = null;
-            xbeeService.MessageReceived += (frame) =>
+            xbeeService.MessageReceived += (sender, frame) =>
             {
                 f = frame as IODataSample;
             };

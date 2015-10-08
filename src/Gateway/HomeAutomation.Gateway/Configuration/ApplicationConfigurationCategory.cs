@@ -1,6 +1,6 @@
 using System;
 
-namespace MosziNet.HomeAutomation.Configuration
+namespace MosziNet.HomeAutomation.Gateway.Configuration
 {
     public enum ApplicationConfigurationCategory
     {

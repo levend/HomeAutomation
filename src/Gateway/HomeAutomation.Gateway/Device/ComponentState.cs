@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace MosziNet.HomeAutomation.Device
+namespace MosziNet.HomeAutomation.Gateway.Device
 {
     /// <summary>
     /// Contains the state of a component.

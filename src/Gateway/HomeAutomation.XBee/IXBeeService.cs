@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MosziNet.HomeAutomation.XBee.Frame;
+using System;
 namespace MosziNet.HomeAutomation.XBee
 {
     /// <summary>
@@ -9,7 +10,7 @@ namespace MosziNet.HomeAutomation.XBee
         /// <summary>
         /// Raised when a message is received from the XBee.
         /// </summary>
-        event MessageReceivedDelegate MessageReceived;
+        event EventHandler<IXBeeFrame> MessageReceived;
 
         /// <summary>
         /// Processess all pending writes to XBee and reads frames if possible.

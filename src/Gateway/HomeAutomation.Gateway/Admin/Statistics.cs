@@ -1,7 +1,7 @@
 using System;
-using MosziNet.HomeAutomation.Device;
+using MosziNet.HomeAutomation.Gateway.Device;
 
-namespace MosziNet.HomeAutomation.Admin
+namespace MosziNet.HomeAutomation.Gateway.Admin
 {
     public class Statistics
     {

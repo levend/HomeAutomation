@@ -1,13 +1,13 @@
 using System;
-using MosziNet.HomeAutomation.Device;
+using MosziNet.HomeAutomation.Gateway.Device;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 using MosziNet.HomeAutomation.XBee;
-using MosziNet.HomeAutomation.Device.Concrete;
+using MosziNet.HomeAutomation.Gateway.Device.Concrete;
 using MosziNet.HomeAutomation.Logging;
-using MosziNet.HomeAutomation.Configuration;
+using MosziNet.HomeAutomation.Gateway.Configuration;
 using MosziNet.HomeAutomation.Util;
 
-namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
+namespace MosziNet.HomeAutomation.Gateway.ApplicationLogic.XBeeFrameProcessor
 {
     public class RemoteCommandResponseProcessor : IXBeeFrameProcessor
     {

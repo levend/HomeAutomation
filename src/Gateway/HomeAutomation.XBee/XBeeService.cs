@@ -7,8 +7,6 @@ using System.Collections.Generic;
 
 namespace MosziNet.HomeAutomation.XBee
 {
-    public delegate void MessageReceivedDelegate(IXBeeFrame frame);
-
     /// <summary>
     /// Provides the means to send and receive XBee frames on an XBee network.
     /// </summary>
@@ -17,7 +15,7 @@ namespace MosziNet.HomeAutomation.XBee
         private IXBeeSerialPort port;
         private List<IXBeeFrame> pendingMessages = new List<IXBeeFrame>();
 
-        public event MessageReceivedDelegate MessageReceived;
+        public event EventHandler<IXBeeFrame> MessageReceived;
 
         public XBeeService(IXBeeSerialPort serialPort)
         {
@@ -68,7 +66,7 @@ namespace MosziNet.HomeAutomation.XBee
             // first try to read something
             while ((frame = FrameFromSerialPort()) != null)
             {
-                this.MessageReceived?.Invoke(frame);
+                this.MessageReceived?.Invoke(this, frame);
             }
         }
 

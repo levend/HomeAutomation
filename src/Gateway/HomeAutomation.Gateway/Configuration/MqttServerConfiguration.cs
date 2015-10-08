@@ -1,7 +1,7 @@
 using System;
-using MosziNet.HomeAutomation.Mqtt;
+using MosziNet.HomeAutomation.Gateway.Mqtt;
 
-namespace MosziNet.HomeAutomation.Configuration
+namespace MosziNet.HomeAutomation.Gateway.Configuration
 {
     /// <summary>
     /// Contains configuration about the MQTT server.

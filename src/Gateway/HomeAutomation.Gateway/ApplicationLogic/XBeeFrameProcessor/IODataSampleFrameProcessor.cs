@@ -1,17 +1,17 @@
 using System;
-using MosziNet.HomeAutomation.Device;
+using MosziNet.HomeAutomation.Gateway.Device;
 using MosziNet.HomeAutomation.Util;
 using MosziNet.HomeAutomation.Logging;
-using MosziNet.HomeAutomation.Device.Concrete;
-using MosziNet.HomeAutomation.Mqtt;
-using MosziNet.HomeAutomation.ApplicationLogic.Messages;
-using MosziNet.HomeAutomation.Messaging;
+using MosziNet.HomeAutomation.Gateway.Device.Concrete;
+using MosziNet.HomeAutomation.Gateway.Mqtt;
+using MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages;
+using MosziNet.HomeAutomation.Gateway.Messaging;
 using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
-using MosziNet.HomeAutomation.Configuration;
+using MosziNet.HomeAutomation.Gateway.Configuration;
 using MosziNet.HomeAutomation.XBee;
 
-namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
+namespace MosziNet.HomeAutomation.Gateway.ApplicationLogic.XBeeFrameProcessor
 {
     /// <summary>
     /// Processes the IO data samples coming from the XBee network.

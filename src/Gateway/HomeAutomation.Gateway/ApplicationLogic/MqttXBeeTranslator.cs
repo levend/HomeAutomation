@@ -1,12 +1,9 @@
-using System;
+using MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages;
+using MosziNet.HomeAutomation.Gateway.Mqtt;
+using MosziNet.HomeAutomation.Gateway.Messaging;
 using MosziNet.HomeAutomation.XBee;
-using MosziNet.HomeAutomation.Mqtt;
-using MosziNet.HomeAutomation.Device;
-using MosziNet.HomeAutomation.Util;
-using MosziNet.HomeAutomation.Messaging;
-using MosziNet.HomeAutomation.ApplicationLogic.Messages;
 
-namespace MosziNet.HomeAutomation.BusinessLogic
+namespace MosziNet.HomeAutomation.Gateway.BusinessLogic
 {
     public class MqttXBeeTranslator
     {
@@ -29,16 +26,16 @@ namespace MosziNet.HomeAutomation.BusinessLogic
             mqttService.SubscribeTopic(MqttTopic.CommandTopic);
         }
 
-        void mqttService_MessageReceived(string topicName, string message)
+        private void mqttService_MessageReceived(object sender, MqttMessage e)
         {
             // when we received a message from MQTT we will immediatelly put it on the bus for later processing
-            messageBus.PostMessage(new MqttMessageReceived(topicName, message));
+            messageBus.PostMessage(new MqttMessageReceived(e.TopicName, e.Message));
         }
 
-        void xbeeService_MessageReceived(XBee.Frame.IXBeeFrame frame)
+        private void xbeeService_MessageReceived(object sender, XBee.Frame.IXBeeFrame e)
         {
             // put the frame on the message bus for later processing.
-            messageBus.PostMessage(new XBeeFrameReceivedMessage(frame));
+            messageBus.PostMessage(new XBeeFrameReceivedMessage(e));
         }
     }
 }

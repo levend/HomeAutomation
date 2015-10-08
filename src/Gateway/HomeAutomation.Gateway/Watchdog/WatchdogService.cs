@@ -1,11 +1,9 @@
-using System;
-using System.Threading;
-using MosziNet.HomeAutomation.Logging;
-using MosziNet.HomeAutomation.Messaging;
-using MosziNet.HomeAutomation.Mqtt;
+using MosziNet.HomeAutomation.Gateway.Mqtt;
+using MosziNet.HomeAutomation.Gateway.Messaging;
 using MosziNet.HomeAutomation.Util;
+using System;
 
-namespace MosziNet.HomeAutomation.Watchdog
+namespace MosziNet.HomeAutomation.Gateway.Watchdog
 {
     public class WatchdogService
     {

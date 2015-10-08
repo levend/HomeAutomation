@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using MosziNet.HomeAutomation.Util;
 
-namespace MosziNet.HomeAutomation.Device
+namespace MosziNet.HomeAutomation.Gateway.Device
 {
     /// <summary>
     /// Contains the state of a device enlisting all it's component's states.

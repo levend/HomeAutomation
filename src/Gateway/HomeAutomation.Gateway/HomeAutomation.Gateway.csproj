@@ -137,6 +137,7 @@
     <Compile Include="Device\DeviceRegistry.cs" />
     <Compile Include="Device\DeviceState.cs" />
     <Compile Include="Device\IDevice.cs" />
+    <Compile Include="Mqtt\MqttMessage.cs" />
     <Compile Include="Runloop\IRunLoopParticipant.cs" />
     <Compile Include="Logging\MqttLogWriter.cs" />
     <Compile Include="Messaging\IMessage.cs" />

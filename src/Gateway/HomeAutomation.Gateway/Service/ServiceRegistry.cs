@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MosziNet.HomeAutomation.Service
+namespace MosziNet.HomeAutomation.Gateway.Service
 {
     /// <summary>
     /// SerivceRegistry is the main point in the application to turn to for services.

@@ -1,9 +1,9 @@
 using System;
-using MosziNet.HomeAutomation.Device.Base;
-using MosziNet.HomeAutomation.Messaging;
-using MosziNet.HomeAutomation.ApplicationLogic.Messages;
+using MosziNet.HomeAutomation.Gateway.Device.Base;
+using MosziNet.HomeAutomation.Gateway.Messaging;
+using MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages;
 
-namespace MosziNet.HomeAutomation.Device.Concrete
+namespace MosziNet.HomeAutomation.Gateway.Device.Concrete
 {
     public class HeartBeatDevice : DeviceBase
     {

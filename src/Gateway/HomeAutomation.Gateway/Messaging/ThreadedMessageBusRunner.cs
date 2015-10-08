@@ -3,7 +3,7 @@ using System.Threading;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Util;
 
-namespace MosziNet.HomeAutomation.Messaging
+namespace MosziNet.HomeAutomation.Gateway.Messaging
 {
     public class ThreadedMessageBusRunner : IMessageBusRunner, IRunLoopParticipant
     {

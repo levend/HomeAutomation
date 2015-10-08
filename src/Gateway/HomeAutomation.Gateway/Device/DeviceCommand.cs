@@ -1,7 +1,7 @@
 using System;
 using MosziNet.HomeAutomation.Util;
 
-namespace MosziNet.HomeAutomation.Device
+namespace MosziNet.HomeAutomation.Gateway.Device
 {
     /// <summary>
     /// Represents a command that can be executed on devices.

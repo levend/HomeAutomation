@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace MosziNet.HomeAutomation.Messaging
+namespace MosziNet.HomeAutomation.Gateway.Messaging
 {
     public class MessageProcessorRegistry
     {

@@ -1,3 +1,4 @@
+using MosziNet.HomeAutomation.Gateway.Mqtt;
 using System;
 
 namespace MosziNet.HomeAutomation.Logging.Writer
@@ -6,10 +7,10 @@ namespace MosziNet.HomeAutomation.Logging.Writer
     {
         // TODO: log buffering for cases where mqtt connection is not available
 
-        private Mqtt.MqttService mqttService;
+        private MqttService mqttService;
         private string subTopic;
 
-        public MqttLogWriter(Mqtt.MqttService mqttServiceInstance, string subTopicName)
+        public MqttLogWriter(MqttService mqttServiceInstance, string subTopicName)
         {
             subTopic = subTopicName;
             mqttService = mqttServiceInstance;

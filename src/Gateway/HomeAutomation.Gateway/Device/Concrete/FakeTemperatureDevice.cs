@@ -1,10 +1,10 @@
-﻿using MosziNet.HomeAutomation.Device.Base;
+﻿using MosziNet.HomeAutomation.Gateway.Device.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MosziNet.HomeAutomation.Device;
+using MosziNet.HomeAutomation.Gateway.Device;
 using MosziNet.HomeAutomation.XBee.Frame;
 
 namespace MosziNet.HomeAutomation.Gateway.Device.Concrete

@@ -1,10 +1,12 @@
 ﻿using System;
-using MosziNet.HomeAutomation.Device.Concrete;
-using MosziNet.HomeAutomation.Device;
+using MosziNet.HomeAutomation.Gateway.Device.Concrete;
+using MosziNet.HomeAutomation.Gateway.Device;
 using MosziNet.HomeAutomation;
-using MosziNet.HomeAutomation.ApplicationLogic.Messages;
+using MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages;
 using MosziNet.HomeAutomation.XBee;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using MosziNet.HomeAutomation.Gateway.Service;
+using MosziNet.HomeAutomation.XBee.Frame;
 
 namespace HomeAutomation.Tests
 {
@@ -14,12 +16,12 @@ namespace HomeAutomation.Tests
 
         public class MockXBeeService : IXBeeService
         {
-            public event MessageReceivedDelegate MessageReceived;
+            public event EventHandler<IXBeeFrame> MessageReceived;
 
             public void ProcessXBeeMessages()
             {
                 if (this.MessageReceived != null)
-                    this.MessageReceived(null);
+                    this.MessageReceived(null, null);
             }
 
             public void SendFrame(MosziNet.HomeAutomation.XBee.Frame.IXBeeFrame frame)
@@ -31,7 +33,7 @@ namespace HomeAutomation.Tests
         [TestInitialize]
         public void Setup()
         {
-            ApplicationContext.ServiceRegistry = new MosziNet.HomeAutomation.Service.ServiceRegistry();
+            ApplicationContext.ServiceRegistry = new ServiceRegistry();
         }
 
         [TestMethod]

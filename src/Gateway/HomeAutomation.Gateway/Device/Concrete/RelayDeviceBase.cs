@@ -4,10 +4,10 @@ using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 using System.Collections;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Util;
-using MosziNet.HomeAutomation.Device.Base;
+using MosziNet.HomeAutomation.Gateway.Device.Base;
 using System.Collections.Generic;
 
-namespace MosziNet.HomeAutomation.Device.Concrete
+namespace MosziNet.HomeAutomation.Gateway.Device.Concrete
 {
     /// <summary>
     /// An abstract class that defines the relay basics.

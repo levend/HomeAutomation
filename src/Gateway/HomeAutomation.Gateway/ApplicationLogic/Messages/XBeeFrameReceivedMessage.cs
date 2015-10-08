@@ -2,12 +2,12 @@ using System;
 using MosziNet.HomeAutomation.XBee.Frame;
 using System.Collections;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
-using MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor;
+using MosziNet.HomeAutomation.Gateway.ApplicationLogic.XBeeFrameProcessor;
 using MosziNet.HomeAutomation.Logging;
-using MosziNet.HomeAutomation.Messaging;
-using MosziNet.HomeAutomation.Configuration;
+using MosziNet.HomeAutomation.Gateway.Messaging;
+using MosziNet.HomeAutomation.Gateway.Configuration;
 
-namespace MosziNet.HomeAutomation.ApplicationLogic.Messages
+namespace MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages
 {
     public class XBeeFrameReceivedMessage : IProcessableMessage
     {

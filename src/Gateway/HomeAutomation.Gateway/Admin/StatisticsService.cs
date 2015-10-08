@@ -3,7 +3,7 @@ using MosziNet.HomeAutomation.XBee;
 using MosziNet.HomeAutomation.Logging;
 using System.Text;
 
-namespace MosziNet.HomeAutomation.Admin
+namespace MosziNet.HomeAutomation.Gateway.Admin
 {
     public class StatisticsService : IRunLoopParticipant
     {

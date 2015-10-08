@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace MosziNet.HomeAutomation.Device.Base
+namespace MosziNet.HomeAutomation.Gateway.Device.Base
 {
     public abstract class DeviceBase : IDevice
     {

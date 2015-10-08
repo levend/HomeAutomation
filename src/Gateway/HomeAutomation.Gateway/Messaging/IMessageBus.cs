@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MosziNet.HomeAutomation.Messaging
+namespace MosziNet.HomeAutomation.Gateway.Messaging
 {
     // Declare the delegate (if using non-generic pattern). 
     public delegate void MessageArrivedDelegate(IMessage message);

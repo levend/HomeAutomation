@@ -1,6 +1,6 @@
 using System;
 
-namespace MosziNet.HomeAutomation.Messaging
+namespace MosziNet.HomeAutomation.Gateway.Messaging
 {
     public interface IMessageBusRunner
     {

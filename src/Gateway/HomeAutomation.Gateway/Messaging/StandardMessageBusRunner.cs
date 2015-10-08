@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using MosziNet.HomeAutomation.Logging;
 
-namespace MosziNet.HomeAutomation.Messaging
+namespace MosziNet.HomeAutomation.Gateway.Messaging
 {
     public class StandardMessageBusRunner : IMessageBusRunner
     {

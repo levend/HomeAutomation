@@ -1,9 +1,9 @@
 using System;
 using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.XBee;
-using MosziNet.HomeAutomation.Messaging;
+using MosziNet.HomeAutomation.Gateway.Messaging;
 
-namespace MosziNet.HomeAutomation.ApplicationLogic.Messages
+namespace MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages
 {
     public class SendFrameToXBee : IProcessableMessage
     {

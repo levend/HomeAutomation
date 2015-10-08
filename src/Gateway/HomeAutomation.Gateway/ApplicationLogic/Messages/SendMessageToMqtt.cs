@@ -1,8 +1,8 @@
 using System;
-using MosziNet.HomeAutomation.Mqtt;
-using MosziNet.HomeAutomation.Messaging;
+using MosziNet.HomeAutomation.Gateway.Mqtt;
+using MosziNet.HomeAutomation.Gateway.Messaging;
 
-namespace MosziNet.HomeAutomation.ApplicationLogic.Messages
+namespace MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages
 {
     public class SendMessageToMqtt : IProcessableMessage
     {

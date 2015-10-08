@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace MosziNet.HomeAutomation.Messaging
+namespace MosziNet.HomeAutomation.Gateway.Messaging
 {
     public interface IMessageProcessor
     {
