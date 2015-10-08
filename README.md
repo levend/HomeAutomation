@@ -1,7 +1,7 @@
 # HomeAutomation
-A home automation project using XBee, Netduino, Raspberry PI 2 and other devices.
+A .NET Core based Home Automation project using XBee, Raspberry PI 2 and other devices.
 ## Introduction
-This repository contains information on how to build a home automation system based on XBee radios, Netduino and Raspberry PI 2 boards and other devices. 
+This repository contains information on how to build a home automation system based on XBee radios, Raspberry PI 2 boards and other devices. 
 It documents each device that is used in the system with schematics and  provides a system architecture that is easy to build at home. 
 
 ## Where to find additional information
