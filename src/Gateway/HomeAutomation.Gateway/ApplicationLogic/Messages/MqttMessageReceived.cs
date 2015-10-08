@@ -52,7 +52,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.Messages
                 }
                 else
                 {
-                    Log.Error("A command was sent to an unknown device with ID " + HexConverter.ToHexString(command.DeviceID));
+                    Log.Error($"A command was sent to an unknown device with ID {command.DeviceID.ToHexString()}");
                 }
             }
         }

@@ -22,7 +22,7 @@ namespace MosziNet.HomeAutomation.Device
         /// <param name="deviceByteId">The address/id of the device.</param>
         public void RegisterDevice(IDevice device, byte[] deviceByteId)
         {
-            string deviceId = HexConverter.ToHexString(deviceByteId);
+            string deviceId = deviceByteId.ToHexString();
 
             if (deviceRegistry.Contains(deviceId))
             {
@@ -40,7 +40,7 @@ namespace MosziNet.HomeAutomation.Device
         /// <returns></returns>
         public IDevice GetDeviceById(byte[] deviceByteId)
         {
-            string deviceId = HexConverter.ToHexString(deviceByteId);
+            string deviceId = deviceByteId.ToHexString();
 
             IDevice device = deviceRegistry.Contains(deviceId) ? (IDevice)deviceRegistry[deviceId] : null;
 
@@ -49,14 +49,14 @@ namespace MosziNet.HomeAutomation.Device
 
         public void RegisterStagingDevice(byte[] deviceByteId)
         {
-            string deviceId = HexConverter.ToHexString(deviceByteId);
+            string deviceId = deviceByteId.ToHexString();
 
             stagingDevices.Add(deviceId);
         }
 
         public bool IsStagingDevice(byte[] deviceByteId)
         {
-            string deviceId = HexConverter.ToHexString(deviceByteId);
+            string deviceId = deviceByteId.ToHexString();
 
             return stagingDevices.Contains(deviceId);
         }
@@ -78,7 +78,7 @@ namespace MosziNet.HomeAutomation.Device
                 }
                 else
                 {
-                    Log.Debug("The device type specified by the sensor with ID " + HexConverter.ToHexString(address) + " is not know.");
+                    Log.Debug($"The device type specified by the sensor with ID {address.ToHexString()} is not know.");
 
                     RegisterDevice(new UnknownDevice(), address);
                 }

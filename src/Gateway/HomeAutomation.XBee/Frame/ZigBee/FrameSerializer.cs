@@ -8,8 +8,6 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
     /// </summary>
     public static class FrameSerializer
     {
-        private const string FrameNamespace = "MosziNet.HomeAutomation.XBee.Frame.ZigBee.";
-
         /// <summary>
         /// Deserializes the buffer to the correct XBee frame.
         /// </summary>
@@ -20,17 +18,16 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
             IXBeeFrame newFrame = null;
 
             // get the frame's type and it's descriptor.
-            string frameName = FrameType.GetTypeName(buffer[FrameIndex.FrameType]);
-            if (!IsKnonwnFrame(frameName))
+            FrameType frameType = (FrameType)buffer[FrameIndex.FrameType];
+
+            PropertyDescriptor[] frameDescriptor = FrameTypeInfo.APIV1FrameTypeInfo.GetFrameDescriptor(frameType);
+            if (frameDescriptor == null)
                 return newFrame;
             
+            Type newFrameType = FrameTypeInfo.APIV1FrameTypeInfo.FrameTypes[frameType];
+            newFrame = (IXBeeFrame)Activator.CreateInstance(newFrameType);
+
             int length = buffer[FrameIndex.LengthMSB] * 256 + buffer[FrameIndex.LengthLSB];
-
-            PropertyDescriptor[] frameDescriptor = APIv1Descriptor.GetFrameDescriptor(frameName);
-
-            string typeFullName = FrameNamespace + frameName;
-            Type newFrameType = Type.GetType(typeFullName);
-            newFrame = (IXBeeFrame)(newFrameType.GetConstructor(new Type[] { }).Invoke(new object[] { }));
 
             MethodInfo setterMethod;
             int index = 0;
@@ -56,23 +53,17 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
             return newFrame;
         }
 
-        private static bool IsKnonwnFrame(string frameName)
-        {
-            return frameName != null && frameName.Length > 0;
-        }
-
         /// <summary>
         /// Serializes the frame to the provided buffer.
         /// </summary>
         /// <param name="frame"></param>
-        /// <param name="buffer"></param>
-        public static void Serialize(IXBeeFrame frame, byte[] buffer)
+        public static byte[] Serialize(IXBeeFrame frame)
         {
-            string frameName = FrameType.GetTypeName(frame.FrameType);
+            byte[] buffer = new byte[XBeeConstants.MaxFrameLength];
 
-            PropertyDescriptor[] frameDescriptor = APIv1Descriptor.GetFrameDescriptor(frameName);
+            PropertyDescriptor[] frameDescriptor = FrameTypeInfo.APIV1FrameTypeInfo.GetFrameDescriptor(frame.FrameType);
             Type frameType = frame.GetType();
-            
+
             // set the frame start byte.
             buffer[FrameIndex.Start] = XBeeConstants.FrameStart;
 
@@ -104,7 +95,13 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
             buffer[FrameIndex.LengthLSB] = (byte)(payloadLength % 256);
 
             // calculate the checksum of the payload
-            buffer[index] = FrameUtil.CalculateChecksum(buffer);
+            buffer[index] = XBeeFrameUtil.CalculateChecksum(buffer);
+
+            // make a new array which contains only the resulting bytes, and return that array
+            byte[] resultBuffer = new byte[index + 1];
+            Array.Copy(buffer, resultBuffer, index + 1);
+
+            return resultBuffer;
         }
 
         #region / Deserialization related methods /
@@ -133,7 +130,7 @@ namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
             // if the request was to consume all bytes, then we will do it excluding the trailing checksum
             if (onePropertyDescriptor.ByteCount == 0)
             {
-                int checksumIndex = FrameUtil.CalculateChecksumIndex(buffer);
+                int checksumIndex = XBeeFrameUtil.CalculateChecksumIndex(buffer);
                 int lengthToCopy = checksumIndex - index;
 
                 returnValue = new byte[lengthToCopy];

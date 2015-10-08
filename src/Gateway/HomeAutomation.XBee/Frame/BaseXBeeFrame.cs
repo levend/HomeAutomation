@@ -9,7 +9,7 @@ namespace MosziNet.HomeAutomation.XBee.Frame
     {
         public Int32 Length { get; set; }
 
-        public byte FrameType { get; set; }
+        public FrameType FrameType { get; set; }
 
         public byte[] Address { get; set; }
 

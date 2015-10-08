@@ -38,7 +38,6 @@ namespace MosziNet.HomeAutomation.Admin
                 .Append("System uptime in days: " + systemStatistics.UptimeDays + "\n")
                 .Append("XBee messages received: " + systemStatistics.XBeeMessageReceiveCount + "\n")
                 .Append("XBee messages sent: " + systemStatistics.XBeeMessageSentCount + "\n")
-                .Append("XBee messages dropped: " + systemStatistics.XBeeMessageDropCount + "\n")
                 .Append("Free memory: " + systemStatistics.FreeMemory)
                 .ToString();
 
@@ -50,7 +49,6 @@ namespace MosziNet.HomeAutomation.Admin
             TimeSpan uptime = DateTime.Now.Subtract(systemStatistics.SystemStartTime);
             systemStatistics.UptimeDays = uptime.Days;
 
-            systemStatistics.XBeeMessageDropCount = XBeeStatistics.MessagesDiscarded;
             systemStatistics.XBeeMessageReceiveCount = XBeeStatistics.MessagesReceived;
             systemStatistics.XBeeMessageSentCount = XBeeStatistics.MessagesSent;
 

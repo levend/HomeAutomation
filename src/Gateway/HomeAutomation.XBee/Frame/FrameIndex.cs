@@ -5,7 +5,7 @@ namespace MosziNet.HomeAutomation.XBee
     /// <summary>
     /// Contains indexes that can be used in all XBee frame types.
     /// </summary>
-    public static class FrameIndex
+    internal static class FrameIndex
     {
         public static readonly byte Start = 0;
         public static readonly byte LengthMSB = 1;

@@ -16,7 +16,7 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
             RemoteCommandResponse responseFrame = (RemoteCommandResponse)frame;
 
             // check if this is a DD command response - used for identifying devices by their type
-            if (FrameUtil.IsSameATCommand(responseFrame.ATCommand, ATCommands.DD))
+            if (XBeeFrameUtil.IsSameATCommand(responseFrame.ATCommand, ATCommands.DD))
             {
                 // build the ID for the device type based on the frame info
                 int deviceIdentification = responseFrame.Parameters[2] * 256 + responseFrame.Parameters[3];

@@ -1,10 +1,9 @@
-using System;
-using MosziNet.HomeAutomation.XBee;
-using System.Threading;
-using MosziNet.HomeAutomation.XBee.Frame;
-using System.Collections;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Util;
+using MosziNet.HomeAutomation.XBee.Frame;
+using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
+using System;
+using System.Collections.Generic;
 
 namespace MosziNet.HomeAutomation.XBee
 {
@@ -13,17 +12,15 @@ namespace MosziNet.HomeAutomation.XBee
     /// <summary>
     /// Provides the means to send and receive XBee frames on an XBee network.
     /// </summary>
-    public class XBeeService : IXBeeService
+    public class XBeeService : IXBeeService 
     {
         private IXBeeSerialPort port;
-        private ArrayList pendingMessages;
+        private List<IXBeeFrame> pendingMessages = new List<IXBeeFrame>();
 
         public event MessageReceivedDelegate MessageReceived;
 
         public XBeeService(IXBeeSerialPort serialPort)
         {
-            pendingMessages = new ArrayList();
-
             port = serialPort;
         }
 
@@ -43,9 +40,9 @@ namespace MosziNet.HomeAutomation.XBee
         {
             try
             {
-                CheckForXBeeMessages(port);
+                CheckForXBeeMessages();
 
-                SendAnyPendingXBeeMessages(port);
+                SendAnyPendingXBeeMessages();
             }
             catch(Exception ex)
             {
@@ -53,31 +50,58 @@ namespace MosziNet.HomeAutomation.XBee
             }
         }
 
-        private void SendAnyPendingXBeeMessages(IXBeeSerialPort port)
+        private void SendAnyPendingXBeeMessages()
         {
-
             while (pendingMessages.Count > 0)
             {
-                IXBeeFrame frame = (IXBeeFrame)pendingMessages[0];
+                IXBeeFrame frame = pendingMessages[0];
                 pendingMessages.RemoveAt(0);
 
-                XBeeSerialPortWriter.WriteFrameToSerialPort(frame, port);
+                WriteFrameToSerialPort(frame);
             }
         }
 
-        private void CheckForXBeeMessages(IXBeeSerialPort port)
+        private void CheckForXBeeMessages()
         {
-            // first try to read something
             IXBeeFrame frame = null;
 
-            while ((frame = XBeeSerialPortReader.FrameFromSerialPort(port)) != null)
+            // first try to read something
+            while ((frame = FrameFromSerialPort()) != null)
             {
-                MessageReceivedDelegate e = this.MessageReceived;
-                if (e != null)
-                {
-                    e(frame);
-                }
+                this.MessageReceived?.Invoke(frame);
             }
+        }
+
+        private void WriteFrameToSerialPort(IXBeeFrame frame)
+        {
+            byte[] bytesToWrite = FrameSerializer.Serialize(frame);
+
+            port.WriteFrame(bytesToWrite);
+
+            // statistics counting
+            XBeeStatistics.MessagesSent++;
+
+            Log.Debug("[XBeeSerialPortWriter] Frame sent: " + HexConverter.ToSpacedHexString(bytesToWrite));
+        }
+
+        private IXBeeFrame FrameFromSerialPort()
+        {
+            IXBeeFrame frame = null;
+
+            byte[] frameBytes = port.GetNextAvailableFrame();
+            if (frameBytes != null)
+            {
+                // now create an XBee frame based on the buffer
+                frame = FrameSerializer.Deserialize(frameBytes);
+
+                // Log the frame ...
+                Log.Debug("[XBeeSerialPortReader] Frame received: " + HexConverter.ToSpacedHexString(frameBytes, 0, frameBytes.Length));
+
+                // statistics counting
+                XBeeStatistics.MessagesReceived++;
+            }
+
+            return frame;
         }
     }
 }

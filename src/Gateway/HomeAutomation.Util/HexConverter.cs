@@ -20,7 +20,7 @@ namespace MosziNet.HomeAutomation.Util
         /// </summary>
         /// <param name="bytes"></param>
         /// <returns></returns>
-        public static string ToHexString(byte[] bytes)
+        public static string ToHexString(this byte[] bytes)
         {
             return ToHexString(bytes, 0, bytes.Length);
         }
@@ -32,7 +32,7 @@ namespace MosziNet.HomeAutomation.Util
         /// <param name="offset"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-        public static string ToHexString(byte[] bytes, int offset, int length)
+        public static string ToHexString(this byte[] bytes, int offset, int length)
         {
             char[] resultChars = new char[length * 2];
 
@@ -56,7 +56,7 @@ namespace MosziNet.HomeAutomation.Util
         /// </summary>
         /// <param name="bytes"></param>
         /// <returns></returns>
-        public static string ToSpacedHexString(byte[] bytes)
+        public static string ToSpacedHexString(this byte[] bytes)
         {
             return ToSpacedHexString(bytes, 0, bytes.Length);
         }
@@ -68,7 +68,7 @@ namespace MosziNet.HomeAutomation.Util
         /// <param name="offset"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-        public static string ToSpacedHexString(byte[] bytes, int offset, int length)
+        public static string ToSpacedHexString(this byte[] bytes, int offset, int length)
         {
             char[] resultChars = new char[length * 3];
 
@@ -94,7 +94,7 @@ namespace MosziNet.HomeAutomation.Util
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static byte[] BytesFromString(string hexString)
+        public static byte[] BytesFromString(this string hexString)
         {
             byte[] characterBytes = UTF8Encoding.UTF8.GetBytes(hexString.ToUpper());
             byte[] returnValue = new byte[hexString.Length / 2];

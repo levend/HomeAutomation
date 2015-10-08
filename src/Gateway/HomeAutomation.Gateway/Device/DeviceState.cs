@@ -28,7 +28,7 @@ namespace MosziNet.HomeAutomation.Device
         {
             StringBuilder stateBuilder = new StringBuilder();
 
-            stateBuilder.Append(HexConverter.ToHexString(this.Device.DeviceID));
+            stateBuilder.Append(this.Device.DeviceID.ToHexString());
 
             foreach (ComponentState componentState in this.ComponentStateList)
             {

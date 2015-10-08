@@ -12,12 +12,9 @@ namespace MosziNet.HomeAutomation.Admin
 
         public UInt32 FreeMemory { get; set; }
 
-        // Totals
-        public UInt64 XBeeMessageReceiveCount { get; set; }
-
         public UInt64 XBeeMessageSentCount { get; set; }
 
-        public UInt64 XBeeMessageDropCount { get; set; }
+        public UInt64 XBeeMessageReceiveCount { get; set; }
 
         ////
         //public double XBeeMessageSentPerMinuteCount { get; set; }

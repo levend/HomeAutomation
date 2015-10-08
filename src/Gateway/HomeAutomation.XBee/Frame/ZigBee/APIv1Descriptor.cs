@@ -1,95 +1,103 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace MosziNet.HomeAutomation.XBee.Frame.ZigBee
 {
-    public enum PropertyType
+    internal class APIv1Descriptor : IFrameTypeInfo
     {
-        Ignored,
+        private Dictionary<FrameType, PropertyDescriptor[]> descriptors;
+        private Dictionary<FrameType, Type> wellKnownTypes;
 
-        ByteArray,
-        Byte,
-        Integer,
-    }
+        #region / IFrameTypeInfo interface /
 
-    /// <summary>
-    /// Property Descriptor for a frame value. eg. Address, Frame Type
-    /// </summary>
-    public class PropertyDescriptor
-    {
-        public byte ByteCount;
-        public string PropertyName;
-        public PropertyType PropertyType;
-
-        public PropertyDescriptor(byte byteCount, string propertyName, PropertyType propertyType)
+        public override Dictionary<FrameType, PropertyDescriptor[]> FrameTypeDescriptors
         {
-            ByteCount = byteCount;
-            PropertyName = propertyName;
-            PropertyType = propertyType;
-        }
-
-        public PropertyDescriptor(byte byteCount)
-        {
-            ByteCount = byteCount;
-        }
-    }
-
-    public static class APIv1Descriptor
-    {
-        private static Hashtable descriptors;
-
-        public static PropertyDescriptor[] GetFrameDescriptor(string frameName)
-        {
-            if (descriptors == null)
+            get
             {
-                descriptors = new Hashtable();
-
-                descriptors.Add("RemoteATCommand",
-                     new PropertyDescriptor[] {
-                        new PropertyDescriptor(1, "FrameStart", PropertyType.Ignored),
-                        new PropertyDescriptor(2, "Length", PropertyType.Integer),
-                        new PropertyDescriptor(1, "FrameType", PropertyType.Byte),
-                        new PropertyDescriptor(1, "FrameId", PropertyType.Byte),
-                        new PropertyDescriptor(8, "Address", PropertyType.ByteArray),
-                        new PropertyDescriptor(2, "NetworkAddress", PropertyType.ByteArray),
-                        new PropertyDescriptor(1, "CommandOptions", PropertyType.Byte),
-                        new PropertyDescriptor(2, "ATCommand", PropertyType.ByteArray),
-                        new PropertyDescriptor(0, "Parameters", PropertyType.ByteArray)
-                });
-
-                descriptors.Add("RemoteCommandResponse",
-                    new PropertyDescriptor[] {
-                        new PropertyDescriptor(1, "FrameStart", PropertyType.Ignored),
-                        new PropertyDescriptor(2, "Length", PropertyType.Integer),
-                        new PropertyDescriptor(1, "FrameType", PropertyType.Byte),
-                        new PropertyDescriptor(1, "FrameId", PropertyType.Byte),
-                        new PropertyDescriptor(8, "Address", PropertyType.ByteArray),
-                        new PropertyDescriptor(2, "NetworkAddress", PropertyType.ByteArray),
-                        //
-                        new PropertyDescriptor(2, "ATCommand", PropertyType.ByteArray),
-                        new PropertyDescriptor(1, "Status", PropertyType.Byte),
-                        new PropertyDescriptor(4, "Parameters", PropertyType.ByteArray)
-                });
-
-                descriptors.Add("IODataSample",
-                    new PropertyDescriptor[] {
-                        new PropertyDescriptor(1, "FrameStart", PropertyType.Ignored),
-                        new PropertyDescriptor(2, "Length", PropertyType.Integer),
-                        new PropertyDescriptor(1, "FrameType", PropertyType.Byte),
-                        new PropertyDescriptor(8, "Address", PropertyType.ByteArray),
-                        new PropertyDescriptor(2, "NetworkAddress", PropertyType.ByteArray),
-                        //
-                        new PropertyDescriptor(1, "ReceiveOptions", PropertyType.Byte),
-                        new PropertyDescriptor(1, "SampleCount", PropertyType.Byte),
-                        new PropertyDescriptor(2, "DigitalMask", PropertyType.Integer),
-                        new PropertyDescriptor(1, "AnalogMask", PropertyType.Byte),
-                        //
-                        new PropertyDescriptor(0, "Samples", PropertyType.ByteArray)
-                });            
+                return descriptors;
             }
+        }
 
-            return descriptors.Contains(frameName) ? (PropertyDescriptor[])descriptors[frameName] : null;
+        public override Dictionary<FrameType, Type> FrameTypes
+        {
+            get
+            {
+                return wellKnownTypes;
+            }
+        }
+
+        #endregion / IFrameTypeInfo interface /
+
+        public APIv1Descriptor()
+        {
+            SetupDescriptors();
+            SetupWellKnownTypes();
+        }
+
+        private void SetupWellKnownTypes()
+        {
+            wellKnownTypes = new Dictionary<FrameType, Type>()
+            {
+                [FrameType.RemoteATCommand] = typeof(RemoteATCommand),
+                [FrameType.RemoteCommandResponse] = typeof(RemoteCommandResponse),
+                [FrameType.IODataSample] = typeof(IODataSample)
+            };
+        }
+
+        private void SetupDescriptors()
+        {
+            descriptors = new Dictionary<FrameType, PropertyDescriptor[]>();
+
+            descriptors.Add(FrameType.RemoteATCommand,
+                 new PropertyDescriptor[] {
+                        new PropertyDescriptor(1, "FrameStart", PropertyType.Ignored),
+
+                        new PropertyDescriptor(2, nameof(RemoteATCommand.Length), PropertyType.Integer),
+                        new PropertyDescriptor(1, nameof(RemoteATCommand.FrameType), PropertyType.Byte),
+                        new PropertyDescriptor(1, nameof(RemoteATCommand.FrameId), PropertyType.Byte),
+                        new PropertyDescriptor(8, nameof(RemoteATCommand.Address), PropertyType.ByteArray),
+                        new PropertyDescriptor(2, nameof(RemoteATCommand.NetworkAddress), PropertyType.ByteArray),
+
+                        new PropertyDescriptor(1, nameof(RemoteATCommand.CommandOptions), PropertyType.Byte),
+                        new PropertyDescriptor(2, nameof(RemoteATCommand.ATCommand), PropertyType.ByteArray),
+                        new PropertyDescriptor(0, nameof(RemoteATCommand.Parameters), PropertyType.ByteArray)
+            });
+
+            descriptors.Add(FrameType.RemoteCommandResponse,
+                new PropertyDescriptor[] {
+                        new PropertyDescriptor(1, "FrameStart", PropertyType.Ignored),
+
+                        new PropertyDescriptor(2, nameof(RemoteCommandResponse.Length), PropertyType.Integer),
+                        new PropertyDescriptor(1, nameof(RemoteCommandResponse.FrameType), PropertyType.Byte),
+                        new PropertyDescriptor(1, nameof(RemoteCommandResponse.FrameId), PropertyType.Byte),
+                        new PropertyDescriptor(8, nameof(RemoteCommandResponse.Address), PropertyType.ByteArray),
+                        new PropertyDescriptor(2, nameof(RemoteCommandResponse.NetworkAddress), PropertyType.ByteArray),
+
+                        //
+                        new PropertyDescriptor(2, nameof(RemoteCommandResponse.ATCommand), PropertyType.ByteArray),
+                        new PropertyDescriptor(1, nameof(RemoteCommandResponse.Status), PropertyType.Byte),
+                        new PropertyDescriptor(4, nameof(RemoteCommandResponse.Parameters), PropertyType.ByteArray)
+            });
+
+            descriptors.Add(FrameType.IODataSample,
+                new PropertyDescriptor[] {
+                        new PropertyDescriptor(1, "FrameStart", PropertyType.Ignored),
+
+                        new PropertyDescriptor(2, nameof(IODataSample.Length), PropertyType.Integer),
+                        new PropertyDescriptor(1, nameof(IODataSample.FrameType), PropertyType.Byte),
+                        new PropertyDescriptor(8, nameof(IODataSample.Address), PropertyType.ByteArray),
+                        new PropertyDescriptor(2, nameof(IODataSample.NetworkAddress), PropertyType.ByteArray),
+
+                        //
+                        new PropertyDescriptor(1, nameof(IODataSample.ReceiveOptions), PropertyType.Byte),
+                        new PropertyDescriptor(1, nameof(IODataSample.SampleCount), PropertyType.Byte),
+                        new PropertyDescriptor(2, nameof(IODataSample.DigitalMask), PropertyType.Integer),
+                        new PropertyDescriptor(1, nameof(IODataSample.AnalogMask), PropertyType.Byte),
+                        //
+                        new PropertyDescriptor(0, nameof(IODataSample.Samples), PropertyType.ByteArray)
+            });
         }
     }
 }

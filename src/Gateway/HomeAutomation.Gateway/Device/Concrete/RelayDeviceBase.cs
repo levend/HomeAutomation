@@ -69,7 +69,7 @@ namespace MosziNet.HomeAutomation.Device.Concrete
             {
                 states[i] = new ComponentState()
                 {
-                    Name = "Relay" + i.ToString(),
+                    Name = $"Relay{i}",
                     Value = switchStates[i].ToString()
                 };
             }
@@ -104,7 +104,7 @@ namespace MosziNet.HomeAutomation.Device.Concrete
             IXBeeService xbeeService = (IXBeeService)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IXBeeService));
 
             // The relay is on the D1 and D2 pins, set the appropriate state for them
-            xbeeService.SendFrame(new XBeeFrameBuilder().CreateRemoteATCommand(
+            xbeeService.SendFrame(XBeeFrameBuilder.CreateRemoteATCommand(
                 (byte[])xbeeConfiguration[relayIndex],
                 0,
                 this.DeviceID,
@@ -112,7 +112,7 @@ namespace MosziNet.HomeAutomation.Device.Concrete
                 new byte[] { ((byte)(state == 1 ? 4 : 5)) },
                 RemoteATCommand.OptionCommitChanges));
 
-            Log.Debug("[" + HexConverter.ToHexString(this.DeviceID) + "] Setting relay " + relayIndexString + " to " + stateString);
+            Log.Debug($"[{this.DeviceID.ToHexString()}] Setting relay {relayIndexString} to {stateString}");
         }
     }
 }

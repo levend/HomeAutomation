@@ -2,7 +2,7 @@ using System;
 
 namespace MosziNet.HomeAutomation.XBee
 {
-    public static class FrameUtil
+    public static class XBeeFrameUtil
     {
         /// <summary>
         /// Returns the length stored in the frame.

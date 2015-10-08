@@ -81,10 +81,10 @@ namespace MosziNet.HomeAutomation.ApplicationLogic.XBeeFrameProcessor
             frameId++;
             if (frameId == 0) frameId++;
 
-            Log.Debug("Received a frame from an unknown device, so we are asking type ID from this device. Address: " + HexConverter.ToHexString(remoteFrame.Address));
+            Log.Debug($"Received a frame from an unknown device, so we are asking type ID from this device. Address: {remoteFrame.Address.ToHexString()}");
 
             // create the XBee frame to send
-            IXBeeFrame frame = new XBeeFrameBuilder().CreateRemoteATCommand(ATCommands.DD, frameId, remoteFrame.Address, remoteFrame.NetworkAddress);
+            IXBeeFrame frame = XBeeFrameBuilder.CreateRemoteATCommand(ATCommands.DD, frameId, remoteFrame.Address, remoteFrame.NetworkAddress);
 
             // post this message to the device
             IMessageBus messageBus = (IMessageBus)ApplicationContext.ServiceRegistry.GetServiceOfType(typeof(IMessageBus));

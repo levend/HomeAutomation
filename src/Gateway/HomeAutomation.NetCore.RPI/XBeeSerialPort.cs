@@ -104,7 +104,7 @@ namespace MosziNet.HomeAutomation.NetCore.RPI
 
             if (frameReader == null)
             {
-                frameReader = ReadFrameAsync();
+                frameReader = GetReadFrameTask();
             }
             
             if (frameReader.IsCompleted)
@@ -125,7 +125,7 @@ namespace MosziNet.HomeAutomation.NetCore.RPI
 
         #endregion / IXBeeSerialPort interface implementation /
 
-        private async Task<byte[]> ReadFrameAsync()
+        private async Task<byte[]> GetReadFrameTask()
         {
             await dataReader.LoadAsync(1);
             if (dataReader.ReadByte() == 0x7e)
