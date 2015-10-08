@@ -2,7 +2,7 @@ using System;
 
 namespace MosziNet.HomeAutomation
 {
-    public class MqttTopic
+    public static class MqttTopic
     {
         public static readonly string StatusTopic = "/Status";
 

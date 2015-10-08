@@ -10,32 +10,22 @@ namespace MosziNet.HomeAutomation.Util
         /// </summary>
         /// <param name="ex"></param>
         /// <returns></returns>
-        public static string Format(Exception ex)
+        public static string FormatToLog(this Exception ex)
         {
-            StringBuilder builder = new StringBuilder();
-
             if (ex == null)
                 return String.Empty;
 
+            StringBuilder builder = new StringBuilder();
+
             builder.Append(ex.ToString());
             builder.Append("\n");
-            builder.Append(EnsureEmptyString(ex.Message));
+            builder.Append(ex.Message??String.Empty);
             builder.Append("\n");
             builder.Append("Inner exception: \n");
-            builder.Append(Format(ex.InnerException));
-            builder.Append(EnsureEmptyString(ex.StackTrace));
+            builder.Append(ex.InnerException?.FormatToLog());
+            builder.Append(ex.StackTrace??String.Empty);
 
             return builder.ToString();
-        }
-
-        /// <summary>
-        /// Makes sure that a string is not null by returning an empty string in case it is, or the string itself if not null
-        /// </summary>
-        /// <param name="toCheck"></param>
-        /// <returns></returns>
-        private static string EnsureEmptyString(string toCheck)
-        {
-            return toCheck == null ? String.Empty : toCheck;
         }
     }
 }

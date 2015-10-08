@@ -12,7 +12,7 @@ namespace HomeAutomation.Util.Tests
         {
             Exception ex = new Exception();
 
-            string s = ExceptionFormatter.Format(ex);
+            string s = ex.FormatToLog();
 
             Assert.IsNotNull(s);
         }
@@ -23,7 +23,7 @@ namespace HomeAutomation.Util.Tests
         {
             Exception ex = new Exception("moszi");
 
-            string s = ExceptionFormatter.Format(ex);
+            string s = ex.FormatToLog();
 
             Assert.IsTrue(s.Contains("moszi"));
         }
@@ -33,7 +33,7 @@ namespace HomeAutomation.Util.Tests
         {
             Exception ex = null;
             
-            Assert.IsNotNull(ExceptionFormatter.Format(ex));
+            Assert.IsNotNull(ex.FormatToLog());
         }
     }
 

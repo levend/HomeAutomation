@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace MosziNet.HomeAutomation.Service
 {
@@ -8,7 +8,7 @@ namespace MosziNet.HomeAutomation.Service
     /// </summary>
     public class ServiceRegistry
     {
-        private Hashtable serviceRegistry = new Hashtable();
+        private Dictionary<Type, object> serviceRegistry = new Dictionary<Type, object>();
 
         /// <summary>
         /// Registers a service into the system.
@@ -27,7 +27,7 @@ namespace MosziNet.HomeAutomation.Service
         /// <returns></returns>
         public object GetServiceOfType(Type serviceType)
         {
-            return serviceRegistry.Contains(serviceType) ? serviceRegistry[serviceType] : null;
+            return serviceRegistry.ContainsKey(serviceType) ? serviceRegistry[serviceType] : null;
         }
     }
 }

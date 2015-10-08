@@ -52,7 +52,7 @@ namespace MosziNet.HomeAutomation.Watchdog
                     messageBus.PostMessage(new HeartbeatCommand()
                     {
                         MqttService = mqttService,
-                        Message = "WatchdogService Exception " + ExceptionFormatter.Format(ex)
+                        Message = "WatchdogService Exception " + ex.FormatToLog()
                     });
                 }
             }

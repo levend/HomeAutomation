@@ -46,7 +46,7 @@ namespace MosziNet.HomeAutomation.XBee
             }
             catch(Exception ex)
             {
-                Log.Error("[XBeeService Exception] " + ExceptionFormatter.Format(ex));
+                Log.Error("[XBeeService Exception] " + ex.FormatToLog());
             }
         }
 

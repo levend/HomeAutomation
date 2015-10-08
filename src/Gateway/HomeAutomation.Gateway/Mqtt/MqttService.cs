@@ -124,7 +124,7 @@ namespace MosziNet.HomeAutomation.Mqtt
                 }
                 catch(Exception ex)
                 {
-                    Log.Debug("Connection to MQTT server was not successful. \n" + ExceptionFormatter.Format(ex));
+                    Log.Debug("Connection to MQTT server was not successful. \n" + ex.FormatToLog());
                 }
             }
         }

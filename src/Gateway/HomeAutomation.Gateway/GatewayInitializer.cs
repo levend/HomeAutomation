@@ -10,6 +10,7 @@ using MosziNet.HomeAutomation.Logging.Formatter;
 using MosziNet.HomeAutomation.Logging.Writer;
 using MosziNet.HomeAutomation.Messaging;
 using MosziNet.HomeAutomation.Mqtt;
+using MosziNet.HomeAutomation.Service;
 using MosziNet.HomeAutomation.XBee;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 
@@ -65,10 +66,10 @@ namespace MosziNet.HomeAutomation
             // setup the run loop participants
             mainRunLoop.AddRunLoopParticipant(messageBusRunner);
             mainRunLoop.AddRunLoopParticipant(mqttService);
-            mainRunLoop.AddRunLoopParticipant(new XBeeServiceWrapper(xbeeService));
+            mainRunLoop.AddRunLoopParticipant(new XBeeServiceLoopableWrapper(xbeeService));
             mainRunLoop.AddRunLoopParticipant(new StatisticsService());
 
-            mainRunLoop.Run();
+            mainRunLoop.Start();
         }
 
         /// <summary>
@@ -91,6 +92,5 @@ namespace MosziNet.HomeAutomation
             configuration.RegisterObjectForKey(ApplicationConfigurationCategory.XBeeFrameProcessor, typeof(RemoteCommandResponse), new RemoteCommandResponseProcessor());
             configuration.RegisterObjectForKey(ApplicationConfigurationCategory.XBeeFrameProcessor, typeof(IODataSample), new IODataSampleFrameProcessor());
         }
-
     }
 }

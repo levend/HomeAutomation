@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace MosziNet.HomeAutomation.Configuration
 {
@@ -8,7 +9,7 @@ namespace MosziNet.HomeAutomation.Configuration
     /// </summary>
     public class ApplicationConfiguration
     {
-        private Hashtable configurationItemListForCategory = new Hashtable();
+        private Dictionary<ApplicationConfigurationCategory, Dictionary<object, object>> configurationItemListForCategory = new Dictionary<ApplicationConfigurationCategory, Dictionary<object, object>>();
 
         /// <summary>
         /// Registers a new string value.
@@ -16,12 +17,12 @@ namespace MosziNet.HomeAutomation.Configuration
         /// <param name="category"></param>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public void RegisterObjectForKey(string category, object key, object value)
+        public void RegisterObjectForKey(ApplicationConfigurationCategory category, object key, object value)
         {
-            Hashtable categoryKeyValuePairs = configurationItemListForCategory.Contains(category) ? (Hashtable)configurationItemListForCategory[category] : null;
+            Dictionary<object, object> categoryKeyValuePairs = configurationItemListForCategory.ContainsKey(category) ? configurationItemListForCategory[category] : null;
             if (categoryKeyValuePairs == null)
             {
-                categoryKeyValuePairs = new Hashtable();
+                categoryKeyValuePairs = new Dictionary<object, object>();
                 configurationItemListForCategory[category] = categoryKeyValuePairs;
             }
 
@@ -34,9 +35,9 @@ namespace MosziNet.HomeAutomation.Configuration
         /// <param name="category"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public string GetStringForKey(string category, object key)
+        public string GetStringForKey(ApplicationConfigurationCategory category, object key)
         {
-            Hashtable categoryKeyValuePairs = configurationItemListForCategory.Contains(category) ? (Hashtable)configurationItemListForCategory[category] : null;
+            Dictionary<object,object> categoryKeyValuePairs = configurationItemListForCategory.ContainsKey(category) ? configurationItemListForCategory[category] : null;
             if (categoryKeyValuePairs == null)
                 return null;
 
@@ -49,9 +50,9 @@ namespace MosziNet.HomeAutomation.Configuration
         /// <param name="category"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public object GetObjectForKey(string category, object key)
+        public object GetObjectForKey(ApplicationConfigurationCategory category, object key)
         {
-            Hashtable categoryKeyValuePairs = configurationItemListForCategory.Contains(category) ? (Hashtable)configurationItemListForCategory[category] : null;
+            Dictionary<object, object> categoryKeyValuePairs = configurationItemListForCategory.ContainsKey(category) ? configurationItemListForCategory[category] : null;
             if (categoryKeyValuePairs == null)
                 return null;
 
@@ -65,9 +66,9 @@ namespace MosziNet.HomeAutomation.Configuration
         /// <param name="category"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public Type GetTypeForKey(string category, object key)
+        public Type GetTypeForKey(ApplicationConfigurationCategory category, object key)
         {
-            Hashtable categoryKeyValuePairs = configurationItemListForCategory.Contains(category) ? (Hashtable)configurationItemListForCategory[category] : null;
+            Dictionary<object, object> categoryKeyValuePairs = configurationItemListForCategory.ContainsKey(category) ? configurationItemListForCategory[category] : null;
             if (categoryKeyValuePairs == null)
                 return null;
 

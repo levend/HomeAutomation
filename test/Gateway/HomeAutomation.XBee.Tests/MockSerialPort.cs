@@ -18,7 +18,10 @@ namespace HomeAutomation.XBee.Tests
 
         public byte[] GetNextAvailableFrame()
         {
-            return values;
+            byte[] nextFrame = values;
+            values = null;
+
+            return nextFrame;
         }
 
         public void WriteFrame(byte[] frame)
