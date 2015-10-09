@@ -1,8 +1,4 @@
 using HomeAutomation.Core;
-using MosziNet.HomeAutomation.Gateway.Admin;
-using MosziNet.HomeAutomation.Gateway.Messaging;
-using MosziNet.HomeAutomation.Logging;
-using MosziNet.HomeAutomation.Util;
 
 namespace MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages
 {
@@ -11,7 +7,7 @@ namespace MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages
     /// By convention if the address of this command is 0, then the command needs to be executed by the gateway,
     /// otherwise it will be executed by the device that was targeted by that address.
     /// </summary>
-    public class MqttMessageReceived : IProcessableMessage
+    public class MqttMessageReceived
     {
         private string topic;
         private string message;
@@ -32,20 +28,20 @@ namespace MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages
         /// </summary>
         public void ProcessMessage()
         {
-            // if the message was coming through the /Admin topic then execute it with the AdminCommandDistributor
-            if (topic == MqttTopic.Admin)
-            {
-                AdminCommandDistributor.ExecuteCommand(message);
-            }
+            //// if the message was coming through the /Admin topic then execute it with the AdminCommandDistributor
+            //if (topic == MqttTopic.Admin)
+            //{
+            //    AdminCommandDistributor.ExecuteCommand(message);
+            //}
 
-            // if the message arrived through the /Command topic then send the command directly to the device that was targeted
-            if (topic == MqttTopic.CommandTopic)
-            {
-                DeviceCommand command = DeviceCommand.CreateFromString(message);
+            //// if the message arrived through the /Command topic then send the command directly to the device that was targeted
+            //if (topic == MqttTopic.CommandTopic)
+            //{
+            //    DeviceCommand command = DeviceCommand.CreateFromString(message);
 
-                IDeviceNetwork deviceNetwork = HomeAutomationSystem.DeviceNetworkRegistry.GetNetworkByName(command.DeviceNetworkName);
-                deviceNetwork?.SendCommand(command);
-            }
+            //    IDeviceNetwork deviceNetwork = HomeAutomationSystem.DeviceNetworkRegistry.GetNetworkByName(command.DeviceNetworkName);
+            //    deviceNetwork?.SendCommand(command);
+            //}
         }
     }
 }

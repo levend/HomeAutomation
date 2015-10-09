@@ -1,4 +1,4 @@
-﻿namespace HomeAutomation.Controller.Mqtt
+﻿namespace HomeAutomation.Communication.Mqtt
 {
     public class MqttMessage
     {

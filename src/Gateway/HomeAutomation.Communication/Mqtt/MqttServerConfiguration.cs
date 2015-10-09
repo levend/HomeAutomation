@@ -1,12 +1,9 @@
-using System;
-using MosziNet.HomeAutomation.Gateway.Mqtt;
-
-namespace MosziNet.HomeAutomation.Gateway.Configuration
+namespace HomeAutomation.Communication.Mqtt
 {
     /// <summary>
     /// Contains configuration about the MQTT server.
     /// </summary>
-    public class MqttServerConfiguration : IMqttServerConfiguration
+    public class MqttServerConfiguration
     {
         /// <summary>
         /// Can contain IP address or host name.

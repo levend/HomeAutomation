@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Text;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
+using Windows.System.Threading;
 
-namespace HomeAutomation.Controller.Mqtt
+namespace HomeAutomation.Communication.Mqtt
 {
-    public class MqttService : IRunLoopParticipant
+    public class MqttService
     {
         private const int MinimumKeepAliveInterval = 15;
         private List<string> subscribedTopics = new List<string>();
@@ -16,11 +17,11 @@ namespace HomeAutomation.Controller.Mqtt
         // the connection and it's lock object
         private MqttClient mqttClient;
 
-        private IMqttServerConfiguration configuration { get; set; }
+        private MqttServerConfiguration configuration { get; set; }
 
         public event EventHandler<MqttMessage> MessageReceived;
 
-        public MqttService(IMqttServerConfiguration config)
+        public MqttService(MqttServerConfiguration config)
         {
             if (config.ServerHostName == null || config.ServerHostName.Length == 0)
                 throw new ArgumentOutOfRangeException("configuration", "ServerHostName should not be empty.");
@@ -35,6 +36,13 @@ namespace HomeAutomation.Controller.Mqtt
 
             // start the MQTT client immediately.
             EnsureMqttServerIsConnected();
+
+            // ensure that we have a periodic check for the mqtt server connection
+            ThreadPoolTimer.CreatePeriodicTimer((source) =>
+            {
+                EnsureMqttServerIsConnected();
+            }, TimeSpan.FromSeconds(config.KeepAliveCheckPeriodInSeconds));
+
         }
 
         /// <summary>
@@ -134,12 +142,7 @@ namespace HomeAutomation.Controller.Mqtt
 
         void mqttClient_ConnectionClosed(object sender, EventArgs e)
         {
-            // do nothing, the connection thread will make sure the connection is kept alive
-        }
-
-        public void Execute()
-        {
-            EnsureMqttServerIsConnected();
+            // do nothing, the connection watcher task will make sure the connection is kept alive
         }
     }
 }

@@ -108,6 +108,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\AllControllersController.cs" />
     <Compile Include="Controller\ControllerRegistry.cs" />
     <Compile Include="Device\ComponentState.cs" />
     <Compile Include="Device\DeviceCommand.cs" />

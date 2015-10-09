@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6D6B8343-37EF-4F1A-BFA3-49D04CDA0988}</ProjectGuid>
+    <ProjectGuid>{855E6143-F76F-48AF-BA9C-E8A53CE32390}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HomeAutomation.Controller.Mqtt</RootNamespace>
-    <AssemblyName>HomeAutomation.Controller.Mqtt</AssemblyName>
+    <RootNamespace>HomeAutomation.Communication</RootNamespace>
+    <AssemblyName>HomeAutomation.Communication</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -107,21 +107,13 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MqttController.cs" />
-    <Compile Include="MqttMessageReceived.cs" />
-    <Compile Include="MqttTopic.cs" />
+    <Compile Include="Mqtt\MqttMessage.cs" />
+    <Compile Include="Mqtt\MqttServerConfiguration.cs" />
+    <Compile Include="Mqtt\MqttService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Properties\HomeAutomation.Controller.Mqtt.rd.xml" />
+    <Content Include="Properties\HomeAutomation.Communication.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HomeAutomation.Communication\HomeAutomation.Communication.csproj">
-      <Project>{855e6143-f76f-48af-ba9c-e8a53ce32390}</Project>
-      <Name>HomeAutomation.Communication</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HomeAutomation.Core\HomeAutomation.Core.csproj">
-      <Project>{b1160ed7-9b1e-49da-9bbb-24da1df15fd0}</Project>
-      <Name>HomeAutomation.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HomeAutomation.Logging\HomeAutomation.Logging.csproj">
       <Project>{3e7f9495-4c0f-4ffe-925e-392afbde036d}</Project>
       <Name>HomeAutomation.Logging</Name>

@@ -1,17 +1,11 @@
 using HomeAutomation.Core;
-using MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages;
-using MosziNet.HomeAutomation.Gateway.Messaging;
 
 namespace MosziNet.HomeAutomation.Gateway.BusinessLogic
 {
     public class DeviceNetworkGateway
     {
-        IMessageBus messageBus;
-
-        public DeviceNetworkGateway(IMessageBus messageBus)
+        public DeviceNetworkGateway()
         {
-            this.messageBus = messageBus;
-
             // make sure we subscribe to new networks' events ...
             HomeAutomationSystem.DeviceNetworkRegistry.DeviceNetworkAdded += (sender, network) =>
             {
@@ -32,7 +26,7 @@ namespace MosziNet.HomeAutomation.Gateway.BusinessLogic
 
         private void DeviceNetwork_DeviceStateReceived(object sender, DeviceState e)
         {
-            messageBus.PostMessage(new SendDeviceStateToControllers() { DeviceState = e });
+            HomeAutomationSystem.ControllerRegistry.All.SendDeviceState(e);
         }
     }
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace MosziNet.HomeAutomation
+namespace HomeAutomation.Controller.Mqtt
 {
     public static class MqttTopic
     {

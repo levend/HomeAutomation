@@ -15,7 +15,7 @@ namespace MosziNet.HomeAutomation.Gateway.Service
             IXBeeSerialPort serialPort = new XBeeSerialPort(9600, SerialParity.None, SerialStopBitCount.One, 8);
 
             //// start the gateway.
-            new GatewayInitializer().Initialize(serialPort);
+            //new GatewayInitializer().Initialize(serialPort);
         }
     }
 }

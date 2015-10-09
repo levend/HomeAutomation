@@ -1,6 +1,5 @@
 ﻿using MosziNet.HomeAutomation.Gateway.Admin;
 using MosziNet.HomeAutomation.Gateway.BusinessLogic;
-using MosziNet.HomeAutomation.Gateway.Messaging;
 using MosziNet.HomeAutomation.Gateway.Service;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Logging.Formatter;
@@ -28,16 +27,8 @@ namespace MosziNet.HomeAutomation
             //Log.AddLogWriter(new MqttLogWriter(mqttService, MqttTopic.LogTopic), new StandardLogFormatter());
             Log.AddLogWriter(new ConsoleLogWriter(), new StandardLogFormatter());
 
-            // Setup the message bus
-            IMessageBus messageBus = new MessageBus();
-            ThreadedMessageBusRunner messageBusRunner = new ThreadedMessageBusRunner(messageBus, new MessageProcessorRegistry());
-            messageBus.MessageBusRunner = messageBusRunner;            
 
-            // Register all services to the service registry
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(IMessageBus), messageBus);
-            //ApplicationContext.ServiceRegistry.RegisterService(typeof(MqttService), mqttService);
-
-            //ApplicationContext.ServiceRegistry.RegisterService(typeof(DeviceNetworkGateway), new DeviceNetworkGateway(mqttService, messageBus));
+            ApplicationContext.ServiceRegistry.RegisterService(typeof(DeviceNetworkGateway), new DeviceNetworkGateway());
 
             // Migration
             //ApplicationContext.ServiceRegistry.RegisterService(typeof(WatchdogService), new WatchdogService(messageBus, mqttService));
@@ -45,8 +36,6 @@ namespace MosziNet.HomeAutomation
             Log.Debug("[MosziNet_HA] Starting up...");
 
             // setup the run loop participants
-            mainRunLoop.AddRunLoopParticipant(messageBusRunner);
-            //mainRunLoop.AddRunLoopParticipant(mqttService);
             //mainRunLoop.AddRunLoopParticipant(new XBeeServiceLoopableWrapper(xbeeService));
             mainRunLoop.AddRunLoopParticipant(new StatisticsService());
 

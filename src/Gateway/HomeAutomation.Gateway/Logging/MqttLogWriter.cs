@@ -1,4 +1,4 @@
-using MosziNet.HomeAutomation.Gateway.Mqtt;
+using HomeAutomation.Communication.Mqtt;
 using System;
 
 namespace MosziNet.HomeAutomation.Logging.Writer

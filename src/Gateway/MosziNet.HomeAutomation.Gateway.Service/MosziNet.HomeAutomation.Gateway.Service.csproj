@@ -116,6 +116,22 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HomeAutomation.Communication\HomeAutomation.Communication.csproj">
+      <Project>{855e6143-f76f-48af-ba9c-e8a53ce32390}</Project>
+      <Name>HomeAutomation.Communication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HomeAutomation.Controller.Mqtt\HomeAutomation.Controller.Mqtt.csproj">
+      <Project>{6d6b8343-37ef-4f1a-bfa3-49d04cda0988}</Project>
+      <Name>HomeAutomation.Controller.Mqtt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HomeAutomation.Core\HomeAutomation.Core.csproj">
+      <Project>{b1160ed7-9b1e-49da-9bbb-24da1df15fd0}</Project>
+      <Name>HomeAutomation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HomeAutomation.DeviceNetwork.XBee\HomeAutomation.DeviceNetwork.XBee.csproj">
+      <Project>{ff9bb532-5312-40e3-92e1-f65fb1a312a9}</Project>
+      <Name>HomeAutomation.DeviceNetwork.XBee</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HomeAutomation.Gateway\HomeAutomation.Gateway.csproj">
       <Project>{e221d2fb-75e1-4bb5-ab34-db96435c7daa}</Project>
       <Name>HomeAutomation.Gateway</Name>
@@ -140,6 +156,9 @@
       <Project>{f7ec2235-e2d5-4d32-a8fd-f6664489f7a5}</Project>
       <Name>HomeAutomation.XBee</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configuration\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
