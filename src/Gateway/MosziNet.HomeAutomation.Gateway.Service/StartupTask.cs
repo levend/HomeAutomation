@@ -1,4 +1,6 @@
-﻿using MosziNet.HomeAutomation.NetCore.RPI;
+﻿using HomeAutomation.Application;
+using HomeAutomation.Application.Configuration;
+using MosziNet.HomeAutomation.NetCore.RPI;
 using MosziNet.HomeAutomation.XBee;
 using Windows.ApplicationModel.Background;
 using Windows.Devices.SerialCommunication;
@@ -11,11 +13,7 @@ namespace MosziNet.HomeAutomation.Gateway.Service
     {
         public void Run(IBackgroundTaskInstance taskInstance)
         {
-            //// get the serial port that's going to be used to acess the XBee
-            IXBeeSerialPort serialPort = new XBeeSerialPort(9600, SerialParity.None, SerialStopBitCount.One, 8);
-
-            //// start the gateway.
-            //new GatewayInitializer().Initialize(serialPort);
+            ApplicationInitializer.Initialize(new ConfigurationManager().LoadFile("Config/HomeAutomation.conf"));
         }
     }
 }
