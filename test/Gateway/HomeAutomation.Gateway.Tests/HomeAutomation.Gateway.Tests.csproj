@@ -129,6 +129,14 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Gateway\HomeAutomation.Core\HomeAutomation.Core.csproj">
+      <Project>{b1160ed7-9b1e-49da-9bbb-24da1df15fd0}</Project>
+      <Name>HomeAutomation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Gateway\HomeAutomation.DeviceNetwork.XBee\HomeAutomation.DeviceNetwork.XBee.csproj">
+      <Project>{ff9bb532-5312-40e3-92e1-f65fb1a312a9}</Project>
+      <Name>HomeAutomation.DeviceNetwork.XBee</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\src\Gateway\HomeAutomation.Gateway\HomeAutomation.Gateway.csproj">
       <Project>{e221d2fb-75e1-4bb5-ab34-db96435c7daa}</Project>
       <Name>HomeAutomation.Gateway</Name>

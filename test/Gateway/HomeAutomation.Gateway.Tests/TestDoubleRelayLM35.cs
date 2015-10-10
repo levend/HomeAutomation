@@ -1,12 +1,9 @@
-﻿using System;
-using MosziNet.HomeAutomation.Gateway.Device.Concrete;
-using MosziNet.HomeAutomation.Gateway.Device;
-using MosziNet.HomeAutomation;
-using MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages;
-using MosziNet.HomeAutomation.XBee;
+﻿using HomeAutomation.Core;
+using HomeAutomation.DeviceNetwork.XBee.Device;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using MosziNet.HomeAutomation.Gateway.Service;
+using MosziNet.HomeAutomation.XBee;
 using MosziNet.HomeAutomation.XBee.Frame;
+using System;
 
 namespace HomeAutomation.Tests
 {
@@ -30,12 +27,6 @@ namespace HomeAutomation.Tests
             }
         }
 
-        [TestInitialize]
-        public void Setup()
-        {
-            ApplicationContext.ServiceRegistry = new ServiceRegistry();
-        }
-
         [TestMethod]
         public void TestSwitchStates()
         {
@@ -47,13 +38,9 @@ namespace HomeAutomation.Tests
 
             DeviceRegistry registry = new DeviceRegistry();
 
-            registry.RegisterDevice(device, deviceId);
+            registry.RegisterDevice(null, device, deviceId);
 
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(DeviceRegistry), registry);
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(IXBeeService), new MockXBeeService());
-
-            MqttMessageReceived message = new MqttMessageReceived("/Command", "01,SetRelayState,1,1");
-            message.ProcessMessage();
+            // TODO
         }
     }
 }

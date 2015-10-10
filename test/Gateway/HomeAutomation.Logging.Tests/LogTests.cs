@@ -1,6 +1,6 @@
 ﻿using System;
-using MosziNet.HomeAutomation.Logging;
-using MosziNet.HomeAutomation.Logging.Formatter;
+using HomeAutomation.Logging;
+using HomeAutomation.Logging.Formatter;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace HomeAutomation.Logging.Tests

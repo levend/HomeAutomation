@@ -1,5 +1,5 @@
 ﻿using System;
-using MosziNet.HomeAutomation.Sensor.Temperature;
+using HomeAutomation.Sensor.Temperature;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace HomeAutomation.Sensor.Tests

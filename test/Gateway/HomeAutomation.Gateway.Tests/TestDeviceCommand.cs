@@ -1,12 +1,8 @@
-﻿using System;
+﻿using HomeAutomation.Core;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using MosziNet.HomeAutomation;
-using MosziNet.HomeAutomation.Gateway.Device;
-using MosziNet.HomeAutomation.Gateway.Device.Base;
-using MosziNet.HomeAutomation.Gateway.Mqtt;
 using MosziNet.HomeAutomation.XBee;
 using MosziNet.HomeAutomation.XBee.Frame;
-using MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages;
+using System;
 
 namespace HomeAutomation.Tests
 {
@@ -17,14 +13,12 @@ namespace HomeAutomation.Tests
         {
             public bool TestSuccess { get; set; }
 
-            public override void ProcessFrame(MosziNet.HomeAutomation.XBee.Frame.IXBeeFrame frame)
+            public override DeviceState DeviceState
             {
-                
-            }
-
-            public override DeviceState GetDeviceState()
-            {
-                return null;
+                get
+                {
+                    return null;
+                }
             }
 
             public void DoMyMethod(string param1)
@@ -49,12 +43,6 @@ namespace HomeAutomation.Tests
             }
         }
 
-        [TestInitialize]
-        public void Setup()
-        {
-            ApplicationContext.ServiceRegistry = new MosziNet.HomeAutomation.Gateway.Service.ServiceRegistry();
-        }
-
         [TestMethod]
         public void TestSimpleCommand()
         {
@@ -66,13 +54,7 @@ namespace HomeAutomation.Tests
 
             DeviceRegistry registry = new DeviceRegistry();
 
-            registry.RegisterDevice(device, deviceId);
-
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(DeviceRegistry), registry);
-            ApplicationContext.ServiceRegistry.RegisterService(typeof(IXBeeService), new MockXBeeService());
-
-            MqttMessageReceived message = new MqttMessageReceived("/Command", "01,DoMyMethod,YES");
-            message.ProcessMessage();
+            registry.RegisterDevice(null, device, deviceId);
 
             Assert.IsTrue(device.TestSuccess);
         }

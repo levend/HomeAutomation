@@ -1,5 +1,5 @@
 ﻿using System;
-using MosziNet.HomeAutomation.Util;
+using HomeAutomation.Util;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace HomeAutomation.Util.Tests
