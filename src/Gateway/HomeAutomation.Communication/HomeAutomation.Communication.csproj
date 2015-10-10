@@ -107,6 +107,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mqtt\IMqttClient.cs" />
+    <Compile Include="Mqtt\MqttClientWrapper.cs" />
     <Compile Include="Mqtt\MqttMessage.cs" />
     <Compile Include="Mqtt\MqttServerConfiguration.cs" />
     <Compile Include="Mqtt\MqttService.cs" />

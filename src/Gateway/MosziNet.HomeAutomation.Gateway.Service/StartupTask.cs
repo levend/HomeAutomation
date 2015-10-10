@@ -10,7 +10,7 @@ namespace HomeAutomation.Gateway.Service
     {
         public void Run(IBackgroundTaskInstance taskInstance)
         {
-            var configuration = new ConfigurationManager().LoadFile("Config/HomeAutomation.conf");
+            var configuration = new ConfigurationManager().LoadFile<HomeAutomationConfiguration>("Config/HomeAutomation.conf");
 
             GatewayInitializer gateway = new GatewayInitializer();
 

@@ -5,11 +5,21 @@ using System.Xml;
 
 namespace HomeAutomation.Application.Configuration
 {
+    /// <summary>
+    /// The ConfigurationManager class reads a configuration file and populates the given configuration object with it.
+    /// </summary>
     public class ConfigurationManager
     {
-        public HomeAutomationConfiguration LoadFile(string fileName)
+        /// <summary>
+        /// Loads a new configuration file and returns the populated configuration object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public T LoadFile<T>(string fileName) 
+            where T : new()
         {
-            HomeAutomationConfiguration config = new HomeAutomationConfiguration();
+            T config = new T();
 
             using (FileStream fs = File.OpenRead(fileName))
             {
@@ -18,35 +28,50 @@ namespace HomeAutomation.Application.Configuration
 
                 foreach(XmlNode oneNode in xmlDoc.DocumentElement.ChildNodes)
                 {
-                    SetProperty(config, oneNode);
+                    if (oneNode.Name == "Property")
+                    {
+                        ProcessXmlNode_Property(config, oneNode);
+                    }
                 }
             }
 
             return config;
         }
 
-        private void SetProperty(HomeAutomationConfiguration config, XmlNode oneNode)
+        private void ProcessXmlNode_Property<T>(T config, XmlNode oneNode)
         {
             string propertyPath = GetAttributeValue(oneNode, "name");
-            string propertyValue = GetAttributeValue(oneNode, "value");
-            
-            SetProperty(config, propertyPath, propertyValue);
-        }
+            string propertyValueString = GetAttributeValue(oneNode, "value");
+            string propertyTypeString = GetAttributeValue(oneNode, "type");
 
-        private void SetProperty(HomeAutomationConfiguration config, string propertyPath, object propertyValue)
-        {
+            // get the instance which contains the property that is to be set
             object instance = GetPropertyContainerInstance(config, propertyPath);
+
+            // get the setter methods for the property
             MethodInfo method = GetPropertyMethod(instance, propertyPath);
-            Type propertyType = method.GetParameters()[0].ParameterType;
 
-            // if we are dealing with enums, then parse them ...
-            if (propertyType.GetTypeInfo().IsEnum)
+            // decide what type are we going to create
+            Type propertyType = String.IsNullOrEmpty(propertyTypeString) ?
+                method.GetParameters()[0].ParameterType :
+                Type.GetType(propertyTypeString, true);
+
+            if (!String.IsNullOrEmpty(propertyValueString))
             {
-               propertyValue = Enum.Parse(propertyType, (string)propertyValue);
-            }
+                object propertyValue = propertyValueString;
 
-            // if the property value is empty, then we simply create a new instance of the specified type
-            method.Invoke(instance, new object[] { Convert.ChangeType(propertyValue, propertyType) });
+                // if we are dealing with enums, then parse them ...
+                if (propertyType.GetTypeInfo().IsEnum)
+                {
+                    propertyValue = Enum.Parse(propertyType, propertyValueString);
+                }
+
+                // if the property value is empty, then we simply create a new instance of the specified type
+                method.Invoke(instance, new object[] { Convert.ChangeType(propertyValue, propertyType) });
+            }
+            else
+            {
+                method.Invoke(instance, new object[] { Activator.CreateInstance(propertyType) });
+            }            
         }
 
         private MethodInfo GetPropertyMethod(object instance, string propertyPath)
@@ -95,7 +120,7 @@ namespace HomeAutomation.Application.Configuration
 
         private string GetAttributeValue(XmlNode oneNode, string v)
         {
-            return ((XmlAttribute)oneNode.Attributes[v]).Value;
+            return ((XmlAttribute)oneNode.Attributes[v])?.Value;
         }
     }
 }

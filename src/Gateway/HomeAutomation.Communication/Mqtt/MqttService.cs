@@ -4,9 +4,7 @@ using HomeAutomation.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
-using Windows.System.Threading;
 
 namespace HomeAutomation.Communication.Mqtt
 {
@@ -16,34 +14,19 @@ namespace HomeAutomation.Communication.Mqtt
         private List<string> subscribedTopics = new List<string>();
 
         // the connection and it's lock object
-        private MqttClient mqttClient;
+        private IMqttClient mqttClient;
 
-        private MqttServerConfiguration configuration { get; set; }
+        private MqttServerConfiguration configuration;
 
         public event EventHandler<MqttMessage> MessageReceived;
 
-        public MqttService(MqttServerConfiguration config)
+        public MqttService(MqttServerConfiguration config, IMqttClient mqttClient)
         {
-            if (config.ServerHostName == null || config.ServerHostName.Length == 0)
-                throw new ArgumentOutOfRangeException("configuration", "ServerHostName should not be empty.");
-
-            if (config.KeepAliveCheckPeriodInSeconds < MinimumKeepAliveInterval)
-                throw new ArgumentOutOfRangeException("configuration", "Keep alive interval should be at least 15 seconds.");
-
-            if (config.TopicRootName[config.TopicRootName.Length - 1] == '/')
-                throw new ArgumentOutOfRangeException("configuration", "Topic name should not have a trailing / character.");
-
             this.configuration = config;
+            this.mqttClient = mqttClient;
 
             // start the MQTT client immediately.
             EnsureMqttServerIsConnected();
-
-            // ensure that we have a periodic check for the mqtt server connection
-            ThreadPoolTimer.CreatePeriodicTimer((source) =>
-            {
-                EnsureMqttServerIsConnected();
-            }, TimeSpan.FromSeconds(config.KeepAliveCheckPeriodInSeconds));
-
         }
 
         /// <summary>
@@ -114,22 +97,22 @@ namespace HomeAutomation.Communication.Mqtt
             {
                 try
                 {
-                    mqttClient = new MqttClient(configuration.ServerHostName);
+                    //mqttClient = mqttClientFactory.Create(configuration);
 
-                    mqttClient.ConnectionClosed += mqttClient_ConnectionClosed;
-                    mqttClient.MqttMsgPublishReceived += mqttClient_MqttMsgPublishReceived;
+                    //mqttClient.ConnectionClosed += mqttClient_ConnectionClosed;
+                    //mqttClient.MqttMsgPublishReceived += mqttClient_MqttMsgPublishReceived;
 
                     mqttClient.Connect(configuration.ClientName);
 
-                    // ensure that we re-connect any subscribed topics
-                    for (int i = 0; i < subscribedTopics.Count; i++)
-                    {
-                        SubscribeTopic(subscribedTopics[i]);
-                    }
+                    //// ensure that we re-connect any subscribed topics
+                    //for (int i = 0; i < subscribedTopics.Count; i++)
+                    //{
+                    //    SubscribeTopic(subscribedTopics[i]);
+                    //}
                 }
                 catch(Exception ex)
                 {
-                    Log.Debug("Connection to MQTT server was not successful. \n" + ex.FormatToLog());
+                    Log.Debug("Connection to MQTT server could not be established. Exception: \n" + ex.FormatToLog());
                 }
             }
         }

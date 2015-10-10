@@ -33,8 +33,7 @@ namespace HomeAutomation.Tests
 
             public void ProcessXBeeMessages()
             {
-                if (this.MessageReceived != null)
-                    this.MessageReceived(null, null);
+                MessageReceived?.Invoke(null, null);
             }
 
             public void SendFrame(MosziNet.HomeAutomation.XBee.Frame.IXBeeFrame frame)

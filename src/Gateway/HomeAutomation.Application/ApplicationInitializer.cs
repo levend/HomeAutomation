@@ -30,7 +30,10 @@ namespace HomeAutomation.Application
 
         private static void InitializeControllers(HomeAutomationConfiguration configuration)
         {
-            MqttService mqttService = new MqttService(configuration.Mqtt);
+            IMqttClient mqttClient = configuration.MqttClientFactory.Create(configuration.Mqtt);
+            MqttService mqttService = new MqttService(configuration.Mqtt, mqttClient);
+
+            // register this as a service, as we are going to use the mqtt service for other parts of the system (eg. logging)
             ServiceRegistry.Instance.RegisterService(mqttService);
 
             MqttController mqttController = new MqttController(mqttService);
@@ -41,7 +44,7 @@ namespace HomeAutomation.Application
         private static void InitializeDeviceNetworks(HomeAutomationConfiguration configuration)
         {
             // get the serial port that's going to be used to acess the XBee network
-            IXBeeSerialPort serialPort = new XBeeSerialPort(configuration.XBee.BaudRate, configuration.XBee.SerialParity, configuration.XBee.SerialStopBitCount, configuration.XBee.DataBits);
+            IXBeeSerialPort serialPort = configuration.XBeeSerialPortFactory.Create(configuration.XBee);
             
             XBeeDeviceNetwork xbeeNetwork = new XBeeDeviceNetwork(serialPort);
             

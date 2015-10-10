@@ -19,6 +19,9 @@ namespace HomeAutomation.Application.Tests
             Assert.AreEqual(SerialParity.None, config.XBee.SerialParity);
             Assert.AreEqual(SerialStopBitCount.One, config.XBee.SerialStopBitCount);
             Assert.AreEqual((ushort)8, config.XBee.DataBits);
+
+            Assert.IsNotNull(config.XBeeSerialPortFactory);
+            Assert.IsNotNull(config.MqttClientFactory);
         }
     }
 }
