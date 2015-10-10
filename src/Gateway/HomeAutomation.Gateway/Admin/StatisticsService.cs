@@ -1,33 +1,25 @@
-using System;
-using MosziNet.HomeAutomation.XBee;
+using HomeAutomation.Core;
 using MosziNet.HomeAutomation.Logging;
+using MosziNet.HomeAutomation.XBee;
+using System;
 using System.Text;
 
 namespace MosziNet.HomeAutomation.Gateway.Admin
 {
-    public class StatisticsService : IRunLoopParticipant
+    public class StatisticsService : ICooperativeService
     {
         private Statistics systemStatistics;
         private DateTime lastMeasureTime;
-        private int StatisticsIntervalInSeconds = 5 * 60;
+        private int statisticsIntervalInSeconds;
 
-        public StatisticsService()
+        public StatisticsService(int statisticsIntervalInSeconds)
         {
+            this.statisticsIntervalInSeconds = statisticsIntervalInSeconds;
+
             systemStatistics = new Statistics();
             systemStatistics.SystemStartTime = DateTime.Now;
 
             lastMeasureTime = DateTime.Now;
-        }
-
-        public void Execute()
-        {
-            // check if it's time to gather statistics
-            if (lastMeasureTime.AddSeconds(StatisticsIntervalInSeconds) < DateTime.Now)
-            {
-                GatherStatistics();
-
-                ReportStatistics();
-            }
         }
 
         private void ReportStatistics()
@@ -54,6 +46,17 @@ namespace MosziNet.HomeAutomation.Gateway.Admin
 
             // Migration
             //systemStatistics.FreeMemory = 0;
+        }
+
+        public void ExecuteTasks()
+        {
+            // check if it's time to gather statistics
+            if (lastMeasureTime.AddSeconds(statisticsIntervalInSeconds) < DateTime.Now)
+            {
+                GatherStatistics();
+
+                ReportStatistics();
+            }
         }
     }
 }

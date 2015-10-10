@@ -21,6 +21,11 @@ namespace HomeAutomation.Controller.Mqtt
 
         public event EventHandler<DeviceCommand> DeviceCommandArrived;
 
+        public void ExecuteTasks()
+        {
+            // nothing to do here ?
+        }
+
         public void SendDeviceState(DeviceState deviceState)
         {
             mqttService.SendMessage(mqttService.GetFullTopicName(MqttTopic.StatusTopic), deviceState.ConvertToString());

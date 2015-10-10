@@ -1,29 +1,19 @@
-using System;
-using System.Collections;
+using HomeAutomation.Core;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Util;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MosziNet.HomeAutomation
+namespace MosziNet.HomeAutomation.Gateway.Service
 {
     /// <summary>
     /// Provides a simple way of cooperatively run tasks.
     /// </summary>
-    public class RunLoop
+    internal class ServiceRunner
     {
-        List<IRunLoopParticipant> participants = new List<IRunLoopParticipant>();
         bool runloopShouldRun = true;
         Task looperTask;
-
-        /// <summary>
-        /// Adds a new run loop participant.
-        /// </summary>
-        /// <param name="participant"></param>
-        public void AddRunLoopParticipant(IRunLoopParticipant participant)
-        {
-            participants.Add(participant);
-        }
 
         /// <summary>
         /// Stops the run loop.
@@ -39,28 +29,28 @@ namespace MosziNet.HomeAutomation
         public void Start()
         {
             runloopShouldRun = true;
-            looperTask = StartLooper();
+            looperTask = GetLooperTask();
         }
 
-        private async Task StartLooper()
+        private async Task GetLooperTask()
         {
             await Task.Run(() =>
             {
                 // make a copy of the main list to ensure it's not being changed while we 
                 // are looping
-                IList<IRunLoopParticipant> localList = participants.AsReadOnly();
+                IList<ICooperativeService> localList = ServiceRegistry.Instance.GetServiceList();
 
                 while (runloopShouldRun)
                 {
-                    foreach (IRunLoopParticipant participant in localList)
+                    foreach (ICooperativeService participant in localList)
                     {
                         try
                         {
-                            participant.Execute();
+                            participant.ExecuteTasks();
                         }
                         catch (Exception ex)
                         {
-                            Log.Error("Run loop exception: " + ex.FormatToLog());
+                            Log.Error("ServiceRunner exception: " + ex.FormatToLog());
                         }
                     }
                 }

@@ -5,7 +5,7 @@ namespace HomeAutomation.Core
     /// <summary>
     /// The IHomeController interface is implemented by every controller participating in the system.
     /// </summary>
-    public interface IHomeController
+    public interface IHomeController : ICooperativeService
     {
         event EventHandler<DeviceCommand> DeviceCommandArrived;
 

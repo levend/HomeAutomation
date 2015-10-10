@@ -113,6 +113,7 @@
     <Compile Include="Device\ComponentState.cs" />
     <Compile Include="Device\DeviceCommand.cs" />
     <Compile Include="Controller\IHomeController.cs" />
+    <Compile Include="ICooperativeService.cs" />
     <Compile Include="Network\DeviceNetworkRegistry.cs" />
     <Compile Include="Network\DeviceRegistry.cs" />
     <Compile Include="Device\DeviceState.cs" />

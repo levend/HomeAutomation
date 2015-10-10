@@ -36,5 +36,10 @@ namespace HomeAutomation.Core
         {
             return deviceNetworksByName[deviceNetworkName];
         }
+
+        public IDeviceNetwork[] GetDeviceNetworks()
+        {
+            return new List<IDeviceNetwork>(deviceNetworks.Keys).ToArray();
+        }
     }
 }

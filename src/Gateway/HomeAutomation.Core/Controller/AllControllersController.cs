@@ -50,5 +50,10 @@ namespace HomeAutomation.Core.Controller
                 oneController.SendGatewayHeartbeatMessage(message);
             }
         }
+
+        public void ExecuteTasks()
+        {
+            // nothing to do here
+        }
     }
 }

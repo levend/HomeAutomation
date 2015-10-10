@@ -1,3 +1,4 @@
+using HomeAutomation.Core;
 using MosziNet.HomeAutomation.Logging;
 using MosziNet.HomeAutomation.Util;
 using System;
@@ -9,7 +10,7 @@ using Windows.System.Threading;
 
 namespace HomeAutomation.Communication.Mqtt
 {
-    public class MqttService
+    public class MqttService : ICooperativeService
     {
         private const int MinimumKeepAliveInterval = 15;
         private List<string> subscribedTopics = new List<string>();
@@ -143,6 +144,11 @@ namespace HomeAutomation.Communication.Mqtt
         void mqttClient_ConnectionClosed(object sender, EventArgs e)
         {
             // do nothing, the connection watcher task will make sure the connection is kept alive
+        }
+
+        public void ExecuteTasks()
+        {
+            EnsureMqttServerIsConnected();
         }
     }
 }

@@ -114,6 +114,10 @@
     <Content Include="Properties\HomeAutomation.Communication.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HomeAutomation.Core\HomeAutomation.Core.csproj">
+      <Project>{b1160ed7-9b1e-49da-9bbb-24da1df15fd0}</Project>
+      <Name>HomeAutomation.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HomeAutomation.Logging\HomeAutomation.Logging.csproj">
       <Project>{3e7f9495-4c0f-4ffe-925e-392afbde036d}</Project>
       <Name>HomeAutomation.Logging</Name>

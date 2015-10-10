@@ -85,5 +85,10 @@ namespace HomeAutomation.DeviceNetwork.XBee
                 Log.Debug("Dropping frame with type " + frameType.Name + " as no suitable processor is found.");
             }
         }
+
+        public void ExecuteTasks()
+        {
+            xbeeService.ProcessXBeeMessages();
+        }
     }
 }

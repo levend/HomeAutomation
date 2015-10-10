@@ -8,29 +8,21 @@ namespace HomeAutomation.Communication.Mqtt
         /// <summary>
         /// Can contain IP address or host name.
         /// </summary>
-        public string ServerHostName { get; private set; }
+        public string ServerHostName { get; set; }
 
         /// <summary>
         /// The number of seconds the keep alive loop should wait between keep alive checks.
         /// </summary>
-        public int KeepAliveCheckPeriodInSeconds { get; private set; }
+        public int KeepAliveCheckPeriodInSeconds { get; set; }
 
         /// <summary>
         /// The client name how this application presents itself to the MQTT server.
         /// </summary>
-        public string ClientName { get; private set; }
+        public string ClientName { get; set; }
 
         /// <summary>
         /// The root of the topic on which messages will be published and received.
         /// </summary>
-        public string TopicRootName { get; private set; }
-
-        public MqttServerConfiguration(string serverHostName, int keepAlivePeriod, string clientName, string topicRootName)
-        {
-            ServerHostName = serverHostName;
-            KeepAliveCheckPeriodInSeconds = keepAlivePeriod;
-            ClientName = clientName;
-            TopicRootName = topicRootName;
-        }
+        public string TopicRootName { get; set; }
     }
 }

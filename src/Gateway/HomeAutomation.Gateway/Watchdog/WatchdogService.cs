@@ -1,10 +1,11 @@
 using HomeAutomation.Core;
+using MosziNet.HomeAutomation.Gateway.Service;
 using System;
 using Windows.System.Threading;
 
 namespace MosziNet.HomeAutomation.Gateway.Watchdog
 {
-    public class WatchdogService
+    public class WatchdogService : ICooperativeService
     {
         public WatchdogService(int periodInSeconds)
         {
@@ -12,6 +13,11 @@ namespace MosziNet.HomeAutomation.Gateway.Watchdog
             {
                 HomeAutomationSystem.ControllerRegistry.All.SendGatewayHeartbeatMessage($"Watcdog:{DateTime.Now}");
             }, TimeSpan.FromSeconds(periodInSeconds));
+        }
+
+        public void ExecuteTasks()
+        {
+            // todo: refactor class to use the cooperative service ...
         }
     }
 }

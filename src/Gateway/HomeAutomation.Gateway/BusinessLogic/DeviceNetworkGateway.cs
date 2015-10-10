@@ -1,8 +1,10 @@
+using System;
 using HomeAutomation.Core;
+using MosziNet.HomeAutomation.Gateway.Service;
 
 namespace MosziNet.HomeAutomation.Gateway.BusinessLogic
 {
-    public class DeviceNetworkGateway
+    public class DeviceNetworkGateway : ICooperativeService
     {
         public DeviceNetworkGateway()
         {
@@ -16,6 +18,11 @@ namespace MosziNet.HomeAutomation.Gateway.BusinessLogic
             {
                 controller.DeviceCommandArrived += Controller_DeviceCommandArrived;
             };
+        }
+
+        public void ExecuteTasks()
+        {
+            // nothing to do here ?
         }
 
         private void Controller_DeviceCommandArrived(object sender, DeviceCommand e)
