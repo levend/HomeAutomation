@@ -94,6 +94,9 @@
     <Content Include="HomeAutomation.Applications.Tests\Config\HomeAutomationTest.conf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="IntegrationTests\Config\MockConfig.conf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="project.json" />
     <SDKReference Include="MSTestFramework.Universal, Version=$(UnitTestPlatformVersion)" />
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
@@ -107,6 +110,7 @@
     <Compile Include="HomeAutomation.Sensor.Tests\MCP9700Test.cs" />
     <Compile Include="HomeAutomation.Util.Tests\ExceptionFormatterTests.cs" />
     <Compile Include="HomeAutomation.Util.Tests\HexConverterTests.cs" />
+    <Compile Include="IntegrationTests\ApplicationInitializationTest.cs" />
     <Compile Include="IntegrationTests\MockXBeeSerialPort.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTestApp.xaml.cs">

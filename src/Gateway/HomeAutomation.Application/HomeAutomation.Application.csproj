@@ -115,6 +115,7 @@
     <Compile Include="Factory\IXBeeSerialPortFactory.cs" />
     <Compile Include="Factory\MqttClientFactory.cs" />
     <Compile Include="Factory\XBeeSerialPortFactory.cs" />
+    <Compile Include="MainApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Properties\HomeAutomation.Application.rd.xml" />
   </ItemGroup>

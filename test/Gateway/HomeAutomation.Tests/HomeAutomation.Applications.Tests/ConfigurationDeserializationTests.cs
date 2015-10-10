@@ -10,7 +10,7 @@ namespace HomeAutomation.Application.Tests
         [TestMethod]
         public void TestConfigurationDeserialization()
         {
-            var config = new ConfigurationManager().LoadFile("HomeAutomation.Applications.Tests/Config/HomeAutomationTest.conf");
+            var config = new ConfigurationManager().LoadFile<HomeAutomationConfiguration>("HomeAutomation.Applications.Tests/Config/HomeAutomationTest.conf");
 
             Assert.IsNotNull(config);
 
