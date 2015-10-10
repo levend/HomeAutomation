@@ -1,6 +1,6 @@
 using HomeAutomation.Core;
-using MosziNet.HomeAutomation.Logging;
-using MosziNet.HomeAutomation.Util;
+using HomeAutomation.Logging;
+using HomeAutomation.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;

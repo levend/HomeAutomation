@@ -7,7 +7,7 @@
     <ProjectGuid>{3E7F9495-4C0F-4FFE-925E-392AFBDE036D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MosziNet.HomeAutomation.Logging</RootNamespace>
+    <RootNamespace>HomeAutomation.Logging</RootNamespace>
     <AssemblyName>HomeAutomation.Logging</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>

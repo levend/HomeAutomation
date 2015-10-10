@@ -1,5 +1,5 @@
 ﻿using HomeAutomation.Communication.Mqtt;
-using MosziNet.HomeAutomation.Gateway.Configuration;
+using HomeAutomation.Gateway.Configuration;
 
 namespace HomeAutomation.Application.Configuration
 {

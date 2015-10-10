@@ -1,11 +1,11 @@
 using HomeAutomation.Core;
-using MosziNet.HomeAutomation.Logging;
-using MosziNet.HomeAutomation.Util;
+using HomeAutomation.Logging;
+using HomeAutomation.Util;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MosziNet.HomeAutomation.Gateway.Service
+namespace HomeAutomation.Gateway.Service
 {
     /// <summary>
     /// Provides a simple way of cooperatively run tasks.

@@ -1,5 +1,5 @@
 using HomeAutomation.Core;
-using MosziNet.HomeAutomation.Logging;
+using HomeAutomation.Logging;
 using MosziNet.HomeAutomation.XBee.Frame;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 
@@ -25,7 +25,7 @@ namespace HomeAutomation.DeviceNetwork.XBee.Device
                     // now read the temperature sensor reading
                     double analogReading = (dataSample.Samples[0] * 256 + dataSample.Samples[1]) * AnalogPinMaxVoltage / AnalogPinResolution;
 
-                    Temperature = MosziNet.HomeAutomation.Sensor.Temperature.MCP9700.TemperatureFromVoltage(analogReading);
+                    Temperature = HomeAutomation.Sensor.Temperature.MCP9700.TemperatureFromVoltage(analogReading);
                 }
                 else
                 {

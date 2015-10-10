@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace MosziNet.HomeAutomation.Util
+namespace HomeAutomation.Util
 {
     public static class ExceptionFormatter
     {

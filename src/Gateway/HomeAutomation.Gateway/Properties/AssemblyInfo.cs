@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("HomeAutomation.Gateway")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Szilveszter Molnar")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HomeAutomation.Gateway")]
 [assembly: AssemblyCopyright("GNU General Public License v2")]
 [assembly: AssemblyTrademark("")]

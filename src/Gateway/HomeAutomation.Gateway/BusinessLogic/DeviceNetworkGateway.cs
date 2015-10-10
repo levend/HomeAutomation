@@ -1,8 +1,8 @@
 using System;
 using HomeAutomation.Core;
-using MosziNet.HomeAutomation.Gateway.Service;
+using HomeAutomation.Gateway.Service;
 
-namespace MosziNet.HomeAutomation.Gateway.BusinessLogic
+namespace HomeAutomation.Gateway.BusinessLogic
 {
     public class DeviceNetworkGateway : ICooperativeService
     {

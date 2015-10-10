@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace MosziNet.HomeAutomation.Logging
+namespace HomeAutomation.Logging
 {
     /// <summary>
     /// Provides logging functionality to the application.

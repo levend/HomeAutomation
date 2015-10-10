@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("HomeAutomation.Controller.Mqtt")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Szilveszter Molnar")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HomeAutomation.Controller.Mqtt")]
 [assembly: AssemblyCopyright("GNU General Public Licence v2")]
 [assembly: AssemblyTrademark("")]

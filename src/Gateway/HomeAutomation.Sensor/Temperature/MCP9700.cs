@@ -1,6 +1,6 @@
 using System;
 
-namespace MosziNet.HomeAutomation.Sensor.Temperature
+namespace HomeAutomation.Sensor.Temperature
 {
     public class MCP9700
     {

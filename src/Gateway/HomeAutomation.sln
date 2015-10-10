@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeAutomation.Util", "Home
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeAutomation.XBee", "HomeAutomation.XBee\HomeAutomation.XBee.csproj", "{F7EC2235-E2D5-4D32-A8FD-F6664489F7A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MosziNet.HomeAutomation.Gateway.Service", "MosziNet.HomeAutomation.Gateway.Service\MosziNet.HomeAutomation.Gateway.Service.csproj", "{E9A208CF-759F-4F8D-8A73-F0013C4F9308}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeAutomation.Gateway.Service", "MosziNet.HomeAutomation.Gateway.Service\HomeAutomation.Gateway.Service.csproj", "{E9A208CF-759F-4F8D-8A73-F0013C4F9308}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{E46A108E-DD10-4AF2-8BE7-0F764CD4984D}"
 EndProject

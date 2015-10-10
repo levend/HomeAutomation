@@ -1,6 +1,6 @@
 using System;
 
-namespace MosziNet.HomeAutomation.Logging
+namespace HomeAutomation.Logging
 {
     public interface ILogWriter
     {

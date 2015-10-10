@@ -7,7 +7,7 @@
     <ProjectGuid>{E221D2FB-75E1-4BB5-AB34-DB96435C7DAA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MosziNet.HomeAutomation.Gateway</RootNamespace>
+    <RootNamespace>HomeAutomation.Gateway</RootNamespace>
     <AssemblyName>HomeAutomation.Gateway</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
@@ -113,7 +113,7 @@
     <Compile Include="BusinessLogic\DeviceNetworkGateway.cs" />
     <Compile Include="Configuration\GatewayConfiguration.cs" />
     <Compile Include="Logging\MqttLogWriter.cs" />
-    <Compile Include="Gateway.cs" />
+    <Compile Include="GatewayInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\ServiceRunner.cs" />
     <Compile Include="Service\ServiceRegistry.cs" />

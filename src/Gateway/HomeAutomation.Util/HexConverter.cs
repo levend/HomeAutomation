@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace MosziNet.HomeAutomation.Util
+namespace HomeAutomation.Util
 {
     /// <summary>
     /// Converts between hex strings and byte arrays.

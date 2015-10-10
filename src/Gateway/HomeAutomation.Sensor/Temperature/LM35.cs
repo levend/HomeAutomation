@@ -1,6 +1,4 @@
-using System;
-
-namespace MosziNet.HomeAutomation.Sensor.Temperature
+namespace HomeAutomation.Sensor.Temperature
 {
     /// <summary>
     /// Provides functionality to calculate temperature based on voltage for the LM35 device.

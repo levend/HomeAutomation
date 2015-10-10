@@ -1,9 +1,9 @@
 using HomeAutomation.Core;
-using MosziNet.HomeAutomation.Gateway.Service;
+using HomeAutomation.Gateway.Service;
 using System;
 using Windows.System.Threading;
 
-namespace MosziNet.HomeAutomation.Gateway.Watchdog
+namespace HomeAutomation.Gateway.Watchdog
 {
     public class WatchdogService : ICooperativeService
     {

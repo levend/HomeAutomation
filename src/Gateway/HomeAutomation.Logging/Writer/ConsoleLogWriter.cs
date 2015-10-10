@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 
-namespace MosziNet.HomeAutomation.Logging.Writer
+namespace HomeAutomation.Logging.Writer
 {
     public class ConsoleLogWriter : ILogWriter
     {

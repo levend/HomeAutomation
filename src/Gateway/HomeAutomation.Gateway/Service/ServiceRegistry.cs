@@ -2,7 +2,7 @@ using HomeAutomation.Core;
 using System;
 using System.Collections.Generic;
 
-namespace MosziNet.HomeAutomation.Gateway.Service
+namespace HomeAutomation.Gateway.Service
 {
     /// <summary>
     /// SerivceRegistry is the main point in the application to turn to for services.

@@ -1,4 +1,4 @@
-using MosziNet.HomeAutomation.Util;
+using HomeAutomation.Util;
 using System.Text;
 
 namespace HomeAutomation.Core

@@ -3,12 +3,11 @@ using HomeAutomation.Communication.Mqtt;
 using HomeAutomation.Controller.Mqtt;
 using HomeAutomation.Core;
 using HomeAutomation.DeviceNetwork.XBee;
-using MosziNet.HomeAutomation.Gateway;
-using MosziNet.HomeAutomation.Gateway.Service;
-using MosziNet.HomeAutomation.Logging;
-using MosziNet.HomeAutomation.Logging.Formatter;
-using MosziNet.HomeAutomation.Logging.Writer;
-using MosziNet.HomeAutomation.NetCore.RPI;
+using HomeAutomation.Gateway.Service;
+using HomeAutomation.Logging;
+using HomeAutomation.Logging.Formatter;
+using HomeAutomation.Logging.Writer;
+using HomeAutomation.NetCore.RPI;
 using MosziNet.HomeAutomation.XBee;
 
 namespace HomeAutomation.Application
@@ -22,8 +21,6 @@ namespace HomeAutomation.Application
             InitializeDeviceNetworks(configuration);
 
             InitializeControllers(configuration);
-
-            new Gateway().Initialize(configuration.Gateway);
         }
 
         private static void InitializeLogging()

@@ -1,14 +1,11 @@
 ﻿using MosziNet.HomeAutomation.XBee;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.SerialCommunication;
 using Windows.Storage.Streams;
 
-namespace MosziNet.HomeAutomation.NetCore.RPI
+namespace HomeAutomation.NetCore.RPI
 {
     /// <summary>
     /// Implements the <see cref="IXBeeSerialPort"/> needed for XBee serial communication.

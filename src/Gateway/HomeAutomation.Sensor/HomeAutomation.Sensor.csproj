@@ -7,7 +7,7 @@
     <ProjectGuid>{5A90067B-7923-4632-A871-A1F578D94C58}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MosziNet.HomeAutomation.Sensor</RootNamespace>
+    <RootNamespace>HomeAutomation.Sensor</RootNamespace>
     <AssemblyName>HomeAutomation.Sensor</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>

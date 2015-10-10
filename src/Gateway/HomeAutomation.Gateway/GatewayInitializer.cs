@@ -1,15 +1,14 @@
-﻿using System;
-using MosziNet.HomeAutomation.Gateway.Admin;
-using MosziNet.HomeAutomation.Gateway.BusinessLogic;
-using MosziNet.HomeAutomation.Gateway.Configuration;
-using MosziNet.HomeAutomation.Gateway.Service;
-using MosziNet.HomeAutomation.Gateway.Watchdog;
-using MosziNet.HomeAutomation.Logging;
-using HomeAutomation.Core;
+﻿using HomeAutomation.Core;
+using HomeAutomation.Gateway.Admin;
+using HomeAutomation.Gateway.BusinessLogic;
+using HomeAutomation.Gateway.Configuration;
+using HomeAutomation.Gateway.Service;
+using HomeAutomation.Gateway.Watchdog;
+using HomeAutomation.Logging;
 
-namespace MosziNet.HomeAutomation.Gateway
+namespace HomeAutomation.Gateway
 {
-    public class Gateway
+    public class GatewayInitializer
     {
         private ServiceRunner serviceRunner = new ServiceRunner();
 

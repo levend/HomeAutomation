@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MosziNet.HomeAutomation.Gateway.Configuration
+namespace HomeAutomation.Gateway.Configuration
 {
     public class GatewayConfiguration
     {

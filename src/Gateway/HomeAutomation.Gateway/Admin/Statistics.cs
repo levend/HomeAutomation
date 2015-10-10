@@ -1,6 +1,6 @@
 using System;
 
-namespace MosziNet.HomeAutomation.Gateway.Admin
+namespace HomeAutomation.Gateway.Admin
 {
     public class Statistics
     {

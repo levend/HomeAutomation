@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MosziNet.HomeAutomation.Gateway.Service")]
+[assembly: AssemblyTitle("HomeAutomation.Gateway.Service")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("EPAM Systems")]
-[assembly: AssemblyProduct("MosziNet.HomeAutomation.Gateway.Service")]
-[assembly: AssemblyCopyright("Copyright © EPAM Systems 2015")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("HomeAutomation.Gateway.Service")]
+[assembly: AssemblyCopyright("GNU General Public License v2")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,10 +1,10 @@
 using HomeAutomation.Core;
-using MosziNet.HomeAutomation.Logging;
+using HomeAutomation.Logging;
 using MosziNet.HomeAutomation.XBee;
 using System;
 using System.Text;
 
-namespace MosziNet.HomeAutomation.Gateway.Admin
+namespace HomeAutomation.Gateway.Admin
 {
     public class StatisticsService : ICooperativeService
     {

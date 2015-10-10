@@ -1,6 +1,6 @@
 using HomeAutomation.Core;
 
-namespace MosziNet.HomeAutomation.Gateway.ApplicationLogic.Messages
+namespace HomeAutomation.Gateway.ApplicationLogic.Messages
 {
     /// <summary>
     /// This message carries information about a command that is to be executed in the system.

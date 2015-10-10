@@ -1,7 +1,7 @@
 using HomeAutomation.Communication.Mqtt;
 using System;
 
-namespace MosziNet.HomeAutomation.Logging.Writer
+namespace HomeAutomation.Logging.Writer
 {
     public class MqttLogWriter : ILogWriter
     {

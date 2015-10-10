@@ -1,6 +1,6 @@
 using System;
 
-namespace MosziNet.HomeAutomation.Logging.Formatter
+namespace HomeAutomation.Logging.Formatter
 {
     public class StandardLogFormatter : ILogFormatter
     {
