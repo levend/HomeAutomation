@@ -14,7 +14,7 @@ namespace HomeAutomation.Core
 
         public abstract DeviceState DeviceState { get; }
 
-        public IDeviceNetwork DeviceNetwork { get; internal set; }
+        public IDeviceNetwork DeviceNetwork { get; set; }
 
         /// <summary>
         /// Executes the command on this instance. 
@@ -24,7 +24,18 @@ namespace HomeAutomation.Core
         public void ExecuteCommand(DeviceCommand aCommand)
         {
             MethodInfo executableMethod = this.GetType().GetMethod(aCommand.Name);
-            executableMethod.Invoke(this, aCommand.Parameters);
+
+            object[] parameters = new object[aCommand.Parameters.Length];
+            ParameterInfo[] parameterInfos = executableMethod.GetParameters();
+
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                Type destinationType = parameterInfos[i].ParameterType;
+
+                parameters[i] = Convert.ChangeType(aCommand.Parameters[i], destinationType);
+            }
+
+            executableMethod.Invoke(this, parameters);
         }
     }
 }

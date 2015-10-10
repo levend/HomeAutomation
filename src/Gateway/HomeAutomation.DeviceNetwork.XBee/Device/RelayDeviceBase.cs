@@ -95,18 +95,17 @@ namespace HomeAutomation.DeviceNetwork.XBee.Device
         /// <summary>
         /// This is a method that will be invoked by commands sent to the system.
         /// </summary>
-        /// <param name="relayIndexString"></param>
-        /// <param name="stateString"></param>
-        public void SetRelayState(string relayIndexString, string stateString)
+        /// <param name="relayIndex"></param>
+        /// <param name="state"></param>
+        public void SetRelayState(ushort relayIndex, byte state)
         {
-            byte relayIndex = Byte.Parse(relayIndexString);
-
             if (relayIndex >= xbeeConfiguration.Count)
                 relayIndex = (byte)(xbeeConfiguration.Count - 1);
 
-            byte state = Byte.Parse(stateString);
-            if (state > 1)
-                state = 1;
+            if (state > StateON)
+                state = StateON;
+
+            switchStates[relayIndex] = state;
 
             IXBeeService xbeeService = ((XBeeDeviceNetwork)DeviceNetwork).XBeeService;
 
@@ -119,7 +118,7 @@ namespace HomeAutomation.DeviceNetwork.XBee.Device
                 new byte[] { ((byte)(state == StateON ? PinLow : PinHigh)) },
                 RemoteATCommand.OptionCommitChanges));
 
-            Log.Debug($"[{DeviceID.ToHexString()}] Setting relay {relayIndexString} to {stateString}");
+            Log.Debug($"[{DeviceID.ToHexString()}] Setting relay {relayIndex} to {state}");
         }
     }
 }
