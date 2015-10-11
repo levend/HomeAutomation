@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using HomeAutomation.Application;
 using HomeAutomation.Core;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Core;
+using Windows.ApplicationModel.Core;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -39,7 +41,10 @@ namespace HomeAutomation.Gateway.App
 
         public void SendStatistics(Dictionary<string, object> statisticValues)
         {
-            receivedXBeeFrameCount.Text = statisticValues["XBeeMessageReceiveCount"].ToString();
+            var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                receivedXBeeFrameCount.Text = statisticValues["XBeeMessageReceiveCount"].ToString();
+            });
         }
 
         private void MainPage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)

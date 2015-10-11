@@ -12,5 +12,6 @@
 
         <TextBlock x:Name="receivedXBeeFrameCount" HorizontalAlignment="Left" Margin="305,157,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="217" FontSize="24"/>
         <TextBlock x:Name="textBox" HorizontalAlignment="Left" Margin="38,157,0,0" TextWrapping="Wrap" Text="Received XBee Frames:" VerticalAlignment="Top" FontSize="24"/>
+        <Image x:Name="image" HorizontalAlignment="Right" Height="100" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Source="Assets/Square150x150Logo.png"/>
     </Grid>
 </Page>
