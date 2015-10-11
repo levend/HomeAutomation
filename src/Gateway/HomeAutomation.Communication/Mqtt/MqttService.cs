@@ -10,7 +10,6 @@ namespace HomeAutomation.Communication.Mqtt
 {
     public class MqttService : ICooperativeService
     {
-        private const int MinimumKeepAliveInterval = 15;
         private List<string> subscribedTopics = new List<string>();
 
         // the connection and it's lock object
@@ -73,24 +72,6 @@ namespace HomeAutomation.Communication.Mqtt
             return fullTopicName.Substring(configuration.TopicRootName.Length);
         }
 
-
-        private void MQTTMessageReceived(string topicId, string message)
-        {
-            if (message == null || message.Length == 0)
-                return;
-
-            // strip down the topic root name
-            topicId = GetTopicNameSuffix(topicId);
-
-            this.MessageReceived?.Invoke(topicId, new MqttMessage()
-            {
-                TopicName = topicId,
-                Message = message
-            });
-
-            Log.Information("[" + topicId + "] " + message);
-        }
-
         private void EnsureMqttServerIsConnected()
         {
             if (mqttClient == null || !mqttClient.IsConnected)
@@ -99,8 +80,8 @@ namespace HomeAutomation.Communication.Mqtt
                 {
                     //mqttClient = mqttClientFactory.Create(configuration);
 
-                    //mqttClient.ConnectionClosed += mqttClient_ConnectionClosed;
-                    //mqttClient.MqttMsgPublishReceived += mqttClient_MqttMsgPublishReceived;
+                    mqttClient.ConnectionClosed += mqttClient_ConnectionClosed;
+                    mqttClient.MqttMsgPublishReceived += mqttClient_MqttMsgPublishReceived;
 
                     mqttClient.Connect(configuration.ClientName);
 
@@ -117,11 +98,15 @@ namespace HomeAutomation.Communication.Mqtt
             }
         }
 
-        void mqttClient_MqttMsgPublishReceived(object sender, uPLibrary.Networking.M2Mqtt.Messages.MqttMsgPublishEventArgs e)
+        private void mqttClient_MqttMsgPublishReceived(object arg1, MqttMessage message)
         {
-            string message = new String(Encoding.UTF8.GetChars(e.Message));
-            
-            MQTTMessageReceived(e.Topic, message);
+            // fix the topic name to reflect only the suffix
+            message.TopicName = GetTopicNameSuffix(message.TopicName);
+
+            // bubble up the event
+            MessageReceived?.Invoke(this, message);
+
+            Log.Information("[" + message.TopicName + "] " + message);
         }
 
         void mqttClient_ConnectionClosed(object sender, EventArgs e)

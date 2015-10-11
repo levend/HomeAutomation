@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
@@ -20,7 +17,7 @@ namespace HomeAutomation.Communication.Mqtt
             mqttClient.MqttMsgPublishReceived += MqttClient_MqttMsgPublishReceived;
         }
         public event Action<object, EventArgs> ConnectionClosed;
-        public event Action<object, MqttMsgPublishEventArgs> MqttMsgPublishReceived;
+        public event Action<object, MqttMessage> MqttMsgPublishReceived;
 
         public bool IsConnected
         {
@@ -47,7 +44,13 @@ namespace HomeAutomation.Communication.Mqtt
 
         private void MqttClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
-            MqttMsgPublishReceived?.Invoke(sender, e);
+            MqttMessage m = new MqttMessage()
+            {
+                TopicName = e.Topic,
+                Message = new String(Encoding.UTF8.GetChars(e.Message))
+            };
+
+            MqttMsgPublishReceived?.Invoke(sender, m);
         }
 
         private void MqttClient_ConnectionClosed(object sender, EventArgs e)

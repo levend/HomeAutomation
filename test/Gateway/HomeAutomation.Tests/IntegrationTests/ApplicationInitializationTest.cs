@@ -7,9 +7,11 @@ namespace HomeAutomation.Tests.IntegrationTests
     public class ApplicationInitializationTest
     {
         [TestMethod]
-        public void Setup()
+        public void TestFlow1()
         {
             MainApplication.Start("IntegrationTests/Config/MockConfig.conf");
+
+
         }
     }
 }

@@ -10,7 +10,7 @@ namespace HomeAutomation.Communication.Mqtt
     public interface IMqttClient
     {
         event Action<object, EventArgs> ConnectionClosed;
-        event Action<object, MqttMsgPublishEventArgs> MqttMsgPublishReceived;
+        event Action<object, MqttMessage> MqttMsgPublishReceived;
 
         bool IsConnected { get; }  
 
