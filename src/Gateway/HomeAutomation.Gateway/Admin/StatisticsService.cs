@@ -1,7 +1,9 @@
+using HomeAutomation.Core;
 using HomeAutomation.Core.Service;
 using HomeAutomation.Logging;
 using MosziNet.HomeAutomation.XBee;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace HomeAutomation.Gateway.Admin
@@ -25,15 +27,11 @@ namespace HomeAutomation.Gateway.Admin
         private void ReportStatistics()
         {
             lastMeasureTime = DateTime.Now;
+            Dictionary<string, object> statistics = new Dictionary<string, object>();
 
-            String statisticsMessage = new StringBuilder()
-                .Append("System uptime in days: " + systemStatistics.UptimeDays + "\n")
-                .Append("XBee messages received: " + systemStatistics.XBeeMessageReceiveCount + "\n")
-                .Append("XBee messages sent: " + systemStatistics.XBeeMessageSentCount + "\n")
-                .Append("Free memory: " + systemStatistics.FreeMemory)
-                .ToString();
+            statistics.Add("XBeeMessageReceiveCount", systemStatistics.XBeeMessageReceiveCount);
 
-            Log.Debug(statisticsMessage);
+            HomeAutomationSystem.ControllerRegistry.All.SendStatistics(statistics);
         }
 
         private void GatherStatistics()

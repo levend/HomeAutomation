@@ -21,9 +21,7 @@ namespace HomeAutomation.Tests.IntegrationTests
         [TestInitialize]
         public void Setup()
         {
-            MainApplication.Start("IntegrationTests/Config/MockConfig.conf");
-
-            HomeAutomationSystem.ServiceRegistry.Runner.Stop(); // we will make sure to "step" the system, not run
+            MainApplication.Initialize("IntegrationTests/Config/MockConfig.conf");
 
             serialPort = (MockXBeeSerialPort)MockXBeeSerialPortFactory.Instance.Create(null);
             mqttClient = (MockMqttClient)MockMqttClientFactory.Instance.Create(null);

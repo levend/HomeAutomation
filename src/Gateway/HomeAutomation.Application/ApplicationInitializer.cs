@@ -10,28 +10,30 @@ using MosziNet.HomeAutomation.XBee;
 
 namespace HomeAutomation.Application
 {
-    public static class ApplicationInitializer
+    public class ApplicationInitializer
     {
-        public static void Initialize(HomeAutomationConfiguration configuration)
-        {
-            InitializeLogging();
+        MqttService mqttService;
 
+        public void Initialize(HomeAutomationConfiguration configuration)
+        {
             InitializeDeviceNetworks(configuration);
 
             InitializeControllers(configuration);
+
+            InitializeLogging();
         }
 
-        private static void InitializeLogging()
+        private void InitializeLogging()
         {
             Log.AddLogWriter(new ConsoleLogWriter(), new StandardLogFormatter());
+            Log.AddLogWriter(new MqttLogWriter(mqttService, MqttTopic.LogTopic), new StandardLogFormatter());
         }
 
-        private static void InitializeControllers(HomeAutomationConfiguration configuration)
+        private void InitializeControllers(HomeAutomationConfiguration configuration)
         {
             IMqttClient mqttClient = configuration.MqttClientFactory.Create(configuration.Mqtt);
-            MqttService mqttService = new MqttService(configuration.Mqtt, mqttClient);
+            mqttService = new MqttService(configuration.Mqtt, mqttClient);
 
-            // register this as a service, as we are going to use the mqtt service for other parts of the system (eg. logging)
             HomeAutomationSystem.ServiceRegistry.RegisterService(mqttService);
 
             MqttController mqttController = new MqttController(mqttService);
@@ -39,7 +41,7 @@ namespace HomeAutomation.Application
             HomeAutomationSystem.ControllerRegistry.RegisterController(mqttController);
         }
 
-        private static void InitializeDeviceNetworks(HomeAutomationConfiguration configuration)
+        private void InitializeDeviceNetworks(HomeAutomationConfiguration configuration)
         {
             // get the serial port that's going to be used to acess the XBee network
             IXBeeSerialPort serialPort = configuration.XBeeSerialPortFactory.Create(configuration.XBee);

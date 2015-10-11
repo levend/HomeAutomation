@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HomeAutomation.Core.Controller
 {
@@ -54,6 +55,15 @@ namespace HomeAutomation.Core.Controller
         public void ExecuteTasks()
         {
             // nothing to do here
+        }
+
+        public void SendStatistics(Dictionary<string, object> statisticValues)
+        {
+            IHomeController[] allControllers = registry.GetControllers();
+            foreach (IHomeController oneController in allControllers)
+            {
+                oneController.SendStatistics(statisticValues);
+            }
         }
     }
 }

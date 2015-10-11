@@ -1,5 +1,6 @@
 ﻿using HomeAutomation.Core.Service;
 using System;
+using System.Collections.Generic;
 
 namespace HomeAutomation.Core
 {
@@ -21,5 +22,11 @@ namespace HomeAutomation.Core
         /// </summary>
         /// <param name="message"></param>
         void SendGatewayHeartbeatMessage(string message);
+
+        /// <summary>
+        /// Sends statistics about the system usage.
+        /// </summary>
+        /// <param name="statisticValues"></param>
+        void SendStatistics(Dictionary<string, object> statisticValues);
     }
 }

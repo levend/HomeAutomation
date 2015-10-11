@@ -1,5 +1,7 @@
-﻿using MosziNet.HomeAutomation.XBee;
+﻿using HomeAutomation.Util;
+using MosziNet.HomeAutomation.XBee;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.SerialCommunication;
@@ -57,7 +59,19 @@ namespace HomeAutomation.NetCore.RPI
 
         private void SerialPortWatcher_Removed(DeviceWatcher sender, DeviceInformationUpdate args)
         {
+            isPortReady = false;
             
+            try
+            {
+                dataWriter.Dispose();
+                dataReader.Dispose();
+                serialPort.Dispose();
+            }
+            catch { }
+
+            dataWriter = null;
+            dataReader = null;
+            serialPort = null;
         }
 
         private async void SerialPortWatcher_Added(DeviceWatcher sender, DeviceInformation args)
@@ -77,7 +91,7 @@ namespace HomeAutomation.NetCore.RPI
 
                     dataReader = new DataReader(serialPort.InputStream);
 
-                    dataReader.InputStreamOptions = InputStreamOptions.ReadAhead;
+                    dataReader.InputStreamOptions = InputStreamOptions.Partial;
                     dataReader.ByteOrder = ByteOrder.BigEndian;
 
                     dataWriter = new DataWriter(serialPort.OutputStream);
@@ -125,7 +139,10 @@ namespace HomeAutomation.NetCore.RPI
         private async Task<byte[]> GetReadFrameTask()
         {
             await dataReader.LoadAsync(1);
-            if (dataReader.ReadByte() == 0x7e)
+
+            byte readByte = dataReader.ReadByte();
+
+            if (readByte == 0x7e)
             {
                 await dataReader.LoadAsync(2);
 

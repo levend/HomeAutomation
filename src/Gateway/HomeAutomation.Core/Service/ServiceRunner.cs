@@ -26,16 +26,15 @@ namespace HomeAutomation.Core.Service
         /// </summary>
         public void Start()
         {
-            runloopShouldRun = true;
-
-            Task.Factory.StartNew((o) =>
+            Task.Factory.StartNew(() =>
             {
+                runloopShouldRun = true;
+
                 while (runloopShouldRun)
                 {
                     StepOneLoop();
                 }
-            }, 
-            TaskCreationOptions.LongRunning);
+            }, TaskCreationOptions.LongRunning);
         }
 
         public void StepOneLoop()
