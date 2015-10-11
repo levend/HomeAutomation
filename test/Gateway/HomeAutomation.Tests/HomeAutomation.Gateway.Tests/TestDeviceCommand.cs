@@ -44,6 +44,8 @@ namespace HomeAutomation.Tests
 
          public class MockDeviceNetwok : IDeviceNetwork
         {
+            public string Name { get; set; }
+
             public DeviceTypeDescription[] AvailableDeviceTypes
             {
                 get

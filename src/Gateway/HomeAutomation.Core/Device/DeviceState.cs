@@ -27,6 +27,8 @@ namespace HomeAutomation.Core
         {
             StringBuilder stateBuilder = new StringBuilder();
 
+            stateBuilder.Append(this.Device.DeviceNetwork.Name);
+            stateBuilder.Append(",");
             stateBuilder.Append(this.Device.DeviceID.ToHexString());
 
             foreach (ComponentState componentState in this.ComponentStateList)

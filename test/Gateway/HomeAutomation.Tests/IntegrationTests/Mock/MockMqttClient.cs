@@ -45,5 +45,9 @@ namespace HomeAutomation.Tests.IntegrationTests
             return returnList;
         }
 
+        internal void GenerateMessageOnTopic(string topic, string message)
+        {
+            MqttMsgPublishReceived?.Invoke(this, new MqttMessage() { TopicName = topic, Message = message });
+        }
     }
 }

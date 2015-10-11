@@ -13,15 +13,13 @@ namespace HomeAutomation.Gateway.BusinessLogic
                 network.DeviceStateReceived += DeviceNetwork_DeviceStateReceived;
             };
 
-            HomeAutomationSystem.ControllerRegistry.ControllerAdded += (sender, controller) =>
-            {
-                controller.DeviceCommandArrived += Controller_DeviceCommandArrived;
-            };
+            // the controllers are aggregated with the "All" controller, subscribe to the commands there.
+            HomeAutomationSystem.ControllerRegistry.All.DeviceCommandArrived += Controller_DeviceCommandArrived;
         }
 
         public void ExecuteTasks()
         {
-            // nothing to do here ?
+            // nothing to do here for this cooperative service.
         }
 
         private void Controller_DeviceCommandArrived(object sender, DeviceCommand e)

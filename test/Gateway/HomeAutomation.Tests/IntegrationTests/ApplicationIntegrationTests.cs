@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using MosziNet.HomeAutomation.XBee;
 using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
 using System.Collections.Generic;
+using System;
 
 namespace HomeAutomation.Tests.IntegrationTests
 {
@@ -15,6 +16,7 @@ namespace HomeAutomation.Tests.IntegrationTests
     {
         MockXBeeSerialPort serialPort;
         MockMqttClient mqttClient;
+        IDeviceNetwork xbeeNetwork;
 
         [TestInitialize]
         public void Setup()
@@ -25,15 +27,20 @@ namespace HomeAutomation.Tests.IntegrationTests
 
             serialPort = (MockXBeeSerialPort)MockXBeeSerialPortFactory.Instance.Create(null);
             mqttClient = (MockMqttClient)MockMqttClientFactory.Instance.Create(null);
+            xbeeNetwork = HomeAutomationSystem.DeviceNetworkRegistry.GetNetworkByName("xbee");
         }
 
         [TestMethod]
-        public void TestDeviceIdentificationFlow()
+        public void TestIntegrationFlows()
         {
             // TODO: Ensure watchdog, statistics or any other time based service does not mess with out results.
 
-            IDeviceNetwork dn = HomeAutomationSystem.DeviceNetworkRegistry.GetNetworkByName("xbee");
+            TestDeviceIdentificationFlow();
+            TestDeviceCommandFlow();
+        }
 
+        private void TestDeviceIdentificationFlow()
+        {
             // STEP1: Device sends IO Data sample. Result: device is not known, so a message should be sent back to it asking for identification.
             serialPort.EnqueueFrame(HexConverter.BytesFromSpacedString("7E 00 12 92 12 34 56 78 12 34 56 78 11 11 00 01 00 00 00 02 E5 3B")); // analog reading: 724 mV
             HomeAutomationSystem.ServiceRegistry.Runner.StepOneLoop();
@@ -50,7 +57,7 @@ namespace HomeAutomation.Tests.IntegrationTests
                 Assert.AreEqual<string>("1234567812345678", remoteCommand.Address.ToHexString()); // Is the address correct ?
 
                 // check if the device is staged
-                Assert.IsTrue(HomeAutomationSystem.DeviceRegistry.IsStagingDevice(dn, "1234567812345678".BytesFromString()));
+                Assert.IsTrue(HomeAutomationSystem.DeviceRegistry.IsStagingDevice(xbeeNetwork, "1234567812345678".BytesFromString()));
             }
 
             // STEP2: Device identifies itself
@@ -59,7 +66,7 @@ namespace HomeAutomation.Tests.IntegrationTests
 
             {
                 // the device should not be staged anymore
-                Assert.IsFalse(HomeAutomationSystem.DeviceRegistry.IsStagingDevice(dn, "1234567812345678".BytesFromString()));
+                Assert.IsFalse(HomeAutomationSystem.DeviceRegistry.IsStagingDevice(xbeeNetwork, "1234567812345678".BytesFromString()));
             }
 
             // STEP3: Device sends temperature reading
@@ -72,10 +79,43 @@ namespace HomeAutomation.Tests.IntegrationTests
                 // There should be one message:
                 // Message: "1234567812345678,MCP9700,36.8", Topic: /MosziNet_HA/Status
                 Assert.AreEqual<int>(1, sentMessages.Count);
-                Assert.AreEqual<string>("1234567812345678,MCP9700,36.8", sentMessages[0].Message);
+                Assert.AreEqual<string>("xbee,1234567812345678,MCP9700,36.8", sentMessages[0].Message);
                 Assert.AreEqual<string>("/MosziNet_HA/Status", sentMessages[0].TopicName);
             }
         }
 
+        public void TestDeviceCommandFlow()
+        {
+            // STEP 1: send frame from Double Relay, id itself.
+            serialPort.EnqueueFrame(HexConverter.BytesFromSpacedString("7E 00 12 92 12 34 56 78 11 22 33 44 11 22 00 01 00 03 00 00 03 75"));
+            HomeAutomationSystem.ServiceRegistry.Runner.StepOneLoop();
+
+            serialPort.EnqueueFrame(HexConverter.BytesFromSpacedString("7E 00 13 97 01 12 34 56 78 11 22 33 44 11 22 44 44 00 00 03 99 84 CE"));
+            HomeAutomationSystem.ServiceRegistry.Runner.StepOneLoop();
+
+            serialPort.EnqueueFrame(HexConverter.BytesFromSpacedString("7E 00 12 92 12 34 56 78 11 22 33 44 11 22 00 01 00 03 00 00 03 75"));
+            HomeAutomationSystem.ServiceRegistry.Runner.StepOneLoop();
+
+            // STEP 2: generate a command on the command topic to switch relay at pin D0 to ON
+            mqttClient.FlushSentMessages();
+            serialPort.FlushWritternFrames();
+
+            // generate a switch command from the controller 
+            mqttClient.GenerateMessageOnTopic("/MosziNet_HA/Command", "xbee,1234567811223344,SetRelayState,0,1");
+            HomeAutomationSystem.ServiceRegistry.Runner.StepOneLoop();
+
+            // check remote at command request
+            {
+                // check the result frames written
+                List<byte[]> writtenFrames = serialPort.FlushWritternFrames();
+
+                Assert.AreEqual(1, writtenFrames.Count);
+                RemoteATCommand remoteCommand = FrameSerializer.Deserialize(writtenFrames[0]) as RemoteATCommand;
+
+                Assert.IsTrue(XBeeFrameUtil.IsSameATCommand(remoteCommand.ATCommand, ATCommands.D0)); // Is this D0 write request ?
+                Assert.AreEqual<string>("1234567811223344", remoteCommand.Address.ToHexString()); // Is the address correct ?
+                Assert.AreEqual(0x04, remoteCommand.Parameters[0]);
+            }
+        }
     }
 }

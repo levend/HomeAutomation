@@ -21,6 +21,9 @@ namespace HomeAutomation.Core
             deviceNetworks.Add(deviceNetwork, deviceNetworkUniqueId);
             deviceNetworksByName.Add(deviceNetworkUniqueId, deviceNetwork);
 
+            // record this name in the device network as well.
+            deviceNetwork.Name = deviceNetworkUniqueId;
+
             HomeAutomationSystem.DeviceTypeRegistry.RegisterDeviceTypes(deviceNetwork);
             HomeAutomationSystem.ServiceRegistry.RegisterService(deviceNetwork);
 

@@ -9,10 +9,10 @@ namespace HomeAutomation.Gateway.Watchdog
     {
         public WatchdogService(int periodInSeconds)
         {
-            ThreadPoolTimer.CreatePeriodicTimer((source) =>
-            {
-                HomeAutomationSystem.ControllerRegistry.All.SendGatewayHeartbeatMessage($"Watcdog:{DateTime.Now}");
-            }, TimeSpan.FromSeconds(periodInSeconds));
+            //ThreadPoolTimer.CreatePeriodicTimer((source) =>
+            //{
+            //    HomeAutomationSystem.ControllerRegistry.All.SendGatewayHeartbeatMessage($"Watcdog:{DateTime.Now}");
+            //}, TimeSpan.FromSeconds(periodInSeconds));
         }
 
         public void ExecuteTasks()

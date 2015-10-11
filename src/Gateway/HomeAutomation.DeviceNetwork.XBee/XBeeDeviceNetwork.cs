@@ -17,6 +17,8 @@ namespace HomeAutomation.DeviceNetwork.XBee
 
         private IXBeeService xbeeService;
 
+        public string Name { get; set; }
+
         public XBeeDeviceNetwork(IXBeeSerialPort serialPort)
         {
             xbeeService = new XBeeService(serialPort);
