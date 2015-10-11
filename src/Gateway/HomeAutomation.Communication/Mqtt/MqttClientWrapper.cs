@@ -32,9 +32,9 @@ namespace HomeAutomation.Communication.Mqtt
             mqttClient.Connect(clientName);
         }
 
-        public void Publish(string topic, byte[] v)
+        public void Publish(string topic, string message)
         {
-            mqttClient.Publish(topic, v);
+            mqttClient.Publish(topic, Encoding.UTF8.GetBytes(message));
         }
 
         public void Subscribe(string[] topics, byte[] qosLevels)

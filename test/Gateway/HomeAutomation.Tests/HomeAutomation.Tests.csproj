@@ -110,7 +110,7 @@
     <Compile Include="HomeAutomation.Sensor.Tests\MCP9700Test.cs" />
     <Compile Include="HomeAutomation.Util.Tests\ExceptionFormatterTests.cs" />
     <Compile Include="HomeAutomation.Util.Tests\HexConverterTests.cs" />
-    <Compile Include="IntegrationTests\ApplicationInitializationTest.cs" />
+    <Compile Include="IntegrationTests\ApplicationIntegrationTests.cs" />
     <Compile Include="IntegrationTests\Factory\MockMqttClientFactory.cs" />
     <Compile Include="IntegrationTests\Factory\MockXBeeSerialPortFactory.cs" />
     <Compile Include="IntegrationTests\Mock\MockMqttClient.cs" />

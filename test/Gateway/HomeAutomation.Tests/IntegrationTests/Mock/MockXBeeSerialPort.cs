@@ -1,31 +1,44 @@
-﻿using System;
-using MosziNet.HomeAutomation.XBee;
-using MosziNet.HomeAutomation.XBee.Frame;
+﻿using MosziNet.HomeAutomation.XBee;
+using System;
+using System.Collections.Generic;
 
 namespace HomeAutomation.Tests.IntegrationTests
 {
     class MockXBeeSerialPort : IXBeeSerialPort
     {
-        public class XBeeFrameRequest
-        {
-            public byte[] Frame { get; set; }
-        }
+        Queue<byte[]> frameList = new Queue<byte[]>();
 
-        public event EventHandler<XBeeFrameRequest> NewFrameRequired;
+        List<byte[]> framesWritten = new List<byte[]>();
+
         public event EventHandler<byte[]> FrameWritten;
 
         public byte[] GetNextAvailableFrame()
         {
-            XBeeFrameRequest xfr = new XBeeFrameRequest();
-
-            NewFrameRequired?.Invoke(this, xfr);
-
-            return xfr.Frame;
+            if (frameList.Count > 0)
+                return frameList.Dequeue();
+            else
+                return null;
         }
 
         public void WriteFrame(byte[] frame)
         {
             FrameWritten?.Invoke(this, frame);
+
+            framesWritten.Add(frame);
+        }
+
+        public void EnqueueFrame(byte[] frame)
+        {
+            frameList.Enqueue(frame);
+        }
+
+        public List<byte[]> FlushWritternFrames()
+        {
+            List<byte[]> returnList = new List<byte[]>(framesWritten);
+
+            framesWritten.Clear();
+
+            return returnList;
         }
     }
 }

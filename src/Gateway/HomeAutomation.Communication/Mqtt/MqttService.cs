@@ -1,9 +1,8 @@
-using HomeAutomation.Core;
+using HomeAutomation.Core.Service;
 using HomeAutomation.Logging;
 using HomeAutomation.Util;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
 namespace HomeAutomation.Communication.Mqtt
@@ -35,7 +34,7 @@ namespace HomeAutomation.Communication.Mqtt
         /// <param name="message"></param>
         public void SendMessage(string topic, string message)
         {
-            mqttClient.Publish(topic, Encoding.UTF8.GetBytes(message));
+            mqttClient.Publish(topic, message);
         }
 
         public void SubscribeTopic(string topic)

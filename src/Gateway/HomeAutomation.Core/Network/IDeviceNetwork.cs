@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeAutomation.Core.Service;
+using System;
 
 namespace HomeAutomation.Core
 {

@@ -115,8 +115,6 @@
     <Compile Include="Logging\MqttLogWriter.cs" />
     <Compile Include="GatewayInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\ServiceRunner.cs" />
-    <Compile Include="Service\ServiceRegistry.cs" />
     <Compile Include="Watchdog\WatchdogService.cs" />
     <Content Include="Properties\HomeAutomation.Gateway.rd.xml" />
   </ItemGroup>

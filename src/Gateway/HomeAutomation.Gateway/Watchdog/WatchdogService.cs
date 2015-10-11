@@ -1,5 +1,5 @@
 using HomeAutomation.Core;
-using HomeAutomation.Gateway.Service;
+using HomeAutomation.Core.Service;
 using System;
 using Windows.System.Threading;
 

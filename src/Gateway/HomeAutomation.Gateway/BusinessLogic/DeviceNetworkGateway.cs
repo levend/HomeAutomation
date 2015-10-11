@@ -1,6 +1,5 @@
-using System;
 using HomeAutomation.Core;
-using HomeAutomation.Gateway.Service;
+using HomeAutomation.Core.Service;
 
 namespace HomeAutomation.Gateway.BusinessLogic
 {

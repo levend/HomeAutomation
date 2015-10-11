@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeAutomation.Core.Controller;
+using System;
 using System.Collections.Generic;
 
 namespace HomeAutomation.Core
@@ -11,8 +12,14 @@ namespace HomeAutomation.Core
         public event EventHandler<IHomeController> ControllerAdded;
 
         private IHomeController[] controllerList = new IHomeController[0];
+        private AllControllersController allController;
 
-        public IHomeController All { get; }
+        public IHomeController All { get { return allController; } }
+
+        public ControllerRegistry()
+        {
+            allController = new AllControllersController(this);
+        }
 
         /// <summary>
         /// Registers a controller to the system.
@@ -24,6 +31,8 @@ namespace HomeAutomation.Core
             newList.Add(controller);
 
             controllerList = newList.ToArray();
+
+            HomeAutomationSystem.ServiceRegistry.RegisterService(controller);
 
             ControllerAdded?.Invoke(this, controller);
         }

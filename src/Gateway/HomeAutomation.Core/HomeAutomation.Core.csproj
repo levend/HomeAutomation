@@ -113,7 +113,7 @@
     <Compile Include="Device\ComponentState.cs" />
     <Compile Include="Device\DeviceCommand.cs" />
     <Compile Include="Controller\IHomeController.cs" />
-    <Compile Include="ICooperativeService.cs" />
+    <Compile Include="Service\ICooperativeService.cs" />
     <Compile Include="Network\DeviceNetworkRegistry.cs" />
     <Compile Include="Network\DeviceRegistry.cs" />
     <Compile Include="Device\DeviceState.cs" />
@@ -125,6 +125,8 @@
     <Compile Include="Network\IDeviceNetwork.cs" />
     <Compile Include="HomeAutomationSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\ServiceRegistry.cs" />
+    <Compile Include="Service\ServiceRunner.cs" />
     <Content Include="Properties\HomeAutomation.Core.rd.xml" />
   </ItemGroup>
   <ItemGroup>

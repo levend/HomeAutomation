@@ -111,5 +111,17 @@ namespace HomeAutomation.Util
 
             return returnValue;
         }
+
+        /// <summary>
+        /// Removes all spaces from hex string, and return the byte[] representation.
+        /// </summary>
+        /// <param name="hexString"></param>
+        /// <returns></returns>
+        public static byte[] BytesFromSpacedString(this string hexString)
+        {
+            hexString = hexString.Replace(" ", String.Empty);
+
+            return hexString.BytesFromString();
+        }
     }
 }

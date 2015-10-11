@@ -3,11 +3,9 @@ using HomeAutomation.Communication.Mqtt;
 using HomeAutomation.Controller.Mqtt;
 using HomeAutomation.Core;
 using HomeAutomation.DeviceNetwork.XBee;
-using HomeAutomation.Gateway.Service;
 using HomeAutomation.Logging;
 using HomeAutomation.Logging.Formatter;
 using HomeAutomation.Logging.Writer;
-using HomeAutomation.NetCore.RPI;
 using MosziNet.HomeAutomation.XBee;
 
 namespace HomeAutomation.Application
@@ -34,7 +32,7 @@ namespace HomeAutomation.Application
             MqttService mqttService = new MqttService(configuration.Mqtt, mqttClient);
 
             // register this as a service, as we are going to use the mqtt service for other parts of the system (eg. logging)
-            ServiceRegistry.Instance.RegisterService(mqttService);
+            HomeAutomationSystem.ServiceRegistry.RegisterService(mqttService);
 
             MqttController mqttController = new MqttController(mqttService);
 

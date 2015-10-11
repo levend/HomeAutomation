@@ -14,8 +14,10 @@ namespace HomeAutomation.Communication.Mqtt
 
         bool IsConnected { get; }  
 
-        void Publish(string topic, byte[] v);
+        void Publish(string topic, string message);
+
         void Subscribe(string[] v1, byte[] v2);
+
         void Connect(string clientName);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace HomeAutomation.Core
+﻿using HomeAutomation.Core.Service;
+
+namespace HomeAutomation.Core
 {
     /// <summary>
     /// Provides easy access to information related to device networks, device instances, devices types, etc.
@@ -12,5 +14,7 @@
         public static DeviceNetworkRegistry DeviceNetworkRegistry { get; private set; } = new DeviceNetworkRegistry();
 
         public static ControllerRegistry ControllerRegistry { get; private set; } = new ControllerRegistry();
+
+        public static ServiceRegistry ServiceRegistry { get; private set; } = new ServiceRegistry();
     }
 }

@@ -1,14 +1,13 @@
 ﻿using HomeAutomation.Communication.Mqtt;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeAutomation.Tests.IntegrationTests
 {
     public class MockMqttClient : IMqttClient
     {
+        List<MqttMessage> messagesPublished = new List<MqttMessage>();
+
         bool isConnected;
 
         public bool IsConnected
@@ -27,12 +26,24 @@ namespace HomeAutomation.Tests.IntegrationTests
             isConnected = true;
         }
 
-        public void Publish(string topic, byte[] v)
+        public void Publish(string topic, string message)
         {
+            messagesPublished.Add(new MqttMessage() { TopicName = topic, Message = message });
         }
 
         public void Subscribe(string[] v1, byte[] v2)
         {   
+
         }
+
+        public List<MqttMessage> FlushSentMessages()
+        {
+            List<MqttMessage> returnList = new List<MqttMessage>(messagesPublished);
+
+            messagesPublished.Clear();
+
+            return returnList;
+        }
+
     }
 }

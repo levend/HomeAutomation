@@ -9,11 +9,11 @@ namespace HomeAutomation.Application
         {
             var configuration = new ConfigurationManager().LoadFile<HomeAutomationConfiguration>(configurationFile);
 
-            GatewayInitializer gateway = new GatewayInitializer();
+            // the gateway must be initialized before registering any networks, controllers
+            GatewayInitializer gateway = new GatewayInitializer(configuration.Gateway);
 
             ApplicationInitializer.Initialize(configuration);
 
-            gateway.Initialize(configuration.Gateway);
             gateway.Run();
         }
     }
