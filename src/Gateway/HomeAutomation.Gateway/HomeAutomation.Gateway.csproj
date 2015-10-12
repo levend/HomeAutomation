@@ -131,10 +131,6 @@
       <Project>{3e7f9495-4c0f-4ffe-925e-392afbde036d}</Project>
       <Name>HomeAutomation.Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HomeAutomation.Sensor\HomeAutomation.Sensor.csproj">
-      <Project>{5a90067b-7923-4632-a871-a1f578d94c58}</Project>
-      <Name>HomeAutomation.Sensor</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HomeAutomation.Util\HomeAutomation.Util.csproj">
       <Project>{f8bafd53-064e-43b6-8671-a09af5f812c4}</Project>
       <Name>HomeAutomation.Util</Name>
