@@ -15,8 +15,8 @@ namespace HomeAutomation.Gateway
             Log.Debug("[HomeAutomation.Gateway] Gateway initializing ...");
 
             HomeAutomationSystem.ServiceRegistry.RegisterService(new DeviceNetworkGateway());
-            HomeAutomationSystem.ServiceRegistry.RegisterService(new WatchdogService(config.WatchdogPeriodInSeconds));
-            HomeAutomationSystem.ServiceRegistry.RegisterService(new StatisticsService(config.StatisticsAnnouncementPeriodInSeconds));
+            HomeAutomationSystem.ScheduledTasks.ScheduleTask(new WatchdogService(), config.WatchdogPeriodInSeconds);
+            HomeAutomationSystem.ScheduledTasks.ScheduleTask(new StatisticsService(), config.StatisticsAnnouncementPeriodInSeconds);
 
             Log.Debug("[HomeAutomation.Gateway] Initialized.");
         }
@@ -25,7 +25,7 @@ namespace HomeAutomation.Gateway
         {
             Log.Debug("[HomeAutomation.Gateway] Started.");
 
-            HomeAutomationSystem.ServiceRegistry.Runner.Start();
+            HomeAutomationSystem.ScheduledTasks.Runner.Start();
         }
     }
 }

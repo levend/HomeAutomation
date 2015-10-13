@@ -59,14 +59,14 @@ namespace HomeAutomation.Tests
 
             public event EventHandler<DeviceState> DeviceStateReceived;
 
-            public void ExecuteTasks()
-            {
-                
-            }
-
             public void SendCommand(DeviceCommand command)
             {
                 HomeAutomationSystem.DeviceRegistry.GetDeviceById(this, command.DeviceID).ExecuteCommand(command);
+            }
+
+            public void GenerateDeviceState(DeviceState state)
+            {
+                DeviceStateReceived?.Invoke(this, state);
             }
         }
 

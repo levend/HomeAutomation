@@ -5,13 +5,14 @@ using MosziNet.HomeAutomation.XBee.Frame;
 using HomeAutomation.DeviceNetwork.XBee.FrameProcessor;
 using HomeAutomation.Logging;
 using HomeAutomation.DeviceNetwork.XBee.Device;
+using HomeAutomation.Core.Scheduler;
 
 namespace HomeAutomation.DeviceNetwork.XBee
 {
     /// <summary>
     /// Defines the network that is powered by XBee devices.
     /// </summary>
-    public class XBeeDeviceNetwork : IDeviceNetwork
+    public class XBeeDeviceNetwork : IDeviceNetwork, IScheduledTask
     {
         public event EventHandler<DeviceState> DeviceStateReceived;
 
@@ -88,7 +89,7 @@ namespace HomeAutomation.DeviceNetwork.XBee
             }
         }
 
-        public void ExecuteTasks()
+        public void TimeElapsed()
         {
             xbeeService.ProcessXBeeMessages();
         }

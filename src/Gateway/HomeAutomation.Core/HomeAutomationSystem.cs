@@ -1,4 +1,5 @@
-﻿using HomeAutomation.Core.Service;
+﻿using HomeAutomation.Core.Scheduler;
+using HomeAutomation.Core.Service;
 
 namespace HomeAutomation.Core
 {
@@ -16,5 +17,7 @@ namespace HomeAutomation.Core
         public static ControllerRegistry ControllerRegistry { get; private set; } = new ControllerRegistry();
 
         public static ServiceRegistry ServiceRegistry { get; private set; } = new ServiceRegistry();
+
+        public static ScheduledTaskManager ScheduledTasks { get; private set; } = new ScheduledTaskManager();
     }
 }

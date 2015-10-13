@@ -32,8 +32,6 @@ namespace HomeAutomation.Core
 
             controllerList = newList.ToArray();
 
-            HomeAutomationSystem.ServiceRegistry.RegisterService(controller);
-
             ControllerAdded?.Invoke(this, controller);
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace HomeAutomation.Core.Service
@@ -7,23 +8,34 @@ namespace HomeAutomation.Core.Service
     /// </summary>
     public class ServiceRegistry
     {
-        public ServiceRunner Runner { get; private set; } = new ServiceRunner();
+        private Dictionary<Type, IService> serviceRegistry;
 
-        private List<ICooperativeService> serviceRegistry = new List<ICooperativeService>();
+        public ServiceRegistry()
+        {
+            serviceRegistry = new Dictionary<Type, IService>();
+        }
 
         /// <summary>
         /// Registers a service into the system.
         /// </summary>
         /// <param name="serviceInstance"></param>
-        public void RegisterService(ICooperativeService serviceInstance)
+        public void RegisterService(IService serviceInstance)
         {
-            serviceRegistry.Add(serviceInstance);
+            RegisterService(serviceInstance.GetType(), serviceInstance);
         }
 
-        public IList<ICooperativeService> GetServiceList()
+        /// <summary>
+        /// Registers a service into the system.
+        /// </summary>
+        /// <param name="serviceInstance"></param>
+        public void RegisterService(Type serviceType, IService serviceInstance)
         {
-            return serviceRegistry;
+            serviceRegistry.Add(serviceType, serviceInstance);
         }
 
+        public IService GetServiceByType(Type serviceType)
+        {
+            return serviceRegistry.ContainsKey(serviceType) ? serviceRegistry[serviceType] : null;
+        }
     }
 }

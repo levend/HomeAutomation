@@ -1,13 +1,12 @@
-using HomeAutomation.Core;
-using HomeAutomation.Core.Service;
 using System;
-using Windows.System.Threading;
+using HomeAutomation.Core.Scheduler;
 
 namespace HomeAutomation.Gateway.Watchdog
 {
-    public class WatchdogService : ICooperativeService
+    public class WatchdogService : IScheduledTask
     {
-        public WatchdogService(int periodInSeconds)
+        // todo: refactor class to use the cooperative service ...
+        public WatchdogService()
         {
             //ThreadPoolTimer.CreatePeriodicTimer((source) =>
             //{
@@ -15,9 +14,9 @@ namespace HomeAutomation.Gateway.Watchdog
             //}, TimeSpan.FromSeconds(periodInSeconds));
         }
 
-        public void ExecuteTasks()
+        public void TimeElapsed()
         {
-            // todo: refactor class to use the cooperative service ...
+            // todo
         }
     }
 }

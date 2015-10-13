@@ -34,7 +34,7 @@ namespace HomeAutomation.Application
             IMqttClient mqttClient = configuration.MqttClientFactory.Create(configuration.Mqtt);
             mqttService = new MqttService(configuration.Mqtt, mqttClient);
 
-            HomeAutomationSystem.ServiceRegistry.RegisterService(mqttService);
+            HomeAutomationSystem.ScheduledTasks.ScheduleTask(mqttService, 15); // TODO: move this value to the configuration file
 
             MqttController mqttController = new MqttController(mqttService);
 
@@ -49,6 +49,8 @@ namespace HomeAutomation.Application
             XBeeDeviceNetwork xbeeNetwork = new XBeeDeviceNetwork(serialPort);
             
             HomeAutomationSystem.DeviceNetworkRegistry.RegisterDeviceNetwork(xbeeNetwork, "xbee");
+
+            HomeAutomationSystem.ScheduledTasks.ScheduleRealtimeTask(xbeeNetwork); 
         }
     }
 }

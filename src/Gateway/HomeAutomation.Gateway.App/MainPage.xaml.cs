@@ -22,12 +22,7 @@ namespace HomeAutomation.Gateway.App
             this.Loaded += MainPage_Loaded;
         }
 
-        public event EventHandler<DeviceCommand> DeviceCommandArrived;
-
-        public void ExecuteTasks()
-        {
-            
-        }
+        public event EventHandler<DeviceCommand> DeviceCommandArrived; // TODO: replace this with an interface that is received when we register the controller.
 
         public void SendDeviceState(DeviceState deviceState)
         {

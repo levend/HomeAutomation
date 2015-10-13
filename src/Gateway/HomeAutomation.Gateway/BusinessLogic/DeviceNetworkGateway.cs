@@ -3,7 +3,7 @@ using HomeAutomation.Core.Service;
 
 namespace HomeAutomation.Gateway.BusinessLogic
 {
-    public class DeviceNetworkGateway : ICooperativeService
+    public class DeviceNetworkGateway : IService
     {
         public DeviceNetworkGateway()
         {
@@ -15,11 +15,6 @@ namespace HomeAutomation.Gateway.BusinessLogic
 
             // the controllers are aggregated with the "All" controller, subscribe to the commands there.
             HomeAutomationSystem.ControllerRegistry.All.DeviceCommandArrived += Controller_DeviceCommandArrived;
-        }
-
-        public void ExecuteTasks()
-        {
-            // nothing to do here for this cooperative service.
         }
 
         private void Controller_DeviceCommandArrived(object sender, DeviceCommand e)

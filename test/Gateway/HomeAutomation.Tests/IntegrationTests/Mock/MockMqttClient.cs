@@ -16,6 +16,14 @@ namespace HomeAutomation.Tests.IntegrationTests
             {
                 return isConnected;
             }
+            set
+            {
+                isConnected = value;
+                if (!isConnected)
+                {
+                    ConnectionClosed?.Invoke(this, null);
+                }
+            }
         }
 
         public event Action<object, EventArgs> ConnectionClosed;

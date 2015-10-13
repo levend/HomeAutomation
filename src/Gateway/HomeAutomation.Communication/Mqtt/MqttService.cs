@@ -1,4 +1,4 @@
-using HomeAutomation.Core.Service;
+using HomeAutomation.Core.Scheduler;
 using HomeAutomation.Logging;
 using HomeAutomation.Util;
 using System;
@@ -7,7 +7,7 @@ using uPLibrary.Networking.M2Mqtt.Messages;
 
 namespace HomeAutomation.Communication.Mqtt
 {
-    public class MqttService : ICooperativeService
+    public class MqttService : IScheduledTask
     {
         private List<string> subscribedTopics = new List<string>();
 
@@ -113,7 +113,7 @@ namespace HomeAutomation.Communication.Mqtt
             // do nothing, the connection watcher task will make sure the connection is kept alive
         }
 
-        public void ExecuteTasks()
+        public void TimeElapsed()
         {
             EnsureMqttServerIsConnected();
         }

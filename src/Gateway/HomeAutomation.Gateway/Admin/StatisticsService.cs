@@ -1,22 +1,20 @@
 using HomeAutomation.Core;
-using HomeAutomation.Core.Service;
-using HomeAutomation.Logging;
+using HomeAutomation.Core.Scheduler;
 using MosziNet.HomeAutomation.XBee;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HomeAutomation.Gateway.Admin
 {
-    public class StatisticsService : ICooperativeService
+    public class StatisticsService : IScheduledTask
     {
         private Statistics systemStatistics;
         private DateTime lastMeasureTime;
         private int statisticsIntervalInSeconds;
 
-        public StatisticsService(int statisticsIntervalInSeconds)
+        public StatisticsService()
         {
-            this.statisticsIntervalInSeconds = statisticsIntervalInSeconds;
+            this.statisticsIntervalInSeconds = 10;
 
             systemStatistics = new Statistics();
             systemStatistics.SystemStartTime = DateTime.Now;
@@ -46,8 +44,9 @@ namespace HomeAutomation.Gateway.Admin
             //systemStatistics.FreeMemory = 0;
         }
 
-        public void ExecuteTasks()
+        public void TimeElapsed()
         {
+            // todo: refactor to use a "scheduler"
             // check if it's time to gather statistics
             if (lastMeasureTime.AddSeconds(statisticsIntervalInSeconds) < DateTime.Now)
             {

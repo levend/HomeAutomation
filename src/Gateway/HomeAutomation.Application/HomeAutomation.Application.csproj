@@ -144,10 +144,6 @@
       <Project>{3e7f9495-4c0f-4ffe-925e-392afbde036d}</Project>
       <Name>HomeAutomation.Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HomeAutomation.NetCore.RPI\HomeAutomation.NetCore.RPI.csproj">
-      <Project>{3151f343-fe1b-48ed-9536-7fdf08c6be58}</Project>
-      <Name>HomeAutomation.NetCore.RPI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HomeAutomation.Sensor\HomeAutomation.Sensor.csproj">
       <Project>{5a90067b-7923-4632-a871-a1f578d94c58}</Project>
       <Name>HomeAutomation.Sensor</Name>

@@ -25,7 +25,6 @@ namespace HomeAutomation.Core
             deviceNetwork.Name = deviceNetworkUniqueId;
 
             HomeAutomationSystem.DeviceTypeRegistry.RegisterDeviceTypes(deviceNetwork);
-            HomeAutomationSystem.ServiceRegistry.RegisterService(deviceNetwork);
 
             // Notify our listeners that a new network was added.
             DeviceNetworkAdded?.Invoke(this, deviceNetwork);

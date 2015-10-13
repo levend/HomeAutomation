@@ -41,7 +41,7 @@ namespace HomeAutomation.Tests.IntegrationTests
         {
             // STEP1: Device sends IO Data sample. Result: device is not known, so a message should be sent back to it asking for identification.
             serialPort.EnqueueFrame(HexConverter.BytesFromSpacedString("7E 00 12 92 12 34 56 78 12 34 56 78 11 11 00 01 00 00 00 02 E5 3B")); // analog reading: 724 mV
-            HomeAutomationSystem.ServiceRegistry.Runner.StepOneLoop();
+            HomeAutomationSystem.ScheduledTasks.Runner.Step();
 
             // check remote at command request
             {
@@ -60,7 +60,7 @@ namespace HomeAutomation.Tests.IntegrationTests
 
             // STEP2: Device identifies itself
             serialPort.EnqueueFrame(HexConverter.BytesFromSpacedString("7E 00 13 97 01 12 34 56 78 12 34 56 78 11 11 44 44 00 00 03 99 88 71")); // identification 0x9988
-            HomeAutomationSystem.ServiceRegistry.Runner.StepOneLoop();
+            HomeAutomationSystem.ScheduledTasks.Runner.Step();
 
             {
                 // the device should not be staged anymore
@@ -69,7 +69,7 @@ namespace HomeAutomation.Tests.IntegrationTests
 
             // STEP3: Device sends temperature reading
             serialPort.EnqueueFrame(HexConverter.BytesFromSpacedString("7E 00 12 92 12 34 56 78 12 34 56 78 11 11 00 01 00 00 00 02 E5 3B")); // analog reading: 724 mV
-            HomeAutomationSystem.ServiceRegistry.Runner.StepOneLoop();
+            HomeAutomationSystem.ScheduledTasks.Runner.Step();
 
             {
                 List<MqttMessage> sentMessages = mqttClient.FlushSentMessages();
@@ -86,13 +86,13 @@ namespace HomeAutomation.Tests.IntegrationTests
         {
             // STEP 1: send frame from Double Relay, id itself.
             serialPort.EnqueueFrame(HexConverter.BytesFromSpacedString("7E 00 12 92 12 34 56 78 11 22 33 44 11 22 00 01 00 03 00 00 03 75"));
-            HomeAutomationSystem.ServiceRegistry.Runner.StepOneLoop();
+            HomeAutomationSystem.ScheduledTasks.Runner.Step();
 
             serialPort.EnqueueFrame(HexConverter.BytesFromSpacedString("7E 00 13 97 01 12 34 56 78 11 22 33 44 11 22 44 44 00 00 03 99 84 CE"));
-            HomeAutomationSystem.ServiceRegistry.Runner.StepOneLoop();
+            HomeAutomationSystem.ScheduledTasks.Runner.Step();
 
             serialPort.EnqueueFrame(HexConverter.BytesFromSpacedString("7E 00 12 92 12 34 56 78 11 22 33 44 11 22 00 01 00 03 00 00 03 75"));
-            HomeAutomationSystem.ServiceRegistry.Runner.StepOneLoop();
+            HomeAutomationSystem.ScheduledTasks.Runner.Step();
 
             // STEP 2: generate a command on the command topic to switch relay at pin D0 to ON
             mqttClient.FlushSentMessages();
@@ -100,7 +100,7 @@ namespace HomeAutomation.Tests.IntegrationTests
 
             // generate a switch command from the controller 
             mqttClient.GenerateMessageOnTopic("/MosziNet_HA/Command", "xbee,1234567811223344,SetRelayState,0,1");
-            HomeAutomationSystem.ServiceRegistry.Runner.StepOneLoop();
+            HomeAutomationSystem.ScheduledTasks.Runner.Step();
 
             // check remote at command request
             {

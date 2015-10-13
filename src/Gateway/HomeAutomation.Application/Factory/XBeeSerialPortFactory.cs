@@ -1,5 +1,5 @@
 ﻿using HomeAutomation.Application.Configuration;
-using HomeAutomation.NetCore.RPI;
+using HomeAutomation.Communication.XBee;
 using MosziNet.HomeAutomation.XBee;
 
 namespace HomeAutomation.Application.Factory
