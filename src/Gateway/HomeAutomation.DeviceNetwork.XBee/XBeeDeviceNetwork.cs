@@ -1,7 +1,7 @@
 ﻿using System;
 using HomeAutomation.Core;
-using MosziNet.HomeAutomation.XBee;
-using MosziNet.HomeAutomation.XBee.Frame;
+using MosziNet.XBee;
+using MosziNet.XBee.Frame;
 using HomeAutomation.DeviceNetwork.XBee.FrameProcessor;
 using HomeAutomation.Logging;
 using HomeAutomation.DeviceNetwork.XBee.Device;
@@ -36,10 +36,8 @@ namespace HomeAutomation.DeviceNetwork.XBee
             {
                 return new DeviceTypeDescription[]
                 {
-                    new DeviceTypeDescription(0x9999, typeof(FakeTemperatureDevice)),
                     new DeviceTypeDescription(0x9988, typeof(TemperatureDeviceV1)),
                     new DeviceTypeDescription(0x9986, typeof(TemperatureDeviceV2)),
-                    new DeviceTypeDescription(0x9985, typeof(DoubleRelayLM35)),
                     new DeviceTypeDescription(0x9984, typeof(DoubleRelay))
                 };
             }

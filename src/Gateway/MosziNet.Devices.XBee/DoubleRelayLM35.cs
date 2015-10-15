@@ -1,11 +1,12 @@
 using HomeAutomation.Core;
+using HomeAutomation.DeviceNetwork.XBee.Device;
 using HomeAutomation.Logging;
 using HomeAutomation.Util;
-using MosziNet.HomeAutomation.XBee.Frame;
-using MosziNet.HomeAutomation.XBee.Frame.ZigBee;
+using MosziNet.XBee.Frame;
+using MosziNet.XBee.Frame.ZigBee;
 using System;
 
-namespace HomeAutomation.DeviceNetwork.XBee.Device
+namespace MosziNet.Devices.XBee
 {
     public class DoubleRelayLM35 : RelayDeviceBase, IXBeeDevice
     {

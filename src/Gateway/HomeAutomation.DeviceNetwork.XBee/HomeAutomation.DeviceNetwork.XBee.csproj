@@ -108,8 +108,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Device\DoubleRelay.cs" />
-    <Compile Include="Device\DoubleRelayLM35.cs" />
-    <Compile Include="Device\FakeTemperatureDevice.cs" />
     <Compile Include="Device\IXBeeDevice.cs" />
     <Compile Include="Device\RelayDeviceBase.cs" />
     <Compile Include="Device\TemperatureDevice2.cs" />
@@ -138,10 +136,6 @@
     <ProjectReference Include="..\HomeAutomation.Util\HomeAutomation.Util.csproj">
       <Project>{f8bafd53-064e-43b6-8671-a09af5f812c4}</Project>
       <Name>HomeAutomation.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HomeAutomation.XBee\HomeAutomation.XBee.csproj">
-      <Project>{f7ec2235-e2d5-4d32-a8fd-f6664489f7a5}</Project>
-      <Name>HomeAutomation.XBee</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

@@ -3,6 +3,14 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
+      "M2Mqtt/4.2.0.1": {
+        "compile": {
+          "lib/win81/M2Mqtt.WinRT.dll": {}
+        },
+        "runtime": {
+          "lib/win81/M2Mqtt.WinRT.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -199,6 +207,14 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MosziNet.XBee/1.0.0": {
+        "compile": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        },
+        "runtime": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -1538,6 +1554,14 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
+      "M2Mqtt/4.2.0.1": {
+        "compile": {
+          "lib/win81/M2Mqtt.WinRT.dll": {}
+        },
+        "runtime": {
+          "lib/win81/M2Mqtt.WinRT.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -1777,6 +1801,14 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MosziNet.XBee/1.0.0": {
+        "compile": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        },
+        "runtime": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -3163,6 +3195,14 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
+      "M2Mqtt/4.2.0.1": {
+        "compile": {
+          "lib/win81/M2Mqtt.WinRT.dll": {}
+        },
+        "runtime": {
+          "lib/win81/M2Mqtt.WinRT.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -3388,6 +3428,14 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MosziNet.XBee/1.0.0": {
+        "compile": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        },
+        "runtime": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -4760,6 +4808,14 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
+      "M2Mqtt/4.2.0.1": {
+        "compile": {
+          "lib/win81/M2Mqtt.WinRT.dll": {}
+        },
+        "runtime": {
+          "lib/win81/M2Mqtt.WinRT.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -5004,6 +5060,14 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MosziNet.XBee/1.0.0": {
+        "compile": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        },
+        "runtime": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -6390,6 +6454,14 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
+      "M2Mqtt/4.2.0.1": {
+        "compile": {
+          "lib/win81/M2Mqtt.WinRT.dll": {}
+        },
+        "runtime": {
+          "lib/win81/M2Mqtt.WinRT.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -6615,6 +6687,14 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MosziNet.XBee/1.0.0": {
+        "compile": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        },
+        "runtime": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -7987,6 +8067,14 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
+      "M2Mqtt/4.2.0.1": {
+        "compile": {
+          "lib/win81/M2Mqtt.WinRT.dll": {}
+        },
+        "runtime": {
+          "lib/win81/M2Mqtt.WinRT.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -8231,6 +8319,14 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MosziNet.XBee/1.0.0": {
+        "compile": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        },
+        "runtime": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -9617,6 +9713,14 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
+      "M2Mqtt/4.2.0.1": {
+        "compile": {
+          "lib/win81/M2Mqtt.WinRT.dll": {}
+        },
+        "runtime": {
+          "lib/win81/M2Mqtt.WinRT.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -9842,6 +9946,14 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MosziNet.XBee/1.0.0": {
+        "compile": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        },
+        "runtime": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -11215,6 +11327,43 @@
     }
   },
   "libraries": {
+    "M2Mqtt/4.2.0.1": {
+      "sha512": "/wsuH+gtheVKAbRu1QT9IJjxNjVTa6+oL24Wi4Wa0Zh7SH70v5MUI9JW2IO1iGxA+fuz6J1uR0StAMMbr0g3Pw==",
+      "type": "Package",
+      "files": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "lib/net39-cf/DeployFileList.txt",
+        "lib/net39-cf/M2Mqtt.NetCf39.dll",
+        "lib/net39-cf/M2Mqtt.NetCf39.pdb",
+        "lib/net45/M2Mqtt.Net.dll",
+        "lib/net45/M2Mqtt.Net.pdb",
+        "lib/netmf42/be/M2Mqtt.NetMf.pdb",
+        "lib/netmf42/be/M2Mqtt.NetMf.pdbx",
+        "lib/netmf42/be/M2Mqtt.NetMf.pe",
+        "lib/netmf42/le/M2Mqtt.NetMf.pdb",
+        "lib/netmf42/le/M2Mqtt.NetMf.pdbx",
+        "lib/netmf42/le/M2Mqtt.NetMf.pe",
+        "lib/netmf42/M2Mqtt.NetMf.dll",
+        "lib/netmf42/M2Mqtt.NetMf.pdb",
+        "lib/netmf43/be/M2Mqtt.NetMf.pdb",
+        "lib/netmf43/be/M2Mqtt.NetMf.pdbx",
+        "lib/netmf43/be/M2Mqtt.NetMf.pe",
+        "lib/netmf43/le/M2Mqtt.NetMf.pdb",
+        "lib/netmf43/le/M2Mqtt.NetMf.pdbx",
+        "lib/netmf43/le/M2Mqtt.NetMf.pe",
+        "lib/netmf43/M2Mqtt.NetMf.dll",
+        "lib/netmf43/M2Mqtt.NetMf.pdb",
+        "lib/win81/M2Mqtt.WinRT.dll",
+        "lib/win81/M2Mqtt.WinRT.pdb",
+        "lib/win81/M2Mqtt.WinRT.pri",
+        "lib/wpa81/M2Mqtt.WinRT.dll",
+        "lib/wpa81/M2Mqtt.WinRT.pdb",
+        "lib/wpa81/M2Mqtt.WinRT.pri",
+        "M2Mqtt.nuspec",
+        "package/services/metadata/core-properties/2f7faa29229044c885aacbc9fc6f48b6.psmdcp"
+      ]
+    },
     "Microsoft.CSharp/4.0.0": {
       "sha512": "oWqeKUxHXdK6dL2CFjgMcaBISbkk+AqEg+yvJHE4DElNzS4QaTsCflgkkqZwVlWby1Dg9zo9n+iCAMFefFdJ/A==",
       "type": "Package",
@@ -11866,6 +12015,18 @@
         "ref/net46/Microsoft.Win32.Primitives.dll",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._"
+      ]
+    },
+    "MosziNet.XBee/1.0.0": {
+      "sha512": "i+fPs4eM5zzXv8b8D74ALfXh8zeXFudyuiB9U02sFNJWdJ0ntzoi2DNJochkUFjTIchLzHOJQmeMfQ/vNZGPdw==",
+      "type": "Package",
+      "files": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "content/Properties/HomeAutomation.XBee.rd.xml",
+        "lib/.NETCore50/MosziNet.XBee.dll",
+        "MosziNet.XBee.nuspec",
+        "package/services/metadata/core-properties/7ee2d76be18448af9e89ecf096dfe720.psmdcp"
       ]
     },
     "System.AppContext/4.0.0": {

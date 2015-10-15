@@ -6,7 +6,7 @@ using HomeAutomation.DeviceNetwork.XBee;
 using HomeAutomation.Logging;
 using HomeAutomation.Logging.Formatter;
 using HomeAutomation.Logging.Writer;
-using MosziNet.HomeAutomation.XBee;
+using MosziNet.XBee;
 
 namespace HomeAutomation.Application
 {

@@ -240,6 +240,14 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "MosziNet.XBee/1.0.0": {
+        "compile": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        },
+        "runtime": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.0, )",
@@ -1855,6 +1863,14 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MosziNet.XBee/1.0.0": {
+        "compile": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        },
+        "runtime": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -3505,6 +3521,14 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MosziNet.XBee/1.0.0": {
+        "compile": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        },
+        "runtime": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -5162,6 +5186,14 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "MosziNet.XBee/1.0.0": {
+        "compile": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        },
+        "runtime": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.0, )",
@@ -6810,6 +6842,14 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MosziNet.XBee/1.0.0": {
+        "compile": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        },
+        "runtime": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -8467,6 +8507,14 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "MosziNet.XBee/1.0.0": {
+        "compile": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        },
+        "runtime": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.0, )",
@@ -10115,6 +10163,14 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MosziNet.XBee/1.0.0": {
+        "compile": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
+        },
+        "runtime": {
+          "lib/.NETCore50/MosziNet.XBee.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -12226,6 +12282,18 @@
         "ref/net46/Microsoft.Win32.Primitives.dll",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._"
+      ]
+    },
+    "MosziNet.XBee/1.0.0": {
+      "sha512": "i+fPs4eM5zzXv8b8D74ALfXh8zeXFudyuiB9U02sFNJWdJ0ntzoi2DNJochkUFjTIchLzHOJQmeMfQ/vNZGPdw==",
+      "type": "Package",
+      "files": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "content/Properties/HomeAutomation.XBee.rd.xml",
+        "lib/.NETCore50/MosziNet.XBee.dll",
+        "MosziNet.XBee.nuspec",
+        "package/services/metadata/core-properties/7ee2d76be18448af9e89ecf096dfe720.psmdcp"
       ]
     },
     "System.AppContext/4.0.0": {

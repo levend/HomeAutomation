@@ -1,6 +1,5 @@
 ﻿using HomeAutomation.Application.Configuration;
-using HomeAutomation.Communication.XBee;
-using MosziNet.HomeAutomation.XBee;
+using MosziNet.XBee;
 
 namespace HomeAutomation.Application.Factory
 {

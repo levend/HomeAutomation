@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("HomeAutomation.XBee")]
+[assembly: AssemblyTitle("MosziNet.Devices.XBee")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Szilveszter Molnar")]
-[assembly: AssemblyProduct("HomeAutomation.XBee")]
-[assembly: AssemblyCopyright("GNU General Public License v2")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("MosziNet.Devices.XBee")]
+[assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

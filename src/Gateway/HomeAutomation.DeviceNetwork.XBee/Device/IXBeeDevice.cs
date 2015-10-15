@@ -1,5 +1,5 @@
 ﻿using HomeAutomation.Core;
-using MosziNet.HomeAutomation.XBee.Frame;
+using MosziNet.XBee.Frame;
 
 namespace HomeAutomation.DeviceNetwork.XBee.Device
 {

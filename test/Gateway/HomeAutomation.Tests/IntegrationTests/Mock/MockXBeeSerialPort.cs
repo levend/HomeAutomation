@@ -1,4 +1,4 @@
-﻿using MosziNet.HomeAutomation.XBee;
+﻿using MosziNet.XBee;
 using System;
 using System.Collections.Generic;
 

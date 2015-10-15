@@ -1,7 +1,7 @@
 ﻿using System;
 using HomeAutomation.Application.Configuration;
 using HomeAutomation.Application.Factory;
-using MosziNet.HomeAutomation.XBee;
+using MosziNet.XBee;
 
 namespace HomeAutomation.Tests.IntegrationTests.Factory
 {

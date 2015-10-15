@@ -1,7 +1,7 @@
 ﻿using HomeAutomation.Core;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using MosziNet.HomeAutomation.XBee;
-using MosziNet.HomeAutomation.XBee.Frame;
+using MosziNet.XBee;
+using MosziNet.XBee.Frame;
 using System;
 
 namespace HomeAutomation.Tests
@@ -36,7 +36,7 @@ namespace HomeAutomation.Tests
                 MessageReceived?.Invoke(null, null);
             }
 
-            public void SendFrame(MosziNet.HomeAutomation.XBee.Frame.IXBeeFrame frame)
+            public void SendFrame(MosziNet.XBee.Frame.IXBeeFrame frame)
             {
                 
             }

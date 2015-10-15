@@ -1,6 +1,6 @@
 using HomeAutomation.Core;
 using HomeAutomation.Core.Scheduler;
-using MosziNet.HomeAutomation.XBee;
+using MosziNet.XBee;
 using System;
 using System.Collections.Generic;
 
