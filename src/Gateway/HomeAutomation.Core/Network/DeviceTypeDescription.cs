@@ -7,14 +7,29 @@ namespace HomeAutomation.Core
     /// </summary>
     public class DeviceTypeDescription
     {
-        public int DeviceTypeId { get; private set; }
+        public int DeviceTypeId { get; set; }
 
-        public Type DeviceClassType { get; private set; }
+        public string DeviceClassTypeString { get; set; }
 
-        public DeviceTypeDescription(int deviceTypeId, Type deviceClassType)
+        public string DeviceNetworkName { get; set; }
+
+        public DeviceTypeDescription()
         {
-            this.DeviceTypeId = deviceTypeId;
-            this.DeviceClassType = deviceClassType;
+        }
+
+        public DeviceTypeDescription(int deviceTypeId, string deviceClassTypeString, string deviceNetworkName)
+        {
+            DeviceTypeId = deviceTypeId;
+            DeviceClassTypeString = deviceClassTypeString;
+            DeviceNetworkName = deviceNetworkName;
+        }
+
+        public Type DeviceClassType
+        {
+            get
+            {
+                return Type.GetType(DeviceClassTypeString);
+            }
         }
     }
 }

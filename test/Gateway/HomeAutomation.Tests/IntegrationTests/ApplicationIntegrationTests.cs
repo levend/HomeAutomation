@@ -7,7 +7,6 @@ using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using MosziNet.XBee;
 using MosziNet.XBee.Frame.ZigBee;
 using System.Collections.Generic;
-using System;
 
 namespace HomeAutomation.Tests.IntegrationTests
 {
@@ -21,10 +20,10 @@ namespace HomeAutomation.Tests.IntegrationTests
         [TestInitialize]
         public void Setup()
         {
-            MainApplication.Initialize("IntegrationTests/Config/MockConfig.conf");
+            MainApplication.Initialize("IntegrationTests/Config/MockConfig.json");
 
-            serialPort = (MockXBeeSerialPort)MockXBeeSerialPortFactory.Instance.Create(null);
-            mqttClient = (MockMqttClient)MockMqttClientFactory.Instance.Create(null);
+            serialPort = (MockXBeeSerialPort)MockXBeeDeviceNetworkFactory.SerialPort;
+            mqttClient = MockMqttControllerFactory.Client;
             xbeeNetwork = HomeAutomationSystem.DeviceNetworkRegistry.GetNetworkByName("xbee");
         }
 
@@ -66,6 +65,7 @@ namespace HomeAutomation.Tests.IntegrationTests
                 // the device should not be staged anymore
                 Assert.IsFalse(HomeAutomationSystem.DeviceRegistry.IsStagingDevice(xbeeNetwork, "1234567812345678".BytesFromString()));
             }
+            mqttClient.FlushSentMessages();
 
             // STEP3: Device sends temperature reading
             serialPort.EnqueueFrame(HexConverter.BytesFromSpacedString("7E 00 12 92 12 34 56 78 12 34 56 78 11 11 00 01 00 00 00 02 E5 3B")); // analog reading: 724 mV

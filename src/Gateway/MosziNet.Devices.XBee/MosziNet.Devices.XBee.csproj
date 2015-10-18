@@ -107,9 +107,13 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DoubleRelay.cs" />
     <Compile Include="DoubleRelayLM35.cs" />
     <Compile Include="FakeTemperatureDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelayDeviceBase.cs" />
+    <Compile Include="TemperatureDevice2.cs" />
+    <Compile Include="TemperatureDeviceV1.cs" />
     <Content Include="Properties\MosziNet.Devices.XBee.rd.xml" />
   </ItemGroup>
   <ItemGroup>

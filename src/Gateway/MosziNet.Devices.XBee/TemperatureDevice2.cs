@@ -1,9 +1,10 @@
 using HomeAutomation.Core;
+using HomeAutomation.DeviceNetwork.XBee;
 using HomeAutomation.Logging;
 using MosziNet.XBee.Frame;
 using MosziNet.XBee.Frame.ZigBee;
 
-namespace HomeAutomation.DeviceNetwork.XBee.Device
+namespace MosziNet.Devices.XBee
 {
     /// <summary>
     /// This temperature device uses an MCP9700 (or compatible) sensor to measure temperature.

@@ -1,11 +1,10 @@
-﻿using System;
-using HomeAutomation.Core;
-using MosziNet.XBee;
-using MosziNet.XBee.Frame;
+﻿using HomeAutomation.Core;
+using HomeAutomation.Core.Scheduler;
 using HomeAutomation.DeviceNetwork.XBee.FrameProcessor;
 using HomeAutomation.Logging;
-using HomeAutomation.DeviceNetwork.XBee.Device;
-using HomeAutomation.Core.Scheduler;
+using MosziNet.XBee;
+using MosziNet.XBee.Frame;
+using System;
 
 namespace HomeAutomation.DeviceNetwork.XBee
 {
@@ -34,12 +33,8 @@ namespace HomeAutomation.DeviceNetwork.XBee
         {
             get
             {
-                return new DeviceTypeDescription[]
-                {
-                    new DeviceTypeDescription(0x9988, typeof(TemperatureDeviceV1)),
-                    new DeviceTypeDescription(0x9986, typeof(TemperatureDeviceV2)),
-                    new DeviceTypeDescription(0x9984, typeof(DoubleRelay))
-                };
+                // we don't support by default any devices. add later using DeviceTypeRegistry
+                return new DeviceTypeDescription[] { };
             }
         }
 
@@ -63,7 +58,10 @@ namespace HomeAutomation.DeviceNetwork.XBee
             DeviceStateReceived?.Invoke(this, deviceState);
         }
 
-        internal IXBeeService XBeeService
+        /// <summary>
+        /// Returns the <see cref="IXBeeService"/> instance that can be used to send frames to the network.
+        /// </summary>
+        public IXBeeService XBeeService
         {
             get
             {

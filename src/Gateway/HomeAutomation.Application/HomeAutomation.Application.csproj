@@ -109,12 +109,12 @@
   <ItemGroup>
     <Compile Include="ApplicationInitializer.cs" />
     <Compile Include="Configuration\ConfigurationManager.cs" />
+    <Compile Include="Configuration\ControllerConfiguration.cs" />
+    <Compile Include="Configuration\DeviceNetworkConfiguration.cs" />
     <Compile Include="Configuration\HomeAutomationConfiguration.cs" />
     <Compile Include="Configuration\XBeeConfiguration.cs" />
     <Compile Include="Factory\IMqttClientFactory.cs" />
-    <Compile Include="Factory\IXBeeSerialPortFactory.cs" />
     <Compile Include="Factory\MqttClientFactory.cs" />
-    <Compile Include="Factory\XBeeSerialPortFactory.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Properties\HomeAutomation.Application.rd.xml" />

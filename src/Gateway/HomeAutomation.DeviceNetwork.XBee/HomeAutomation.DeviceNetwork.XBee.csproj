@@ -107,17 +107,14 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Device\DoubleRelay.cs" />
-    <Compile Include="Device\IXBeeDevice.cs" />
-    <Compile Include="Device\RelayDeviceBase.cs" />
-    <Compile Include="Device\TemperatureDevice2.cs" />
-    <Compile Include="Device\TemperatureDeviceV1.cs" />
+    <Compile Include="IXBeeDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XBeeDeviceNetwork.cs" />
     <Compile Include="FrameProcessor\IODataSampleFrameProcessor.cs" />
     <Compile Include="FrameProcessor\IXBeeFrameProcessor.cs" />
     <Compile Include="FrameProcessor\RemoteCommandResponseProcessor.cs" />
     <Compile Include="FrameProcessor\XBeeFrameProcessorFactory.cs" />
+    <Compile Include="XBeeDeviceNetworkFactory.cs" />
     <Content Include="Properties\HomeAutomation.DeviceNetwork.XBee.rd.xml" />
   </ItemGroup>
   <ItemGroup>

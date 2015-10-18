@@ -1,0 +1,49 @@
+{
+	"DeviceNetworks":[
+		{	
+			"Key":"xbee",
+			"Value":"HomeAutomation.DeviceNetwork.XBee.XBeeDeviceNetwork, HomeAutomation.DeviceNetwork.XBee"
+		}
+	],
+	"DeviceTypes":
+	[
+		{
+			"DeviceClassTypeString":"MosziNet.Devices.XBee.TemperatureDeviceV1, MosziNet.Devices.XBee",
+			"DeviceNetworkName":"xbee",
+			"DeviceTypeId":39304
+		},
+		{
+			"DeviceClassTypeString":"MosziNet.Devices.XBee.TemperatureDeviceV2, MosziNet.Devices.XBee",
+			"DeviceNetworkName":"xbee",
+			"DeviceTypeId":39302
+		},
+		{
+			"DeviceClassTypeString":"MosziNet.Devices.XBee.DoubleRelayLM35, MosziNet.Devices.XBee",
+			"DeviceNetworkName":"xbee",
+			"DeviceTypeId":39301
+		},
+		{
+			"DeviceClassTypeString":"MosziNet.Devices.XBee.DoubleRelay, MosziNet.Devices.XBee",
+			"DeviceNetworkName":"xbee",
+			"DeviceTypeId":39300
+		}
+	],
+	"Gateway": {
+		"StatisticsAnnouncementPeriodInSeconds":3,
+		"WatchdogPeriodInSeconds":20
+	},
+	"Mqtt": {
+		"ClientName":"HomeAutomation.Gateway",
+		"KeepAliveCheckPeriodInSeconds":20,
+		"ServerHostName":"192.168.1.213",
+		"TopicRootName":"\\/MosziNet_HA"
+	},
+	"MqttClientFactory": "MqttClientFactory:#HomeAutomation.Application.Factory",
+	"XBee": {
+		"BaudRate":9600,
+		"DataBits":8,
+		"SerialParity":0,
+		"SerialStopBitCount":0
+	},
+	"XBeeSerialPortFactory": "XBeeSerialPortFactory:#HomeAutomation.Application.Factory"
+}

@@ -1,22 +1,25 @@
 ﻿using HomeAutomation.Application.Configuration;
+using HomeAutomation.Application.Factory;
 using HomeAutomation.Communication.Mqtt;
 using HomeAutomation.Controller.Mqtt;
 using HomeAutomation.Core;
-using HomeAutomation.DeviceNetwork.XBee;
+using HomeAutomation.Core.Controller;
+using HomeAutomation.Core.Network;
+using HomeAutomation.Core.Scheduler;
 using HomeAutomation.Logging;
 using HomeAutomation.Logging.Formatter;
 using HomeAutomation.Logging.Writer;
-using MosziNet.XBee;
+using System;
 
 namespace HomeAutomation.Application
 {
     public class ApplicationInitializer
     {
-        MqttService mqttService;
-
         public void Initialize(HomeAutomationConfiguration configuration)
         {
             InitializeDeviceNetworks(configuration);
+
+            InitializeDeviceTypes(configuration);
 
             InitializeControllers(configuration);
 
@@ -26,31 +29,43 @@ namespace HomeAutomation.Application
         private void InitializeLogging()
         {
             Log.AddLogWriter(new ConsoleLogWriter(), new StandardLogFormatter());
-            Log.AddLogWriter(new MqttLogWriter(mqttService, MqttTopic.LogTopic), new StandardLogFormatter());
-        }
-
-        private void InitializeControllers(HomeAutomationConfiguration configuration)
-        {
-            IMqttClient mqttClient = configuration.MqttClientFactory.Create(configuration.Mqtt);
-            mqttService = new MqttService(configuration.Mqtt, mqttClient);
-
-            HomeAutomationSystem.ScheduledTasks.ScheduleTask(mqttService, 15); // TODO: move this value to the configuration file
-
-            MqttController mqttController = new MqttController(mqttService);
-
-            HomeAutomationSystem.ControllerRegistry.RegisterController(mqttController);
+            //Log.AddLogWriter(new MqttLogWriter(mqttService, MqttTopic.LogTopic), new StandardLogFormatter());
         }
 
         private void InitializeDeviceNetworks(HomeAutomationConfiguration configuration)
         {
-            // get the serial port that's going to be used to acess the XBee network
-            IXBeeSerialPort serialPort = configuration.XBeeSerialPortFactory.Create(configuration.XBee);
-            
-            XBeeDeviceNetwork xbeeNetwork = new XBeeDeviceNetwork(serialPort);
-            
-            HomeAutomationSystem.DeviceNetworkRegistry.RegisterDeviceNetwork(xbeeNetwork, "xbee");
+            foreach(DeviceNetworkConfiguration dnc in configuration.DeviceNetworks)
+            {
+                IDeviceNetworkFactory factory = Activator.CreateInstance(Type.GetType(dnc.Factory)) as IDeviceNetworkFactory;
+                IDeviceNetwork network = factory.CreateDeviceNetwork(dnc.Configuration);
 
-            HomeAutomationSystem.ScheduledTasks.ScheduleRealtimeTask(xbeeNetwork); 
+                HomeAutomationSystem.DeviceNetworkRegistry.RegisterDeviceNetwork(network, dnc.Name);
+
+                HomeAutomationSystem.ScheduledTasks.ScheduleRealtimeTask(network as IScheduledTask);
+            }
+        }
+
+        private void InitializeDeviceTypes(HomeAutomationConfiguration configuration)
+        {
+            foreach(DeviceTypeDescription dtd in configuration.DeviceTypes)
+            {
+                HomeAutomationSystem.DeviceTypeRegistry.RegisterDeviceType(dtd);
+            }
+        }
+
+        // todo: refactor to get this info from the config file.
+        private void InitializeControllers(HomeAutomationConfiguration configuration)
+        {
+            foreach(ControllerConfiguration cc in configuration.Controllers)
+            {
+                IControllerFactory factory = Activator.CreateInstance(Type.GetType(cc.Factory)) as IControllerFactory;
+
+                IHomeController controller = factory.CreateController(cc.Configuration);
+
+                HomeAutomationSystem.ControllerRegistry.RegisterController(controller);
+
+                HomeAutomationSystem.ScheduledTasks.ScheduleRealtimeTask(controller as IScheduledTask);
+            }
         }
     }
 }

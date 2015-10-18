@@ -91,10 +91,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
-    <Content Include="HomeAutomation.Applications.Tests\Config\HomeAutomationTest.conf">
+    <Content Include="HomeAutomation.Applications.Tests\Config\HomeAutomationConfiguration.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="IntegrationTests\Config\MockConfig.conf">
+    <Content Include="IntegrationTests\Config\MockConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="project.json" />
@@ -111,8 +111,8 @@
     <Compile Include="HomeAutomation.Util.Tests\ExceptionFormatterTests.cs" />
     <Compile Include="HomeAutomation.Util.Tests\HexConverterTests.cs" />
     <Compile Include="IntegrationTests\ApplicationIntegrationTests.cs" />
-    <Compile Include="IntegrationTests\Factory\MockMqttClientFactory.cs" />
-    <Compile Include="IntegrationTests\Factory\MockXBeeSerialPortFactory.cs" />
+    <Compile Include="IntegrationTests\Factory\MockMqttControllerFactory.cs" />
+    <Compile Include="IntegrationTests\Factory\MockXBeeDeviceNetworkFactory.cs" />
     <Compile Include="IntegrationTests\Mock\MockMqttClient.cs" />
     <Compile Include="IntegrationTests\Mock\MockXBeeSerialPort.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -178,6 +178,10 @@
     <ProjectReference Include="..\..\..\src\Gateway\HomeAutomation.Util\HomeAutomation.Util.csproj">
       <Project>{f8bafd53-064e-43b6-8671-a09af5f812c4}</Project>
       <Name>HomeAutomation.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Gateway\MosziNet.Devices.XBee\MosziNet.Devices.XBee.csproj">
+      <Project>{a3c3a61f-f4be-401a-bafb-28cd75e5d6ea}</Project>
+      <Name>MosziNet.Devices.XBee</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

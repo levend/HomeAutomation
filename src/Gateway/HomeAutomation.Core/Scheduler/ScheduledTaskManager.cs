@@ -30,6 +30,9 @@ namespace HomeAutomation.Core.Scheduler
         /// as many times as possible.</param>
         public void ScheduleTask(IScheduledTask task, int period)
         {
+            if (task == null)
+                return;
+
             taskList.Add(new ScheduledTaskInfo()
             {
                 Task = task,

@@ -1,0 +1,50 @@
+{
+	"DeviceNetworks":[
+		{	
+			"Name":"xbee",
+			"Factory":"HomeAutomation.DeviceNetwork.XBee.XBeeDeviceNetworkFactory, HomeAutomation.DeviceNetwork.XBee",
+			"Configuration": [ ]
+		}
+	],
+	"DeviceTypes":
+	[
+		{
+			"DeviceClassTypeString":"MosziNet.Devices.XBee.TemperatureDeviceV1, MosziNet.Devices.XBee",
+			"DeviceNetworkName":"xbee",
+			"DeviceTypeId":39304
+		},
+		{
+			"DeviceClassTypeString":"MosziNet.Devices.XBee.TemperatureDeviceV2, MosziNet.Devices.XBee",
+			"DeviceNetworkName":"xbee",
+			"DeviceTypeId":39302
+		},
+		{
+			"DeviceClassTypeString":"MosziNet.Devices.XBee.DoubleRelayLM35, MosziNet.Devices.XBee",
+			"DeviceNetworkName":"xbee",
+			"DeviceTypeId":39301
+		},
+		{
+			"DeviceClassTypeString":"MosziNet.Devices.XBee.DoubleRelay, MosziNet.Devices.XBee",
+			"DeviceNetworkName":"xbee",
+			"DeviceTypeId":39300
+		}
+	],
+	"Controllers":[
+		{
+			"Name":"Mqtt",
+			"Factory":"",
+			"Configuration": [ ]
+		}
+	],
+	"Gateway": {
+		"StatisticsAnnouncementPeriodInSeconds":3,
+		"WatchdogPeriodInSeconds":20
+	},
+	"Mqtt": {
+		"ClientName":"HomeAutomation.Gateway",
+		"KeepAliveCheckPeriodInSeconds":20,
+		"ServerHostName":"192.168.1.213",
+		"TopicRootName":"/MosziNet_HA"
+	},
+	"MqttClientFactory": "MqttClientFactory:#HomeAutomation.Application.Factory",
+}

@@ -1,6 +1,6 @@
 using MosziNet.XBee.Frame.ZigBee;
 
-namespace HomeAutomation.DeviceNetwork.XBee.Device
+namespace MosziNet.Devices.XBee
 {
     public class DoubleRelay : RelayDeviceBase
     {

@@ -1,4 +1,5 @@
 ﻿using HomeAutomation.Communication.Mqtt;
+using System.Runtime.Serialization;
 
 namespace HomeAutomation.Application.Factory
 {

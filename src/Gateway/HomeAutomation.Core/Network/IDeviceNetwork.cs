@@ -21,11 +21,6 @@ namespace HomeAutomation.Core
         void SendCommand(DeviceCommand command);
 
         /// <summary>
-        /// Returns all the device types this network can manage.
-        /// </summary>
-        DeviceTypeDescription[] AvailableDeviceTypes { get; }
-
-        /// <summary>
         /// Gets/sets the name of the device network. Set by the system when the network is registered.
         /// </summary>
         string Name { get; set; }

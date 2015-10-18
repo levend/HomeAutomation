@@ -1,10 +1,7 @@
-﻿using HomeAutomation.Core;
-using HomeAutomation.DeviceNetwork.XBee;
-using HomeAutomation.DeviceNetwork.XBee.Device;
+﻿using HomeAutomation.DeviceNetwork.XBee;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using MosziNet.Devices.XBee;
 using MosziNet.XBee;
-using MosziNet.XBee.Frame;
-using System;
 
 namespace HomeAutomation.Tests
 {

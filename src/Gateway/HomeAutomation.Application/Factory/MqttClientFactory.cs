@@ -1,8 +1,10 @@
 ﻿using HomeAutomation.Communication.Mqtt;
+using System.Runtime.Serialization;
 
 namespace HomeAutomation.Application.Factory
 {
-    internal class MqttClientFactory : IMqttClientFactory
+    [DataContract]
+    public class MqttClientFactory : IMqttClientFactory
     {
         public IMqttClient Create(MqttServerConfiguration configuration)
         {

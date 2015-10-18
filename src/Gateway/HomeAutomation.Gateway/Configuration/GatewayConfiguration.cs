@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace HomeAutomation.Gateway.Configuration
 {
+    [DataContract]
     public class GatewayConfiguration
     {
+        [DataMember]
         public int WatchdogPeriodInSeconds { get; set; }
 
+        [DataMember]
         public int StatisticsAnnouncementPeriodInSeconds { get; set; }
     }
 }

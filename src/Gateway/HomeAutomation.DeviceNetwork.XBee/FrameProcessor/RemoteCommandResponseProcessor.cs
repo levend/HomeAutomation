@@ -1,5 +1,4 @@
 using HomeAutomation.Core;
-using HomeAutomation.DeviceNetwork.XBee.Device;
 using MosziNet.XBee;
 using MosziNet.XBee.Frame;
 using MosziNet.XBee.Frame.ZigBee;

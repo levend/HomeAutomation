@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="Controller\AllControllersController.cs" />
     <Compile Include="Controller\ControllerRegistry.cs" />
+    <Compile Include="Controller\IControllerFactory.cs" />
     <Compile Include="Device\ComponentState.cs" />
     <Compile Include="Device\DeviceCommand.cs" />
     <Compile Include="Controller\IHomeController.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Device\IDevice.cs" />
     <Compile Include="Network\IDeviceNetwork.cs" />
     <Compile Include="HomeAutomationSystem.cs" />
+    <Compile Include="Network\IDeviceNetworkFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scheduler\IRunner.cs" />
     <Compile Include="Scheduler\IScheduledTask.cs" />

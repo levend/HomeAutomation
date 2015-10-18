@@ -46,16 +46,16 @@ namespace HomeAutomation.Tests
         {
             public string Name { get; set; }
 
-            public DeviceTypeDescription[] AvailableDeviceTypes
-            {
-                get
-                {
-                    return new DeviceTypeDescription[]
-                    {
-                        new DeviceTypeDescription(0x9999, typeof(MockTestDevice))
-                    };
-                }
-            }
+            //public DeviceTypeDescription[] AvailableDeviceTypes
+            //{
+            //    get
+            //    {
+            //        return new DeviceTypeDescription[]
+            //        {
+            //            new DeviceTypeDescription(0x9999, typeof(MockTestDevice))
+            //        };
+            //    }
+            //}
 
             public event EventHandler<DeviceState> DeviceStateReceived;
 
