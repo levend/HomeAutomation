@@ -16,7 +16,13 @@ namespace HomeAutomation.Tests.IntegrationTests.Factory
 
         public IHomeController CreateController(Dictionary<string, object> configuration)
         {
-            MqttServerConfiguration mqttConfig = new MqttServerConfiguration();
+            MqttServerConfiguration mqttConfig = new MqttServerConfiguration()
+            {
+                ClientName = (string)configuration["ClientName"],
+                ServerHostName = (string)configuration["ServerHostName"],
+                KeepAliveCheckPeriodInSeconds = (int)configuration["KeepAliveCheckPeriodInSeconds"],
+                TopicRootName = (string)configuration["TopicRootName"]
+            };
 
             MqttService service = new MqttService(mqttConfig, Client);
             MqttController controller = new MqttController(service);

@@ -2,7 +2,7 @@
 	"DeviceNetworks":[
 		{	
 			"Name":"xbee",
-			"Factory":"HomeAutomation.DeviceNetwork.XBee.XBeeDeviceNetworkFactory, HomeAutomation.DeviceNetwork.XBee",
+			"Factory":"HomeAutomation.Tests.IntegrationTests.Factory.MockXBeeDeviceNetworkFactory, HomeAutomation.Tests",
 			"Configuration": [ ]
 		}
 	],
@@ -32,19 +32,17 @@
 	"Controllers":[
 		{
 			"Name":"Mqtt",
-			"Factory":"",
-			"Configuration": [ ]
+			"Factory":"HomeAutomation.Tests.IntegrationTests.Factory.MockMqttControllerFactory, HomeAutomation.Tests",
+			"Configuration": [ 
+				{ "Key":"ClientName", "Value":"HomeAutomation.Communication.Mqtt" }, 
+				{ "Key":"KeepAliveCheckPeriodInSeconds", "Value":20 },
+				{ "Key":"ServerHostName", "Value":"192.168.1.213" },
+				{ "Key":"TopicRootName", "Value":"/MosziNet_HA" }
+			]
 		}
 	],
 	"Gateway": {
 		"StatisticsAnnouncementPeriodInSeconds":3,
 		"WatchdogPeriodInSeconds":20
 	},
-	"Mqtt": {
-		"ClientName":"HomeAutomation.Gateway",
-		"KeepAliveCheckPeriodInSeconds":20,
-		"ServerHostName":"192.168.1.213",
-		"TopicRootName":"/MosziNet_HA"
-	},
-	"MqttClientFactory": "MqttClientFactory:#HomeAutomation.Application.Factory",
 }
