@@ -42,7 +42,7 @@ namespace HomeAutomation.Core.Scheduler
             taskRunner.TaskListChanged();
         }
 
-        public IRunner Runner
+        public IRunnable Runner
         {
             get
             {

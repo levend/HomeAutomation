@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Runtime.Serialization.Json;
 
 namespace HomeAutomation.Application.Configuration
@@ -10,7 +11,9 @@ namespace HomeAutomation.Application.Configuration
         {
             T returnResult = default(T);
 
-            using (FileStream fs = File.Open(fileName, FileMode.Open,FileAccess.Read,FileShare.Read))
+            string processedFileName = ProcessConfigFile(fileName);
+
+            using (FileStream fs = File.Open(processedFileName, FileMode.Open,FileAccess.Read,FileShare.Read))
             {
                 DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
                 
@@ -18,6 +21,18 @@ namespace HomeAutomation.Application.Configuration
             }
 
             return returnResult;
+        }
+
+        private string ProcessConfigFile(string fileName)
+        {
+            string newFileName = Path.Combine(Path.GetTempPath(), "HomeAutomationConfiguration.json.ha");
+
+            string sourceConfig = File.ReadAllText(fileName);
+            sourceConfig = sourceConfig.Replace("\r", String.Empty);
+
+            File.WriteAllText(newFileName, sourceConfig);
+
+            return newFileName;
         }
     }
 }

@@ -4,6 +4,6 @@ namespace HomeAutomation.Core.Controller
 {
     public interface IControllerFactory
     {
-        IHomeController CreateController(Dictionary<string, object> configuration);
+        IController CreateController(Dictionary<string, string> configuration);
     }
 }

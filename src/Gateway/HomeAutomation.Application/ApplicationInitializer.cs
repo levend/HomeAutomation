@@ -1,7 +1,5 @@
 ﻿using HomeAutomation.Application.Configuration;
-using HomeAutomation.Application.Factory;
 using HomeAutomation.Communication.Mqtt;
-using HomeAutomation.Controller.Mqtt;
 using HomeAutomation.Core;
 using HomeAutomation.Core.Controller;
 using HomeAutomation.Core.Network;
@@ -15,13 +13,17 @@ namespace HomeAutomation.Application
 {
     public class ApplicationInitializer
     {
+        private HomeAutomationConfiguration configuration;
+
         public void Initialize(HomeAutomationConfiguration configuration)
         {
-            InitializeDeviceNetworks(configuration);
+            this.configuration = configuration;
 
-            InitializeDeviceTypes(configuration);
+            InitializeDeviceNetworks();
 
-            InitializeControllers(configuration);
+            InitializeDeviceTypes();
+
+            InitializeControllers();
 
             InitializeLogging();
         }
@@ -29,10 +31,24 @@ namespace HomeAutomation.Application
         private void InitializeLogging()
         {
             Log.AddLogWriter(new ConsoleLogWriter(), new StandardLogFormatter());
-            //Log.AddLogWriter(new MqttLogWriter(mqttService, MqttTopic.LogTopic), new StandardLogFormatter());
+
+            if (!String.IsNullOrEmpty(configuration.Logging.MqttServerName))
+            {
+                MqttServerConfiguration mqttConfig = new MqttServerConfiguration()
+                {
+                    ClientName = "HomeAutomation.Gateway.MqttLogWriter",
+                    KeepAliveCheckPeriodInSeconds = 20,
+                    ServerHostName = configuration.Logging.MqttServerName,
+                    TopicRootName = configuration.Logging.RootTopicName
+                };
+
+                MqttService mqttService = new MqttService(mqttConfig, new MqttClientWrapper(configuration.Logging.MqttServerName));
+
+                Log.AddLogWriter(new MqttLogWriter(mqttService, configuration.Logging.SubTopicName), new StandardLogFormatter());
+            }
         }
 
-        private void InitializeDeviceNetworks(HomeAutomationConfiguration configuration)
+        private void InitializeDeviceNetworks()
         {
             foreach(DeviceNetworkConfiguration dnc in configuration.DeviceNetworks)
             {
@@ -45,7 +61,7 @@ namespace HomeAutomation.Application
             }
         }
 
-        private void InitializeDeviceTypes(HomeAutomationConfiguration configuration)
+        private void InitializeDeviceTypes()
         {
             foreach(DeviceTypeDescription dtd in configuration.DeviceTypes)
             {
@@ -53,14 +69,13 @@ namespace HomeAutomation.Application
             }
         }
 
-        // todo: refactor to get this info from the config file.
-        private void InitializeControllers(HomeAutomationConfiguration configuration)
+        private void InitializeControllers()
         {
             foreach(ControllerConfiguration cc in configuration.Controllers)
             {
                 IControllerFactory factory = Activator.CreateInstance(Type.GetType(cc.Factory)) as IControllerFactory;
 
-                IHomeController controller = factory.CreateController(cc.Configuration);
+                IController controller = factory.CreateController(cc.Configuration);
 
                 HomeAutomationSystem.ControllerRegistry.RegisterController(controller);
 

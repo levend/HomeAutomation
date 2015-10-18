@@ -1,8 +1,5 @@
-﻿using HomeAutomation.Application.Factory;
-using HomeAutomation.Communication.Mqtt;
-using HomeAutomation.Core;
+﻿using HomeAutomation.Core;
 using HomeAutomation.Gateway.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -22,5 +19,8 @@ namespace HomeAutomation.Application.Configuration
 
         [DataMember]
         public List<ControllerConfiguration> Controllers { get; set; }
+
+        [DataMember]
+        public LoggingConfiguration Logging { get; set; }
     }
 }

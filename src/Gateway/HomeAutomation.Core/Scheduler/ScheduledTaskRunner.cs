@@ -9,7 +9,7 @@ namespace HomeAutomation.Core.Scheduler
     /// <summary>
     /// Provides a simple way of running scheduled tasks. 
     /// </summary>
-    internal class ScheduledTaskRunner : IRunner
+    internal class ScheduledTaskRunner : IRunnable
     {
         private bool runloopShouldRun = true;
 

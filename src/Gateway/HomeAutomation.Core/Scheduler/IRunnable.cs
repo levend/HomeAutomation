@@ -1,6 +1,6 @@
 ﻿namespace HomeAutomation.Core.Scheduler
 {
-    public interface IRunner
+    public interface IRunnable
     {
         void Step();
         void Start();

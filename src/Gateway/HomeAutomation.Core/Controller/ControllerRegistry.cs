@@ -9,12 +9,12 @@ namespace HomeAutomation.Core
     /// </summary>
     public class ControllerRegistry
     {
-        public event EventHandler<IHomeController> ControllerAdded;
+        public event EventHandler<IController> ControllerAdded;
 
-        private IHomeController[] controllerList = new IHomeController[0];
+        private IController[] controllerList = new IController[0];
         private AllControllersController allController;
 
-        public IHomeController All { get { return allController; } }
+        public IController All { get { return allController; } }
 
         public ControllerRegistry()
         {
@@ -25,9 +25,9 @@ namespace HomeAutomation.Core
         /// Registers a controller to the system.
         /// </summary>
         /// <param name="controller"></param>
-        public void RegisterController(IHomeController controller)
+        public void RegisterController(IController controller)
         {
-            List<IHomeController> newList = new List<IHomeController>(controllerList);
+            List<IController> newList = new List<IController>(controllerList);
             newList.Add(controller);
 
             controllerList = newList.ToArray();
@@ -39,7 +39,7 @@ namespace HomeAutomation.Core
         /// Returns the currently registered controller list, which can be used to loop through the list, as it will never change, but 
         /// rather a new instance will be returned on change.
         /// </summary>
-        public IHomeController[] GetControllers()
+        public IController[] GetControllers()
         {
             return controllerList;
         }

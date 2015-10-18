@@ -1,5 +1,4 @@
-﻿using HomeAutomation.Core.Service;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace HomeAutomation.Core
@@ -7,7 +6,7 @@ namespace HomeAutomation.Core
     /// <summary>
     /// The IHomeController interface is implemented by every controller participating in the system.
     /// </summary>
-    public interface IHomeController
+    public interface IController
     {
         event EventHandler<DeviceCommand> DeviceCommandArrived;
 

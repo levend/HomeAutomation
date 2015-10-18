@@ -6,7 +6,7 @@ namespace HomeAutomation.Core.Controller
     /// <summary>
     /// Provides simple means to aggregate controllers in the network.
     /// </summary>
-    internal class AllControllersController : IHomeController
+    internal class AllControllersController : IController
     {
         private ControllerRegistry registry;
 
@@ -19,7 +19,7 @@ namespace HomeAutomation.Core.Controller
             registry.ControllerAdded += Registry_ControllerAdded;
         }
 
-        private void Registry_ControllerAdded(object sender, IHomeController controller)
+        private void Registry_ControllerAdded(object sender, IController controller)
         {
             if (controller != this)
             {
@@ -36,8 +36,8 @@ namespace HomeAutomation.Core.Controller
 
         public void SendDeviceState(DeviceState deviceState)
         {
-            IHomeController[] allControllers = registry.GetControllers();
-            foreach(IHomeController oneController in allControllers)
+            IController[] allControllers = registry.GetControllers();
+            foreach(IController oneController in allControllers)
             {
                 oneController.SendDeviceState(deviceState);
             }
@@ -45,8 +45,8 @@ namespace HomeAutomation.Core.Controller
 
         public void SendGatewayHeartbeatMessage(string message)
         {
-            IHomeController[] allControllers = registry.GetControllers();
-            foreach (IHomeController oneController in allControllers)
+            IController[] allControllers = registry.GetControllers();
+            foreach (IController oneController in allControllers)
             {
                 oneController.SendGatewayHeartbeatMessage(message);
             }
@@ -59,8 +59,8 @@ namespace HomeAutomation.Core.Controller
 
         public void SendStatistics(Dictionary<string, object> statisticValues)
         {
-            IHomeController[] allControllers = registry.GetControllers();
-            foreach (IHomeController oneController in allControllers)
+            IController[] allControllers = registry.GetControllers();
+            foreach (IController oneController in allControllers)
             {
                 oneController.SendStatistics(statisticValues);
             }

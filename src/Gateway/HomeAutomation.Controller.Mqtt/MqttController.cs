@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace HomeAutomation.Controller.Mqtt
 {
-    public class MqttController : IHomeController
+    public class MqttController : IController
     {
         MqttService mqttService;
 

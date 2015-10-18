@@ -13,7 +13,7 @@ namespace HomeAutomation.Gateway.App
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page, IHomeController
+    public sealed partial class MainPage : Page, IController
     {
         public MainPage()
         {
@@ -44,7 +44,7 @@ namespace HomeAutomation.Gateway.App
 
         private void MainPage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            MainApplication.Initialize("Config/HomeAutomation.conf");
+            MainApplication.Initialize("Config/HomeAutomationConfiguration.json");
 
             HomeAutomationSystem.ControllerRegistry.RegisterController(this);
 

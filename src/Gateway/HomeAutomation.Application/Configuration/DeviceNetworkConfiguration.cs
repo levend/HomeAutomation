@@ -13,6 +13,6 @@ namespace HomeAutomation.Application.Configuration
         public string Factory { get; set; }
 
         [DataMember]
-        public Dictionary<string, object> Configuration { get; set; }
+        public Dictionary<string, string> Configuration { get; set; }
     }
 }

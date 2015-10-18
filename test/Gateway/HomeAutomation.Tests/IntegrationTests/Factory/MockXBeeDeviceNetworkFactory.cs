@@ -12,7 +12,7 @@ namespace HomeAutomation.Tests.IntegrationTests.Factory
 
         public static MockXBeeDeviceNetworkFactory Instance { get; private set; } = new MockXBeeDeviceNetworkFactory();
 
-        public IDeviceNetwork CreateDeviceNetwork(Dictionary<string, object> configuration)
+        public IDeviceNetwork CreateDeviceNetwork(Dictionary<string, string> configuration)
         {
             return new XBeeDeviceNetwork(SerialPort);
         }
