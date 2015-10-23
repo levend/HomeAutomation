@@ -2,6 +2,7 @@
 using HomeAutomation.Core;
 using HomeAutomation.Communication.Mqtt;
 using System.Collections.Generic;
+using HomeAutomation.Core.Diagnostics;
 
 namespace HomeAutomation.Controller.Mqtt
 {
@@ -37,11 +38,11 @@ namespace HomeAutomation.Controller.Mqtt
             mqttService.SendMessage(mqttService.GetFullTopicName(MqttTopic.Heartbeat), message);
         }
 
-        public void SendStatistics(Dictionary<string, object> statisticValues)
+        public void SendStatistics(Statistics statistics)
         {
             mqttService.SendMessage(
                 mqttService.GetFullTopicName(MqttTopic.Statistics),
-                "[Statistics] XBee messages received: " + statisticValues["XBeeMessageReceiveCount"]);
+                "[Statistics] XBee messages received: " + statistics.XBeeMessageReceiveCount);
         }
 
         private void MqttService_MessageReceived(object sender, MqttMessage e)

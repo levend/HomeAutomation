@@ -114,6 +114,7 @@
     <Compile Include="Device\ComponentState.cs" />
     <Compile Include="Device\DeviceCommand.cs" />
     <Compile Include="Controller\IController.cs" />
+    <Compile Include="Diagnostics\Statistics.cs" />
     <Compile Include="Network\DeviceNetworkRegistry.cs" />
     <Compile Include="Network\DeviceRegistry.cs" />
     <Compile Include="Device\DeviceState.cs" />

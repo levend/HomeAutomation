@@ -16,6 +16,8 @@ namespace HomeAutomation.Core.Scheduler
         private List<ScheduledTaskInfo> taskList;
         private ScheduledTaskInfo[] readOnlyTaskList;
 
+        private Dictionary<ScheduledTaskInfo, Task> runningSystemTasks = new Dictionary<ScheduledTaskInfo, Task>();
+
         public ScheduledTaskRunner(List<ScheduledTaskInfo> taskList)
         {
             this.taskList = taskList;
@@ -58,7 +60,15 @@ namespace HomeAutomation.Core.Scheduler
             {
                 try
                 {
-                    taskInfo.Task.TimeElapsed();
+                    // get the system task for this scheduled task.
+                    // it may be still running, so we are going to start it again only if it's completed
+                    Task systemTask = runningSystemTasks.ContainsKey(taskInfo) ? runningSystemTasks[taskInfo] : null;
+
+                    if (systemTask?.IsCompleted ?? true)
+                    {
+                        systemTask = Task.Factory.StartNew(() => { taskInfo.Task.TimeElapsed(); });
+                        runningSystemTasks[taskInfo] = systemTask;
+                    }
                 }
                 catch (Exception ex)
                 {

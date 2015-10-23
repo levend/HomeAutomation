@@ -25,7 +25,7 @@ namespace HomeAutomation.Core
         /// <summary>
         /// Sends statistics about the system usage.
         /// </summary>
-        /// <param name="statisticValues"></param>
-        void SendStatistics(Dictionary<string, object> statisticValues);
+        /// <param name="statistics"></param>
+        void SendStatistics(Diagnostics.Statistics statistics);
     }
 }

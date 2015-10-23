@@ -1,8 +1,8 @@
 using HomeAutomation.Core;
+using HomeAutomation.Core.Diagnostics;
 using HomeAutomation.Core.Scheduler;
 using MosziNet.XBee;
 using System;
-using System.Collections.Generic;
 
 namespace HomeAutomation.Gateway.Admin
 {
@@ -14,7 +14,7 @@ namespace HomeAutomation.Gateway.Admin
 
         public StatisticsService()
         {
-            this.statisticsIntervalInSeconds = 10;
+            this.statisticsIntervalInSeconds = 1;
 
             systemStatistics = new Statistics();
             systemStatistics.SystemStartTime = DateTime.Now;
@@ -24,25 +24,16 @@ namespace HomeAutomation.Gateway.Admin
 
         private void ReportStatistics()
         {
-            lastMeasureTime = DateTime.Now;
-            Dictionary<string, object> statistics = new Dictionary<string, object>();
-
-            statistics.Add("XBeeMessageReceiveCount", systemStatistics.XBeeMessageReceiveCount);
-            statistics.Add("XBeeMessageSentCount", systemStatistics.XBeeMessageSentCount);
-
-            HomeAutomationSystem.ControllerRegistry.All.SendStatistics(statistics);
+            HomeAutomationSystem.ControllerRegistry.All.SendStatistics(systemStatistics);
         }
 
         private void GatherStatistics()
         {
-            TimeSpan uptime = DateTime.Now.Subtract(systemStatistics.SystemStartTime);
-            systemStatistics.UptimeDays = uptime.Days;
+            systemStatistics.CurrentTime = DateTime.Now;
+            systemStatistics.UptimeDays = systemStatistics.CurrentTime.Subtract(systemStatistics.SystemStartTime).Days;
 
             systemStatistics.XBeeMessageReceiveCount = XBeeStatistics.MessagesReceived;
             systemStatistics.XBeeMessageSentCount = XBeeStatistics.MessagesSent;
-
-            // Migration
-            //systemStatistics.FreeMemory = 0;
         }
 
         public void TimeElapsed()
@@ -51,8 +42,9 @@ namespace HomeAutomation.Gateway.Admin
             // check if it's time to gather statistics
             if (lastMeasureTime.AddSeconds(statisticsIntervalInSeconds) < DateTime.Now)
             {
-                GatherStatistics();
+                lastMeasureTime = DateTime.Now;
 
+                GatherStatistics();
                 ReportStatistics();
             }
         }

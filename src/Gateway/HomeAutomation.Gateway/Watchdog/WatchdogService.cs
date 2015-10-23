@@ -1,5 +1,6 @@
 using System;
 using HomeAutomation.Core.Scheduler;
+using HomeAutomation.Core;
 
 namespace HomeAutomation.Gateway.Watchdog
 {
@@ -16,7 +17,7 @@ namespace HomeAutomation.Gateway.Watchdog
 
         public void TimeElapsed()
         {
-            // todo
+            
         }
     }
 }

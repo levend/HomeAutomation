@@ -5,6 +5,7 @@ using HomeAutomation.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Core;
 using Windows.ApplicationModel.Core;
+using HomeAutomation.Core.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -34,12 +35,13 @@ namespace HomeAutomation.Gateway.App
             
         }
 
-        public void SendStatistics(Dictionary<string, object> statisticValues)
+        public void SendStatistics(Statistics statistics)
         {
             var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                receivedXBeeFrameCount.Text = statisticValues["XBeeMessageReceiveCount"].ToString();
-                sentXBeeFrameCount.Text = statisticValues["XBeeMessageSentCount"].ToString();
+                receivedXBeeFrameCount.Text = statistics.XBeeMessageReceiveCount.ToString();
+                sentXBeeFrameCount.Text = statistics.XBeeMessageSentCount.ToString();
+                systemTime.Text = statistics.CurrentTime.ToString("HH:mm:ss");
             });
         }
 

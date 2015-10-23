@@ -108,7 +108,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AdminCommandDistributor.cs" />
-    <Compile Include="Admin\Statistics.cs" />
     <Compile Include="Admin\StatisticsService.cs" />
     <Compile Include="BusinessLogic\DeviceNetworkGateway.cs" />
     <Compile Include="Configuration\GatewayConfiguration.cs" />

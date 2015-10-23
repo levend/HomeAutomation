@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeAutomation.Core.Diagnostics;
+using System;
 using System.Collections.Generic;
 
 namespace HomeAutomation.Core.Controller
@@ -57,12 +58,12 @@ namespace HomeAutomation.Core.Controller
             // nothing to do here
         }
 
-        public void SendStatistics(Dictionary<string, object> statisticValues)
+        public void SendStatistics(Statistics statistics)
         {
             IController[] allControllers = registry.GetControllers();
             foreach (IController oneController in allControllers)
             {
-                oneController.SendStatistics(statisticValues);
+                oneController.SendStatistics(statistics);
             }
         }
     }

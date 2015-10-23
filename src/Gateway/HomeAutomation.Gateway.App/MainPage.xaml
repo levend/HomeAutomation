@@ -17,5 +17,6 @@
         <TextBlock x:Name="textBox2" HorizontalAlignment="Left" Margin="38,195,0,0" TextWrapping="Wrap" Text="Sent XBee Frames:" VerticalAlignment="Top" FontSize="24"/>
 
         <Image x:Name="image" HorizontalAlignment="Right" Height="100" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Source="Assets/Square150x150Logo.png"/>
+        <TextBlock x:Name="systemTime" HorizontalAlignment="Right" Margin="0,24,27,0" TextWrapping="Wrap" Text="--:--:--" FontSize="24" Width="112" VerticalAlignment="Top" TextAlignment="Right"/>
     </Grid>
 </Page>
