@@ -36,7 +36,7 @@ namespace HomeAutomation.Tests
                 MessageReceived?.Invoke(null, null);
             }
 
-            public void SendFrame(MosziNet.XBee.Frame.IXBeeFrame frame)
+            public void SendFrame(IXBeeFrame frame)
             {
                 
             }

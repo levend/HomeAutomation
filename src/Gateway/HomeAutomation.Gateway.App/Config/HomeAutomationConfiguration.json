@@ -41,7 +41,11 @@
                 {
                     "Key": "SerialStopBitCount",
                     "Value": "0"
-                }
+                },
+				{
+					"Key": "APIVersion",
+					"Value": "2"
+				}
             ],
             "Factory": "HomeAutomation.DeviceNetwork.XBee.XBeeDeviceNetworkFactory, HomeAutomation.DeviceNetwork.XBee",
             "Name": "xbee"
@@ -67,6 +71,11 @@
             "DeviceClassTypeString": "MosziNet.Devices.XBee.DoubleRelay, MosziNet.Devices.XBee",
             "DeviceNetworkName": "xbee",
             "DeviceTypeId": 39300
+        },
+        {
+            "DeviceClassTypeString": "MosziNet.Devices.XBee.EpamTemperatureDeviceV1, MosziNet.Devices.XBee",
+            "DeviceNetworkName": "xbee",
+            "DeviceTypeId": 59905
         }
     ],
     "Gateway": {

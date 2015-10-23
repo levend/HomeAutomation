@@ -1,4 +1,4 @@
-using MosziNet.XBee.Frame.ZigBee;
+using MosziNet.XBee;
 
 namespace MosziNet.Devices.XBee
 {

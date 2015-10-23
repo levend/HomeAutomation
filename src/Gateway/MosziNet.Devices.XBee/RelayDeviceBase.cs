@@ -4,8 +4,6 @@ using HomeAutomation.Logging;
 using HomeAutomation.Util;
 using MosziNet.XBee;
 using MosziNet.XBee.Frame;
-using MosziNet.XBee.Frame.ZigBee;
-using System;
 using System.Collections.Generic;
 
 namespace MosziNet.Devices.XBee

@@ -1,7 +1,6 @@
 using HomeAutomation.Core;
 using MosziNet.XBee;
 using MosziNet.XBee.Frame;
-using MosziNet.XBee.Frame.ZigBee;
 
 namespace HomeAutomation.DeviceNetwork.XBee.FrameProcessor
 {

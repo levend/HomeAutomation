@@ -15,8 +15,9 @@ namespace HomeAutomation.DeviceNetwork.XBee
             SerialParity parity = (SerialParity)Enum.Parse(typeof(SerialParity), configuration["SerialParity"], true);
             SerialStopBitCount stopBit = (SerialStopBitCount)Enum.Parse(typeof(SerialStopBitCount), configuration["SerialStopBitCount"], true);
             ushort dataBits = UInt16.Parse(configuration["DataBits"]);
+            APIVersion apiVersion = (APIVersion)Enum.Parse(typeof(APIVersion), configuration["APIVersion"], true);
 
-            IXBeeSerialPort serialPort = new XBeeSerialPort(baudRate, parity, stopBit, dataBits);
+            IXBeeSerialPort serialPort = new XBeeSerialPort(baudRate, parity, stopBit, dataBits, apiVersion);
 
             XBeeDeviceNetwork network = new XBeeDeviceNetwork(serialPort);
 

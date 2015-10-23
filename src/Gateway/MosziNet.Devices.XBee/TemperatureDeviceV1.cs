@@ -2,7 +2,6 @@ using HomeAutomation.Core;
 using HomeAutomation.DeviceNetwork.XBee;
 using HomeAutomation.Logging;
 using MosziNet.XBee.Frame;
-using MosziNet.XBee.Frame.ZigBee;
 
 namespace MosziNet.Devices.XBee
 {

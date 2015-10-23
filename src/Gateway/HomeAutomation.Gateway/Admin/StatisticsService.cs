@@ -28,6 +28,7 @@ namespace HomeAutomation.Gateway.Admin
             Dictionary<string, object> statistics = new Dictionary<string, object>();
 
             statistics.Add("XBeeMessageReceiveCount", systemStatistics.XBeeMessageReceiveCount);
+            statistics.Add("XBeeMessageSentCount", systemStatistics.XBeeMessageSentCount);
 
             HomeAutomationSystem.ControllerRegistry.All.SendStatistics(statistics);
         }

@@ -5,7 +5,7 @@ using HomeAutomation.Tests.IntegrationTests.Factory;
 using HomeAutomation.Util;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using MosziNet.XBee;
-using MosziNet.XBee.Frame.ZigBee;
+using MosziNet.XBee.Frame;
 using System.Collections.Generic;
 
 namespace HomeAutomation.Tests.IntegrationTests

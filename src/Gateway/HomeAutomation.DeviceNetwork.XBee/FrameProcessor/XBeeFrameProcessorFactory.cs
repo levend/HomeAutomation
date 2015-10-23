@@ -1,4 +1,4 @@
-﻿using MosziNet.XBee.Frame.ZigBee;
+﻿using MosziNet.XBee.Frame;
 using System;
 using System.Collections.Generic;
 

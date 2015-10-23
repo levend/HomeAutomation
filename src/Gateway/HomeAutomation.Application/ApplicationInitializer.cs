@@ -43,6 +43,7 @@ namespace HomeAutomation.Application
                 };
 
                 MqttService mqttService = new MqttService(mqttConfig, new MqttClientWrapper(configuration.Logging.MqttServerName));
+                HomeAutomationSystem.ScheduledTasks.ScheduleRealtimeTask(mqttService);
 
                 Log.AddLogWriter(new MqttLogWriter(mqttService, configuration.Logging.SubTopicName), new StandardLogFormatter());
             }

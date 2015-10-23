@@ -39,6 +39,7 @@ namespace HomeAutomation.Gateway.App
             var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 receivedXBeeFrameCount.Text = statisticValues["XBeeMessageReceiveCount"].ToString();
+                sentXBeeFrameCount.Text = statisticValues["XBeeMessageSentCount"].ToString();
             });
         }
 

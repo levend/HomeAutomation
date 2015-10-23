@@ -21,6 +21,8 @@ namespace HomeAutomation.Controller.Mqtt
             };
 
             MqttService service = new MqttService(mqttConfig, client);
+            HomeAutomationSystem.ScheduledTasks.ScheduleRealtimeTask(service);
+
             MqttController controller = new MqttController(service);
 
             return controller;
