@@ -1,6 +1,4 @@
 ﻿using HomeAutomation.Core.DeviceNetwork;
-using HomeAutomation.Core.Service;
-using System;
 
 namespace HomeAutomation.Core
 {
@@ -17,20 +15,10 @@ namespace HomeAutomation.Core
         void Initialize(DeviceNetworkHost deviceNetworkHost);
 
         /// <summary>
-        /// The event is fired when the device network delivers a message to the controller.
-        /// </summary>
-        event EventHandler<DeviceState> DeviceStateReceived;
-
-        /// <summary>
         /// Sends a command to the device network.
         /// </summary>
         /// <param name="command"></param>
-        void SendCommand(DeviceCommand command);
-
-        /// <summary>
-        /// Gets/sets the name of the device network. Set by the system when the network is registered.
-        /// </summary>
-        string Name { get; set; }
+        void ExecuteCommand(DeviceCommand command);
 
         /// <summary>
         /// Forces the device network to update with its diagnostics.

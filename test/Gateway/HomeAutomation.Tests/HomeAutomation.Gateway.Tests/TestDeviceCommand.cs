@@ -49,7 +49,7 @@ namespace HomeAutomation.Tests
 
             public event EventHandler<DeviceState> DeviceStateReceived;
 
-            public void SendCommand(DeviceCommand command)
+            public void ExecuteCommand(DeviceCommand command)
             {
                 HomeAutomationSystem.DeviceRegistry.GetDeviceById(this, command.DeviceID).ExecuteCommand(command);
             }
@@ -97,7 +97,7 @@ namespace HomeAutomation.Tests
                 Parameters = new string[] { "YES" }
             };
 
-            mdn.SendCommand(dc);
+            mdn.ExecuteCommand(dc);
 
             Assert.IsTrue(device.TestSuccess);
         }

@@ -25,12 +25,19 @@ namespace HomeAutomation.Gateway.App
             this.Loaded += MainPage_Loaded;
         }
 
-        public event EventHandler<DeviceCommand> DeviceCommandArrived; // TODO: replace this with an interface that is received when we register the controller.
-
         public void Initialize(ControllerHost controllerHost)
         {
             controllerHost.OnDeviceNetworkDiagnosticsReceived += ControllerHost_OnDeviceNetworkDiagnosticsReceived;
             controllerHost.OnControllerDiagnosticsReceived += ControllerHost_OnControllerDiagnosticsReceived;
+            controllerHost.OnStatisticsReceived += ControllerHost_OnStatisticsReceived;
+        }
+
+        private void ControllerHost_OnStatisticsReceived(object sender, StatisticsEventArgs e)
+        {
+            var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                systemTime.Text = e.Statistics.CurrentTime.ToString("HH:mm:ss");
+            });
         }
 
         private void ControllerHost_OnControllerDiagnosticsReceived(object sender, Core.Controller.ControllerDiagnosticsEventArgs e)
@@ -62,24 +69,6 @@ namespace HomeAutomation.Gateway.App
                 });
             }
 
-        }
-
-        public void SendDeviceState(DeviceState deviceState)
-        {
-            
-        }
-
-        public void SendGatewayHeartbeatMessage(string message)
-        {
-            
-        }
-
-        public void SendStatistics(Statistics statistics)
-        {
-            var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                systemTime.Text = statistics.CurrentTime.ToString("HH:mm:ss");
-            });
         }
 
         private void MainPage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)

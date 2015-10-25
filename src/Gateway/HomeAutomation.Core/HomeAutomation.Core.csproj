@@ -108,11 +108,12 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\AllControllersController.cs" />
     <Compile Include="Controller\ControllerDiagnosticsEventArgs.cs" />
     <Compile Include="Controller\ControllerRegistry.cs" />
     <Compile Include="Controller\DeviceNetworkDiagnosticsEventArgs.cs" />
+    <Compile Include="Controller\DeviceStateEventArgs.cs" />
     <Compile Include="Controller\IControllerFactory.cs" />
+    <Compile Include="Controller\StatisticsEventArgs.cs" />
     <Compile Include="Diagnostics\StatisticsService.cs" />
     <Compile Include="Gateway.cs" />
     <Compile Include="DeviceNetwork\DeviceNetworkHost.cs" />

@@ -11,7 +11,6 @@ namespace HomeAutomation.Gateway
         {
             Log.Debug("[HomeAutomation.Gateway] Gateway initializing ...");
 
-            HomeAutomationSystem.ServiceRegistry.RegisterService(new Core.Gateway());
             HomeAutomationSystem.ScheduledTasks.ScheduleTask(new StatisticsService(), config.StatisticsAnnouncementPeriodInSeconds);
 
             Log.Debug("[HomeAutomation.Gateway] Initialized.");

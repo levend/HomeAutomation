@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace HomeAutomation.Core
 {
@@ -11,8 +7,6 @@ namespace HomeAutomation.Core
     /// </summary>
     public class DeviceNetworkRegistry
     {
-        public event EventHandler<IDeviceNetwork> DeviceNetworkAdded;
-
         private Dictionary<IDeviceNetwork, string> deviceNetworks = new Dictionary<IDeviceNetwork, string>();
         private Dictionary<string, IDeviceNetwork> deviceNetworksByName = new Dictionary<string, IDeviceNetwork>();
 
@@ -21,12 +15,7 @@ namespace HomeAutomation.Core
             deviceNetworks.Add(deviceNetwork, deviceNetworkUniqueId);
             deviceNetworksByName.Add(deviceNetworkUniqueId, deviceNetwork);
 
-            // record this name in the device network as well.
-            deviceNetwork.Name = deviceNetworkUniqueId;
             deviceNetwork.Initialize(HomeAutomationSystem.DeviceNetworkHost);
-
-            // Notify our listeners that a new network was added.
-            DeviceNetworkAdded?.Invoke(this, deviceNetwork);
         }
 
         public string GetDeviceNetworkUniqueId(IDeviceNetwork network)

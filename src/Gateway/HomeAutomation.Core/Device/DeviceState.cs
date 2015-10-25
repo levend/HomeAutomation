@@ -27,7 +27,7 @@ namespace HomeAutomation.Core
         {
             StringBuilder stateBuilder = new StringBuilder();
 
-            stateBuilder.Append(this.Device.DeviceNetwork.Name);
+            stateBuilder.Append(HomeAutomationSystem.DeviceNetworkRegistry.GetDeviceNetworkUniqueId(Device.DeviceNetwork));
             stateBuilder.Append(",");
             stateBuilder.Append(this.Device.DeviceID.ToHexString());
 

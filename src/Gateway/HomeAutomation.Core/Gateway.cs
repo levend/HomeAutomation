@@ -1,30 +1,20 @@
-using HomeAutomation.Core.Service;
-
 namespace HomeAutomation.Core
 {
-    public class Gateway : IService
+    internal class Gateway
     {
-        public Gateway()
+        /// <summary>
+        /// Invoked by the controller host. Executes a command on the device network.
+        /// </summary>
+        /// <param name="command"></param>
+        internal static void ExecuteDeviceCommand(DeviceCommand command)
         {
-            // make sure we subscribe to new networks' events ...
-            HomeAutomationSystem.DeviceNetworkRegistry.DeviceNetworkAdded += (sender, network) =>
-            {
-                network.DeviceStateReceived += DeviceNetwork_DeviceStateReceived;
-            };
-
-            // the controllers are aggregated with the "All" controller, subscribe to the commands there.
-            HomeAutomationSystem.ControllerRegistry.All.DeviceCommandArrived += Controller_DeviceCommandArrived;
+            IDeviceNetwork deviceNetwork = HomeAutomationSystem.DeviceNetworkRegistry.GetNetworkByName(command.DeviceNetworkName);
+            deviceNetwork?.ExecuteCommand(command);
         }
 
-        private void Controller_DeviceCommandArrived(object sender, DeviceCommand e)
+        internal static void DeviceStateReceived(DeviceState deviceState)
         {
-            IDeviceNetwork deviceNetwork = HomeAutomationSystem.DeviceNetworkRegistry.GetNetworkByName(e.DeviceNetworkName);
-            deviceNetwork?.SendCommand(e);
-        }
-
-        private void DeviceNetwork_DeviceStateReceived(object sender, DeviceState e)
-        {
-            HomeAutomationSystem.ControllerRegistry.All.SendDeviceState(e);
+            HomeAutomationSystem.ControllerHost.DeviceStateReceived(deviceState);
         }
     }
 }

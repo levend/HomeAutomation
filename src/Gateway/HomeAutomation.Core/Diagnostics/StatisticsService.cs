@@ -21,7 +21,7 @@ namespace HomeAutomation.Core.Diagnostics
 
         private void ReportStatistics()
         {
-            HomeAutomationSystem.ControllerRegistry.All.SendStatistics(systemStatistics);
+            HomeAutomationSystem.ControllerHost.StatisticsReceived(systemStatistics);
         }
 
         private void GatherStatistics()
@@ -55,7 +55,7 @@ namespace HomeAutomation.Core.Diagnostics
                 object diagnosticsObject = oneController.GetUpdatedDiagnostics();
                 if (diagnosticsObject != null)
                 {
-                    HomeAutomationSystem.ControllerHost.SendControllerDiagnostics(oneController, diagnosticsObject);
+                    HomeAutomationSystem.ControllerHost.ControllerDiagnosticsReceived(oneController, diagnosticsObject);
                 }
             }
         }
@@ -72,7 +72,7 @@ namespace HomeAutomation.Core.Diagnostics
                 {
                     foreach (IController oneController in controllers)
                     {
-                        HomeAutomationSystem.ControllerHost.SendDeviceNetworkDiagnostics(oneNetwork, diagnostics);
+                        HomeAutomationSystem.ControllerHost.DeviceNetworkDiagnosticsReceived(oneNetwork, diagnostics);
                     }
                 }
             }

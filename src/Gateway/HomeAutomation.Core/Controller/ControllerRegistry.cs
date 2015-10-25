@@ -12,14 +12,6 @@ namespace HomeAutomation.Core
         public event EventHandler<IController> ControllerAdded;
 
         private IController[] controllerList = new IController[0];
-        private AllControllersController allController;
-
-        public IController All { get { return allController; } }
-
-        public ControllerRegistry()
-        {
-            allController = new AllControllersController(this);
-        }
 
         /// <summary>
         /// Registers a controller to the system.

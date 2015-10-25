@@ -25,5 +25,7 @@ namespace HomeAutomation.Core
         internal static ControllerHost ControllerHost { get; private set; } = new ControllerHost();
 
         internal static DeviceNetworkHost DeviceNetworkHost { get; private set; } = new DeviceNetworkHost();
+
+        internal static Gateway Gateway { get; private set; } = new Gateway();
     }
 }

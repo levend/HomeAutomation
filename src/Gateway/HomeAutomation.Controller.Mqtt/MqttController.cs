@@ -22,21 +22,16 @@ namespace HomeAutomation.Controller.Mqtt
             mqttService.SubscribeTopic(MqttTopic.CommandTopic);
         }
 
-        public event EventHandler<DeviceCommand> DeviceCommandArrived;
-
         public void Initialize(ControllerHost controllerHost)
         {
             this.controllerHost = controllerHost;
+
+            controllerHost.OnDeviceStateReceived += ControllerHost_OnDeviceStateReceived;
         }
 
-        public void SendDeviceState(DeviceState deviceState)
+        private void ControllerHost_OnDeviceStateReceived(object sender, DeviceStateEventArgs e)
         {
-            mqttService.SendMessage(mqttService.GetFullTopicName(MqttTopic.StatusTopic), deviceState.ConvertToString());
-        }
-
-        public void SendGatewayHeartbeatMessage(string message)
-        {
-            mqttService.SendMessage(mqttService.GetFullTopicName(MqttTopic.Heartbeat), message);
+            mqttService.SendMessage(mqttService.GetFullTopicName(MqttTopic.StatusTopic), e.DeviceState.ConvertToString());
         }
 
         private void MqttService_MessageReceived(object sender, MqttMessage e)
@@ -52,7 +47,7 @@ namespace HomeAutomation.Controller.Mqtt
             {
                 DeviceCommand command = DeviceCommand.CreateFromString(e.Message);
 
-                DeviceCommandArrived?.Invoke(this, command);
+                controllerHost.ExecuteDeviceCommand(command);
             }
         }
 
@@ -65,11 +60,6 @@ namespace HomeAutomation.Controller.Mqtt
                 SentMessageCount = MqttStatistics.SentMessageCount,
                 DroppedMessageCount = MqttStatistics.LostMessageCount
             };
-        }
-
-        public void SendStatistics(Statistics statistics)
-        {
-            
         }
     }
 }

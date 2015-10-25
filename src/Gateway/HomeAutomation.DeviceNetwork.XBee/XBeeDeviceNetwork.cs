@@ -14,13 +14,9 @@ namespace HomeAutomation.DeviceNetwork.XBee
     /// </summary>
     public class XBeeDeviceNetwork : IDeviceNetwork, IScheduledTask
     {
-        public event EventHandler<DeviceState> DeviceStateReceived;
-
         private IXBeeService xbeeService;
         private IXBeeSerialPort serialPort;
         private DeviceNetworkHost deviceNetworkHost;
-
-        public string Name { get; set; }
 
         public XBeeDeviceNetwork(IXBeeSerialPort serialPort)
         {
@@ -46,7 +42,7 @@ namespace HomeAutomation.DeviceNetwork.XBee
         /// Sends a command to the XBee network.
         /// </summary>
         /// <param name="command"></param>
-        public void SendCommand(DeviceCommand command)
+        public void ExecuteCommand(DeviceCommand command)
         {
             IXBeeDevice device = HomeAutomationSystem.DeviceRegistry.GetDeviceById(this, command.DeviceID) as IXBeeDevice;
 
@@ -64,7 +60,7 @@ namespace HomeAutomation.DeviceNetwork.XBee
         /// <param name="deviceState"></param>
         internal void AnnounceDeviceState(DeviceState deviceState)
         {
-            DeviceStateReceived?.Invoke(this, deviceState);
+            deviceNetworkHost.DeviceStateReceived(deviceState);
         }
 
         /// <summary>
