@@ -8,9 +8,6 @@ namespace HomeAutomation.Core.Diagnostics
 
         public DateTime CurrentTime { get; set; }
 
-        public UInt64 XBeeMessageSentCount { get; set; }
-
-        public UInt64 XBeeMessageReceiveCount { get; set; }
         public int UptimeDays { get; set; }
     }
 }

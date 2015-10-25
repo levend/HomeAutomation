@@ -1,14 +1,12 @@
 using HomeAutomation.Core;
 using HomeAutomation.DeviceNetwork.XBee;
-using HomeAutomation.Logging;
-using HomeAutomation.Util;
 using MosziNet.XBee;
 using MosziNet.XBee.Frame;
 using System;
 
 namespace MosziNet.Devices.XBee
 {
-    public class DoubleRelayLM35 : RelayDeviceBase, IXBeeDevice
+    public class MosziServerRoomDevice : RelayDeviceBase, IXBeeDevice
     {
         private static readonly double AnalogPinMaxVoltage = 1200.0; // in millivolts
         private static readonly double AnalogPinResolution = 1024;
@@ -18,13 +16,16 @@ namespace MosziNet.Devices.XBee
         /// <summary>
         /// Override base constructor specifying the XBee pins where the relays are connected
         /// </summary>
-        public DoubleRelayLM35() : base(ATCommands.D1, ATCommands.D2) { }
+        public MosziServerRoomDevice() : base(Pins.AD1_DIO1, Pins.AD2_DIO2, Pins.AD5_DIO5, Pins.AD6_DIO6) { }
 
         public override void ProcessFrame(IXBeeFrame frame)
         {
+            base.ProcessFrame(frame);
+
             IODataSample dataSample = frame as IODataSample;
             if (dataSample != null)
             {
+                // The device sent both digital and analog samples
                 if (dataSample.Samples.Length == 4)
                 {
                     // first 2 bytes are going to the RelayDevice (digital samples)
@@ -34,10 +35,6 @@ namespace MosziNet.Devices.XBee
 
                     // now calculate the temperature
                     temperature = HomeAutomation.Sensor.Temperature.LM35.TemperatureFromVoltage(analogReading);
-                }
-                else
-                {
-                    Log.Debug("[DoubleRelayLM35] Wrong number of samples received: " + HexConverter.ToSpacedHexString(dataSample.Samples));
                 }
             }
         }

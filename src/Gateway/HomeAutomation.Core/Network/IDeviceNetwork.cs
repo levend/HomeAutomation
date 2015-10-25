@@ -24,5 +24,10 @@ namespace HomeAutomation.Core
         /// Gets/sets the name of the device network. Set by the system when the network is registered.
         /// </summary>
         string Name { get; set; }
+
+        /// <summary>
+        /// Forces the device network to update with its diagnostics.
+        /// </summary>
+        void UpdateDiagnostics();
     }
 }

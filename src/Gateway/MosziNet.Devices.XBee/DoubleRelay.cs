@@ -7,7 +7,7 @@ namespace MosziNet.Devices.XBee
         /// <summary>
         /// Configure this device with D0 and D2 pins.
         /// </summary>
-        public DoubleRelay() : base(ATCommands.D0, ATCommands.D2)
+        public DoubleRelay() : base(Pins.AD0_DIO0, Pins.AD2_DIO2)
         {
 
         }

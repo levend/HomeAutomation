@@ -31,9 +31,6 @@ namespace HomeAutomation.Gateway.Admin
         {
             systemStatistics.CurrentTime = DateTime.Now;
             systemStatistics.UptimeDays = systemStatistics.CurrentTime.Subtract(systemStatistics.SystemStartTime).Days;
-
-            systemStatistics.XBeeMessageReceiveCount = XBeeStatistics.MessagesReceived;
-            systemStatistics.XBeeMessageSentCount = XBeeStatistics.MessagesSent;
         }
 
         public void TimeElapsed()
@@ -46,6 +43,18 @@ namespace HomeAutomation.Gateway.Admin
 
                 GatherStatistics();
                 ReportStatistics();
+
+                // todo: refactor this for a smaller update period
+                RequestDeviceNetworkDiagnostics();
+            }
+        }
+
+        private void RequestDeviceNetworkDiagnostics()
+        {
+            IDeviceNetwork[] networkList = HomeAutomationSystem.DeviceNetworkRegistry.GetDeviceNetworks();
+            foreach(IDeviceNetwork oneNetwork in networkList)
+            {
+                oneNetwork.UpdateDiagnostics();
             }
         }
     }

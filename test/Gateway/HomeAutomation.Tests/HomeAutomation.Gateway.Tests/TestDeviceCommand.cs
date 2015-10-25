@@ -68,6 +68,11 @@ namespace HomeAutomation.Tests
             {
                 DeviceStateReceived?.Invoke(this, state);
             }
+
+            public void UpdateDiagnostics()
+            {
+                
+            }
         }
 
         [TestMethod]

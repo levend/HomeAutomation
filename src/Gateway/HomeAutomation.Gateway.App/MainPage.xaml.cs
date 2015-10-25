@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Core;
 using Windows.ApplicationModel.Core;
 using HomeAutomation.Core.Diagnostics;
+using HomeAutomation.DeviceNetwork.XBee;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -25,6 +26,21 @@ namespace HomeAutomation.Gateway.App
 
         public event EventHandler<DeviceCommand> DeviceCommandArrived; // TODO: replace this with an interface that is received when we register the controller.
 
+        public void SendDeviceNetworkDiagnosticsUpdate(IDeviceNetwork deviceNetwork, object diagnostics)
+        {
+            XBeeNetworkDiagnostics xbeeDiagnostics = diagnostics as XBeeNetworkDiagnostics;
+            if (xbeeDiagnostics != null)
+            {
+                var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    receivedXBeeFrameCount.Text = xbeeDiagnostics.XBeeMessageReceiveCount.ToString();
+                    sentXBeeFrameCount.Text = xbeeDiagnostics.XBeeMessageSentCount.ToString();
+
+                    xbeeSerialPortConnected.Text = xbeeDiagnostics.IsSerialPortConnected ? "Connected" : "Not Connected";
+                });
+            }
+        }
+
         public void SendDeviceState(DeviceState deviceState)
         {
             
@@ -39,8 +55,6 @@ namespace HomeAutomation.Gateway.App
         {
             var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                receivedXBeeFrameCount.Text = statistics.XBeeMessageReceiveCount.ToString();
-                sentXBeeFrameCount.Text = statistics.XBeeMessageSentCount.ToString();
                 systemTime.Text = statistics.CurrentTime.ToString("HH:mm:ss");
             });
         }

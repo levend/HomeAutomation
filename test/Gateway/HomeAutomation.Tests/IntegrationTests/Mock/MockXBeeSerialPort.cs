@@ -10,7 +10,16 @@ namespace HomeAutomation.Tests.IntegrationTests
 
         List<byte[]> framesWritten = new List<byte[]>();
 
+        public bool SerialPortConnected
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public event EventHandler<byte[]> FrameWritten;
+        public event EventHandler<EventArgs> SerialPortConnectionChanged;
 
         public byte[] GetNextAvailableFrame()
         {

@@ -108,7 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DoubleRelay.cs" />
-    <Compile Include="DoubleRelayLM35.cs" />
+    <Compile Include="MosziServerRoomDevice.cs" />
     <Compile Include="Epam\EpamTemperatureDeviceV1.cs" />
     <Compile Include="FakeTemperatureDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

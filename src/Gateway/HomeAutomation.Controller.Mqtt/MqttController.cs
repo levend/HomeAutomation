@@ -23,9 +23,9 @@ namespace HomeAutomation.Controller.Mqtt
 
         public event EventHandler<DeviceCommand> DeviceCommandArrived;
 
-        public void ExecuteTasks()
+        public void SendDeviceNetworkDiagnosticsUpdate(IDeviceNetwork deviceNetwork, object diagnostics)
         {
-            // nothing to do here ?
+            // we will not send device network updates to MQTT (yet?)
         }
 
         public void SendDeviceState(DeviceState deviceState)
@@ -40,9 +40,6 @@ namespace HomeAutomation.Controller.Mqtt
 
         public void SendStatistics(Statistics statistics)
         {
-            mqttService.SendMessage(
-                mqttService.GetFullTopicName(MqttTopic.Statistics),
-                "[Statistics] XBee messages received: " + statistics.XBeeMessageReceiveCount);
         }
 
         private void MqttService_MessageReceived(object sender, MqttMessage e)

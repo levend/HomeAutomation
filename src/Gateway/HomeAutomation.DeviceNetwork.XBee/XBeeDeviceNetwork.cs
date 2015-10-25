@@ -16,12 +16,16 @@ namespace HomeAutomation.DeviceNetwork.XBee
         public event EventHandler<DeviceState> DeviceStateReceived;
 
         private IXBeeService xbeeService;
+        private IXBeeSerialPort serialPort;
 
         public string Name { get; set; }
 
         public XBeeDeviceNetwork(IXBeeSerialPort serialPort)
         {
+            this.serialPort = serialPort;
             xbeeService = new XBeeService(serialPort);
+
+            serialPort.SerialPortConnectionChanged += SerialPort_SerialPortConnectionChanged;
 
             xbeeService.MessageReceived += XbeeService_MessageReceived;
         }
@@ -69,6 +73,26 @@ namespace HomeAutomation.DeviceNetwork.XBee
             }
         }
 
+        private void SerialPort_SerialPortConnectionChanged(object sender, EventArgs e)
+        {
+            SendNetworkDiagnostics();
+        }
+
+        private void SendNetworkDiagnostics()
+        {
+            HomeAutomationSystem.ControllerRegistry.All.SendDeviceNetworkDiagnosticsUpdate(this, GetNetworkDiagnostics());
+        }
+
+        private object GetNetworkDiagnostics()
+        {
+            return new XBeeNetworkDiagnostics()
+            {
+                XBeeMessageSentCount = XBeeStatistics.MessagesSent,
+                XBeeMessageReceiveCount = XBeeStatistics.MessagesReceived,
+                IsSerialPortConnected = serialPort.SerialPortConnected
+            };
+        }
+
         private void XbeeService_MessageReceived(object sender, IXBeeFrame e)
         {
             Type frameType = e.GetType();
@@ -88,6 +112,11 @@ namespace HomeAutomation.DeviceNetwork.XBee
         public void TimeElapsed()
         {
             xbeeService.ProcessXBeeMessages();
+        }
+
+        public void UpdateDiagnostics()
+        {
+            SendNetworkDiagnostics();
         }
     }
 }

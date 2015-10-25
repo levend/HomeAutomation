@@ -1,4 +1,5 @@
-﻿using HomeAutomation.DeviceNetwork.XBee;
+﻿using System;
+using HomeAutomation.DeviceNetwork.XBee;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using MosziNet.Devices.XBee;
 using MosziNet.XBee;
@@ -10,6 +11,16 @@ namespace HomeAutomation.Tests
     {
         public class MockSerialPort : IXBeeSerialPort
         {
+            public bool SerialPortConnected
+            {
+                get
+                {
+                    return true;
+                }
+            }
+
+            public event EventHandler<EventArgs> SerialPortConnectionChanged;
+
             public byte[] GetNextAvailableFrame()
             {
                 return null;

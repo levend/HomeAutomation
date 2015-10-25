@@ -45,7 +45,7 @@ namespace HomeAutomation.Communication.Mqtt
                 subscribedTopics.Add(fullTopicName);
             }
 
-            mqttClient.Subscribe(new string[] { fullTopicName }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
+            mqttClient.Subscribe(new string[] { fullTopicName }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
         }
 
         /// <summary>

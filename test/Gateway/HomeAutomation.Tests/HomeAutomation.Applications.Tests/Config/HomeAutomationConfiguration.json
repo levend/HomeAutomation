@@ -18,7 +18,7 @@
 			"DeviceTypeId":39302
 		},
 		{
-			"DeviceClassTypeString":"MosziNet.Devices.XBee.DoubleRelayLM35, MosziNet.Devices.XBee",
+			"DeviceClassTypeString":"MosziNet.Devices.XBee.MosziServerRoomDevice, MosziNet.Devices.XBee",
 			"DeviceNetworkName":"xbee",
 			"DeviceTypeId":39301
 		},

@@ -115,6 +115,7 @@
     <Compile Include="FrameProcessor\RemoteCommandResponseProcessor.cs" />
     <Compile Include="FrameProcessor\XBeeFrameProcessorFactory.cs" />
     <Compile Include="XBeeDeviceNetworkFactory.cs" />
+    <Compile Include="XBeeNetworkDiagnostics.cs" />
     <Content Include="Properties\HomeAutomation.DeviceNetwork.XBee.rd.xml" />
   </ItemGroup>
   <ItemGroup>

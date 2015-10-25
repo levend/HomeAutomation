@@ -27,5 +27,12 @@ namespace HomeAutomation.Core
         /// </summary>
         /// <param name="statistics"></param>
         void SendStatistics(Diagnostics.Statistics statistics);
+
+        /// <summary>
+        /// Sends diagnostic information about the device network to the controller.
+        /// </summary>
+        /// <param name="deviceNetwork"></param>
+        /// <param name="diagnostics"></param>
+        void SendDeviceNetworkDiagnosticsUpdate(IDeviceNetwork deviceNetwork, object diagnostics);
     }
 }

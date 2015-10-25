@@ -53,17 +53,21 @@ namespace HomeAutomation.Core.Controller
             }
         }
 
-        public void ExecuteTasks()
-        {
-            // nothing to do here
-        }
-
         public void SendStatistics(Statistics statistics)
         {
             IController[] allControllers = registry.GetControllers();
             foreach (IController oneController in allControllers)
             {
                 oneController.SendStatistics(statistics);
+            }
+        }
+
+        public void SendDeviceNetworkDiagnosticsUpdate(IDeviceNetwork deviceNetwork, object diagnostics)
+        {
+            IController[] allControllers = registry.GetControllers();
+            foreach (IController oneController in allControllers)
+            {
+                oneController.SendDeviceNetworkDiagnosticsUpdate(deviceNetwork, diagnostics);
             }
         }
     }

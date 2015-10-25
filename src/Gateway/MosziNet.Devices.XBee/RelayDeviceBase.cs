@@ -19,21 +19,53 @@ namespace MosziNet.Devices.XBee
         private const byte PinLow = 4;
         private const byte PinHigh = 5;
 
-        private List<byte[]> xbeeConfiguration = new List<byte[]>();
+        private List<Pins> xbeeConfiguration = new List<Pins>();
         protected byte[] switchStates;
+
+        private Dictionary<Pins, byte[]> atCommandForPin = new Dictionary<Pins, byte[]>()
+        {
+            [Pins.AD0_DIO0] = ATCommands.D0,
+            [Pins.AD1_DIO1] = ATCommands.D1,
+            [Pins.AD2_DIO2] = ATCommands.D2,
+            [Pins.AD3_DIO3] = ATCommands.D3,
+            [Pins.AD4_DIO4] = ATCommands.D4,
+            [Pins.AD5_DIO5] = ATCommands.D5,
+            [Pins.AD6_DIO6] = ATCommands.D6,
+            [Pins.DIO7] = ATCommands.D7,
+            [Pins.DI8] = ATCommands.D8
+        };
    
-        public RelayDeviceBase(byte[] relay1XBeePin)
+        public RelayDeviceBase(Pins relayXBeePin1)
         {
             switchStates = new byte[1];
-            xbeeConfiguration.Add(relay1XBeePin);
+            xbeeConfiguration.Add(relayXBeePin1);
         }
 
-        public RelayDeviceBase(byte[] relay1XBeePin, byte[] relay2XBeePin)
+        public RelayDeviceBase(Pins relayXBeePin1, Pins relayXBeePin2)
         {
             switchStates = new byte[2];
-            xbeeConfiguration.Add(relay1XBeePin);
-            xbeeConfiguration.Add(relay2XBeePin);
+            xbeeConfiguration.Add(relayXBeePin1);
+            xbeeConfiguration.Add(relayXBeePin2);
         }
+
+        public RelayDeviceBase(Pins relayXBeePin1, Pins relayXBeePin2, Pins relayXBeePin3)
+        {
+            switchStates = new byte[3];
+            xbeeConfiguration.Add(relayXBeePin1);
+            xbeeConfiguration.Add(relayXBeePin2);
+            xbeeConfiguration.Add(relayXBeePin3);
+        }
+
+        public RelayDeviceBase(Pins relayXBeePin1, Pins relayXBeePin2, Pins relayXBeePin3, Pins relayXBeePin4)
+        {
+            switchStates = new byte[4];
+
+            xbeeConfiguration.Add(relayXBeePin1);
+            xbeeConfiguration.Add(relayXBeePin2);
+            xbeeConfiguration.Add(relayXBeePin3);
+            xbeeConfiguration.Add(relayXBeePin4);
+        }
+
 
         #region / DeviceBase implementation /
 
@@ -54,7 +86,7 @@ namespace MosziNet.Devices.XBee
                     // build the switch states
                     for (int i = 0; i < switchStates.Length; i++)
                     {
-                        switchStates[i] = (digitalReadingMLB & (2 ^ (i + 1))) != 0 ? StateOFF : StateON;
+                        switchStates[i] = dataSample.IsDigitalPinHigh(xbeeConfiguration[i]) ? StateOFF : StateON;
                     }
                 }
             }
@@ -110,7 +142,7 @@ namespace MosziNet.Devices.XBee
 
             // The relay is on the D1 and D2 pins, set the appropriate state for them
             xbeeService.SendFrame(XBeeFrameBuilder.CreateRemoteATCommand(
-                (byte[])xbeeConfiguration[relayIndex],
+                atCommandForPin[xbeeConfiguration[relayIndex]],
                 0,
                 this.DeviceID,
                 this.NetworkAddress,
