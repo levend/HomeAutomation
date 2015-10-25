@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeAutomation.Core.Controller;
+using System;
 using System.Collections.Generic;
 
 namespace HomeAutomation.Core
@@ -8,6 +9,12 @@ namespace HomeAutomation.Core
     /// </summary>
     public interface IController
     {
+        /// <summary>
+        /// Initializes the controller, givint the option to access the <see cref="ControllerHost"/>.
+        /// </summary>
+        /// <param name="controllerHost"></param>
+        void Initialize(ControllerHost controllerHost);
+
         event EventHandler<DeviceCommand> DeviceCommandArrived;
 
         /// <summary>
@@ -29,10 +36,8 @@ namespace HomeAutomation.Core
         void SendStatistics(Diagnostics.Statistics statistics);
 
         /// <summary>
-        /// Sends diagnostic information about the device network to the controller.
+        /// The controller should return its updated diagnostics object.
         /// </summary>
-        /// <param name="deviceNetwork"></param>
-        /// <param name="diagnostics"></param>
-        void SendDeviceNetworkDiagnosticsUpdate(IDeviceNetwork deviceNetwork, object diagnostics);
+        object GetUpdatedDiagnostics();
     }
 }

@@ -7,6 +7,7 @@ using Windows.UI.Core;
 using Windows.ApplicationModel.Core;
 using HomeAutomation.Core.Diagnostics;
 using HomeAutomation.DeviceNetwork.XBee;
+using HomeAutomation.Controller.Mqtt;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -26,9 +27,29 @@ namespace HomeAutomation.Gateway.App
 
         public event EventHandler<DeviceCommand> DeviceCommandArrived; // TODO: replace this with an interface that is received when we register the controller.
 
-        public void SendDeviceNetworkDiagnosticsUpdate(IDeviceNetwork deviceNetwork, object diagnostics)
+        public void Initialize(ControllerHost controllerHost)
         {
-            XBeeNetworkDiagnostics xbeeDiagnostics = diagnostics as XBeeNetworkDiagnostics;
+            controllerHost.OnDeviceNetworkDiagnosticsReceived += ControllerHost_OnDeviceNetworkDiagnosticsReceived;
+            controllerHost.OnControllerDiagnosticsReceived += ControllerHost_OnControllerDiagnosticsReceived;
+        }
+
+        private void ControllerHost_OnControllerDiagnosticsReceived(object sender, Core.Controller.ControllerDiagnosticsEventArgs e)
+        {
+            MqttControllerDiagnostics diagnostics = e.DiagnosticsObject as MqttControllerDiagnostics;
+            if (diagnostics != null)
+            {
+                var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    mqttConnected.Text = diagnostics.IsMqttClientConnected ? "Connected" : "Not Connected";
+                    receivedMqttMessageCount.Text = diagnostics.ReceivedMessageCount.ToString();
+                    sentMqttMessageCount.Text = diagnostics.SentMessageCount.ToString();
+                });
+            }
+        }
+
+        private void ControllerHost_OnDeviceNetworkDiagnosticsReceived(object sender, DeviceNetworkDiagnosticsEventArgs e)
+        {
+            XBeeNetworkDiagnostics xbeeDiagnostics = e.DiagnosticsObject as XBeeNetworkDiagnostics;
             if (xbeeDiagnostics != null)
             {
                 var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -39,6 +60,7 @@ namespace HomeAutomation.Gateway.App
                     xbeeSerialPortConnected.Text = xbeeDiagnostics.IsSerialPortConnected ? "Connected" : "Not Connected";
                 });
             }
+
         }
 
         public void SendDeviceState(DeviceState deviceState)
@@ -66,6 +88,12 @@ namespace HomeAutomation.Gateway.App
             HomeAutomationSystem.ControllerRegistry.RegisterController(this);
 
             MainApplication.Run();
+        }
+
+        public object GetUpdatedDiagnostics()
+        {
+            // this is a TV display, we are not having any diagnostics object.
+            return null;
         }
     }
 }

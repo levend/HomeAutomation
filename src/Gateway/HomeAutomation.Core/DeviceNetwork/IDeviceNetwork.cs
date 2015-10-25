@@ -1,4 +1,5 @@
-﻿using HomeAutomation.Core.Service;
+﻿using HomeAutomation.Core.DeviceNetwork;
+using HomeAutomation.Core.Service;
 using System;
 
 namespace HomeAutomation.Core
@@ -9,6 +10,12 @@ namespace HomeAutomation.Core
     /// </summary>
     public interface IDeviceNetwork
     {
+        /// <summary>
+        /// Initializes the device network.
+        /// </summary>
+        /// <param name="deviceNetworkHost"></param>
+        void Initialize(DeviceNetworkHost deviceNetworkHost);
+
         /// <summary>
         /// The event is fired when the device network delivers a message to the controller.
         /// </summary>
@@ -28,6 +35,6 @@ namespace HomeAutomation.Core
         /// <summary>
         /// Forces the device network to update with its diagnostics.
         /// </summary>
-        void UpdateDiagnostics();
+        object GetUpdatedDiagnostics();
     }
 }

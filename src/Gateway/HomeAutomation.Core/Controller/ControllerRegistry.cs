@@ -28,7 +28,11 @@ namespace HomeAutomation.Core
         public void RegisterController(IController controller)
         {
             List<IController> newList = new List<IController>(controllerList);
+
             newList.Add(controller);
+
+            // make sure we give the controller the option to take hold on the controller host.
+            controller.Initialize(HomeAutomationSystem.ControllerHost);
 
             controllerList = newList.ToArray();
 

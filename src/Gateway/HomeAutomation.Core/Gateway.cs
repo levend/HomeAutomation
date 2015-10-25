@@ -1,11 +1,10 @@
-using HomeAutomation.Core;
 using HomeAutomation.Core.Service;
 
-namespace HomeAutomation.Gateway.BusinessLogic
+namespace HomeAutomation.Core
 {
-    public class DeviceNetworkGateway : IService
+    public class Gateway : IService
     {
-        public DeviceNetworkGateway()
+        public Gateway()
         {
             // make sure we subscribe to new networks' events ...
             HomeAutomationSystem.DeviceNetworkRegistry.DeviceNetworkAdded += (sender, network) =>

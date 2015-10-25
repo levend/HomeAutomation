@@ -23,6 +23,7 @@ namespace HomeAutomation.Core
 
             // record this name in the device network as well.
             deviceNetwork.Name = deviceNetworkUniqueId;
+            deviceNetwork.Initialize(HomeAutomationSystem.DeviceNetworkHost);
 
             // Notify our listeners that a new network was added.
             DeviceNetworkAdded?.Invoke(this, deviceNetwork);

@@ -1,4 +1,5 @@
-﻿using HomeAutomation.Core.Scheduler;
+﻿using HomeAutomation.Core.DeviceNetwork;
+using HomeAutomation.Core.Scheduler;
 using HomeAutomation.Core.Service;
 
 namespace HomeAutomation.Core
@@ -19,5 +20,10 @@ namespace HomeAutomation.Core
         public static ServiceRegistry ServiceRegistry { get; private set; } = new ServiceRegistry();
 
         public static ScheduledTaskManager ScheduledTasks { get; private set; } = new ScheduledTaskManager();
+
+        
+        internal static ControllerHost ControllerHost { get; private set; } = new ControllerHost();
+
+        internal static DeviceNetworkHost DeviceNetworkHost { get; private set; } = new DeviceNetworkHost();
     }
 }

@@ -1,5 +1,7 @@
 ﻿using HomeAutomation.Application.Configuration;
+using HomeAutomation.Core;
 using HomeAutomation.Gateway;
+using HomeAutomation.Logging;
 
 namespace HomeAutomation.Application
 {
@@ -19,7 +21,9 @@ namespace HomeAutomation.Application
 
         public static void Run()
         {
-            gateway.Run();
+            HomeAutomationSystem.ScheduledTasks.Runner.Start();
+
+            Log.Debug("[HomeAutomation] Started.");
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using MosziNet.XBee;
 using MosziNet.XBee.Frame;
 using System;
+using HomeAutomation.Core.DeviceNetwork;
 
 namespace HomeAutomation.Tests
 {
@@ -46,17 +47,6 @@ namespace HomeAutomation.Tests
         {
             public string Name { get; set; }
 
-            //public DeviceTypeDescription[] AvailableDeviceTypes
-            //{
-            //    get
-            //    {
-            //        return new DeviceTypeDescription[]
-            //        {
-            //            new DeviceTypeDescription(0x9999, typeof(MockTestDevice))
-            //        };
-            //    }
-            //}
-
             public event EventHandler<DeviceState> DeviceStateReceived;
 
             public void SendCommand(DeviceCommand command)
@@ -72,6 +62,16 @@ namespace HomeAutomation.Tests
             public void UpdateDiagnostics()
             {
                 
+            }
+
+            public void Initialize(DeviceNetworkHost deviceNetworkHost)
+            {
+                
+            }
+
+            public object GetUpdatedDiagnostics()
+            {
+                return null;
             }
         }
 

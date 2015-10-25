@@ -108,13 +108,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AdminCommandDistributor.cs" />
-    <Compile Include="Admin\StatisticsService.cs" />
-    <Compile Include="BusinessLogic\DeviceNetworkGateway.cs" />
     <Compile Include="Configuration\GatewayConfiguration.cs" />
     <Compile Include="Logging\MqttLogWriter.cs" />
     <Compile Include="GatewayInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Watchdog\WatchdogService.cs" />
     <Content Include="Properties\HomeAutomation.Gateway.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -135,9 +132,7 @@
       <Name>HomeAutomation.Util</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Runloop\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

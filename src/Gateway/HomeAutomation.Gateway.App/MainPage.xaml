@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
-        <TextBlock x:Name="textBlock" Margin="10,50,10,674" TextWrapping="Wrap" Text="Home Automation v0.1" TextAlignment="Center" FontSize="21.333" Foreground="#FF2FDAA4"/>
+        <TextBlock x:Name="textBlock" Margin="10,50,10,649" TextWrapping="Wrap" Text="Home Automation v0.1" TextAlignment="Center" FontSize="21.333" Foreground="#FF2FDAA4"/>
 
         <TextBlock x:Name="receivedXBeeFrameCount" HorizontalAlignment="Left" Margin="305,157,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="217" FontSize="21.333"/>
         <TextBlock x:Name="textBox" HorizontalAlignment="Left" Margin="38,157,0,0" TextWrapping="Wrap" Text="Received XBee Frames:" VerticalAlignment="Top" FontSize="21.333"/>

@@ -109,23 +109,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\AllControllersController.cs" />
+    <Compile Include="Controller\ControllerDiagnosticsEventArgs.cs" />
     <Compile Include="Controller\ControllerRegistry.cs" />
+    <Compile Include="Controller\DeviceNetworkDiagnosticsEventArgs.cs" />
     <Compile Include="Controller\IControllerFactory.cs" />
+    <Compile Include="Diagnostics\StatisticsService.cs" />
+    <Compile Include="Gateway.cs" />
+    <Compile Include="DeviceNetwork\DeviceNetworkHost.cs" />
     <Compile Include="Device\ComponentState.cs" />
     <Compile Include="Device\DeviceCommand.cs" />
     <Compile Include="Controller\IController.cs" />
     <Compile Include="Diagnostics\Statistics.cs" />
-    <Compile Include="Network\DeviceNetworkRegistry.cs" />
-    <Compile Include="Network\DeviceRegistry.cs" />
+    <Compile Include="DeviceNetwork\DeviceNetworkRegistry.cs" />
+    <Compile Include="DeviceNetwork\DeviceRegistry.cs" />
     <Compile Include="Device\DeviceState.cs" />
-    <Compile Include="Network\DeviceTypeDescription.cs" />
-    <Compile Include="Network\DeviceTypeRegistry.cs" />
+    <Compile Include="DeviceNetwork\DeviceTypeDescription.cs" />
+    <Compile Include="DeviceNetwork\DeviceTypeRegistry.cs" />
     <Compile Include="Device\DeviceBase.cs" />
     <Compile Include="Device\UnknownDevice.cs" />
     <Compile Include="Device\IDevice.cs" />
-    <Compile Include="Network\IDeviceNetwork.cs" />
+    <Compile Include="DeviceNetwork\IDeviceNetwork.cs" />
     <Compile Include="HomeAutomationSystem.cs" />
-    <Compile Include="Network\IDeviceNetworkFactory.cs" />
+    <Compile Include="DeviceNetwork\IDeviceNetworkFactory.cs" />
+    <Compile Include="Controller\ControllerHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scheduler\IRunnable.cs" />
     <Compile Include="Scheduler\IScheduledTask.cs" />

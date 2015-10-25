@@ -209,7 +209,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "MosziNet.XBee/1.6.12": {
+      "MosziNet.XBee/1.6.13": {
         "compile": {
           "lib/.NETCore50/MosziNet.XBee.dll": {}
         },
@@ -1803,7 +1803,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "MosziNet.XBee/1.6.12": {
+      "MosziNet.XBee/1.6.13": {
         "compile": {
           "lib/.NETCore50/MosziNet.XBee.dll": {}
         },
@@ -3430,7 +3430,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "MosziNet.XBee/1.6.12": {
+      "MosziNet.XBee/1.6.13": {
         "compile": {
           "lib/.NETCore50/MosziNet.XBee.dll": {}
         },
@@ -5062,7 +5062,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "MosziNet.XBee/1.6.12": {
+      "MosziNet.XBee/1.6.13": {
         "compile": {
           "lib/.NETCore50/MosziNet.XBee.dll": {}
         },
@@ -6689,7 +6689,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "MosziNet.XBee/1.6.12": {
+      "MosziNet.XBee/1.6.13": {
         "compile": {
           "lib/.NETCore50/MosziNet.XBee.dll": {}
         },
@@ -8321,7 +8321,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "MosziNet.XBee/1.6.12": {
+      "MosziNet.XBee/1.6.13": {
         "compile": {
           "lib/.NETCore50/MosziNet.XBee.dll": {}
         },
@@ -9948,7 +9948,7 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "MosziNet.XBee/1.6.12": {
+      "MosziNet.XBee/1.6.13": {
         "compile": {
           "lib/.NETCore50/MosziNet.XBee.dll": {}
         },
@@ -12017,8 +12017,8 @@
         "ref/xamarinmac20/_._"
       ]
     },
-    "MosziNet.XBee/1.6.12": {
-      "sha512": "+m6vixks+255iMLKXmGpsU44zO43Kc0sLZXHt/RHClRYS9XH+5JGOpxDIo+vnltYSL6px+Cupyx5Gd7PNRYQnQ==",
+    "MosziNet.XBee/1.6.13": {
+      "sha512": "a80fvKqziudQalZZOGuHDtLecWBzg4zcUPzdFcyjprZsTBJE8qlxh68RUvtILoH2C7YbxBK78UZ6/qCg8O9opA==",
       "type": "Package",
       "files": [
         "[Content_Types].xml",
@@ -12028,7 +12028,7 @@
         "lib/.NETCore50/MosziNet.XBee.pri",
         "lib/.NETCore50/MosziNet.XBee/Properties/MosziNet.XBee.rd.xml",
         "MosziNet.XBee.nuspec",
-        "package/services/metadata/core-properties/e18ceead157342058393cd2cb685ed18.psmdcp"
+        "package/services/metadata/core-properties/0278c70d39c74a1f86a6715e1b4e59a7.psmdcp"
       ]
     },
     "System.AppContext/4.0.0": {
@@ -14730,7 +14730,7 @@
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
-      "MosziNet.XBee >= 1.6.12"
+      "MosziNet.XBee >= 1.6.13"
     ],
     "UAP,Version=v10.0": []
   }

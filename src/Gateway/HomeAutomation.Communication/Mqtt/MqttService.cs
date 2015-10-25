@@ -35,6 +35,8 @@ namespace HomeAutomation.Communication.Mqtt
         public void SendMessage(string topic, string message)
         {
             mqttClient.Publish(topic, message);
+
+            MqttStatistics.SentMessageCount++;
         }
 
         public void SubscribeTopic(string topic)
@@ -71,6 +73,17 @@ namespace HomeAutomation.Communication.Mqtt
             return fullTopicName.Substring(configuration.TopicRootName.Length);
         }
 
+        /// <summary>
+        /// Returns whether the mqtt connection is alive.
+        /// </summary>
+        public bool IsMqttConnected
+        {
+            get
+            {
+                return mqttClient != null && mqttClient.IsConnected;
+            }
+        }
+
         private void EnsureMqttServerIsConnected()
         {
             if (mqttClient == null || !mqttClient.IsConnected)
@@ -99,6 +112,8 @@ namespace HomeAutomation.Communication.Mqtt
 
         private void mqttClient_MqttMsgPublishReceived(object arg1, MqttMessage message)
         {
+            MqttStatistics.ReceivedMessageCount++;
+
             // fix the topic name to reflect only the suffix
             message.TopicName = GetTopicNameSuffix(message.TopicName);
 

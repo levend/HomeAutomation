@@ -62,13 +62,11 @@ namespace HomeAutomation.Core.Controller
             }
         }
 
-        public void SendDeviceNetworkDiagnosticsUpdate(IDeviceNetwork deviceNetwork, object diagnostics)
+        public void Initialize(ControllerHost controllerHost) { }
+
+        public object GetUpdatedDiagnostics()
         {
-            IController[] allControllers = registry.GetControllers();
-            foreach (IController oneController in allControllers)
-            {
-                oneController.SendDeviceNetworkDiagnosticsUpdate(deviceNetwork, diagnostics);
-            }
+            return null;
         }
     }
 }

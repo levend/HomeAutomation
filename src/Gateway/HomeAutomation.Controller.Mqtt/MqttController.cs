@@ -9,6 +9,7 @@ namespace HomeAutomation.Controller.Mqtt
     public class MqttController : IController
     {
         MqttService mqttService;
+        ControllerHost controllerHost;
 
         public MqttController(MqttService mqttService)
         {
@@ -23,9 +24,9 @@ namespace HomeAutomation.Controller.Mqtt
 
         public event EventHandler<DeviceCommand> DeviceCommandArrived;
 
-        public void SendDeviceNetworkDiagnosticsUpdate(IDeviceNetwork deviceNetwork, object diagnostics)
+        public void Initialize(ControllerHost controllerHost)
         {
-            // we will not send device network updates to MQTT (yet?)
+            this.controllerHost = controllerHost;
         }
 
         public void SendDeviceState(DeviceState deviceState)
@@ -36,10 +37,6 @@ namespace HomeAutomation.Controller.Mqtt
         public void SendGatewayHeartbeatMessage(string message)
         {
             mqttService.SendMessage(mqttService.GetFullTopicName(MqttTopic.Heartbeat), message);
-        }
-
-        public void SendStatistics(Statistics statistics)
-        {
         }
 
         private void MqttService_MessageReceived(object sender, MqttMessage e)
@@ -57,6 +54,21 @@ namespace HomeAutomation.Controller.Mqtt
 
                 DeviceCommandArrived?.Invoke(this, command);
             }
+        }
+
+        public object GetUpdatedDiagnostics()
+        {
+            return new MqttControllerDiagnostics()
+            {
+                IsMqttClientConnected = mqttService.IsMqttConnected,
+                ReceivedMessageCount = MqttStatistics.ReceivedMessageCount,
+                SentMessageCount = MqttStatistics.SentMessageCount
+            };
+        }
+
+        public void SendStatistics(Statistics statistics)
+        {
+            
         }
     }
 }

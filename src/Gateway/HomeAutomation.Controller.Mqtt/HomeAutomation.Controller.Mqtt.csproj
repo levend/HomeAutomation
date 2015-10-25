@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MqttController.cs" />
+    <Compile Include="MqttControllerDiagnostics.cs" />
     <Compile Include="MqttControllerFactory.cs" />
     <Compile Include="MqttMessageReceived.cs" />
     <Compile Include="MqttTopic.cs" />

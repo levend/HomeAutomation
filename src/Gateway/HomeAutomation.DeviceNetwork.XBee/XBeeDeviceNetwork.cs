@@ -5,6 +5,7 @@ using HomeAutomation.Logging;
 using MosziNet.XBee;
 using MosziNet.XBee.Frame;
 using System;
+using HomeAutomation.Core.DeviceNetwork;
 
 namespace HomeAutomation.DeviceNetwork.XBee
 {
@@ -17,6 +18,7 @@ namespace HomeAutomation.DeviceNetwork.XBee
 
         private IXBeeService xbeeService;
         private IXBeeSerialPort serialPort;
+        private DeviceNetworkHost deviceNetworkHost;
 
         public string Name { get; set; }
 
@@ -24,8 +26,6 @@ namespace HomeAutomation.DeviceNetwork.XBee
         {
             this.serialPort = serialPort;
             xbeeService = new XBeeService(serialPort);
-
-            serialPort.SerialPortConnectionChanged += SerialPort_SerialPortConnectionChanged;
 
             xbeeService.MessageReceived += XbeeService_MessageReceived;
         }
@@ -53,6 +53,11 @@ namespace HomeAutomation.DeviceNetwork.XBee
             device?.ExecuteCommand(command);
         }
 
+        public void Initialize(DeviceNetworkHost deviceNetworkHost)
+        {
+            this.deviceNetworkHost = deviceNetworkHost;
+        }
+
         /// <summary>
         /// A new device state is ready to be published, announce it
         /// </summary>
@@ -71,26 +76,6 @@ namespace HomeAutomation.DeviceNetwork.XBee
             {
                 return xbeeService;
             }
-        }
-
-        private void SerialPort_SerialPortConnectionChanged(object sender, EventArgs e)
-        {
-            SendNetworkDiagnostics();
-        }
-
-        private void SendNetworkDiagnostics()
-        {
-            HomeAutomationSystem.ControllerRegistry.All.SendDeviceNetworkDiagnosticsUpdate(this, GetNetworkDiagnostics());
-        }
-
-        private object GetNetworkDiagnostics()
-        {
-            return new XBeeNetworkDiagnostics()
-            {
-                XBeeMessageSentCount = XBeeStatistics.MessagesSent,
-                XBeeMessageReceiveCount = XBeeStatistics.MessagesReceived,
-                IsSerialPortConnected = serialPort.SerialPortConnected
-            };
         }
 
         private void XbeeService_MessageReceived(object sender, IXBeeFrame e)
@@ -114,9 +99,14 @@ namespace HomeAutomation.DeviceNetwork.XBee
             xbeeService.ProcessXBeeMessages();
         }
 
-        public void UpdateDiagnostics()
+        public object GetUpdatedDiagnostics()
         {
-            SendNetworkDiagnostics();
+            return new XBeeNetworkDiagnostics()
+            {
+                XBeeMessageSentCount = XBeeStatistics.MessagesSent,
+                XBeeMessageReceiveCount = XBeeStatistics.MessagesReceived,
+                IsSerialPortConnected = serialPort.SerialPortConnected
+            };
         }
     }
 }

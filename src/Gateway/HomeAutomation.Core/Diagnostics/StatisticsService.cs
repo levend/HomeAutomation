@@ -1,10 +1,7 @@
-using HomeAutomation.Core;
-using HomeAutomation.Core.Diagnostics;
 using HomeAutomation.Core.Scheduler;
-using MosziNet.XBee;
 using System;
 
-namespace HomeAutomation.Gateway.Admin
+namespace HomeAutomation.Core.Diagnostics
 {
     public class StatisticsService : IScheduledTask
     {
@@ -46,15 +43,38 @@ namespace HomeAutomation.Gateway.Admin
 
                 // todo: refactor this for a smaller update period
                 RequestDeviceNetworkDiagnostics();
+                RequestControllerDiagnostics();
+            }
+        }
+
+        private void RequestControllerDiagnostics()
+        {
+            IController[] controllers = HomeAutomationSystem.ControllerRegistry.GetControllers();
+            foreach(IController oneController in controllers)
+            {
+                object diagnosticsObject = oneController.GetUpdatedDiagnostics();
+                if (diagnosticsObject != null)
+                {
+                    HomeAutomationSystem.ControllerHost.SendControllerDiagnostics(oneController, diagnosticsObject);
+                }
             }
         }
 
         private void RequestDeviceNetworkDiagnostics()
         {
             IDeviceNetwork[] networkList = HomeAutomationSystem.DeviceNetworkRegistry.GetDeviceNetworks();
-            foreach(IDeviceNetwork oneNetwork in networkList)
+            IController[] controllers = HomeAutomationSystem.ControllerRegistry.GetControllers();
+            foreach (IDeviceNetwork oneNetwork in networkList)
             {
-                oneNetwork.UpdateDiagnostics();
+                object diagnostics = oneNetwork.GetUpdatedDiagnostics();
+
+                if (diagnostics != null)
+                {
+                    foreach (IController oneController in controllers)
+                    {
+                        HomeAutomationSystem.ControllerHost.SendDeviceNetworkDiagnostics(oneNetwork, diagnostics);
+                    }
+                }
             }
         }
     }

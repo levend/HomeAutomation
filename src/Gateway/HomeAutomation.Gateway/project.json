@@ -1,7 +1,7 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-    "MosziNet.XBee": "1.6.12"
+    "MosziNet.XBee": "1.6.13"
   },
   "frameworks": {
     "uap10.0": {}
