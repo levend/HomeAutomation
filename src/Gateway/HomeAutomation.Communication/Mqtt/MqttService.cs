@@ -23,6 +23,8 @@ namespace HomeAutomation.Communication.Mqtt
             this.configuration = config;
             this.mqttClient = mqttClient;
 
+            mqttClient.MqttMsgPublishReceived += mqttClient_MqttMsgPublishReceived;
+
             // start the MQTT client immediately.
             EnsureMqttServerIsConnected();
         }
@@ -34,9 +36,16 @@ namespace HomeAutomation.Communication.Mqtt
         /// <param name="message"></param>
         public void SendMessage(string topic, string message)
         {
-            mqttClient.Publish(topic, message);
+            if (mqttClient.IsConnected)
+            {
+                mqttClient.Publish(topic, message);
 
-            MqttStatistics.SentMessageCount++;
+                MqttStatistics.SentMessageCount++;
+            }
+            else
+            {
+                MqttStatistics.LostMessageCount++;
+            }
         }
 
         public void SubscribeTopic(string topic)
@@ -47,7 +56,7 @@ namespace HomeAutomation.Communication.Mqtt
                 subscribedTopics.Add(fullTopicName);
             }
 
-            mqttClient.Subscribe(new string[] { fullTopicName }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            SubscribeToFullyNamedTopic(fullTopicName);
         }
 
         /// <summary>
@@ -84,24 +93,24 @@ namespace HomeAutomation.Communication.Mqtt
             }
         }
 
+        public void TimeElapsed()
+        {
+            EnsureMqttServerIsConnected();
+        }
+
         private void EnsureMqttServerIsConnected()
         {
             if (mqttClient == null || !mqttClient.IsConnected)
             {
                 try
                 {
-                    //mqttClient = mqttClientFactory.Create(configuration);
-
-                    mqttClient.ConnectionClosed += mqttClient_ConnectionClosed;
-                    mqttClient.MqttMsgPublishReceived += mqttClient_MqttMsgPublishReceived;
-
                     mqttClient.Connect(configuration.ClientName);
 
-                    //// ensure that we re-connect any subscribed topics
-                    //for (int i = 0; i < subscribedTopics.Count; i++)
-                    //{
-                    //    SubscribeTopic(subscribedTopics[i]);
-                    //}
+                    // ensure that we re-connect any subscribed topics
+                    for (int i = 0; i < subscribedTopics.Count; i++)
+                    {
+                        SubscribeToFullyNamedTopic(subscribedTopics[i]);
+                    }
                 }
                 catch(Exception ex)
                 {
@@ -123,14 +132,12 @@ namespace HomeAutomation.Communication.Mqtt
             Log.Information("[" + message.TopicName + "] " + message);
         }
 
-        void mqttClient_ConnectionClosed(object sender, EventArgs e)
+        private void SubscribeToFullyNamedTopic(string fullTopicName)
         {
-            // do nothing, the connection watcher task will make sure the connection is kept alive
-        }
-
-        public void TimeElapsed()
-        {
-            EnsureMqttServerIsConnected();
+            if (IsMqttConnected)
+            {
+                mqttClient.Subscribe(new string[] { fullTopicName }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            }
         }
     }
 }

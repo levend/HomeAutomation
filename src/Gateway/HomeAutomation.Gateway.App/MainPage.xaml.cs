@@ -43,6 +43,7 @@ namespace HomeAutomation.Gateway.App
                     mqttConnected.Text = diagnostics.IsMqttClientConnected ? "Connected" : "Not Connected";
                     receivedMqttMessageCount.Text = diagnostics.ReceivedMessageCount.ToString();
                     sentMqttMessageCount.Text = diagnostics.SentMessageCount.ToString();
+                    droppedMqttMessageCount.Text = diagnostics.DroppedMessageCount.ToString();
                 });
             }
         }

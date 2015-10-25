@@ -62,7 +62,8 @@ namespace HomeAutomation.Controller.Mqtt
             {
                 IsMqttClientConnected = mqttService.IsMqttConnected,
                 ReceivedMessageCount = MqttStatistics.ReceivedMessageCount,
-                SentMessageCount = MqttStatistics.SentMessageCount
+                SentMessageCount = MqttStatistics.SentMessageCount,
+                DroppedMessageCount = MqttStatistics.LostMessageCount
             };
         }
 

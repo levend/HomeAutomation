@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
-        <TextBlock x:Name="textBlock" Margin="10,50,10,649" TextWrapping="Wrap" Text="Home Automation v0.1" TextAlignment="Center" FontSize="21.333" Foreground="#FF2FDAA4"/>
+        <TextBlock x:Name="textBlock" Margin="0,47,0,0" TextWrapping="Wrap" Text="Home Automation v0.2" TextAlignment="Center" FontSize="26.667" Foreground="#FF2FDAA4" Height="32" VerticalAlignment="Top"/>
 
         <TextBlock x:Name="receivedXBeeFrameCount" HorizontalAlignment="Left" Margin="305,157,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="217" FontSize="21.333"/>
         <TextBlock x:Name="textBox" HorizontalAlignment="Left" Margin="38,157,0,0" TextWrapping="Wrap" Text="Received XBee Frames:" VerticalAlignment="Top" FontSize="21.333"/>
@@ -17,7 +17,7 @@
         <TextBlock x:Name="textBox2" HorizontalAlignment="Left" Margin="38,190,0,0" TextWrapping="Wrap" Text="Sent XBee Frames:" VerticalAlignment="Top" FontSize="21.333"/>
 
         <Image x:Name="image" HorizontalAlignment="Right" Height="100" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Source="Assets/Square150x150Logo.png"/>
-        <TextBlock x:Name="systemTime" HorizontalAlignment="Right" Margin="0,24,27,0" TextWrapping="Wrap" Text="--:--:--" FontSize="24" Width="112" VerticalAlignment="Top" TextAlignment="Right"/>
+        <TextBlock x:Name="systemTime" HorizontalAlignment="Right" Margin="0,10,10,0" TextWrapping="Wrap" Text="--:--:--" FontSize="24" Width="112" VerticalAlignment="Top" TextAlignment="Right"/>
         <TextBlock x:Name="xbeeSerialPortConnected" HorizontalAlignment="Left" Margin="305,124,0,0" TextWrapping="Wrap" Text="Not Connected" VerticalAlignment="Top" Width="217" FontSize="21.333"/>
         <TextBlock x:Name="textBox2_Copy" HorizontalAlignment="Left" Margin="38,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="21.333" Text="Serial Port:" />
         <TextBlock x:Name="mqttConnected" HorizontalAlignment="Left" Margin="305,240,0,0" TextWrapping="Wrap" Text="Not Connected" VerticalAlignment="Top" Width="217" FontSize="21.333"/>
@@ -26,5 +26,7 @@
         <TextBlock x:Name="textBox2_Copy2" HorizontalAlignment="Left" Margin="38,273,0,0" TextWrapping="Wrap" Text="Received messages:" VerticalAlignment="Top" FontSize="21.333"/>
         <TextBlock x:Name="sentMqttMessageCount" HorizontalAlignment="Left" Margin="305,306,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="217" FontSize="21.333"/>
         <TextBlock x:Name="textBox2_Copy3" HorizontalAlignment="Left" Margin="38,306,0,0" TextWrapping="Wrap" Text="Sent messages:" VerticalAlignment="Top" FontSize="21.333"/>
+        <TextBlock x:Name="droppedMqttMessageCount" HorizontalAlignment="Left" Margin="305,339,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="217" FontSize="21.333"/>
+        <TextBlock x:Name="textBox2_Copy4" HorizontalAlignment="Left" Margin="38,339,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="21.333" Text="Dropped messages:" />
     </Grid>
 </Page>

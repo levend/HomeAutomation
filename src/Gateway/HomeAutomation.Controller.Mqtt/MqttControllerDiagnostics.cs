@@ -7,5 +7,7 @@
         public uint SentMessageCount { get; set; }
 
         public uint ReceivedMessageCount { get; set; }
+
+        public uint DroppedMessageCount { get; set; }
     }
 }
