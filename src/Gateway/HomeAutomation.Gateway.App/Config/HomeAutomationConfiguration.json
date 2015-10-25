@@ -77,15 +77,6 @@
             "DeviceNetworkName": "xbee",
             "DeviceTypeId": 59905
         }
-    ],
-    "Gateway": {
-        "StatisticsAnnouncementPeriodInSeconds": 3,
-        "WatchdogPeriodInSeconds": 20
-    },
-    "Logging": {
-        "MqttServerName": "192.168.1.213",
-        "RootTopicName": "/MosziNet_HA",
-        "SubTopicName": "/Log"
-    }
+    ]
 }
 

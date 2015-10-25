@@ -31,22 +31,6 @@ namespace HomeAutomation.Application
         private void InitializeLogging()
         {
             Log.AddLogWriter(new ConsoleLogWriter(), new StandardLogFormatter());
-
-            if (!String.IsNullOrEmpty(configuration.Logging.MqttServerName))
-            {
-                MqttServerConfiguration mqttConfig = new MqttServerConfiguration()
-                {
-                    ClientName = "HomeAutomation.Gateway.MqttLogWriter",
-                    KeepAliveCheckPeriodInSeconds = 20,
-                    ServerHostName = configuration.Logging.MqttServerName,
-                    TopicRootName = configuration.Logging.RootTopicName
-                };
-
-                MqttService mqttService = new MqttService(mqttConfig, new MqttClientWrapper(configuration.Logging.MqttServerName));
-                HomeAutomationSystem.ScheduledTasks.ScheduleRealtimeTask(mqttService);
-
-                Log.AddLogWriter(new MqttLogWriter(mqttService, configuration.Logging.SubTopicName), new StandardLogFormatter());
-            }
         }
 
         private void InitializeDeviceNetworks()

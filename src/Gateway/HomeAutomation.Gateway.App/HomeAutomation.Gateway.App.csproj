@@ -158,10 +158,6 @@
       <Project>{ff9bb532-5312-40e3-92e1-f65fb1a312a9}</Project>
       <Name>HomeAutomation.DeviceNetwork.XBee</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HomeAutomation.Gateway\HomeAutomation.Gateway.csproj">
-      <Project>{e221d2fb-75e1-4bb5-ab34-db96435c7daa}</Project>
-      <Name>HomeAutomation.Gateway</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HomeAutomation.Logging\HomeAutomation.Logging.csproj">
       <Project>{3e7f9495-4c0f-4ffe-925e-392afbde036d}</Project>
       <Name>HomeAutomation.Logging</Name>
