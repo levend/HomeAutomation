@@ -9,19 +9,34 @@ namespace HomeAutomation.DeviceNetwork.XBee
 {
     class XBeeDeviceNetworkFactory : IDeviceNetworkFactory
     {
+        uint baudRate;
+        SerialParity parity;
+        SerialStopBitCount stopBit;
+        ushort dataBits;
+
+        APIVersion apiVersion;
+
         public IDeviceNetwork CreateDeviceNetwork(Dictionary<string, string> configuration)
         {
-            uint baudRate = UInt32.Parse(configuration["BaudRate"]);
-            SerialParity parity = (SerialParity)Enum.Parse(typeof(SerialParity), configuration["SerialParity"], true);
-            SerialStopBitCount stopBit = (SerialStopBitCount)Enum.Parse(typeof(SerialStopBitCount), configuration["SerialStopBitCount"], true);
-            ushort dataBits = UInt16.Parse(configuration["DataBits"]);
-            APIVersion apiVersion = (APIVersion)Enum.Parse(typeof(APIVersion), configuration["APIVersion"], true);
+            // get serial port configuration from the configuration dictionary
+            baudRate = UInt32.Parse(configuration["BaudRate"]);
+            parity = (SerialParity)Enum.Parse(typeof(SerialParity), configuration["SerialParity"], true);
+            stopBit = (SerialStopBitCount)Enum.Parse(typeof(SerialStopBitCount), configuration["SerialStopBitCount"], true);
+            dataBits = UInt16.Parse(configuration["DataBits"]);
+            apiVersion = (APIVersion)Enum.Parse(typeof(APIVersion), configuration["APIVersion"], true);
 
-            IXBeeSerialPort serialPort = new XBeeSerialPort(baudRate, parity, stopBit, dataBits, apiVersion);
+            // create the serial port
+            IXBeeSerialPort serialPort = CreateSerialPortWithSavedConfigurationParameters();
 
+            // now create the device network with this serial port
             XBeeDeviceNetwork network = new XBeeDeviceNetwork(serialPort);
 
             return network;
+        }
+
+        public IXBeeSerialPort CreateSerialPortWithSavedConfigurationParameters()
+        {
+            return new XBeeSerialPort(baudRate, parity, stopBit, dataBits, apiVersion);
         }
     }
 }
