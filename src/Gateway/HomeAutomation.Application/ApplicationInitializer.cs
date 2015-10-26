@@ -2,6 +2,7 @@
 using HomeAutomation.Communication.Mqtt;
 using HomeAutomation.Core;
 using HomeAutomation.Core.Controller;
+using HomeAutomation.Core.Diagnostics;
 using HomeAutomation.Core.Network;
 using HomeAutomation.Core.Scheduler;
 using HomeAutomation.Logging;
@@ -26,6 +27,14 @@ namespace HomeAutomation.Application
             InitializeControllers();
 
             InitializeLogging();
+
+            InitializeOtherServices();
+        }
+
+        private void InitializeOtherServices()
+        {
+            // TODO: refactor this to not to use realtime
+            HomeAutomationSystem.ScheduledTasks.ScheduleRealtimeTask(new StatisticsService());
         }
 
         private void InitializeLogging()
