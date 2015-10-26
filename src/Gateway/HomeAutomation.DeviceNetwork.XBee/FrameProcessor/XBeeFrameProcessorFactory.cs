@@ -13,6 +13,7 @@ namespace HomeAutomation.DeviceNetwork.XBee.FrameProcessor
             // register xbee frame processors
             processorDictionary.Add(typeof(RemoteCommandResponse), new RemoteCommandResponseProcessor());
             processorDictionary.Add(typeof(IODataSample), new IODataSampleFrameProcessor());
+            processorDictionary.Add(typeof(ReceivePacket), new ReceivePacketFrameProcessor());
         }
 
         public static IXBeeFrameProcessor GetProcessorByFrameType(Type frameType)
