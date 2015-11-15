@@ -4,11 +4,10 @@ var log = require('winston')
 
 // export all public members
 module.exports = {
-    startsListeningForMqttMessages : startsListeningForMqttMessages
+  startsListeningForMqttMessages: startsListeningForMqttMessages
 }
 
 function startsListeningForMqttMessages () {
-
   // get the mqtt server connection from the configuration file and connect to it
   var mqttServer = config.get('mqtt.uri')
   var mqttServerOptions = config.get('mqtt.options')
@@ -19,25 +18,25 @@ function startsListeningForMqttMessages () {
 
   // subscribe to a few useful events
   client.on('connect', function () {
-      log.info('Connected to MQTT server.')
-      connectAllTopics(client)
+    log.info('Connected to MQTT server.')
+    connectAllTopics(client)
   })
 
   client.on('error', function (err) {
-    log.error('MQTT server connection could not be established. Reason: ' + err.message);
+    log.error('MQTT server connection could not be established. Reason: ' + err.message)
   })
 
   client.on('offline', function () {
-    log.error('MQTT server is offline.');
+    log.error('MQTT server is offline.')
   })
 
   client.on('close', function () {
-    log.error('Connection to MQTT server was closed.');
+    log.error('Connection to MQTT server was closed.')
   })
 
   // process the message received on the subscribed topics
   client.on('message', function (topic, message) {
-      log.info('Message received: ' + message.toString())
+    log.info('Message received: ' + message.toString())
   })
 }
 

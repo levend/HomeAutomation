@@ -3,7 +3,9 @@
     "uri" : "mqtt://192.168.11.10",
     "options" : {
       "protocolId": "MQIsdp",
-      "protocolVersion": 3
+      "protocolVersion": 3,
+      "username" : "dev",
+      "password" : "dev123"
     }
   }
 }
