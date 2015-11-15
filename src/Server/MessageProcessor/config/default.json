@@ -1,0 +1,9 @@
+{
+  "mqtt": {
+    "uri": "mqtt://localhost",
+    "options": {},
+    "topicList": [
+      "/MosziNet_HA/Status"
+    ]
+  }
+}
