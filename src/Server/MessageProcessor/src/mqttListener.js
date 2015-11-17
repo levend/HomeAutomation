@@ -1,51 +1,81 @@
-var config = require('config')
+'use strict'
+
+var Log = require('./Log')
+var Message = require('./Message')
 var mqtt = require('mqtt')
-var log = require('winston')
 
-// export all public members
-module.exports = {
-  startsListeningForMqttMessages: startsListeningForMqttMessages
-}
+class MqttListener {
 
-function startsListeningForMqttMessages () {
-  // get the mqtt server connection from the configuration file and connect to it
-  var mqttServer = config.get('mqtt.uri')
-  var mqttServerOptions = config.get('mqtt.options')
+  constructor (uri, mqttServerOptions, topicList) {
+    this.uri = uri
+    this.mqttServerOptions = mqttServerOptions
+    this.topicList = topicList
 
-  log.info('Connecting to MQTT server at ' + mqttServer + ' ...')
+    this.client = undefined
+  }
 
-  var client = mqtt.connect(mqttServer, mqttServerOptions)
+  listenForStatusMessages (callback) {
+    this.statusMessageCallback = callback
+  }
 
-  // subscribe to a few useful events
-  client.on('connect', function () {
-    log.info('Connected to MQTT server.')
-    connectAllTopics(client)
-  })
+  startListeningForMqttMessages () {
+    Log.info(`Connecting to MQTT server at ${this.uri} ...`)
 
-  client.on('error', function (err) {
-    log.error('MQTT server connection could not be established. Reason: ' + err.message)
-  })
+    this.client = mqtt.connect(this.uri, this.mqttServerOptions)
 
-  client.on('offline', function () {
-    log.error('MQTT server is offline.')
-  })
+    let self = this // is this needed because ES6 is bad, or node.js doesn't properly support this in a function ?
+    // subscribe to a few useful events
+    this.client.on('connect', function () {
+      Log.info('Connected to MQTT server.')
 
-  client.on('close', function () {
-    log.error('Connection to MQTT server was closed.')
-  })
+      // subscribe to the wildcard of the status queue
+      self.subscribeTopic(self.client, `${self.topicList.status}/#`)
+    })
 
-  // process the message received on the subscribed topics
-  client.on('message', function (topic, message) {
-    log.info('Message received: ' + message.toString())
-  })
-}
+    this.client.on('error', function (err) {
+      Log.error('MQTT server connection could not be established. Reason: ' + err.message)
+    })
 
-function connectAllTopics (client) {
-  var topicList = config.get('mqtt.topicList')
+    this.client.on('offline', function () {
+      Log.error('MQTT server is offline.')
+    })
 
-  topicList.forEach(function (oneTopic) {
+    this.client.on('close', function () {
+      Log.error('Connection to MQTT server was closed.')
+    })
+
+    // process the message received on the subscribed topics
+    this.client.on('message', function (topic, message) {
+      self.invokeMessageCallback(topic, message)
+    })
+  }
+
+  // redirects the message to it's proper message handler
+  invokeMessageCallback (topic, message) {
+    if (topic.startsWith(this.topicList.status)) {
+      this.processStatusMessage(topic, message)
+    }
+  }
+
+  // processes the status message, and invokes the callback to handle the status message
+  processStatusMessage (topic, message) {
+    if (topic.startsWith(this.topicList.status) && (topic.length > this.topicList.status.length + 1)) {
+      let username = topic.substring(this.topicList.status.length + 1)
+      let typedMessage = Message.messageFromString(message.toString())
+
+      // invoke the message call if username & message are both valid
+      if (username.length > 0 && typedMessage != null) {
+        this.statusMessageCallback(username, typedMessage)
+      }
+    }
+  }
+
+  subscribeTopic (client, oneTopic) {
     client.subscribe(oneTopic)
 
-    log.info('Subscribed to: ' + oneTopic)
-  })
+    Log.info(`Subscribed to: ${oneTopic}`)
+  }
 }
+
+// export all public members
+module.exports = MqttListener

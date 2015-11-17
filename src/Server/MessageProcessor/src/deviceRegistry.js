@@ -1,10 +1,11 @@
-require('./device/temperatureSensorV1')
+require('./device/TemperatureSensorV1')
 
-module.exports = {
-  getDeviceById: getDeviceById
+class DeviceRegistry {
+
+  getDeviceById (deviceId) {
+    return null
+  }
 }
 
-function getDeviceById (deviceId) {
-  return null
-}
+module.exports = DeviceRegistry
 

@@ -1,7 +1,21 @@
-var mqttListener = require('./mqttListener')
+'use strict'
 
-function startProcessingMessages () {
-  mqttListener.startsListeningForMqttMessages()
+var MqttListener = require('./MqttListener')
+var Log = require('./Log')
+
+var config = require('config')
+
+class MessageProcessor {
+
+  startProcessingMessages () {
+    let mqttListener = new MqttListener(config.get('mqtt.uri'), config.get('mqtt.options'), config.get('mqtt.topicList'))
+
+    mqttListener.startListeningForMqttMessages()
+
+    mqttListener.listenForStatusMessages(function (username, message) {
+      Log.info(`[Status] {${username}} ${message}`)
+    })
+  }
 }
 
-startProcessingMessages()
+module.exports = MessageProcessor
