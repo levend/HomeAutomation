@@ -1,5 +1,4 @@
 var assert = require('assert')
-require('mocha')
 
 describe('mqttListener', function () {
   describe('connectAllTopics', function () {

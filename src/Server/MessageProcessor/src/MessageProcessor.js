@@ -12,9 +12,11 @@ class MessageProcessor {
 
     mqttListener.startListeningForMqttMessages()
 
-    mqttListener.listenForStatusMessages(function (username, message) {
-      Log.info(`[Status] {${username}} ${message}`)
-    })
+    mqttListener.listenForStatusMessages(this.statusMessageProcessor)
+  }
+
+  statusMessageProcessor (username, message) {
+    Log.info(`[Status] {${username}} ${message}`)
   }
 }
 
