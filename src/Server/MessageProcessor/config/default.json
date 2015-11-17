@@ -5,5 +5,11 @@
     "topicList": {
       "status": "MosziNet_HA/Status"
     }
+  },
+  "db" : {
+    "host": "http://localhost",
+    "port": 8086,
+    "protocol": "http",
+    "database": "home_automation"
   }
 }
