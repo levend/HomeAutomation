@@ -23,13 +23,12 @@ class MqttListener {
 
     this.client = mqtt.connect(this.uri, this.mqttServerOptions)
 
-    let self = this // is this needed because ES6 is bad, or node.js doesn't properly support this in a function ?
     // subscribe to a few useful events
-    this.client.on('connect', function () {
+    this.client.on('connect', () => {
       Log.info('Connected to MQTT server.')
 
       // subscribe to the wildcard of the status queue
-      self.subscribeTopic(self.client, `${self.topicList.status}/#`)
+      this.subscribeTopic(`${this.topicList.status}/#`)
     })
 
     this.client.on('error', function (err) {
@@ -45,8 +44,8 @@ class MqttListener {
     })
 
     // process the message received on the subscribed topics
-    this.client.on('message', function (topic, message) {
-      self.invokeMessageCallback(topic, message)
+    this.client.on('message', (topic, message) => {
+      this.invokeMessageCallback(topic, message)
     })
   }
 
@@ -59,19 +58,27 @@ class MqttListener {
 
   // processes the status message, and invokes the callback to handle the status message
   processStatusMessage (topic, message) {
-    if (topic.startsWith(this.topicList.status) && (topic.length > this.topicList.status.length + 1)) {
+    if (topic.startsWith(this.topicList.status)) {
       let username = topic.substring(this.topicList.status.length + 1)
       let typedMessage = Message.messageFromString(message.toString())
 
-      // invoke the message call if username & message are both valid
-      if (username.length > 0 && typedMessage != null) {
-        this.statusMessageCallback(username, typedMessage)
+      if (username.length == 0) {
+        Log.error('Username was missing from the topic name.')
+        return
       }
+
+      if (typedMessage == null) {
+        Log.error('Message could not be decomposed.')
+        return
+      }
+
+      // invoke the message call since username & message are both valid
+      this.statusMessageCallback(username, typedMessage)
     }
   }
 
-  subscribeTopic (client, oneTopic) {
-    client.subscribe(oneTopic)
+  subscribeTopic (oneTopic) {
+    this.client.subscribe(oneTopic)
 
     Log.info(`Subscribed to: ${oneTopic}`)
   }

@@ -8,6 +8,10 @@ class Message {
     this._payload = payload
   }
 
+  get deviceNetwork () {
+    return this._deviceNetwork
+  }
+
   get deviceId () {
     return this._deviceId
   }

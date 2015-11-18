@@ -7,5 +7,10 @@
       "username" : "dev",
       "password" : "dev123"
     }
+  },
+  "db" : {
+    "host": "192.168.11.10",
+    "user": "root",
+    "password": "root"
   }
 }

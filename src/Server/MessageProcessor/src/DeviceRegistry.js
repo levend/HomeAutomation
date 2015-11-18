@@ -1,9 +1,13 @@
-require('./device/TemperatureSensorV1')
+'use strict'
+
+let TemperatureSensorV1 = require('./device/TemperatureSensorV1')
+let Message = require('./Message')
 
 class DeviceRegistry {
 
-  getDeviceById (deviceId) {
-    return null
+  static getDeviceByMessage (message) {
+    // TODO
+    return new TemperatureSensorV1(message)
   }
 }
 
