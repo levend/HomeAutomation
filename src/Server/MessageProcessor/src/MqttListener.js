@@ -62,7 +62,7 @@ class MqttListener {
       let username = topic.substring(this.topicList.status.length + 1)
       let typedMessage = Message.messageFromString(message.toString())
 
-      if (username.length == 0) {
+      if (username.length === 0) {
         Log.error('Username was missing from the topic name.')
         return
       }

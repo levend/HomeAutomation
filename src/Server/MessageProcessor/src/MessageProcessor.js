@@ -1,7 +1,6 @@
 'use strict'
 
 var MqttListener = require('./MqttListener')
-var Log = require('./Log')
 var DeviceRegistry = require('./DeviceRegistry')
 var ValuePersister = require('./ValuePersister')
 
@@ -21,8 +20,7 @@ class MessageProcessor {
 
     mqttListener.startListeningForMqttMessages()
 
-    mqttListener.listenForStatusMessages( (username, message) => {
-
+    mqttListener.listenForStatusMessages((username, message) => {
       let oneDevice = DeviceRegistry.getDeviceByMessage(message)
 
       this.valuePersister.persistPoints(username, oneDevice.values, oneDevice.tags)
