@@ -2,6 +2,14 @@
 
 BASE_FOLDER=/opt/ha
 
+# if the user set an input parameter for the script use it as a default folder
+if [ -z "$1" ]
+ then
+    BASE_FOLDER=/opt/ha
+ else
+	BASE_FOLDER=$1
+fi
+
 REPOSITORY_FOLDER=$BASE_FOLDER/repo/ha.git
 CHECKOUT_FOLDER=$BASE_FOLDER/application
 
