@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# make sure we can do 'apt-add-repository'
+sudo apt-get -y install python-software-properties
+
+# install mosquitto
+sudo apt-add-repository -y ppa:mosquitto-dev/mosquitto-ppa
+sudo apt-get update
+sudo apt-get -y install mosquitto
+sudo apt-get -y install mosquitto-clients
+
+# install influxdb
+wget http://influxdb.s3.amazonaws.com/influxdb_0.9.4.2_amd64.deb
+sudo dpkg -i influxdb_0.9.4.2_amd64.deb
+
+# link configuration files
