@@ -1,7 +1,12 @@
 {
   "mqtt": {
     "uri": "mqtt://localhost",
-    "options": {},
+    "options": {
+      "protocolId": "MQIsdp",
+      "protocolVersion": 3,
+      "username" : "",
+      "password" : ""
+    },
     "topicList": {
       "status": "MosziNet_HA/Status"
     }
@@ -10,6 +15,8 @@
     "host": "http://localhost",
     "port": 8086,
     "protocol": "http",
-    "database": "home_automation"
+    "database": "home_automation",
+    "user": "",
+    "password": ""
   }
 }

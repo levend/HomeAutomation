@@ -1,5 +1,8 @@
 #!/bin/sh
 
+BASE_FOLDER=/opt/ha
+APP_FOLDER=$BASE_FOLDER/application
+
 # make sure we can do 'apt-add-repository'
 apt-get -y install python-software-properties
 
@@ -19,4 +22,15 @@ curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 apt-get install -y nodejs
 apt-get install -y build-essential
 
-ln -s /usr/bin/nodejs /usr/bin/node
+# intall pm2 and setup it up so it start at startup
+npm install pm2 -g
+env PATH=$PATH:/usr/local/bin NODE_ENV=production pm2 startup ubuntu -u ha --hp /home/ha
+
+# add rights to node to bind to low ports
+apt-get -y install libcap2-bin
+setcap cap_net_bind_service=+ep /usr/local/bin/node
+
+# copy config file to a common place
+mkdir -p /etc/ha
+cp $APP_FOLDER/src/Server/MessageProcessor/config/default_dist.json /etc/ha/default.json
+ln -s /etc/ha/default.json $APP_FOLDER/src/Server/MessageProcessor/config/default.json

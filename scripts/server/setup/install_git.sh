@@ -55,14 +55,18 @@ fi
 
 EOF_PRIVATE2
 
+# add a safe user to host our app (ha = HomeAutomation)
+useradd -s /bin/bash -m -d /home/ha -c "Home Automation" ha
+usermod -aG sudo,users ha
+
 # adding executable flags to the hooks
 chmod a+x hooks/pre-receive
 chmod a+x hooks/post-receive
 
 # change persmissions to allow git push for others
-chown -R root.users $REPOSITORY_FOLDER
+chown -R ha.users $REPOSITORY_FOLDER
 chmod -R ug+w $REPOSITORY_FOLDER
 
 # change permissions to allow non-root users change files
-chown -R root.users $CHECKOUT_FOLDER
+chown -R ha.users $CHECKOUT_FOLDER
 chmod -R ug+w $CHECKOUT_FOLDER
