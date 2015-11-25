@@ -5,7 +5,7 @@ let PersistableDevice = require('./PersistableDevice')
 class TemperatureSensorV1 extends PersistableDevice {
 
   decomposeMessage () {
-    if (this.message.payload.length == 2) {
+    if (this.message.payload.length === 2) {
       this.temperature = parseFloat(this.message.payload[1])
       this.sensor = this.message.payload[0]
     }

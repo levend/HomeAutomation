@@ -5,7 +5,7 @@ BASE_FOLDER=/opt/ha
 # if the user set an input parameter for the script use it as a default folder
 if [ -z "$1" ]
  then
-    BASE_FOLDER=/opt/ha
+    echo Using folder: $BASE_FOLDER
  else
 	BASE_FOLDER=$1
 fi

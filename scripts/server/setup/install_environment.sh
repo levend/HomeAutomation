@@ -13,4 +13,14 @@ sudo apt-get -y install mosquitto-clients
 wget http://influxdb.s3.amazonaws.com/influxdb_0.9.4.2_amd64.deb
 sudo dpkg -i influxdb_0.9.4.2_amd64.deb
 
-# link configuration files
+# install node.js
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+
+sudo apt-get install -y nodejs
+sudo apt-get install -y build-essential
+
+ln -s /usr/bin/nodejs /usr/bin/node
+
+# intall pm2 and setup it up so it start at startup
+npm install pm2 -g
+pm2 startup ubuntu
