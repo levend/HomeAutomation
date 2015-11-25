@@ -5,4 +5,7 @@ SCRIPT=$(readlink -f "$0")
 # Absolute path this script is in, thus /home/user/bin
 SCRIPTPATH=$(dirname "$SCRIPT")
 
-$SCRIPTPATH/../server/lifecycle/start.sh
+$SCRIPTPATH/../server/lifecycle/start.sh 2> /dev/null
+
+exit 0
+
