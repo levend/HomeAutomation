@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BASE_FOLDER=/opt/ha/application/src/Server/MessageProcessor/src
+BASE_FOLDER=/opt/ha/application/src/Server/MessageProcessor
 
 cd $BASE_FOLDER
 
@@ -9,3 +9,4 @@ npm install
 
 # start the server
 pm2 start MessageProcessorApp.js
+

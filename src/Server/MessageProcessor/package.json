@@ -7,7 +7,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/MessageProcessorApp.js"
+    "start": "node MessageProcessorApp.js"
   },
   "author": "",
   "license": "ISC",
