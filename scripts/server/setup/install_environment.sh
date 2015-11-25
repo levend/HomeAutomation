@@ -28,7 +28,7 @@ env PATH=$PATH:/usr/local/bin NODE_ENV=production pm2 startup ubuntu -u ha --hp 
 
 # add rights to node to bind to low ports
 apt-get -y install libcap2-bin
-setcap cap_net_bind_service=+ep /usr/local/bin/node
+setcap cap_net_bind_service=+ep /usr/bin/nodejs
 
 # copy config file to a common place
 mkdir -p /etc/ha
