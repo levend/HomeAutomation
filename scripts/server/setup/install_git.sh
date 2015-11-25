@@ -56,7 +56,7 @@ fi
 EOF_PRIVATE2
 
 # add a safe user to host our app (ha = HomeAutomation)
-useradd -s /bin/bash -m -d /home/ha -c "Home Automation" ha
+useradd -s /bin/bash -m -d /home/ha -c "Home Automation" -g users ha
 usermod -aG sudo,users ha
 
 # adding executable flags to the hooks
