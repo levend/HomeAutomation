@@ -1,0 +1,20 @@
+{
+  "name": "messageprocessor",
+  "version": "1.0.0",
+  "description": "Processes messages from the message bus and stores them in the database.",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node MessageProcessorApp.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^1.17.0",
+    "influx": "^4.0.1",
+    "mqtt": "^1.5.0",
+    "winston": "^2.1.0"
+  }
+}
