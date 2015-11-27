@@ -16,7 +16,7 @@ chmod 600 /etc/mosquitto/accounts
 ESCAPE="'"
 
 echo -n Please create a password for the InfluxDB admin user:
-read -s INFLUX_PASSWORD
+read INFLUX_PASSWORD
 echo
 
 /opt/influxdb/influx -execute "CREATE USER homeauto WITH PASSWORD "$ESCAPE$INFLUX_PASSWORD$ESCAPE" WITH ALL PRIVILEGES"
