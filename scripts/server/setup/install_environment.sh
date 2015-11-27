@@ -35,12 +35,3 @@ setcap cap_net_bind_service=+ep /usr/bin/nodejs
 mkdir -p /etc/ha
 cp $APP_FOLDER/src/Server/MessageProcessor/config/default_dist.json /etc/ha/default.json
 ln -s /etc/ha/default.json $APP_FOLDER/src/Server/MessageProcessor/config/default.json
-
-# change authentication to true in the influx config file
-cp /etc/opt/influxdb/influxdb.conf /etc/opt/influxdb/influxdb.conf_backup
-cat /etc/opt/influxdb/influxdb.conf | sed 's/auth-enabled = false/auth-enabled = true/' > /etc/opt/influxdb/influxdb_auth.conf
-rm /etc/opt/influxdb/influxdb.conf
-mv /etc/opt/influxdb/influxdb_auth.conf /etc/opt/influxdb/influxdb.conf
-
-service mosquitto restart
-service influxdb restart
