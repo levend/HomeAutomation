@@ -18,6 +18,6 @@ namespace HomeAutomation.Communication.Mqtt
 
         void Subscribe(string[] v1, byte[] v2);
 
-        void Connect(string clientName);
+        void Connect(string clientName, string username, string password);
     }
 }

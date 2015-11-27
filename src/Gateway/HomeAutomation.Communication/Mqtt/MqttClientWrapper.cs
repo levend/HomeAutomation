@@ -27,9 +27,16 @@ namespace HomeAutomation.Communication.Mqtt
             }
         }        
 
-        public void Connect(string clientName)
+        public void Connect(string clientName, string username, string password)
         {
-            mqttClient.Connect(clientName);
+            if (String.IsNullOrEmpty(username))
+            {
+                mqttClient.Connect(clientName);
+            }
+            else
+            {
+                mqttClient.Connect(clientName, username, password);
+            }
         }
 
         public void Publish(string topic, string message)

@@ -12,7 +12,7 @@
                 },
                 {
                     "Key": "ServerHostName",
-                    "Value": ephubudx0001.nimbus-online.net"
+                    "Value": "ephubudx0001.nimbus-online.net"
                 },
                 {
                     "Key": "TopicRootName",
@@ -29,11 +29,7 @@
             ],
             "Factory": "HomeAutomation.Controller.Mqtt.MqttControllerFactory, HomeAutomation.Controller.Mqtt",
             "Name": "Mqtt"
-        },
-		{
-			"Factory": "HomeAutomation.Controller.Internal.InternalControllerFactory",
-			"Name": "Internal"
-		}
+        }
     ],
     "DeviceNetworks": [
         {

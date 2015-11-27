@@ -31,5 +31,17 @@ namespace HomeAutomation.Communication.Mqtt
         /// </summary>
         [DataMember]
         public string TopicRootName { get; set; }
+
+        /// <summary>
+        /// The username to use to connect.
+        /// </summary>
+        [DataMember]
+        public string Username { get; set; }
+
+        /// <summary>
+        /// The password to use to connect.
+        /// </summary>
+        [DataMember]
+        public string Password { get; set; }
     }
 }

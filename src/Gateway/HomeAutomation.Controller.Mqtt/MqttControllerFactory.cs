@@ -17,7 +17,9 @@ namespace HomeAutomation.Controller.Mqtt
                 ClientName = configuration["ClientName"],
                 ServerHostName = configuration["ServerHostName"],
                 KeepAliveCheckPeriodInSeconds = Int32.Parse(configuration["KeepAliveCheckPeriodInSeconds"]),
-                TopicRootName = configuration["TopicRootName"]
+                TopicRootName = configuration["TopicRootName"],
+                Username = configuration["Username"],
+                Password = configuration["Password"]
             };
 
             MqttService service = new MqttService(mqttConfig, client);

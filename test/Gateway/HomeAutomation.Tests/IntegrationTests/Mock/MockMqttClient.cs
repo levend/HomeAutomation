@@ -29,7 +29,7 @@ namespace HomeAutomation.Tests.IntegrationTests
         public event Action<object, EventArgs> ConnectionClosed;
         public event Action<object, MqttMessage> MqttMsgPublishReceived;
 
-        public void Connect(string clientName)
+        public void Connect(string clientName, string username, string password)
         {
             isConnected = true;
         }

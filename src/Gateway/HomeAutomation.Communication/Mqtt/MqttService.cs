@@ -36,6 +36,8 @@ namespace HomeAutomation.Communication.Mqtt
         /// <param name="message"></param>
         public void SendMessage(string topic, string message)
         {
+            Log.Information($"MQTT - {topic}:{message}");
+
             if (mqttClient.IsConnected)
             {
                 mqttClient.Publish(topic, message);
@@ -104,7 +106,7 @@ namespace HomeAutomation.Communication.Mqtt
             {
                 try
                 {
-                    mqttClient.Connect(configuration.ClientName);
+                    mqttClient.Connect(configuration.ClientName, configuration.Username, configuration.Password);
 
                     // ensure that we re-connect any subscribed topics
                     for (int i = 0; i < subscribedTopics.Count; i++)

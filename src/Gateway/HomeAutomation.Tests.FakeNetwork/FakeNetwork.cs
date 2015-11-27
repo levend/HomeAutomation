@@ -33,14 +33,14 @@ namespace HomeAutomation.Tests.FakeNetwork
         {
             // todo: refactor to use a "scheduler"
             // check if it's time to gather statistics
-            if (lastMeasureTime.AddSeconds(5000) < DateTime.Now)
+            if (lastMeasureTime.AddSeconds(5) < DateTime.Now)
             {
                 lastMeasureTime = DateTime.Now;
 
                 // send a new update to the host
                 networkHost.DeviceStateReceived(new DeviceState()
                 {
-                     Device = new FakeDevice(),
+                     Device = new FakeDevice(this),
                      ComponentStateList = new ComponentState[]
                      {
                          new ComponentState()

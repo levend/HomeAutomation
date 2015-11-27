@@ -108,6 +108,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\AccountInfo.cs" />
     <Compile Include="Controller\ControllerDiagnosticsEventArgs.cs" />
     <Compile Include="Controller\ControllerRegistry.cs" />
     <Compile Include="Controller\DeviceNetworkDiagnosticsEventArgs.cs" />

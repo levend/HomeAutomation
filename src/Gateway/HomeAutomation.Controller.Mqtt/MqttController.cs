@@ -3,6 +3,7 @@ using HomeAutomation.Core;
 using HomeAutomation.Communication.Mqtt;
 using System.Collections.Generic;
 using HomeAutomation.Core.Diagnostics;
+using HomeAutomation.Core.Account;
 
 namespace HomeAutomation.Controller.Mqtt
 {
@@ -31,7 +32,10 @@ namespace HomeAutomation.Controller.Mqtt
 
         private void ControllerHost_OnDeviceStateReceived(object sender, DeviceStateEventArgs e)
         {
-            mqttService.SendMessage(mqttService.GetFullTopicName(MqttTopic.StatusTopic), e.DeviceState.ConvertToString());
+            // append the username to the status topic
+            string topicName = $"{mqttService.GetFullTopicName(MqttTopic.StatusTopic)}/{AccountInfo.Username}";
+
+            mqttService.SendMessage(topicName, e.DeviceState.ConvertToString());
         }
 
         private void MqttService_MessageReceived(object sender, MqttMessage e)

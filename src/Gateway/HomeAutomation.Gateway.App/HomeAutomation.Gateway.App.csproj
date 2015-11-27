@@ -146,6 +146,10 @@
       <Project>{855e6143-f76f-48af-ba9c-e8a53ce32390}</Project>
       <Name>HomeAutomation.Communication</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HomeAutomation.Controller.Internal\HomeAutomation.Controller.Internal.csproj">
+      <Project>{c29ccb08-be81-4bb0-bb0e-09db06c25aa3}</Project>
+      <Name>HomeAutomation.Controller.Internal</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HomeAutomation.Controller.Mqtt\HomeAutomation.Controller.Mqtt.csproj">
       <Project>{6d6b8343-37ef-4f1a-bfa3-49d04cda0988}</Project>
       <Name>HomeAutomation.Controller.Mqtt</Name>
@@ -165,6 +169,10 @@
     <ProjectReference Include="..\HomeAutomation.Sensor\HomeAutomation.Sensor.csproj">
       <Project>{5a90067b-7923-4632-a871-a1f578d94c58}</Project>
       <Name>HomeAutomation.Sensor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HomeAutomation.Tests.FakeNetwork\HomeAutomation.Tests.FakeNetwork.csproj">
+      <Project>{350b0595-ee66-4e98-aecf-bb715e064857}</Project>
+      <Name>HomeAutomation.Tests.FakeNetwork</Name>
     </ProjectReference>
     <ProjectReference Include="..\HomeAutomation.Util\HomeAutomation.Util.csproj">
       <Project>{f8bafd53-064e-43b6-8671-a09af5f812c4}</Project>
