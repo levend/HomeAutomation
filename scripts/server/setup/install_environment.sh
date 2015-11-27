@@ -15,6 +15,7 @@ apt-get -y install mosquitto-clients
 # install influxdb
 wget http://influxdb.s3.amazonaws.com/influxdb_0.9.4.2_amd64.deb
 dpkg -i influxdb_0.9.4.2_amd64.deb
+rm influxdb_0.9.4.2_amd64.deb
 
 # install node.js
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
