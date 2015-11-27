@@ -26,7 +26,7 @@ class ValuePersister {
       if (err) {
         Log.error(err)
       } else {
-        Log.info('Values persisted to db.')
+        //Log.info('Values persisted to db.')
       }
     })
   }
