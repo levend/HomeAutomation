@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{855E6143-F76F-48AF-BA9C-E8A53CE32390}</ProjectGuid>
+    <ProjectGuid>{C29CCB08-BE81-4BB0-BB0E-09DB06C25AA3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HomeAutomation.Communication</RootNamespace>
-    <AssemblyName>HomeAutomation.Communication</AssemblyName>
+    <RootNamespace>HomeAutomation.Controller.Internal</RootNamespace>
+    <AssemblyName>HomeAutomation.Controller.Internal</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -107,15 +107,10 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Http\WebServer.cs" />
-    <Compile Include="Mqtt\IMqttClient.cs" />
-    <Compile Include="Mqtt\MqttClientWrapper.cs" />
-    <Compile Include="Mqtt\MqttMessage.cs" />
-    <Compile Include="Mqtt\MqttServerConfiguration.cs" />
-    <Compile Include="Mqtt\MqttService.cs" />
-    <Compile Include="Mqtt\MqttStatistics.cs" />
+    <Compile Include="InternalController.cs" />
+    <Compile Include="InternalControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Properties\HomeAutomation.Communication.rd.xml" />
+    <Content Include="Properties\HomeAutomation.Controller.Internal.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HomeAutomation.Core\HomeAutomation.Core.csproj">

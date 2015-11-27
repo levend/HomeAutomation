@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{855E6143-F76F-48AF-BA9C-E8A53CE32390}</ProjectGuid>
+    <ProjectGuid>{350B0595-EE66-4E98-AECF-BB715E064857}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HomeAutomation.Communication</RootNamespace>
-    <AssemblyName>HomeAutomation.Communication</AssemblyName>
+    <RootNamespace>HomeAutomation.Tests.FakeNetwork</RootNamespace>
+    <AssemblyName>HomeAutomation.Tests.FakeNetwork</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -107,28 +107,16 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Http\WebServer.cs" />
-    <Compile Include="Mqtt\IMqttClient.cs" />
-    <Compile Include="Mqtt\MqttClientWrapper.cs" />
-    <Compile Include="Mqtt\MqttMessage.cs" />
-    <Compile Include="Mqtt\MqttServerConfiguration.cs" />
-    <Compile Include="Mqtt\MqttService.cs" />
-    <Compile Include="Mqtt\MqttStatistics.cs" />
+    <Compile Include="FakeDevice.cs" />
+    <Compile Include="FakeNetwork.cs" />
+    <Compile Include="FakeNetworkFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Properties\HomeAutomation.Communication.rd.xml" />
+    <Content Include="Properties\HomeAutomation.Tests.FakeNetwork.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HomeAutomation.Core\HomeAutomation.Core.csproj">
       <Project>{b1160ed7-9b1e-49da-9bbb-24da1df15fd0}</Project>
       <Name>HomeAutomation.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HomeAutomation.Logging\HomeAutomation.Logging.csproj">
-      <Project>{3e7f9495-4c0f-4ffe-925e-392afbde036d}</Project>
-      <Name>HomeAutomation.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HomeAutomation.Util\HomeAutomation.Util.csproj">
-      <Project>{f8bafd53-064e-43b6-8671-a09af5f812c4}</Project>
-      <Name>HomeAutomation.Util</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

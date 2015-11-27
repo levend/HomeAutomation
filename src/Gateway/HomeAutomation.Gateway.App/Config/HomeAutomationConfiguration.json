@@ -12,16 +12,28 @@
                 },
                 {
                     "Key": "ServerHostName",
-                    "Value": "192.168.1.213"
+                    "Value": ephubudx0001.nimbus-online.net"
                 },
                 {
                     "Key": "TopicRootName",
-                    "Value": "/MosziNet_HA"
-                }
+                    "Value": "/HomeAutomation"
+                },
+				{
+					"Key": "Username",
+					"Value": "ha"
+				},
+				{
+					"Key": "Password",
+					"Value": "ha__666ha"
+				}
             ],
             "Factory": "HomeAutomation.Controller.Mqtt.MqttControllerFactory, HomeAutomation.Controller.Mqtt",
             "Name": "Mqtt"
-        }
+        },
+		{
+			"Factory": "HomeAutomation.Controller.Internal.InternalControllerFactory",
+			"Name": "Internal"
+		}
     ],
     "DeviceNetworks": [
         {
@@ -49,7 +61,11 @@
             ],
             "Factory": "HomeAutomation.DeviceNetwork.XBee.XBeeDeviceNetworkFactory, HomeAutomation.DeviceNetwork.XBee",
             "Name": "xbee"
-        }
+        },
+		{
+			"Factory": "HomeAutomation.Tests.FakeNetwork.FakeNetworkFactory, HomeAutomation.Tests.FakeNetwork",
+			"Name": "fake"
+		}
     ],
     "DeviceTypes": [
         {

@@ -2,6 +2,7 @@ using HomeAutomation.Core;
 using HomeAutomation.DeviceNetwork.XBee;
 using HomeAutomation.Logging;
 using MosziNet.XBee.Frame;
+using System.Diagnostics;
 
 namespace MosziNet.Devices.XBee
 {
@@ -11,7 +12,7 @@ namespace MosziNet.Devices.XBee
     public class TemperatureDeviceV1 : DeviceBase, IXBeeDevice
     {
         private static readonly double AnalogPinMaxVoltage = 1200.0; // in millivolts
-        private static readonly double AnalogPinResolution = 1024;
+        private static readonly double AnalogPinResolution = 1023;
 
         public double Temperature { get; private set; }
 
@@ -22,8 +23,10 @@ namespace MosziNet.Devices.XBee
             {
                 if (dataSample.Samples.Length == 2)
                 {
+                    int measuredAnalogValue = dataSample.Samples[0] * 256 + dataSample.Samples[1];
+
                     // now read the temperature sensor reading
-                    double analogReading = (dataSample.Samples[0] * 256 + dataSample.Samples[1]) * AnalogPinMaxVoltage / AnalogPinResolution;
+                    double analogReading = measuredAnalogValue * AnalogPinMaxVoltage / AnalogPinResolution;
 
                     Temperature = HomeAutomation.Sensor.Temperature.MCP9700.TemperatureFromVoltage(analogReading);
                 }
