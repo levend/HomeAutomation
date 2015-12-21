@@ -12,7 +12,7 @@
                 },
                 {
                     "Key": "ServerHostName",
-                    "Value": "ephubudx0001.nimbus-online.net"
+                    "Value": "ephubudx0001.epam.nimbus-online.net"
                 },
                 {
                     "Key": "TopicRootName",
@@ -20,11 +20,11 @@
                 },
 				{
 					"Key": "Username",
-					"Value": "ha"
+					"Value": "$"
 				},
 				{
 					"Key": "Password",
-					"Value": "ha__666ha"
+					"Value": "$"
 				}
             ],
             "Factory": "HomeAutomation.Controller.Mqtt.MqttControllerFactory, HomeAutomation.Controller.Mqtt",
@@ -57,11 +57,7 @@
             ],
             "Factory": "HomeAutomation.DeviceNetwork.XBee.XBeeDeviceNetworkFactory, HomeAutomation.DeviceNetwork.XBee",
             "Name": "xbee"
-        },
-		{
-			"Factory": "HomeAutomation.Tests.FakeNetwork.FakeNetworkFactory, HomeAutomation.Tests.FakeNetwork",
-			"Name": "fake"
-		}
+        }
     ],
     "DeviceTypes": [
         {
