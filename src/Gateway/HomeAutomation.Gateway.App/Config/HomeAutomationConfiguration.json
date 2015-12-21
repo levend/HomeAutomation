@@ -84,6 +84,11 @@
             "DeviceClassTypeString": "MosziNet.Devices.XBee.EpamTemperatureDeviceV1, MosziNet.Devices.XBee",
             "DeviceNetworkName": "xbee",
             "DeviceTypeId": 59905
+        },
+        {
+            "DeviceClassTypeString": "MosziNet.Devices.XBee.EpamTemperatureDeviceV2, MosziNet.Devices.XBee",
+            "DeviceNetworkName": "xbee",
+            "DeviceTypeId": 59906
         }
     ]
 }

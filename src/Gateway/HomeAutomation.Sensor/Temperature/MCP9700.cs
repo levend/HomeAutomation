@@ -1,5 +1,3 @@
-using System;
-
 namespace HomeAutomation.Sensor.Temperature
 {
     public class MCP9700
