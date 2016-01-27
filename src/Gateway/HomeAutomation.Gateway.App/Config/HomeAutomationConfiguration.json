@@ -1,36 +1,5 @@
 {
-    "Controllers": [
-        {
-            "Configuration": [
-                {
-                    "Key": "ClientName",
-                    "Value": "HomeAutomation.Communication.Mqtt"
-                },
-                {
-                    "Key": "KeepAliveCheckPeriodInSeconds",
-                    "Value": "20"
-                },
-                {
-                    "Key": "ServerHostName",
-                    "Value": "ephubudx0001.epam.nimbus-online.net"
-                },
-                {
-                    "Key": "TopicRootName",
-                    "Value": "/HomeAutomation"
-                },
-				{
-					"Key": "Username",
-					"Value": "$"
-				},
-				{
-					"Key": "Password",
-					"Value": "$"
-				}
-            ],
-            "Factory": "HomeAutomation.Controller.Mqtt.MqttControllerFactory, HomeAutomation.Controller.Mqtt",
-            "Name": "Mqtt"
-        }
-    ],
+    "Controllers": [],
     "DeviceNetworks": [
         {
             "Configuration": [

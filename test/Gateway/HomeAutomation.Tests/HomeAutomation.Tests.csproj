@@ -111,9 +111,7 @@
     <Compile Include="HomeAutomation.Util.Tests\ExceptionFormatterTests.cs" />
     <Compile Include="HomeAutomation.Util.Tests\HexConverterTests.cs" />
     <Compile Include="IntegrationTests\ApplicationIntegrationTests.cs" />
-    <Compile Include="IntegrationTests\Factory\MockMqttControllerFactory.cs" />
     <Compile Include="IntegrationTests\Factory\MockXBeeDeviceNetworkFactory.cs" />
-    <Compile Include="IntegrationTests\Mock\MockMqttClient.cs" />
     <Compile Include="IntegrationTests\Mock\MockXBeeSerialPort.cs" />
     <Compile Include="MosziNet.Devices.XBee.Tests\EpamTemperatureDeviceV1Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -151,10 +149,6 @@
     <ProjectReference Include="..\..\..\src\Gateway\HomeAutomation.Communication\HomeAutomation.Communication.csproj">
       <Project>{855e6143-f76f-48af-ba9c-e8a53ce32390}</Project>
       <Name>HomeAutomation.Communication</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\src\Gateway\HomeAutomation.Controller.Mqtt\HomeAutomation.Controller.Mqtt.csproj">
-      <Project>{6d6b8343-37ef-4f1a-bfa3-49d04cda0988}</Project>
-      <Name>HomeAutomation.Controller.Mqtt</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\src\Gateway\HomeAutomation.Core\HomeAutomation.Core.csproj">
       <Project>{b1160ed7-9b1e-49da-9bbb-24da1df15fd0}</Project>

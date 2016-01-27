@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using HomeAutomation.Application;
+﻿using HomeAutomation.Application;
 using HomeAutomation.Core;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Core;
-using Windows.ApplicationModel.Core;
-using HomeAutomation.Core.Diagnostics;
 using HomeAutomation.DeviceNetwork.XBee;
-using HomeAutomation.Controller.Mqtt;
+using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -42,17 +37,18 @@ namespace HomeAutomation.Gateway.App
 
         private void ControllerHost_OnControllerDiagnosticsReceived(object sender, Core.Controller.ControllerDiagnosticsEventArgs e)
         {
-            MqttControllerDiagnostics diagnostics = e.DiagnosticsObject as MqttControllerDiagnostics;
-            if (diagnostics != null)
-            {
-                var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    mqttConnected.Text = diagnostics.IsMqttClientConnected ? "Connected" : "Not Connected";
-                    receivedMqttMessageCount.Text = diagnostics.ReceivedMessageCount.ToString();
-                    sentMqttMessageCount.Text = diagnostics.SentMessageCount.ToString();
-                    droppedMqttMessageCount.Text = diagnostics.DroppedMessageCount.ToString();
-                });
-            }
+            // Mqtt Fix
+            //MqttControllerDiagnostics diagnostics = e.DiagnosticsObject as MqttControllerDiagnostics;
+            //if (diagnostics != null)
+            //{
+            //    var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            //    {
+            //        mqttConnected.Text = diagnostics.IsMqttClientConnected ? "Connected" : "Not Connected";
+            //        receivedMqttMessageCount.Text = diagnostics.ReceivedMessageCount.ToString();
+            //        sentMqttMessageCount.Text = diagnostics.SentMessageCount.ToString();
+            //        droppedMqttMessageCount.Text = diagnostics.DroppedMessageCount.ToString();
+            //    });
+            //}
         }
 
         private void ControllerHost_OnDeviceNetworkDiagnosticsReceived(object sender, DeviceNetworkDiagnosticsEventArgs e)
