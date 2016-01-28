@@ -1,0 +1,20 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /opt/openhas
+permissions:
+  - object: /opt/openhas
+    pattern: "**"
+    owner: root
+    group: root
+    mode: 644
+    type:
+      - file
+hooks:
+    BeforeInstall:
+        - location: scripts/stopApplication.sh
+          runas: root
+    ApplicationStart:
+        - location: scripts/startApplication.sh
+          runas: root
