@@ -1,0 +1,6 @@
+OpenHAS Application Prerequisites
+
+* AWS Command Line tools
+* AWS Code deploy agent
+* Node.JS 5.5+
+* memcached

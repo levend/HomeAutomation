@@ -1,3 +1,3 @@
 Contains source code for the project. 
 ### Structure
-* src/Gateway - Netduino based MQTT - XBee gateway
+* src/Gateway - RaspberryPi & Windows IoT Core based OpenHAS HUB project

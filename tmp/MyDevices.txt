@@ -22,3 +22,12 @@ Frame received: 7E 00 12 92 00 13 A2 00 40 E4 38 E3 BE DC 41 01 00 00 01 02 92 0
 
 7E 00 12 92 00 13 A2 00 40 E4 38 E3 BE DC 41 01 00 00 01 02 92 08
 7E 00 14 92 00 13 A2 00 40 DC 8B 70 CA 20 01 01 00 06 01 00 06 01 0D 9A 
+
+
+------------
+Entrance: 13A20040DC8B70
+- D0: temp sensor
+- D1: Roller charger
+- D2: Fan
+- D5: Bell
+- 
