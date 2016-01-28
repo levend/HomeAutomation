@@ -23,10 +23,11 @@ namespace HomeAutomation.Tests.FakeNetwork
             return fakeDevices[deviceIndex];
         }
 
-        public FakeDevice()
+        public FakeDevice(IDeviceNetwork network)
         {
             this.DeviceID = GetNextDeviceID();
             this.NetworkAddress = new byte[] { 0 };
+            this.DeviceNetwork = network;
         }
 
         public override DeviceState DeviceState

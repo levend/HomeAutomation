@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DoubleRelay.cs" />
+    <Compile Include="Epam\EpamTemperatureDeviceV2.cs" />
     <Compile Include="MosziServerRoomDevice.cs" />
     <Compile Include="Epam\EpamTemperatureDeviceV1.cs" />
     <Compile Include="FakeTemperatureDevice.cs" />

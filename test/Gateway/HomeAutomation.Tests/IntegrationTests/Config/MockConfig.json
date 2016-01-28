@@ -29,24 +29,12 @@
 			"DeviceTypeId":39300
 		}
 	],
-	"Controllers":[
-		{
-			"Name":"Mqtt",
-			"Factory":"HomeAutomation.Tests.IntegrationTests.Factory.MockMqttControllerFactory, HomeAutomation.Tests",
-			"Configuration": [ 
-				{ "Key":"ClientName", "Value":"HomeAutomation.Communication.Mqtt" }, 
-				{ "Key":"KeepAliveCheckPeriodInSeconds", "Value":20 },
-				{ "Key":"ServerHostName", "Value":"192.168.1.213" },
-				{ "Key":"TopicRootName", "Value":"/MosziNet_HA" }
-			]
-		}
-	],
+	"Controllers":[],
 	"Gateway": {
 		"StatisticsAnnouncementPeriodInSeconds":3,
 		"WatchdogPeriodInSeconds":20
 	},
 	"Logging": {
-        "MqttServerName": "192.168.1.213",
         "RootTopicName": "/MosziNet_HA",
         "SubTopicName": "/Log"
     }

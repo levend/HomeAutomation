@@ -1,40 +1,5 @@
 {
-    "Controllers": [
-        {
-            "Configuration": [
-                {
-                    "Key": "ClientName",
-                    "Value": "HomeAutomation.Communication.Mqtt"
-                },
-                {
-                    "Key": "KeepAliveCheckPeriodInSeconds",
-                    "Value": "20"
-                },
-                {
-                    "Key": "ServerHostName",
-                    "Value": ephubudx0001.nimbus-online.net"
-                },
-                {
-                    "Key": "TopicRootName",
-                    "Value": "/HomeAutomation"
-                },
-				{
-					"Key": "Username",
-					"Value": "ha"
-				},
-				{
-					"Key": "Password",
-					"Value": "ha__666ha"
-				}
-            ],
-            "Factory": "HomeAutomation.Controller.Mqtt.MqttControllerFactory, HomeAutomation.Controller.Mqtt",
-            "Name": "Mqtt"
-        },
-		{
-			"Factory": "HomeAutomation.Controller.Internal.InternalControllerFactory",
-			"Name": "Internal"
-		}
-    ],
+    "Controllers": [],
     "DeviceNetworks": [
         {
             "Configuration": [
@@ -61,11 +26,7 @@
             ],
             "Factory": "HomeAutomation.DeviceNetwork.XBee.XBeeDeviceNetworkFactory, HomeAutomation.DeviceNetwork.XBee",
             "Name": "xbee"
-        },
-		{
-			"Factory": "HomeAutomation.Tests.FakeNetwork.FakeNetworkFactory, HomeAutomation.Tests.FakeNetwork",
-			"Name": "fake"
-		}
+        }
     ],
     "DeviceTypes": [
         {
@@ -92,6 +53,11 @@
             "DeviceClassTypeString": "MosziNet.Devices.XBee.EpamTemperatureDeviceV1, MosziNet.Devices.XBee",
             "DeviceNetworkName": "xbee",
             "DeviceTypeId": 59905
+        },
+        {
+            "DeviceClassTypeString": "MosziNet.Devices.XBee.EpamTemperatureDeviceV2, MosziNet.Devices.XBee",
+            "DeviceNetworkName": "xbee",
+            "DeviceTypeId": 59906
         }
     ]
 }

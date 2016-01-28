@@ -1,5 +1,4 @@
 ﻿using HomeAutomation.Application.Configuration;
-using HomeAutomation.Communication.Mqtt;
 using HomeAutomation.Core;
 using HomeAutomation.Core.Controller;
 using HomeAutomation.Core.Diagnostics;
