@@ -4,17 +4,23 @@ files:
   - source: /
     destination: /opt/openhas
 permissions:
-  - object: /opt/openhas
+  - object: /opt/openhas/application
     pattern: "**"
     owner: root
     group: root
     mode: 644
     type:
       - file
+  - object: /opt/openhas/scripts
+    pattern: "**"
+    owner: root
+    group: root
+    mode: 755
+    type:
+      - file
 hooks:
     BeforeInstall:
         - location: scripts/stopApplication.sh
-          runas: root
     ApplicationStart:
         - location: scripts/startApplication.sh
-          runas: root
+

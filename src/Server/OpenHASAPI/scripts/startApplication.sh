@@ -3,7 +3,7 @@
 #
 # make sure we allow node apps to bind to ports < 1024
 #
-setcap 'cap_net_bind_service=+ep' `which node`
+setcap 'cap_net_bind_service=+ep' `which nodejs`
 
 #
 # now start he app
@@ -16,4 +16,4 @@ cd $BASE_FOLDER
 npm install
 
 # start the application
-pm2 start OpenHASAPI.js
+forever start OpenHASAPI.js -o /var/log/openhas-output.log -l /var/log/openhas-log.log -e /var/log/openhas-error.log
