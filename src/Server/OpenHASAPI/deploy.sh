@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=`cat application/package.json | grep version | cut -d ':' -f 2 | cut -d '"' -f 2`
+VERSION=`cat src/application/package.json | grep version | cut -d ':' -f 2 | cut -d '"' -f 2`
 
 echo "Uploading deployment version $VERSION"
 

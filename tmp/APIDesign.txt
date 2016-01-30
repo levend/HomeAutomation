@@ -1,0 +1,26 @@
+homes - hubs - devices - sensors
+
+-------- hub state update
+GET /hubs/1/all_sensors - returns all sensors with values
+PUT /hubs/1/all_sensors - persists a snapshot of the devices with their sensors
+
+-------- authentication
+GET /login - authenticates the user, returns a temporary token
+GET /logout - invalidates the token for a user
+
+-------- device manipulation
+GET /devices - returns the list of devices including no sensor values
+GET /devices/12 - returns the device with id 12
+POST /devices - registers a new device (can be also done through a device/sensor state update)
+PUT /devices/12 - updates the device with id 12
+
+-------- sensor endpoints for one device
+GET /devices/12/sensors - returns the list of sensors on this device along with their values
+POST /devices/12/sensors/0/value - updates the value of the sensor with index 0 on the device with id 12
+
+-------- homes
+GET /homes - returns the list of the homes
+
+-------- sensor endpoints for one device
+GET /hubs - returns all hubs registered for this account
+POST /hubs - registers a new hub (maybe this is the place where async keys could be exchanged)

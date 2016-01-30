@@ -1,0 +1,8 @@
+{
+  "logging": {
+    "debug-log": "./log/openhasapi-debug.log"
+  },
+  "general": {
+    "listenerPort": 3000
+  }
+}
