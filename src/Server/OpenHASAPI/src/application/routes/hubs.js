@@ -1,5 +1,9 @@
 'use strict'
 
+//
+// Base URL: /hubs
+//
+
 var HubsRouteHandler = require('../routeHandlers/HubsRouteHandler.js')
 
 // defines my routes

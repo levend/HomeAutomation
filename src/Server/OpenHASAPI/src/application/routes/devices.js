@@ -1,25 +1,25 @@
 'use strict'
 
 //
-// Base URL: /accounts
+// Base URL: /hubs/{hubId}/devices
 //
 
-var AccountsRouteHandler = require('../routeHandlers/AccountsRouteHandler.js')
+var DevicesRouteHandler = require('../routeHandlers/DevicesRouteHandler.js')
 
 // defines my routes
 let myRoutes = [
   {
     method: 'GET',
-    path: '/accounts/{accountId}',
+    path: '/hubs/{hubId}/devices/{deviceId}',
     handler: function (request, reply) {
-      AccountsRouteHandler.getAccount(request, reply)
+      DevicesRouteHandler.getDevice(request, reply)
     }
   },
   {
     method: 'POST',
-    path: '/accounts',
+    path: '/hubs/{hubId}/devices',
     handler: function (request, reply) {
-      AccountsRouteHandler.addAccount(request, reply)
+      DevicesRouteHandler.addDevice(request, reply)
     }
   }
 ]
@@ -31,6 +31,6 @@ exports.register = function (server, options, next) {
 }
 
 exports.register.attributes = {
-  name: 'account-routes',
+  name: 'devices-routes',
   version: '1.0.0'
 }
