@@ -5,6 +5,8 @@ var Sequelize = require('sequelize')
 var Log = require('../Log')
 
 var accountFunction = require('./model/Account')
+var hubFunction = require('./model/Hub')
+var homeFunction = require('./model/Home')
 
 class Database {
   constructor () {
@@ -31,6 +33,8 @@ class Database {
 
     // now register all models
     this.Models.Account = accountFunction(this.sequelize)
+    this.Models.Hub = hubFunction(this.sequelize)
+    this.Models.Home = homeFunction(this.sequelize)
   }
 
   start () {

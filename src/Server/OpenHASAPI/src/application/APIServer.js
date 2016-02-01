@@ -17,7 +17,8 @@ class APIServer {
 
       // routes
       { register: require('./routes/hubs.js') },
-      { register: require('./routes/accounts.js') }
+      { register: require('./routes/accounts.js') },
+      { register: require('./routes/homes.js') }
     ]
 
     this.server.connection({ port: this.portNumber })

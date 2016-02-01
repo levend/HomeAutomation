@@ -18,7 +18,7 @@ module.exports = function (sequelize) {
     passwordHash: {
       type: Sequelize.STRING(128),
       allowNull: false,
-      field: 'password-hash'
+      field: 'password_hash'
     }
   }, {
     tableName: 'accounts',

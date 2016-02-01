@@ -6,6 +6,20 @@ var HubsRouteHandler = require('../routeHandlers/HubsRouteHandler.js')
 let myRoutes = [
   {
     method: 'GET',
+    path: '/hubs/{hubId}',
+    handler: function (request, reply) {
+      HubsRouteHandler.getHub(request, reply)
+    }
+  },
+  {
+    method: 'POST',
+    path: '/hubs',
+    handler: function (request, reply) {
+      HubsRouteHandler.addHub(request, reply)
+    }
+  },
+  {
+    method: 'GET',
     path: '/hubs/{hubId}/all-sensors',
     handler: function (request, reply) {
       reply(HubsRouteHandler.readAllSensorValues(request))
