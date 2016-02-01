@@ -2,17 +2,23 @@
 
 var config = require('config')
 var Sequelize = require('sequelize')
+var Log = require('../Log')
+
+var accountFunction = require('./model/Account')
+
+// model types will be loaded into these variables
+var Account
 
 class Database {
   constructor () {
-    var dbConfiguration = config.get('db')
+    this.dbConfiguration = config.get('db')
 
-    this.sequelize = new Sequelize(dbConfiguration.database, dbConfiguration.user, dbConfiguration.password, {
-      host: dbConfiguration.host,
+    this.sequelize = new Sequelize(this.dbConfiguration.database, this.dbConfiguration.user, this.dbConfiguration.password, {
+      host: this.dbConfiguration.host,
       dialect: 'mysql',
 
       pool: {
-        max: dbConfiguration.maxPoolSize,
+        max: this.dbConfiguration.maxPoolSize,
         min: 0,
         idle: 10000
       }
@@ -22,7 +28,15 @@ class Database {
   }
 
   registerModels () {
+    accountFunction(this.sequelize)
+  }
 
+  start () {
+    Log.info(`Database connection is up and running to mysql://${this.dbConfiguration.user}@${this.dbConfiguration.host}/${this.dbConfiguration.database}`)
   }
 }
 
+module.exports = {
+  DB: Database,
+  Account: Account
+}
