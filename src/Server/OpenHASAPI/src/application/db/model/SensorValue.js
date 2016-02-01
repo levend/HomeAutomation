@@ -4,26 +4,20 @@ var Sequelize = require('sequelize')
 
 module.exports = function (sequelize) {
   return sequelize.define('SensorValue', {
-    sensorValueId: {
-      type: Sequelize.INTEGER,
-      field: 'sensor_value_id',
-      autoIncrement: true,
-      primaryKey: true
-    },
     hubId: {
       type: Sequelize.INTEGER,
       field: 'hub_id',
-      allowNull: false
+      primaryKey: true
     },
     deviceId: {
       type: Sequelize.STRING(128),
       field: 'device_id',
-      allowNull: false
+      primaryKey: true
     },
     sensorIndex: {
       type: Sequelize.INTEGER,
       field: 'sensor_index',
-      allowNull: false
+      primaryKey: true
     },
     value: {
       type: Sequelize.STRING(10),

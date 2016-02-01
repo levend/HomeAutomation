@@ -10,10 +10,7 @@ class DevicesRouteHandler {
   }
 
   static saveAllSensorValues (request, reply) {
-    SensorValue.saveAllSensorValues(encodeURIComponent(request.params.hubId), request, reply,
-      {
-
-      },
+    SensorValue.saveAllSensorValues(encodeURIComponent(request.params.hubId), request.payload,
       (response) => reply(response),
       (err) => reply.badRequest(err)
     )
