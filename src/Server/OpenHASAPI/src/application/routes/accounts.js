@@ -8,14 +8,14 @@ let myRoutes = [
     method: 'GET',
     path: '/accounts/{accountId}',
     handler: function (request, reply) {
-      reply(AccountsRouteHandler.getAccount(request))
+      AccountsRouteHandler.getAccount(request, reply)
     }
   },
   {
     method: 'POST',
     path: '/accounts',
     handler: function (request, reply) {
-      reply(AccountsRouteHandler.addAccount(request))
+      AccountsRouteHandler.addAccount(request, reply)
     }
   }
 ]

@@ -6,9 +6,6 @@ var Log = require('../Log')
 
 var accountFunction = require('./model/Account')
 
-// model types will be loaded into these variables
-var Account
-
 class Database {
   constructor () {
     this.dbConfiguration = config.get('db')
@@ -25,10 +22,15 @@ class Database {
     })
 
     this.registerModels()
+    this.start()
   }
 
   registerModels () {
-    accountFunction(this.sequelize)
+    // create a placeholder for the models
+    this.Models = {}
+
+    // now register all models
+    this.Models.Account = accountFunction(this.sequelize)
   }
 
   start () {
@@ -36,7 +38,4 @@ class Database {
   }
 }
 
-module.exports = {
-  DB: Database,
-  Account: Account
-}
+module.exports = Database

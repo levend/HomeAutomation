@@ -9,8 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "boom": "^3.1.2",
     "config": "^1.19.0",
     "hapi": "^12.1.0",
+    "hapi-boom-decorators": "^1.1.2",
     "mysql": "^2.10.2",
     "sequelize": "^3.18.0",
     "standard": "^5.4.1",

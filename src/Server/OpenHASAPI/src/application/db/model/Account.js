@@ -3,7 +3,7 @@
 var Sequelize = require('sequelize')
 
 module.exports = function (sequelize) {
-  sequelize.define('Account', {
+  return sequelize.define('Account', {
     accountId: {
       type: Sequelize.INTEGER,
       field: 'account_id',
@@ -21,6 +21,7 @@ module.exports = function (sequelize) {
       field: 'password-hash'
     }
   }, {
-    tableName: 'accounts'
+    tableName: 'accounts',
+    timestamps: false
   })
 }
