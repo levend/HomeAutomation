@@ -1,6 +1,6 @@
 'use strict'
 
-var Home = require('../BusinessLogic/Home')
+var Home = require('../BusinessLogic/Database/Home')
 
 class HomesRouteHandler {
   static getHome (request, reply) {

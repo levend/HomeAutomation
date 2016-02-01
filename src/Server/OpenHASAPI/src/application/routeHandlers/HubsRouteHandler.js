@@ -1,6 +1,6 @@
 'use strict'
 
-var Hub = require('../BusinessLogic/Hub')
+var Hub = require('../BusinessLogic/Database/Hub')
 
 class HubsRouteHandler {
   static getHub (request, reply) {

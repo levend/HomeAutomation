@@ -1,6 +1,6 @@
 'use strict'
 
-var Account = require('../BusinessLogic/Account')
+var Account = require('../BusinessLogic/Database/Account')
 
 class AccountsRouteHandler {
   static getAccount (request, reply) {

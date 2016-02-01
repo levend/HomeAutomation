@@ -1,6 +1,6 @@
 'use strict'
 
-var Database = require('../db/Database')
+var Database = require('../../db/Database')
 
 // create a database instance
 var dbInstance = new Database()

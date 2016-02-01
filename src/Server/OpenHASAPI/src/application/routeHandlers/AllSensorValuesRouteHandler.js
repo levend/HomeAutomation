@@ -1,6 +1,6 @@
 'use strict'
 
-var SensorValue = require('../BusinessLogic/SensorValue')
+var SensorValue = require('../BusinessLogic/Database/SensorValue')
 
 class DevicesRouteHandler {
   static getAllSensorValues (request, reply) {

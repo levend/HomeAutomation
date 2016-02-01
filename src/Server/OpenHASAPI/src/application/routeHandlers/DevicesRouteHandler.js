@@ -1,6 +1,6 @@
 'use strict'
 
-var Home = require('../BusinessLogic/Device')
+var Home = require('../BusinessLogic/Database/Device')
 
 class DevicesRouteHandler {
   static getDevice (request, reply) {
