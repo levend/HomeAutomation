@@ -14,7 +14,8 @@ class APIServer {
   startServer () {
     // load all the plugins
     let plugins = [
-      { register: require('./routes/hubs.js') }
+      { register: require('./routes/hubs.js') },
+      { register: require('./routes/accounts.js') }
     ]
 
     this.server.connection({ port: this.portNumber })
