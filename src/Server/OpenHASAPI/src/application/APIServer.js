@@ -19,7 +19,8 @@ class APIServer {
       { register: require('./routes/hubs.js') },
       { register: require('./routes/accounts.js') },
       { register: require('./routes/homes.js') },
-      { register: require('./routes/devices.js') }
+      { register: require('./routes/devices.js') },
+      { register: require('./routes/allSensorValues.js') }
     ]
 
     this.server.connection({ port: this.portNumber })
