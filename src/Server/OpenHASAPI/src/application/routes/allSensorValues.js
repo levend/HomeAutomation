@@ -13,14 +13,16 @@ let myRoutes = [
     path: '/hubs/{hubId}/all_sensor_values',
     handler: function (request, reply) {
       AllSensorValuesRouteHandler.getAllSensorValues(request, reply)
-    }
+    },
+    config: { auth: 'simple' }
   },
   {
     method: 'POST',
     path: '/hubs/{hubId}/all_sensor_values',
     handler: function (request, reply) {
       AllSensorValuesRouteHandler.saveAllSensorValues(request, reply)
-    }
+    },
+    config: { auth: 'simple' }
   }
 ]
 

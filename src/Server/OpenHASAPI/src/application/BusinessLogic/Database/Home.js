@@ -4,11 +4,12 @@ var DatabaseContext = require('./DatabaseContext')
 
 class Home {
   // returns the home with the specified id
-  static getHome (homeId, onFulfilled, onRejected) {
+  static getHome (homeId, accountId, onFulfilled, onRejected) {
     DatabaseContext.Instance.Models.Home
       .findOne({
         where: {
-          homeId: homeId
+          homeId: homeId,
+          accountId: accountId
         }
       })
       .then(

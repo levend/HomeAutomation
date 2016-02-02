@@ -3,15 +3,15 @@
   "version": "0.1",
   "description": "OpenHAS API",
   "main": "OpenHASAPI.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^0.8.5",
     "boom": "^3.1.2",
     "config": "^1.19.0",
     "hapi": "^12.1.0",
+    "hapi-auth-basic": "^4.1.0",
     "hapi-boom-decorators": "^1.1.2",
     "mysql": "^2.10.2",
     "sequelize": "^3.18.0",

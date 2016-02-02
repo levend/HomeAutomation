@@ -2,10 +2,13 @@ CREATE TABLE `accounts` (
   `account_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(128) COLLATE utf8_bin NOT NULL,
   `password_hash` varchar(128) COLLATE utf8_bin NOT NULL,
+  `email` varchar(128) COLLATE utf8_bin NOT NULL,
+  `active` tinyint(4) NOT NULL,
   PRIMARY KEY (`account_id`),
   UNIQUE KEY `user_id_UNIQUE` (`account_id`),
-  UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE `homes` (
   `home_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -13,23 +16,26 @@ CREATE TABLE `homes` (
   `name` varchar(128) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`home_id`),
   UNIQUE KEY `home_id_UNIQUE` (`home_id`),
+  UNIQUE KEY `name_account_UNIQUE` (`account_id`,`name`),
   KEY `account_id_idx` (`account_id`),
   CONSTRAINT `account_home` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE `hubs` (
   `hub_id` int(11) NOT NULL AUTO_INCREMENT,
   `account_id` int(11) NOT NULL,
   `home_id` int(11) NOT NULL,
+  `name` varchar(128) COLLATE utf8_bin NOT NULL,
   `encode_key` varchar(1024) COLLATE utf8_bin NOT NULL,
   `decode_key` varchar(1024) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`hub_id`),
   UNIQUE KEY `hub_id_UNIQUE` (`hub_id`),
+  UNIQUE KEY `home_name_UNIQUE` (`home_id`,`name`),
   KEY `account_hub_idx` (`account_id`),
   KEY `home_hub_idx` (`home_id`),
   CONSTRAINT `account_hub` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `home_hub` FOREIGN KEY (`home_id`) REFERENCES `homes` (`home_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE `devices` (
   `device_id` varchar(128) COLLATE utf8_bin NOT NULL,

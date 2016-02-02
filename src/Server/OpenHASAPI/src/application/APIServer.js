@@ -2,6 +2,7 @@
 
 var Hapi = require('hapi')
 var Log = require('./Log')
+var validateAccountPassword = require('./BusinessLogic/Authentication')
 
 class APIServer {
   constructor (portNumber) {
@@ -10,7 +11,18 @@ class APIServer {
   }
 
   startServer () {
-    // load all the plugins
+    this.server.connection({ port: this.portNumber })
+
+    // first load the auth plugin
+    this.server.register(require('hapi-auth-basic'), (err) => {
+      if (err) {
+        throw err
+      }
+
+      this.server.auth.strategy('simple', 'basic', { validateFunc: validateAccountPassword })
+    })
+
+    // load the rest of the plugins
     let plugins = [
       // generic plugins
       { register: require('hapi-boom-decorators') },
@@ -22,8 +34,6 @@ class APIServer {
       { register: require('./routes/devices.js') },
       { register: require('./routes/allSensorValues.js') }
     ]
-
-    this.server.connection({ port: this.portNumber })
 
     // register plugins, and start the server if none of them fail
     this.server.register(plugins, (err) => {

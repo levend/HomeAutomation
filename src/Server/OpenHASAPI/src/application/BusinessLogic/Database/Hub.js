@@ -4,11 +4,12 @@ var DatabaseContext = require('./DatabaseContext')
 
 class Hub {
   // returns the hub with the specified id
-  static getHub (hubId, onFulfilled, onRejected) {
+  static getHub (hubId, accountId, onFulfilled, onRejected) {
     DatabaseContext.Instance.Models.Hub
       .findOne({
         where: {
-          hubId: hubId
+          hubId: hubId,
+          accountId: accountId
         }
       })
       .then(

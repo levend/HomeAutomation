@@ -13,8 +13,9 @@ class AccountsRouteHandler {
     Account.addAccount(
       {
         'username': encodeURIComponent(request.payload.username),
-        'passwordHash': encodeURIComponent(request.payload.passwordHash)
+        'email': encodeURIComponent(request.payload.email)
       },
+      encodeURIComponent(request.payload.password),
       (newAccount) => reply(newAccount),
       (err) => reply.badRequest(err)
     )

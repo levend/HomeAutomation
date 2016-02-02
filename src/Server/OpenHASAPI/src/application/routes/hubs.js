@@ -13,21 +13,24 @@ let myRoutes = [
     path: '/hubs/{hubId}',
     handler: function (request, reply) {
       HubsRouteHandler.getHub(request, reply)
-    }
+    },
+    config: { auth: 'simple' }
   },
   {
     method: 'POST',
     path: '/hubs',
     handler: function (request, reply) {
       HubsRouteHandler.addHub(request, reply)
-    }
+    },
+    config: { auth: 'simple' }
   },
   {
     method: 'GET',
     path: '/hubs/{hubId}/all-sensors',
     handler: function (request, reply) {
       reply(HubsRouteHandler.readAllSensorValues(request))
-    }
+    },
+    config: { auth: 'simple' }
   }
 ]
 

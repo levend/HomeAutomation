@@ -1,7 +1,6 @@
 'use strict'
 
 var DatabaseContext = require('./DatabaseContext')
-var Log = require('../../Log')
 
 class SensorValue {
   // returns all sensor values for a hub
@@ -19,12 +18,11 @@ class SensorValue {
 
   // adds the home specified in the first parameter
   static saveAllSensorValues (hubId, values, onFulfilled, onRejected) {
-
     // making sure all entries will have this date
-    var currentDate = new Date();
+    var currentDate = new Date()
 
     // this will hold the values to create
-    var sensorValuesToCreate = [];
+    var sensorValuesToCreate = []
 
     for (var i = 0; i < values.sensorValues.length; i++) {
       var oneValue = values.sensorValues[i]
@@ -43,7 +41,7 @@ class SensorValue {
     DatabaseContext.Instance.Models.SensorValue
       .bulkCreate(sensorValuesToCreate, { updateOnDuplicate: true })
       .then(
-        () => onFulfilled ({}),
+        () => onFulfilled({}),
         (err) => onRejected(err)
       )
   }

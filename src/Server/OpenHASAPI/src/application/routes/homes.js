@@ -13,14 +13,16 @@ let myRoutes = [
     path: '/homes/{homeId}',
     handler: function (request, reply) {
       HomesRouteHandler.getHome(request, reply)
-    }
+    },
+    config: { auth: 'simple' }
   },
   {
     method: 'POST',
     path: '/homes',
     handler: function (request, reply) {
       HomesRouteHandler.addHome(request, reply)
-    }
+    },
+    config: { auth: 'simple' }
   }
 ]
 

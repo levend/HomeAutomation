@@ -4,12 +4,13 @@ var DatabaseContext = require('./DatabaseContext')
 
 class Device {
   // returns the device with the specified id
-  static getDevice (hubId, deviceId, onFulfilled, onRejected) {
+  static getDevice (hubId, deviceId, accountId, onFulfilled, onRejected) {
     DatabaseContext.Instance.Models.Device
       .findOne({
         where: {
           deviceId: deviceId,
-          hubId: hubId
+          hubId: hubId,
+          accountId: accountId
         }
       })
       .then(

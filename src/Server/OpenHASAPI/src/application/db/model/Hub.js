@@ -20,6 +20,11 @@ module.exports = function (sequelize) {
       field: 'home_id',
       allowNull: false
     },
+    name: {
+      type: Sequelize.STRING(128),
+      allowNull: false,
+      field: 'name'
+    },
     encodeKey: {
       type: Sequelize.STRING(1024),
       allowNull: false,

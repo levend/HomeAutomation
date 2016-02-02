@@ -8,13 +8,14 @@ var AccountsRouteHandler = require('../routeHandlers/AccountsRouteHandler.js')
 
 // defines my routes
 let myRoutes = [
-  {
-    method: 'GET',
-    path: '/accounts/{accountId}',
-    handler: function (request, reply) {
-      AccountsRouteHandler.getAccount(request, reply)
-    }
-  },
+  // {
+  //  method: 'GET',
+  //  path: '/accounts/{accountId}',
+  //  handler: function (request, reply) {
+  //    AccountsRouteHandler.getAccount(request, reply)
+  //  },
+  //  config: { auth: 'simple' }
+  // },
   {
     method: 'POST',
     path: '/accounts',

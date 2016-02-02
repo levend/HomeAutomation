@@ -19,6 +19,16 @@ module.exports = function (sequelize) {
       type: Sequelize.STRING(128),
       allowNull: false,
       field: 'password_hash'
+    },
+    email: {
+      type: Sequelize.STRING(128),
+      allowNull: false,
+      field: 'email'
+    },
+    active: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      field: 'active'
     }
   }, {
     tableName: 'accounts',

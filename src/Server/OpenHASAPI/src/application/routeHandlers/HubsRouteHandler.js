@@ -4,7 +4,7 @@ var Hub = require('../BusinessLogic/Database/Hub')
 
 class HubsRouteHandler {
   static getHub (request, reply) {
-    Hub.getHub(encodeURIComponent(request.params.hubId),
+    Hub.getHub(encodeURIComponent(request.params.hubId), request.auth.credentials.accountId,
       (hub) => reply(hub),
       (err) => reply.badRequest(err))
   }
@@ -12,8 +12,9 @@ class HubsRouteHandler {
   static addHub (request, reply) {
     Hub.addHub(
       {
-        'accountId': encodeURIComponent(request.payload.accountId),
+        'accountId': request.auth.credentials.accountId,
         'homeId': encodeURIComponent(request.payload.homeId),
+        'name': encodeURIComponent(request.payload.name),
         'encodeKey': encodeURIComponent(request.payload.encodeKey),
         'decodeKey': encodeURIComponent(request.payload.decodeKey)
       },
