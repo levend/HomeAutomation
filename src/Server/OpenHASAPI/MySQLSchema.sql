@@ -7,19 +7,6 @@ CREATE TABLE `accounts` (
   UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-CREATE TABLE `devices` (
-  `device_id` varchar(128) COLLATE utf8_bin NOT NULL,
-  `hub_id` int(11) NOT NULL,
-  `account_id` int(11) NOT NULL,
-  `device_type` varchar(128) COLLATE utf8_bin NOT NULL,
-  `fw_version` int(11) NOT NULL,
-  PRIMARY KEY (`device_id`,`hub_id`),
-  KEY `account_device_idx` (`account_id`),
-  KEY `hub_device_idx` (`hub_id`),
-  CONSTRAINT `account_device` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `hub_device` FOREIGN KEY (`hub_id`) REFERENCES `hubs` (`hub_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
 CREATE TABLE `homes` (
   `home_id` int(11) NOT NULL AUTO_INCREMENT,
   `account_id` int(11) NOT NULL,
@@ -43,6 +30,19 @@ CREATE TABLE `hubs` (
   CONSTRAINT `account_hub` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `home_hub` FOREIGN KEY (`home_id`) REFERENCES `homes` (`home_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE `devices` (
+  `device_id` varchar(128) COLLATE utf8_bin NOT NULL,
+  `hub_id` int(11) NOT NULL,
+  `account_id` int(11) NOT NULL,
+  `device_type` varchar(128) COLLATE utf8_bin NOT NULL,
+  `fw_version` int(11) NOT NULL,
+  PRIMARY KEY (`device_id`,`hub_id`),
+  KEY `account_device_idx` (`account_id`),
+  KEY `hub_device_idx` (`hub_id`),
+  CONSTRAINT `account_device` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `hub_device` FOREIGN KEY (`hub_id`) REFERENCES `hubs` (`hub_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE `sensor_values` (
   `hub_id` int(11) NOT NULL,
