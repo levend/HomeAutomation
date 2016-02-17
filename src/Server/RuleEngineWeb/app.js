@@ -10,6 +10,11 @@ var config = require('./config')
 
 var mongoose = require('mongoose');
 mongoose.connect(config.mongodb.connectionString);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', function() {
+  console.log("MongoDB connection is up. App ready")
+});
 
 var authProvider = require('./business_logic/authentication_handler')
 

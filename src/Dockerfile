@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install wget curl build-essential libwrap0-dev libssl-dev python-distutils-extra libc-ares-dev uuid-dev -y
+RUN apt-get install wget curl build-essential libwrap0-dev libssl-dev python-distutils-extra libc-ares-dev uuid-dev supervisor -y
 
 #install mosquitto
 RUN mkdir -p /usr/local/src
@@ -16,15 +16,6 @@ RUN make
 RUN make install
 RUN adduser --system --disabled-password --disabled-login mosquitto
 EXPOSE 1883
-
-#install nodejs
-RUN curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
-RUN sudo apt-get install -y nodejs
-RUN sudo apt-get install -y build-essential
-EXPOSE 80
-
-#install pm2
-RUN npm install pm2 -g
 
 #install mongodb
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10 && \
@@ -42,15 +33,29 @@ ENV AUTH yes
 ENV JOURNALING yes
 EXPOSE 27017 28017
 
+#install nodejs
+RUN curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+RUN sudo apt-get install -y nodejs
+RUN sudo apt-get install -y build-essential
+RUN setcap cap_net_bind_service=+ep /usr/bin/nodejs
+EXPOSE 80
 
 #install the application and the startup scripts
 RUN mkdir -p /usr/local/docker
 WORKDIR /usr/local/docker
-ADD Docker ./scripts
+ADD Docker/scripts ./scripts
 ADD Server/RuleEngineWeb ./app
+ADD Docker/config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+RUN adduser --system --disabled-password --disabled-login nodejs
+
+#execute npm install to prepare the app
+WORKDIR /usr/local/docker/app
+RUN npm install
+
+#for nodejs app, we need to define the port
 ENV PORT=80
 
 #start
 WORKDIR /usr/local/docker
-CMD ["/bin/bash", "/usr/local/docker/scripts/startup.sh"]
+CMD ["/usr/bin/supervisord"]
 
